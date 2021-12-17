@@ -1,0 +1,27 @@
+<div class="modal modal_add_answer hidden" id="add_post">
+  <div class="modal__content modal_add_answer__content modal__dialog">
+    <div class="close modal__close" type="button"></div>
+    <h4 class="modal__header modal__title">Добавить сообщение</h4>
+    <form class="modal__form field-form ajax-form" action="processmessage" method="POST" enctype="multipart/form-data" data-complete="Ваша заявка принята">
+
+      <input type="hidden" name="request_id" value="" />
+
+      <div class="form__field field-form__row">
+        <textarea class="form__textarea text-input text-input_full" value="" type="text" name="message" placeholder="Введите сообщение"></textarea>
+      </div>
+
+      <div class="form__field field-form__row form__row_attach">
+        <label class="btn label_btn button add_files_button">
+          <input class="fileinput" type="file" name="doc" id="post_add_file"/>
+          Прикрепить файл
+        </label>
+        <input type="hidden" name="title_doc" value="Файл" />
+      </div>
+
+      <div class="form__field field-form__row field-form__row_submit">
+        <button class="btn button" type="submit">Отправить сообщение</button>
+      </div>
+
+    </form>
+  </div>
+</div>

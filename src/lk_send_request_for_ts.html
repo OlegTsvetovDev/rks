@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/slick.css">
+  <!-- <link rel="stylesheet" href="css/slick-theme.css"> -->
+  <link rel="stylesheet" href="css/lk_styles.min.css">
+  <title>Личный кабинет - Запросы и заявки | РКС</title>
+</head>
+<body>
+  @@include('templates/_lk_header.html')
+  <section class="main">
+    <div class="main__content">
+      <form class="main__form requests__form_content" action="sendRequest">
+
+        <section class="vertical-center">
+          <!-- INQUIRY STEP 2 -->
+          <div class="requests_form inquiry__form step_2">
+            <h3 class="form__header"><span class="arrow_back inquiry_form__arrow_back arrow_to_step_1"></span>Запрос о предоставлении технических условий</h3>
+            <p class="form__status">Статус: Черновик</p>
+            <div class="form__field">
+              <label class="form__description required" for="branch">Филиал</label>
+              <select class="form__input branch" name="branch" id="branch">
+                <option value="" disabled="disabled" selected="selected">Выберите филиал</option>
+                <option value="">Тверская область - Конаковская ГРЭС</option>
+                <option value="">Ставропольский край - Навинномысская ГРЭС</option>
+                <option value="">Свердловская область - Среднеуральская ГРЭС</option>
+              </select>
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="name">Полное наименование&nbsp;*</label>
+              <input class="form__input" type="text" name="" placeholder="Введите полное наименование Заявителя" />
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="address">Юридический адрес&nbsp;*</label>
+              <input class="form__input" type="text" name="" placeholder="Введите юридический адрес Заявителя" />
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="real_address">Фактический адрес&nbsp;*</label>
+              <input class="form__input" type="text" name="" placeholder="Введите фактический адрес Заявителя" />
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="ogrn">ОГРН&nbsp;*</label>
+              <input class="form__input" type="text" name="" placeholder="Введите ОГРН Заявителя" />
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="reg_egrul">Дата регистрации в ЕГРЮЛ&nbsp;*</label>
+              <input class="form__input" type="text" name="" placeholder="__.__.____" />
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="egrul">Номер записи регистрации в ЕГРЮЛ&nbsp;*</label>
+              <input class="form__input" type="text" name="" placeholder="Введите номер записи регистрации в ЕГРЮЛ Заявителя" />
+            </div>
+            <div class="form__field">
+              <label  class="form__description" for="phone">Телефон</label>
+              <input class="form__input" type="text" name="" placeholder="Введите контактный телефон Заявителя" />
+            </div>
+            <div class="form__field">
+              <label  class="form__description" for="fax">Факс</label>
+              <input class="form__input" type="text" name="" placeholder="Введите номер факса Заявителя" />
+            </div>
+            <div class="form__field">
+              <label class="form__description" for="email">Электронная почта</label>
+              <input class="form__input" type="text" name="" placeholder="Введите адрес электронной почты Заявителя" />
+            </div>
+            <div class="form__field last">
+              <button class="btn btn_arrow show_inquiry_step_3"><span class="further_text">Далее</span><span class="arrow_next"></span></button>
+            </div>
+          </div>
+          
+          <div>
+            <img src="http://placehold.it/350x100?text=2">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=3">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=4">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=5">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=6">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=7">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=8">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=9">
+          </div>
+          <div>
+            <img src="http://placehold.it/350x100?text=10">
+          </div>
+        </section>
+
+
+
+        <!-- INQUIRY STEP 3 -->
+        <div class="requests_form inquiry__form step_3 hidden">
+          <h3 class="form__header"><span class="arrow_back inquiry_form__arrow_back arrow_to_step_2"></span>Запрос о предоставлении технических условий</h3>
+          <p class="form__status">Статус: Черновик</p>
+          <div class="form__field width_max text">
+            <label for="text" class="form__description required">К системе</label>
+            <input value="К системе" name="title_text" type="hidden">
+          </div>
+          <div class="form__field to_system">
+            <div class="to_system__content">
+              <input name="checkhotwater" id="checkhotwater" type="checkbox" class="to_system__checkbox required" checked="">
+              <label class="to_system__label required">Тепловая энергия в горячей воде</label>
+            </div>
+          </div>
+          <div class="form__field to_system">
+            <div class="to_system__content">
+              <input name="checksteam" id="checksteam" type="checkbox" class="to_system__checkbox required">
+              <label class="to_system__label">Пара</label>
+            </div>
+          </div>
+          <div class="form__field land_plot width_max">
+            <label class="form__description" for="">Местонахождение земельного участка&nbsp;*</label>
+            <input class="form__input email" type="text" name="" placeholder="Адрес или месторасположение объекта, отдельных зданий, сооружений" />
+          </div>
+          <div class="form__field email_documentation">
+            <div class="email_documentation__content">
+              <input class="email_documentation__checkbox" type="checkbox" name="personal_agreement_checkbox">
+              <label class="email_documentation__label">Прошу направить разработанную документацию на указанный адрес электронной почты</label>
+            </div>
+          </div>
+          <div class="form__field sign_documentation">
+            <div class="sign_documentation__content">
+              <input class="sign_documentation__checkbox" type="checkbox" name="personal_agreement_checkbox">
+              <label class="sign_documentation__label">Прошу направить разработанную документацию на указанный адрес электронной почты</label>
+            </div>
+          </div>
+          <div class="form__field files__content">
+            <label class="form__description" for="">Добавление документов&nbsp;*</label>
+            <div class="files__field">
+              <div class="files__icon"></div>
+              <label class="files__label" for="">Копии правоустанавливающих документов, подтверждающих право собственности или иное законное право заявителя на подключаемый объект или земельный участок, права на которые не зарегистрированы в Едином государственном реестре недвижимости (в случае если такие права зарегистрированы в указанном реестре, представляются соответствующие выписки из Единого государственного реестра недвижимости)&nbsp;*</label>
+              <div class="files__input">
+                <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                  <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                  Прикрепить файл
+                </label>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+              </div>
+            </div>
+            <div class="files__field">
+              <div class="files__icon"></div>
+              <label class="files__label" for="">Ситуационный план расположения подключаемого объекта с привязкой к территории населенного пункта или элементам территориального деления в схеме теплоснабжения&nbsp;*</label>
+              <div class="files__input">
+                <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                  <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                  Прикрепить файл
+                </label>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+              </div>
+            </div>
+            <div class="files__field">
+              <div class="files__icon"></div>
+              <label class="files__label" for="">Топографическая карта земельного участка в масштабе 1:500 (для квартальной застройки 1:2000) с указанием всех наземных и подземных коммуникаций и сооружений (не прилагается в случае, если заявителем является физическое лицо, осуществляющее создание (реконструкцию) объекта индивидуального жилищного строительства)&nbsp;*</label>
+              <div class="files__input">
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+                <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                  <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                  Прикрепить файл
+                </label>
+                <div id="confirm_b37b4931-2bff-4b91-8de3-36dd6c61d6f5" class="modal modal_delete_file hidden">
+                  <div class="modal__content modal_delete_file__content modal__dialog">
+                    <div class="close modal__close modaldelfileclose"></div>
+                    <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                    <div class="form__field normativedoc-button">
+                      <button id="modal_accept_del_b37b4931-2bff-4b91-8de3-36dd6c61d6f5" type="button" class="btn form__button button submit">Согласен</button><a id="delete_cancel_b37b4931-2bff-4b91-8de3-36dd6c61d6f5" class="btn form__button button cancel">Отмена</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="files__field">
+              <div class="files__icon"></div>
+              <label class="files__label" for="">Документы, подтверждающие полномочия лица, действующего от имени заявителя (в случае если заявка подается представителем заявителя)&nbsp;*</label>
+              <div class="files__input">
+                <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                  <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                  Прикрепить файл
+                </label>
+                <div class="attachment">
+                  <div class="attachment__item">API laximo.txt (269)</div>
+                  <a href="#" class="attachment__del"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form__field personal_agreement">
+            <div class="personal_agreement__content">
+              <input class="personal_agreement__checkbox" type="checkbox" name="personal_agreement_checkbox" checked="checked">
+              <label class="personal_agreement__label">Даю <a href="javascript:void(0)" class="agreement__href personal_data">Согласие на обработку персональных данных</a>. Нажимая на кнопку «Зарегистрироваться», Вы подтверждаете согласие с <a href="javascript:void(0)" class="agreement__href rules">Правилами пользования интерактивным сервисом</a></label>
+            </div>
+          </div>
+          <div class="form__field attachment attach_xml width_max">
+            <div class="attachment__item">
+              <a class="attachment__link" title="Скачайте XML-файл и подпишите его отсоединенной ЭЦП" data-placement="top" data-toggle="tooltip" href="getexpdata/20210416173915_860.xml?r=860">Сформированный запрос: 20210416173915_860.xml</a>
+              <img class="attachment__img" src="img/control_btns/download.svg">
+            </div>
+          </div>
+          <div class="form__field upload_ecp">
+            <label data-id="ecp_button" class="btn button ecp_button" for="sig">
+              <input data-maxsize="104857600" id="sig" class="fileinput hidden" name="sig" type="file">
+              Загрузить ЭЦП
+            </label>
+          </div>
+          <div class="form__field form__btns width_max">
+            <input class="btn submit_form" type="submit" name="" value="Сформировать заявку" />
+            <input class="btn save_form" type="submit" name="" value="Сохранить как черновик" />
+          </div>
+        </div>
+
+        <!-- REQUEST FORM -->
+        <!-- REQUEST STEP 2 -->
+        <div class="requests_form request__form step_2 hidden">
+          <h3 class="form__header"><span class="arrow_back requests_form__arrow_back arrow_to_step_1"></span>Заявка на подключение к системе теплоснабжения</h3>
+          <p class="form__status">Статус: Черновик</p>
+          <div class="form__field">
+            <label class="form__description" for="branch">Филиал&nbsp;*</label>
+            <select class="form__input branch" name="branch" id="branch">
+              <option value="" disabled="disabled" selected="selected">Выберите филиал</option>
+              <option value="">Тверская область - Конаковская ГРЭС</option>
+              <option value="">Ставропольский край - Навинномысская ГРЭС</option>
+              <option value="">	Свердловская область - Среднеуральская ГРЭС</option>
+            </select>
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Полное наименование&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Введите полное наименование Заявителя" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="address">Юридический адрес&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Введите юридический адрес Заявителя" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="real_address">Фактический адрес&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Введите фактический адрес Заявителя" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="ogrn">ОГРН&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Введите ОГРН Заявителя" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="reg_egrul">Дата регистрации в ЕГРЮЛ&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="__.__.____" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="egrul">Номер записи регистрации в ЕГРЮЛ&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Введите номер записи регистрации в ЕГРЮЛ Заявителя" />
+          </div>
+          <div class="form__field">
+            <label  class="form__description" for="phone">Телефон</label>
+            <input class="form__input" type="text" name="" placeholder="Введите контактный телефон Заявителя" />
+          </div>
+          <div class="form__field">
+            <label  class="form__description" for="fax">Факс</label>
+            <input class="form__input" type="text" name="" placeholder="Введите номер факса Заявителя" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="email">Электронная почта</label>
+            <input class="form__input" type="text" name="" placeholder="Введите адрес электронной почты Заявителя" />
+          </div>
+          <div class="form__field last">
+            <button class="btn btn_arrow show_request_step_3"><span class="further_text">Далее</span><span class="arrow_next"></span></button>
+          </div>
+        </div>
+
+        <!-- REQUEST STEP 3 -->
+        <div class="requests_form request__form step_3 hidden">
+          <h3 class="form__header"><span class="arrow_back requests_form__arrow_back arrow_to_step_2"></span>Заявка на подключение к системе теплоснабжения</h3>
+          <p class="form__status">Статус: Черновик</p>
+          <div class="form__field">
+            <label class="form__description" for="name">Вид разрешенного использования земельного участка&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Вид разрешенного использования земельного участка" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Вид разрешенного использования земельного участка&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Вид разрешенного использования земельного участка" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Местонахождение подключаемого объекта&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Адрес или место расположения объекта, земельных зданий" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Предельные параметры разрешенного строительства (реконструкции, модернизации) подключаемого объекта&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Предельные параметры разрешенного строительства (реконструкции, модернизации) подключаемого объекта" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Информация о границах земельного участка, на котором планируется осуществить строительство (реконструкцию, модернизацию) подключаемого объекта&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Вид разрешенного использования земельного участка" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Правовые основания пользования заявителем земельным участком, на котором расположен существующий подключаемый объект или предполагается создание подключаемого объекта&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Правовые основания пользования заявителем земельным участком, на котором расположен существующий подключаемый объект или предполагается создание подключаемого объекта" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="object_type">Вид объекта капитального строительства&nbsp;*</label>
+            <select class="form__input object_type" name="object_type" id="object_type" disabled>
+              <option value="" disabled="disabled" selected="selected">Выберите вид объекта</option>
+              <option value="">Выберите вид объекта</option>
+              <option value="">Строящийся объект</option>
+              <option value="">Реконструируемый объект</option>
+              <option value="">Построенный объект</option>
+            </select>
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Правовые основания пользования заявителем подключаемым объектом&nbsp;*</label>
+            <input disabled class="form__input" type="text" name="" placeholder="Правовые основания пользования заявителем подключаемым объектом" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Планируемые сроки ввода в эксплуатацию подключаемого объекта&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="__.__.____" />
+          </div>
+          <div class="form__field last">
+            <button class="btn btn_arrow show_request_step_4"><span class="further_text">Далее</span><span class="arrow_next"></span></button>
+          </div>
+        </div>
+
+        <!-- REQUEST STEP 4 -->
+        <div class="requests_form request__form step_4 hidden">
+          <h3 class="form__header"><span class="arrow_back requests_form__arrow_back arrow_to_step_3"></span>Заявка на подключение к системе теплоснабжения</h3>
+          <p class="form__status">Статус: Черновик</p>
+          <div class="form__field">
+            <label class="form__description" for="name">Расчетный максимальный расход тепловой энергии (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Расчетный максимальный расход тепловой энергии (Гкал/час)" />
+          </div>
+          <div class="form__field width_max">
+            <label class="form__description" for="name">В том числе на:</label>
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Технологические нужды (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Технологические нужды (Гкал/час)" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Отопление (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Отопление (Гкал/час)" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Вентиляцию (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Вентиляцию (Гкал/час)" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Кондиционирование воздуха (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Кондиционирование воздуха (Гкал/час)" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Тепловые завесы (Гкал/час)</label>
+            <input class="form__input" type="text" name="" placeholder="Тепловые завесы (Гкал/час)" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Горячее водоснабжение (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Горячее водоснабжение (Гкал/час)" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Нагрузка, подлежащая оплате по договору о подключении (Гкал/час)&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Нагрузка, подлежащая оплате по договору о подключении (Гкал/час)" />
+          </div>
+          <div class="form__field last">
+            <button class="btn btn_arrow show_request_step_5"><span class="further_text">Далее</span><span class="arrow_next"></span></button>
+          </div>
+        </div>
+
+        <!-- REQUEST STEP 5 -->
+        <div class="requests_form request__form step_5 hidden">
+          <h3 class="form__header"><span class="arrow_back requests_form__arrow_back arrow_to_step_4"></span>Заявка на подключение к системе теплоснабжения</h3>
+          <p class="form__status">Статус: Черновик</p>
+          <div class="form__field width_max">
+            <label class="form__description" for="name">Существующая нагрузка, по действующим ТУ:</label>
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">№&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Укажите №" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">от&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="__.__.____" />
+          </div>
+          <div class="form__field width_max">
+            <label class="form__description" for="name">По договору на энергоснабжение:</label>
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">№&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Укажите №" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">от&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="__.__.____" />
+          </div>
+          <div class="form__field width_max">
+            <label class="form__description" for="">Вид теплоносителя&nbsp;*</label>
+            <div class="form__to_system">
+              <div class="to_system__content">
+                <input class="to_system__checkbox" type="checkbox" name="energy" id="energy" checked>
+                <label class="to_system__label" for="energy">Тепловая энергия в горячей воде</label>
+              </div>
+              <div class="to_system__content">
+                <input class="to_system__checkbox" type="checkbox" name="steam" id="steam" checked>
+                <label class="to_system__label" for="steam">Пара</label>
+              </div>
+            </div>
+          </div>
+          <div class="form__field width_max">
+            <label class="form__description" for="name">Параметры теплоносителя:</label>
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">КГС/см<sup>2</sup>&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Укажите значение" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name"><sup>o</sup>C&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="" />
+          </div>
+          <div class="form__field">
+            <label class="form__description" for="name">Режимы теплопотребления&nbsp;*</label>
+            <input class="form__input" type="text" name="" placeholder="Режимы теплопотребления" />
+          </div>
+          <div class="form__field last">
+            <button class="btn btn_arrow show_request_step_6"><span class="further_text">Далее</span><span class="arrow_next"></span></button>
+          </div>
+        </div>
+
+        <!-- REQUEST STEP 7 -->
+        <div class="requests_form request__form step_6 hidden">
+          <h3 class="form__header"><span class="arrow_back requests_form__arrow_back arrow_to_step_5"></span>Заявка на подключение к системе теплоснабжения</h3>
+          <p class="form__status">Статус: Черновик</p>
+          <div class="form__field width_max">
+            <div class="warning__field">
+              <div class="warning__icon"></div>
+              <p class="warning__description">Для прикрепления двух и более документов используйте архив. Объем прикрепляемых документов не должен превышать 12 Mb. Документы прикрепляются в стандартных форматах pdf, doc, docx, xls, xlsx, jpeg.</p>
+            </div>
+            </div>
+            <div class="form__field files__content">
+              <label class="form__description" for="">Добавление документов&nbsp;*</label>
+              <div class="files__field">
+                <div class="files__icon"></div>
+                <label class="files__label" for="">Копии правоустанавливающих документов, подтверждающих право собственности или иное законное право заявителя на подключаемый объект или земельный участок, права на которые не зарегистрированы в Едином государственном реестре недвижимости (в случае если такие права зарегистрированы в указанном реестре, представляются соответствующие выписки из Единого государственного реестра недвижимости)&nbsp;*</label>
+                <div class="files__input">
+                  <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                    <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                    Прикрепить файл
+                  </label>
+                  <div class="attachment">
+                    <div class="attachment__item">API laximo.txt (269)</div>
+                    <a href="#" class="attachment__del"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="files__field">
+                <div class="files__icon"></div>
+                <label class="files__label" for="">Ситуационный план расположения подключаемого объекта с привязкой к территории населенного пункта или элементам территориального деления в схеме теплоснабжения&nbsp;*</label>
+                <div class="files__input">
+                  <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                    <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                    Прикрепить файл
+                  </label>
+                  <div class="attachment">
+                    <div class="attachment__item">API laximo.txt (269)</div>
+                    <a href="#" class="attachment__del"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="files__field">
+                <div class="files__icon"></div>
+                <label class="files__label" for="">Топографическая карта земельного участка в масштабе 1:500 (для квартальной застройки 1:2000) с указанием всех наземных и подземных коммуникаций и сооружений (не прилагается в случае, если заявителем является физическое лицо, осуществляющее создание (реконструкцию) объекта индивидуального жилищного строительства)&nbsp;*</label>
+                <div class="files__input">
+                  <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                    <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                    Прикрепить файл
+                  </label>
+                  <div class="attachment">
+                    <div class="attachment__item">API laximo.txt (269)</div>
+                    <a href="#" class="attachment__del"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="files__field">
+                <div class="files__icon"></div>
+                <label class="files__label" for="">Документы, подтверждающие полномочия лица, действующего от имени заявителя (в случае если заявка подается представителем заявителя)&nbsp;*</label>
+                <div class="files__input">
+                  <label for="{$id}" class="button add_files_button btn" placeholder="Прикрепить файл" />
+                    <input type="file" name="doc" class="fileinput hidden" id="{$id}" data-maxsize="{$limit}" />
+                    Прикрепить файл
+                  </label>
+                  <div class="attachment">
+                    <div class="attachment__item">API laximo.txt (269)</div>
+                    <a href="#" class="attachment__del"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="form__field personal_agreement">
+            <div class="personal_agreement__content">
+              <input class="personal_agreement__checkbox" type="checkbox" name="personal_agreement_checkbox" checked="checked">
+              <label class="personal_agreement__label">Даю <a href="#" class="agreement__href personal_data">Согласие на обработку персональных данных</a>. Нажимая на кнопку «Зарегистрироваться», Вы подтверждаете согласие с <a href="#" class="agreement__href rules">Правилами пользования интерактивным сервисом</a></label>
+            </div>
+          </div>
+          <div class="form__field form__btns width_max">
+            <input class="btn submit_form" type="submit" name="" value="Сформировать заявку" />
+            <input class="btn save_form" type="submit" name="" value="Сохранить как черновик" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  @@include('templates/_lk_footer.html')
+  @@include('templates/_personal_data.html')
+  @@include('templates/_rules.html')
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/lk_send_request.js"></script>
+</body>
+</html>

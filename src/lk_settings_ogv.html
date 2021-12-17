@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/lk_styles.min.css">
+  <title>Личный кабинет - Личные настройки | РКС</title>
+</head>
+<body>
+  @@include('templates/_lk_header.html')
+  @@include('templates/_lk_menu.html')
+  <section class="main">
+    <form class="main__content" action="">
+      <div class="personal">
+        <h1 class="personal__header">Личные настройки</h1>
+        <div class="personal_data">
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Сокращенное наименование</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Полное наименование</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Пароль*</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Электронный адрес*</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <!-- на всю ширину .width_max -->
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Адрес юридический</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Адрес почтовый</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Контактный телефон</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+          <div class="personal_data__line">
+            <div class="personal_data__block">
+              <p class="line__description">Реквизиты нормативного правого акта</p>
+              <input type="text" class="line__input" value="" placeholder="Введите данные" />
+            </div>
+          </div>
+        </div>
+        <h5 class="personal__subheader">Прикрепите сканы документов</h5>
+        <div class="personal_data">
+          <div class="add_documents_line">
+            <div class="personal_data__block">
+              <h6 class="line__description">Общее положение об организации</h6>
+              <div class="block__control_btns">
+                <a href="#" class="add_file_btn">Прикрепить файл</a>
+                <a href="#" class="delete_file_btn"></a>
+              </div>
+            </div>
+            <div class="personal_data__block hidden">
+
+            </div>
+          </div>
+          <div class="main_btn_line">
+            <input type="submit" class="main_btn_line__btn btn" value="Сохранить настройки" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  @@include('templates/_lk_footer.html')
+  @@include('templates/_lk_change_pswd.html')
+  @@include('templates/_lk_change_email.html')
+  @@include('templates/_lk_change_phone.html')
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/lk_settings.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/lk_styles.min.css">
+  <title>Авторизация | РКС</title>
+</head>
+<body>
+  @@include('templates/_lk_header_auth.html')
+  <section class="main">
+    <div class="main__content">
+      <form class="main__form" action="/lk_reg_completed.html">
+        <div class="form__left_side">
+          <h1 class="form__header">Регистрация</h1>
+        </div>
+        <div class="form__right_side">
+          <!-- <select name="" id="" class="right_side__select">
+            <option value="" class="right_side__option" disabled selected>Выберите тип профиля</option>
+            <option value="" class="right_side__option">Физическое лицо</option>
+            <option value="" class="right_side__option">Юридическое лицо</option>
+            <option value="" class="right_side__option">Индивидуальный предприниматель</option>
+          </select> -->
+          <!-- Тут псевдо-селект. Сможем привязать? Лучше взять его - намного лучше выглядит -->
+          <div class="__select" data-state="">
+            <div class="__select__title" data-default="Option 0">Выберите тип профиля</div>
+            <div class="__select__content">
+              <input id="__select_none" class="__select__input" type="radio" name="profile_type" selected checked />
+              <label for="__select_none" class="__select__label">Выберите тип профиля</label>
+              <input id="__select_fl" class="__select__input" type="radio" name="profile_type" />
+              <label for="__select_fl" class="__select__label">Физическое лицо</label>
+              <input id="__select_ul" class="__select__input" type="radio" name="profile_type" />
+              <label for="__select_ul" class="__select__label">Юридическое лицо</label>
+              <input id="__select_e" class="__select__input" type="radio" name="profile_type"/>
+              <label for="__select_e" class="__select__label">Индивидуальный предприниматель</label>
+              <input id="__select_ogv" class="__select__input" type="radio" name="profile_type"/>
+              <label for="__select_ogv" class="__select__label">Орган государственной власти</label>
+            </div>
+          </div>
+          <input class="form__input" type="text" name="" placeholder="Адрес электронной почты" required />
+          <input class="form__input" type="password" name="" placeholder="Пароль" required />
+          <input class="form__input" type="password" name="" placeholder="Повторите пароль" required />
+          <div class="form__row personal_agreement">
+            <label class="personal_agreement__label">
+              <input class="personal_agreement__checkbox checkbox" id="personal_agreement__checkbox" type="checkbox" checked="checked" />
+              <span>Даю <a href="" class="agreement__href personal_data">Согласие на обработку персональных данных</a>. Нажимая на кнопку «Зарегистрироваться», Вы подтверждаете согласие с <a href="#" class="agreement__href rules">Правилами пользования интерактивным сервисом</a></span>
+            </label>
+          </div>
+          <div class="form__row captcha">
+            <div class="g-recaptcha" data-sitekey="6Lc7QCgUAAAAAO3NAI0jUXSsL9wc-6QPMIVstgp8">
+              <div style="width: 304px; height: 78px;">
+                <div>
+                  <iframe title="reCAPTCHA"
+                    src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lc7QCgUAAAAAO3NAI0jUXSsL9wc-6QPMIVstgp8&amp;co=aHR0cDovLzEwLjE1LjQuNTo4MA..&amp;hl=ru&amp;v=_7Co1fh8iT2hcjvquYJ_3zSP&amp;size=normal&amp;cb=mr0mvfk9nbhf" width="304" height="78"
+                    role="presentation" name="a-s9hsbbgfjd5m" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
+                  </div>
+                  <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+              </div>
+              <iframe style="display: none;"></iframe>
+            </div>
+          </div>
+          <input class="form__button btn" type="submit" value="Регистрация" />
+        </div>
+      </form>
+    </div>
+  </section>
+  @@include('templates/_lk_footer.html')
+  @@include('templates/_personal_data.html')
+  @@include('templates/_rules.html')
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/lk_reg.min.js"></script>
+</body>
+</html>

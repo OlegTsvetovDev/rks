@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/lk_styles.min.css">
+  <title>Авторизация | РКС</title>
+</head>
+<body>
+  @@include('templates/_lk_header_auth.html')
+  <section class="main">
+    <div class="main__content">
+      <form class="main__form" action="auth">
+        <div class="form__left_side">
+        </div>
+        <div class="form__right_side">
+          <h1 class="form__header">Модальные окна:</h1>
+          <a href="#" class="alert">Ошибка</a>
+        </div>
+      </form>
+    </div>
+  </section>
+  @@include('templates/_lk_footer.html')
+  @@include('templates/_pswd_restore.html')
+  @@include('templates/_lk_alert.html')
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/lk_alert.min.js"></script>
+</body>
+</html>

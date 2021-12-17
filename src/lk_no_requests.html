@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/lk_styles.min.css">
+  <title>Личный кабинет - Запросы и заявки | РКС</title>
+</head>
+<body>
+  @@include('templates/_lk_header.html')
+  @@include('templates/_lk_menu.html')
+  <section class="main">
+    <div class="main__content">
+      <div class="lk_requests">
+        <div class="lk_requests__content">
+          <h1 class="lk_requests__header">Мои заявления</h1>
+          <div class="lk_requests__controls">
+            <a href="/lk_send_request.html" class="controls__btn btn">Подать заявление</a>
+            <div class="controls__control_btns">
+
+            </div>
+          </div>
+          <div class="lk_requests__item">
+            <div class="item__content">
+              <p class="content__no_items">Вы еще не подали ни одного заявления.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  @@include('templates/_lk_footer.html')
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/lk_requests.min.js"></script>
+</body>
+</html>
