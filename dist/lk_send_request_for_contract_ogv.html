@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/slick.css">
   <link rel="stylesheet" href="css/lk_styles.min.css">
   <title>Личный кабинет - Запросы и заявки | РКС</title>
 </head>
@@ -49,30 +50,135 @@
   </div>
 </header>
 
+  <menu class="lk_menu">
+  <div class="lk_menu__content">
+    <div class="lk_menu__burger"></div>
+    <ul class="lk_menu__list">
+      <div class="lk_menu__close"></div>
+      <li class="lk_menu__list_item active"><a href="lk_settings_ul.html">Личные настройки</a></li>
+      <li class="lk_menu__list_item"><a href="lk_requests.html">Мои заявления</a></li>
+    </ul>
+  </div>
+</menu>
+
+
   <section class="main">
     <div class="main__content">
-      <div class="requests_form">
-        <div class="form__left_side">
+      <form class="requests_form slider" action="">
+
+        <!-- REQUEST STEP 2 -->
+        <div class="request__form step_2">
+          <h3 class="form__header">Общие данные</h3>
+          <div class="form__field form__info_block width_max">
+            <p class="form__status">Статус: Черновик</p>
+            <p class="form__number">Номер: 123321</p>
+            <p class="form__date">Дата и время регистрации: 01.01.2022</p>
+          </div>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="field__description">Являюсь представителем</span>
+              <label for="" class="field__label">
+                <span class="label__block">
+                  <label for="">
+                    <input type="radio" name="representer" class="radio" value="yes" />
+                    Да
+                  </label>
+                  <label for="">
+                    <input type="radio" name="representer" class="radio" value="no" checked />
+                    Нет
+                  </label>
+                </span>
+              </label>
+            </label>
+          </div>
+          <div class="form__field ">
+            <label for="" class="field__label">
+              <span class="field__description">Фамилия *</span>
+              <input type="text" class="field__input" placeholder="Введите данные" />
+            </label>
+          </div>
+          <div class="form__field fr">
+            <label for="" class="field__label">
+              <span class="field__description">Имя *</span>
+              <input type="text" class="field__input" placeholder="Введите данные" />
+            </label>
+          </div>
+          <div class="form__field">
+            <label for="" class="field__label">
+              <span class="field__description">Отчество *</span>
+              <input type="text" class="field__input" placeholder="Введите данные" />
+            </label>
+          </div>
+          <div class="form__field fr">
+            <label for="" class="field__label">
+              <span class="field__description">Контактный номер телефона *</span>
+              <input type="text" class="field__input" placeholder="Введите данные" />
+            </label>
+          </div>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="field__description">Основание действия *</span>
+              <label for="" class="field__label">
+                <span class="label__block">
+                  <label for="">
+                    <input type="radio" name="action_basis" class="radio" value="yes" />
+                    От своего имени
+                  </label>
+                  <label for="">
+                    <input type="radio" name="action_basis" class="radio" value="no" checked />
+                    По доверенности
+                  </label>
+                </span>
+              </label>
+            </label>
+          </div>
+
+          <div class="form__field">
+            <label for="" class="field__label">
+              <span class="field__description">Номер доверенности *</span>
+              <input type="text" class="field__input" placeholder="Введите данные" />
+            </label>
+          </div>
+          <div class="form__field fr">
+            <label for="" class="field__label">
+              <span class="field__description">Дата доверенности *</span>
+              <input type="text" class="field__input" placeholder="Введите данные" />
+            </label>
+          </div>
+
         </div>
-        <div class="form__right_side">
-          <div class="requests_type__form">
-            <h3 class="form__header">
-              <span class="arrow_back arrow_to_lk_requests"></span>
-              Выберите тип заявления:
-            </h3>
-            <div class="requests_type__list">
-              <a class="list__item send_request_for_contract" href="lk_send_request_for_contract_ul.html">
-                Запрос о выдаче ТУ
-              </a>
-              <a class="list__item send_request_for_ts" href="lk_send_request_for_ts_ul.html">
-                Заявление о подключении
-              </a>
+
+        <!-- REQUEST STEP 6 -->
+        <div class="request__form step_6">
+          <h3 class="form__header">Прикрепите сканы документов</h3>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <h6 class="form__subheader">Документы о заявителе</h6>
+            </label>
+          </div>
+          <div class="form__field add_files width_max">
+            <h6 class="field__description">Доверенность *</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
-        </div>
-      </div>
+          <div class="form__field add_files width_max">
+            <h6 class="field__description">Паспорт/удостоверение личности (второй лист) *</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
+            </div>
+          </div>
+          <div class="form__field form__btns width_max">
+              <input value="Сформировать запрос" name="ecp_button" id="ecp_button" type="submit" class="btn submit_form ecp_button" tabindex="0">
+              <input value="Сохранить как черновик" name="" type="submit" class="btn dark_btn save_form button_save_tmpl" tabindex="0">
+            </div>
+          </div>
+      </form>
     </div>
   </section>
+
   <footer class="footer">
   <div class="footer__content">
     <div class="footer__hrefs">
@@ -138,6 +244,7 @@
 </section>
 
   <script src="js/jquery-3.5.1.min.js"></script>
-  <script src="js/lk_send_request.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/lk_send_request.min.js"></script>
 </body>
 </html>

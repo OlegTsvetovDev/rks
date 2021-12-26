@@ -200,6 +200,10 @@ input[type="button"], .btn {
   }
 }
 
+.clearfix {
+  clear: both;
+}
+
 // Чекбоксы
 @supports(-webkit-appearance: none) or (-moz-appearance: none) {
   .checkbox,
@@ -589,6 +593,13 @@ input[type="button"], .btn {
       .bottom__right_side {
         width: $w604;
         text-align: right;
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        column-gap: 15px;
         @media (max-width: $w1209) {
 
         }
@@ -604,6 +615,14 @@ input[type="button"], .btn {
           @media (max-width: $w768) {
 
           }
+        }
+        .exit {
+          display: -webkit-flex;
+          display: -ms-flex;
+          display: flex;
+          width: 24px;
+          height: 24px;
+          background: url('../img/exit.svg') no-repeat center /contain;
         }
       }
   	}
@@ -881,6 +900,8 @@ input[type="button"], .btn {
       display: -ms-flex;
       display: flex;
       min-height: 60vh;
+      background: $white;
+      width: 100%;
       @media (max-width: $w1209) {
 
       }
@@ -979,7 +1000,353 @@ input[type="button"], .btn {
           }
         }
       } // end of .form__right_side
+      // REQUEST FORMS FOR TS/CONTRACT
+      &.slider {
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 200px;
+        padding: 65px 105px 200px;
+        .slick-arrow {
+          position: absolute;
+          bottom: 95px;
+        }
+        .slick-next {
+          right: 105px;
+        }
+        .slick-prev {
+          // right: 300px;
+          left: 105px;
+        }
+        .slick-disabled {
+          display: none !important;
+        }
+        .slick-dots {
+          display: -webkit-flex;
+          display: -ms-flex;
+          display: flex;
+          width: 100%;
+          list-style-type: none;
+          order: 1;
+          margin-bottom: 40px;
+          li {
+            width: 100%;
+            button {
+              border: none;
+              cursor: pointer;
+              border: 1px solid $mainColorTransparent;
+              color: $mainColor;
+              background: transparent;
+              width: 100%;
+              padding: 6px 12px;
+              font-family: $mf;
+            }
+            &.slick-active {
+              button {
+                background: $mainColor;
+                color: $white;
+              }
+            }
+          }
+
+
+        }
+        .slick-list {
+          order: 2;
+        }
+      } // end of .slider
+      .request__form {
+
+        .form__header {
+          color: $black;
+          margin-bottom: 30px;
+        }
+        .form__subheader {
+          color: $black;
+          margin-bottom: 20px;
+        }
+        .cold_water_supply_toggle,
+        .drainage__toggle {
+          &.hidden {
+            display: none;
+          }
+        }
+        .form__field {
+          width: 49%;
+          float: left;
+          &.hidden {
+            display: none;
+          }
+          &.fr {
+            float: right;
+          }
+          &.form__info_block {
+            margin-bottom: 36px;
+            .form__status,
+            .form__number,
+            .form__date {
+              margin-bottom: 9px;
+            }
+          }
+          &.width_max {
+            width: 100%;
+          }
+          .field__label {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+            .field__description {
+              box-sizing: border-box;
+              padding-bottom: 9px;
+              padding-left: 25px;
+              color: $mainColor;
+            }
+            .label__block {
+              display: -webkit-flex;
+              display: -ms-flex;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              align-content: center;
+              flex-wrap: wrap;
+              min-height: 46px;
+              label {
+                display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;
+                align-items: center;
+                align-content: center;
+                min-width: 100px;
+                padding: 0 25px;
+                margin-bottom: 10px;
+                color: $mainColor;
+                .radio,
+                .checkbox {
+                  margin-right: 5px;
+                }
+              }
+            }
+            &.street {
+              width: 72.5%;
+              float: left;
+            }
+            &.house {
+              width: 25%;
+              float: right;
+            }
+            &.district {
+              width: 72.5%;
+              float: left;
+            }
+            &.housing {
+              width: 25%;
+              float: right;
+
+            }
+            .form__subheader {
+              margin-top: 30px;
+            }
+          } // end of .field__label
+          .field__input {
+            padding: 14px 25px;
+            font-size: $p;
+            border: 1px solid $mainColor;
+            color: $mainColor;
+            &.datepicker_input {
+              background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+            }
+          }
+          &.queue_launch {
+            &.queue_launch_yes {
+              margin-bottom: 30px;
+            }
+            .table__description {
+              color: $mainColor;
+              margin: 0 25px 10px;
+            }
+            .field__table {
+              display: table;
+              border-collapse: collapse;
+              border-spacing: 0;
+              width: 100%;
+              color: $mainColor;
+              text-align: left;
+              .table__head {
+                .table__row {
+                  .table__header {
+                    width: 50%;
+                    padding: 11px 12px;
+                    border: 1px solid $mainColorTransparent;
+                  }
+                }
+              }
+              .table__body {
+                .table__row {
+                  .table__cell {
+                    padding: 0 12px;
+                    border: 1px solid $mainColorTransparent;
+                    .field__input {
+                      width: 100%;
+                      height: 100%;
+                      padding: 11px 0;
+                      border: none;
+                      &.datepicker_input {
+                        background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+                      }
+                    }
+                  }
+                }
+              }
+            } // end of .table
+            .btn {
+              font-size: $p;
+              font-family: $mf;
+              padding: 11px 37px;
+              float: right;
+            }
+          } // .end of .queue_launch
+          &.other_water_sources {
+            margin-bottom: 30px;
+            .table__description {
+              color: $mainColor;
+              margin: 0 25px 10px;
+            }
+            .field__table {
+              display: table;
+              border-collapse: collapse;
+              border-spacing: 0;
+              width: 100%;
+              color: $mainColor;
+              text-align: left;
+              .table__head {
+                .table__row {
+                  .table__header {
+                    width: 33%;
+                    padding: 11px 12px;
+                    border: 1px solid $mainColorTransparent;
+                  }
+                }
+              }
+              .table__body {
+                .table__row {
+                  .table__cell {
+                    padding: 0 12px;
+                    border: 1px solid $mainColorTransparent;
+                    .field__input {
+                      width: 100%;
+                      height: 100%;
+                      padding: 11px 0;
+                      border: none;
+                      &.datepicker_input {
+                        background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+                      }
+                    }
+                  }
+                }
+              }
+            } // end of .table
+            .btn {
+              font-size: $p;
+              font-family: $mf;
+              padding: 11px 37px;
+              float: right;
+            }
+          } // .end of .other_water_sources
+          &.land_coverage_characteristics {
+            margin-bottom: 30px;
+            .table__description {
+              color: $mainColor;
+              margin: 0 25px 10px;
+            }
+            .field__table {
+              display: table;
+              border-collapse: collapse;
+              border-spacing: 0;
+              width: 100%;
+              color: $mainColor;
+              text-align: left;
+              .table__head {
+                .table__row {
+                  .table__header {
+                    width: 50%;
+                    padding: 11px 12px;
+                    border: 1px solid $mainColorTransparent;
+                  }
+                }
+              }
+              .table__body {
+                .table__row {
+                  .table__cell {
+                    padding: 0 12px;
+                    border: 1px solid $mainColorTransparent;
+                    .field__input {
+                      width: 100%;
+                      height: 100%;
+                      padding: 11px 0;
+                      border: none;
+                      &.datepicker_input {
+                        background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+                      }
+                    }
+                  }
+                }
+              }
+            } // end of .table
+            .btn {
+              font-size: $p;
+              font-family: $mf;
+              padding: 11px 37px;
+              float: right;
+            }
+          } // .end of .land_coverage_characteristics
+          &.form__btns {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            justify-content: flex-end;
+            column-gap: 15px;
+            margin-top: 30px;
+          }
+          &.add_files {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            align-items: center;
+            padding: 25px 30px;
+            border-top: 1px solid $mainColorTransparent;
+            .field__description {
+              font-weight: 400;
+              color: $mainColor;
+              max-width: 70%;
+            }
+            .field__control_btns {
+              display: -webkit-flex;
+              display: -ms-flex;
+              display: flex;
+              .add_file_btn {
+                color: $mainColor;
+                &:active, &:visited, &:hover {
+                  color: $mainColor;
+                }
+              }
+              .delete_file_btn {
+                margin-left: 27px;
+                width: 16px;
+                height: 16px;
+                background: url('../img/control_btns/delete_icon.svg') no-repeat 0 0 /contain;
+              }
+            }
+          }
+        } // end of .form__field
+      }
     } // end of .requests_form
+
 
     // LS SETTINGS STYLES
     .personal {
@@ -1062,6 +1429,12 @@ input[type="button"], .btn {
               }
               &.datepicker_input {
                 background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+              }
+              &.change_pswd_input {
+                background: url('../img/control_btns/edit.svg') no-repeat 97.5% 50%;
+              }
+              &.change_email_input {
+                background: url('../img/control_btns/edit.svg') no-repeat 97.5% 50%;
               }
               &:hover {
                 border-color: $mainColorTransparent;
@@ -1185,7 +1558,42 @@ input[type="button"], .btn {
               display: block;
               width: 20px;
               height: 20px;
-              &.filter { background: url('../img/control_btns/filter.svg') no-repeat center center; }
+              &.filter {
+                position: relative;
+                width: auto;
+                .filter__block {
+                  display: -webkit-flex;
+                  display: -ms-flex;
+                  display: flex;
+                  align-content: center;
+                  align-items: center;
+                  column-gap: 30px;
+                  margin-top: -3px;
+                  .filter__btn {
+                    background: url('../img/control_btns/filter.svg') no-repeat center;
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    cursor: pointer;
+                    &.active {
+                      background: url('../img/control_btns/filter_active.svg') no-repeat center;
+                    }
+                  }
+                  .filter__input {
+                    padding: 6px 12px;
+                    border: 1px solid $mainColorTransparent;
+                    opacity: 1;
+                    visibility: visible;
+                    transition: all .2s ease-in;
+                    color: $mainColor;
+                    &.hidden {
+                      visibility: hidden;
+                      opacity: 0;
+                      transition: all .2s ease-in;
+                    }
+                  }
+                }
+              }
               &.sort { background: url('../img/control_btns/sort.svg') no-repeat center center; }
               &.cancel { background: url('../img/control_btns/cancel.svg') no-repeat center center; }
             }
@@ -1264,7 +1672,7 @@ input[type="button"], .btn {
                 }
               }
               .watch_icon { background: url('../img/control_btns/watch_icon.svg') no-repeat 0 0; }
-              .edit_icon { background: url('../img/control_btns/edit_icon.svg') no-repeat 0 0; }
+              .edit_icon { background: url('../img/control_btns/edit.svg') no-repeat 0 0; }
               .delete_icon { background: url('../img/control_btns/delete_icon.svg') no-repeat 0 0; }
               .annul_icon { background: url('../img/control_btns/annul_icon.svg') no-repeat 0 0; }
             } // end of .item__control_btns
@@ -1293,16 +1701,19 @@ input[type="button"], .btn {
             opacity: 1;
             overflow-x: auto;
             overflow-y: hidden;
+            visibility: visible;
             @media (max-width: $w1024) {
-              margin: 42px 50px 42px 50px;
+
             }
             @media (max-width: 768px) {
-              margin: 10px 20px;
+
             }
             &.hidden {
+              margin: 0;
               transition: 0.5s ease;
-              display: none;
-              height: 0%;
+              // display: none;
+              visibility: hidden;
+              height: 0;
               opacity: 0;
             }
             table {

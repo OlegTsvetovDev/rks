@@ -44,40 +44,40 @@ $(document).ready(function() {
   showTablesBlock();
 
   // форма подачи заявки запроса
-  function handleRequestsForm() {
-    const requestsType = $('.requests_type__form');
-    const listItemInquiry = $('.list__item.inquiry');
-    const listItemRequest = $('.list__item.request');
-    const regFormArrowBack = $('.reg_form__arrow_back');
-    const arrowToLkRequests = $('.arrow_to_lk_requests');
-    const regForm = $('.reg_form');
-    const inquiry = $('.inquiry_or_request');
-    const inquiryForm = $('.reg_form.inquiry__form');
-    const requestForm = $('.reg_form.request__form');
-
-    function showRegForm(regForm) {
-      function hideRequestsTypeForm(hideForm) {
-        return hideForm.addClass('hidden');
-      };
-      setTimeout(() => hideRequestsTypeForm(requestsType), 0);
-      setTimeout(() => regForm.removeClass('hidden'), 0);
-    };
-
-    function rollBack() {
-
-    }
-
-    listItemInquiry.click(function() { showRegForm(inquiryForm) });
-    listItemRequest.click(function() { showRegForm(requestForm) });
-    regFormArrowBack.click(function() { rollBack() });
-  };
-  handleRequestsForm();
+  // function handleRequestsForm() {
+  //   const requestsType = $('.requests_type__form');
+  //   const listItemInquiry = $('.list__item.inquiry');
+  //   const listItemRequest = $('.list__item.request');
+  //   const regFormArrowBack = $('.reg_form__arrow_back');
+  //   const arrowToLkRequests = $('.arrow_to_lk_requests');
+  //   const regForm = $('.reg_form');
+  //   const inquiry = $('.inquiry_or_request');
+  //   const inquiryForm = $('.reg_form.inquiry__form');
+  //   const requestForm = $('.reg_form.request__form');
+  //
+  //   function showRegForm(regForm) {
+  //     function hideRequestsTypeForm(hideForm) {
+  //       return hideForm.addClass('hidden');
+  //     };
+  //     setTimeout(() => hideRequestsTypeForm(requestsType), 0);
+  //     setTimeout(() => regForm.removeClass('hidden'), 0);
+  //   };
+  //
+  //   function rollBack() {
+  //
+  //   }
+  //
+  //   listItemInquiry.click(function() { showRegForm(inquiryForm) });
+  //   listItemRequest.click(function() { showRegForm(requestForm) });
+  //   regFormArrowBack.click(function() { rollBack() });
+  // };
+  // handleRequestsForm();
 
 
   // Модалка "Удалить"
   const body = $('body');
 
-  function openModalDeleteRequest() {
+  function initModalDeleteRequest() {
     const deleteRequest = $('.control_btns__link.delete_icon'),
           deleteRequestModal = $('.modal_delete_request'),
           deleteRequestModalContent = $('.modal_delete_request__content'),
@@ -115,11 +115,11 @@ $(document).ready(function() {
     })
 
   };
-  openModalDeleteRequest();
+  initModalDeleteRequest();
 
 
   // Модалка "Аннулировать"
-  function openModalAnnulRequest() {
+  function initModalAnnulRequest() {
     const annulRequest = $('.control_btns__link.annul_icon'),
           annulRequestModal = $('.modal_annul_request'),
           annulRequestModalContent = $('.modal_annul_request__content'),
@@ -157,11 +157,11 @@ $(document).ready(function() {
     })
 
   };
-  openModalAnnulRequest();
+  initModalAnnulRequest();
 
 
   // Модалка "Добавить ответ"
-  function openModalAddAnswer() {
+  function initModalAddAnswer() {
     const addAnswer = $('.add_answer__button'),
           addAnswerModal = $('.modal_add_answer'),
           addAnswerModalContent = $('.modal_add_answer__content'),
@@ -199,6 +199,18 @@ $(document).ready(function() {
     })
 
   };
-  openModalAddAnswer();
+  initModalAddAnswer();
+
+  function initFilter() {
+    const filterBtn = $('.filter__btn'),
+          filterInput = $('.filter__input')
+
+    filterBtn.click(function (e) {
+      e.preventDefault()
+      filterInput.toggleClass('hidden')
+      filterBtn.toggleClass('active')
+    })
+  }
+  initFilter()
 
 });

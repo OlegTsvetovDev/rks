@@ -134,6 +134,10 @@ input[type="button"],
   color: #3c54a5;
 }
 
+.clearfix {
+  clear: both;
+}
+
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   .checkbox,
   .radio {
@@ -688,11 +692,45 @@ input[type="button"],
 .header__content .header__bottom .bottom__right_side {
   width: 604px;
   text-align: right;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-column-gap: 15px;
+  -moz-column-gap: 15px;
+  column-gap: 15px;
 }
 
 .header__content .header__bottom .bottom__right_side .right_side__header {
   color: white;
   padding: 25px 0 24px;
+}
+
+.header__content .header__bottom .bottom__right_side .exit {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  background: url("../img/exit.svg") no-repeat center/contain;
 }
 
 .lk_menu {
@@ -979,6 +1017,8 @@ input[type="button"],
   display: -ms-flexbox;
   display: flex;
   min-height: 60vh;
+  background: white;
+  width: 100%;
 }
 
 .main__content .requests_form .form__left_side {
@@ -1116,6 +1156,457 @@ input[type="button"],
   color: red;
 }
 
+.main__content .requests_form.slider {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 200px;
+  padding: 65px 105px 200px;
+}
+
+.main__content .requests_form.slider .slick-arrow {
+  position: absolute;
+  bottom: 95px;
+}
+
+.main__content .requests_form.slider .slick-next {
+  right: 105px;
+}
+
+.main__content .requests_form.slider .slick-prev {
+  left: 105px;
+}
+
+.main__content .requests_form.slider .slick-disabled {
+  display: none !important;
+}
+
+.main__content .requests_form.slider .slick-dots {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  list-style-type: none;
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 1;
+  -moz-box-ordinal-group: 2;
+  -ms-flex-order: 1;
+  order: 1;
+  margin-bottom: 40px;
+}
+
+.main__content .requests_form.slider .slick-dots li {
+  width: 100%;
+}
+
+.main__content .requests_form.slider .slick-dots li button {
+  border: none;
+  cursor: pointer;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+  color: #3c54a5;
+  background: transparent;
+  width: 100%;
+  padding: 6px 12px;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+}
+
+.main__content .requests_form.slider .slick-dots li.slick-active button {
+  background: #3c54a5;
+  color: white;
+}
+
+.main__content .requests_form.slider .slick-list {
+  -webkit-box-ordinal-group: 3;
+  -webkit-order: 2;
+  -moz-box-ordinal-group: 3;
+  -ms-flex-order: 2;
+  order: 2;
+}
+
+.main__content .requests_form .request__form .form__header {
+  color: #222222;
+  margin-bottom: 30px;
+}
+
+.main__content .requests_form .request__form .form__subheader {
+  color: #222222;
+  margin-bottom: 20px;
+}
+
+.main__content .requests_form .request__form .cold_water_supply_toggle.hidden,
+.main__content .requests_form .request__form .drainage__toggle.hidden {
+  display: none;
+}
+
+.main__content .requests_form .request__form .form__field {
+  width: 49%;
+  float: left;
+}
+
+.main__content .requests_form .request__form .form__field.hidden {
+  display: none;
+}
+
+.main__content .requests_form .request__form .form__field.fr {
+  float: right;
+}
+
+.main__content .requests_form .request__form .form__field.form__info_block {
+  margin-bottom: 36px;
+}
+
+.main__content .requests_form .request__form .form__field.form__info_block .form__status,
+.main__content .requests_form .request__form .form__field.form__info_block .form__number,
+.main__content .requests_form .request__form .form__field.form__info_block .form__date {
+  margin-bottom: 9px;
+}
+
+.main__content .requests_form .request__form .form__field.width_max {
+  width: 100%;
+}
+
+.main__content .requests_form .request__form .form__field .field__label {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .field__description {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 9px;
+  padding-left: 25px;
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .label__block {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  min-height: 46px;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .label__block label {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  min-width: 100px;
+  padding: 0 25px;
+  margin-bottom: 10px;
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .label__block label .radio,
+.main__content .requests_form .request__form .form__field .field__label .label__block label .checkbox {
+  margin-right: 5px;
+}
+
+.main__content .requests_form .request__form .form__field .field__label.street {
+  width: 72.5%;
+  float: left;
+}
+
+.main__content .requests_form .request__form .form__field .field__label.house {
+  width: 25%;
+  float: right;
+}
+
+.main__content .requests_form .request__form .form__field .field__label.district {
+  width: 72.5%;
+  float: left;
+}
+
+.main__content .requests_form .request__form .form__field .field__label.housing {
+  width: 25%;
+  float: right;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .form__subheader {
+  margin-top: 30px;
+}
+
+.main__content .requests_form .request__form .form__field .field__input {
+  padding: 14px 25px;
+  font-size: 14px;
+  border: 1px solid #3c54a5;
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field .field__input.datepicker_input {
+  background: url("../img/calendar.svg") no-repeat 97.5% 50%;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch.queue_launch_yes {
+  margin-bottom: 30px;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .table__description {
+  color: #3c54a5;
+  margin: 0 25px 10px;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .field__table {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  color: #3c54a5;
+  text-align: left;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .field__table .table__head .table__row .table__header {
+  width: 50%;
+  padding: 11px 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .field__table .table__body .table__row .table__cell {
+  padding: 0 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .field__table .table__body .table__row .table__cell .field__input {
+  width: 100%;
+  height: 100%;
+  padding: 11px 0;
+  border: none;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .field__table .table__body .table__row .table__cell .field__input.datepicker_input {
+  background: url("../img/calendar.svg") no-repeat 97.5% 50%;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch .btn {
+  font-size: 14px;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+  padding: 11px 37px;
+  float: right;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources {
+  margin-bottom: 30px;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .table__description {
+  color: #3c54a5;
+  margin: 0 25px 10px;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .field__table {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  color: #3c54a5;
+  text-align: left;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__head .table__row .table__header {
+  width: 33%;
+  padding: 11px 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__body .table__row .table__cell {
+  padding: 0 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__body .table__row .table__cell .field__input {
+  width: 100%;
+  height: 100%;
+  padding: 11px 0;
+  border: none;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__body .table__row .table__cell .field__input.datepicker_input {
+  background: url("../img/calendar.svg") no-repeat 97.5% 50%;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .btn {
+  font-size: 14px;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+  padding: 11px 37px;
+  float: right;
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics {
+  margin-bottom: 30px;
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .table__description {
+  color: #3c54a5;
+  margin: 0 25px 10px;
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .field__table {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  color: #3c54a5;
+  text-align: left;
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .field__table .table__head .table__row .table__header {
+  width: 50%;
+  padding: 11px 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .field__table .table__body .table__row .table__cell {
+  padding: 0 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .field__table .table__body .table__row .table__cell .field__input {
+  width: 100%;
+  height: 100%;
+  padding: 11px 0;
+  border: none;
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .field__table .table__body .table__row .table__cell .field__input.datepicker_input {
+  background: url("../img/calendar.svg") no-repeat 97.5% 50%;
+}
+
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .btn {
+  font-size: 14px;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+  padding: 11px 37px;
+  float: right;
+}
+
+.main__content .requests_form .request__form .form__field.form__btns {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-column-gap: 15px;
+  -moz-column-gap: 15px;
+  column-gap: 15px;
+  margin-top: 30px;
+}
+
+.main__content .requests_form .request__form .form__field.add_files {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 25px 30px;
+  border-top: 1px solid rgba(60, 84, 165, 0.3);
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__description {
+  font-weight: 400;
+  color: #3c54a5;
+  max-width: 70%;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn {
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn:active,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn:visited,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn:hover {
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .delete_file_btn {
+  margin-left: 27px;
+  width: 16px;
+  height: 16px;
+  background: url("../img/control_btns/delete_icon.svg") no-repeat 0 0/contain;
+}
+
 .main__content .personal {
   width: 1209px;
   margin: 0 auto;
@@ -1200,6 +1691,14 @@ input[type="button"],
 
 .main__content .personal .personal_data .personal_data__line .personal_data__block .line__input.datepicker_input {
   background: url("../img/calendar.svg") no-repeat 97.5% 50%;
+}
+
+.main__content .personal .personal_data .personal_data__line .personal_data__block .line__input.change_pswd_input {
+  background: url("../img/control_btns/edit.svg") no-repeat 97.5% 50%;
+}
+
+.main__content .personal .personal_data .personal_data__line .personal_data__block .line__input.change_email_input {
+  background: url("../img/control_btns/edit.svg") no-repeat 97.5% 50%;
 }
 
 .main__content .personal .personal_data .personal_data__line .personal_data__block .line__input:hover {
@@ -1400,7 +1899,62 @@ input[type="button"],
 }
 
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter {
-  background: url("../img/control_btns/filter.svg") no-repeat center center;
+  position: relative;
+  width: auto;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-column-gap: 30px;
+  -moz-column-gap: 30px;
+  column-gap: 30px;
+  margin-top: -3px;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block .filter__btn {
+  background: url("../img/control_btns/filter.svg") no-repeat center;
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block .filter__btn.active {
+  background: url("../img/control_btns/filter_active.svg") no-repeat center;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block .filter__input {
+  padding: 6px 12px;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  color: #3c54a5;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block .filter__input.hidden {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  transition: all .2s ease-in;
 }
 
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort {
@@ -1503,7 +2057,7 @@ input[type="button"],
 }
 
 .main__content .lk_requests__content .lk_requests__item .item__content .item__control_btns .edit_icon {
-  background: url("../img/control_btns/edit_icon.svg") no-repeat 0 0;
+  background: url("../img/control_btns/edit.svg") no-repeat 0 0;
 }
 
 .main__content .lk_requests__content .lk_requests__item .item__content .item__control_btns .delete_icon {
@@ -1551,15 +2105,17 @@ input[type="button"],
   opacity: 1;
   overflow-x: auto;
   overflow-y: hidden;
+  visibility: visible;
 }
 
 .main__content .lk_requests__content .lk_requests__item .item__tables.hidden {
+  margin: 0;
   -webkit-transition: 0.5s ease;
   -o-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
   transition: 0.5s ease;
-  display: none;
-  height: 0%;
+  visibility: hidden;
+  height: 0;
   opacity: 0;
 }
 
@@ -2086,10 +2642,6 @@ input[type="button"],
     font-size: 12px;
   }
 
-  .main__content .lk_requests__content .lk_requests__item .item__tables {
-    margin: 42px 50px 42px 50px;
-  }
-
   .main__content .lk_requests__content .lk_requests__item .item__tables table tr td.table__row_item {
     max-width: 420px;
   }
@@ -2146,10 +2698,6 @@ input[type="button"],
 
   .main__content .requests_form .form__left_side {
     display: none;
-  }
-
-  .main__content .lk_requests__content .lk_requests__item .item__tables {
-    margin: 10px 20px;
   }
 
   .main__content .lk_requests__content .lk_requests__item .item__tables table {
