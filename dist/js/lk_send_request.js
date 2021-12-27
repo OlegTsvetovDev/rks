@@ -39,17 +39,17 @@ $(document).ready(function () {
     water_source_tbody.append(new_row); // после добавления новой строки не увеличивает высоту родитель - скорее всего из-за динамического определения высоты слайдера
     // slick_list.css('height', 'auto')
 
-    water_source_count += 1;
+    water_source_count++;
   }); // добавление новых строк в таблицу с характеристиками земельных участков, слайдер 4
 
-  var land_coverage_tbody = $('.other_water_sources tbody');
+  var land_coverage_tbody = $('.land_coverage_characteristics tbody');
   var land_coverage_count = 2;
   $('.add_coverage_btn').click(function (event) {
-    var new_row = "\n                    <tr class=\"table__row\">\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                    </tr>\n                   ";
+    var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ";
     event.preventDefault();
     land_coverage_tbody.append(new_row); // после добавления новой строки не увеличивает высоту родитель - скорее всего из-за динамического определения высоты слайдера
     // slick_list.css('height', 'auto')
 
-    land_coverage_count += 1;
-  }); // перенести кнопки в сам slider https://api.jquery.com/detach/
+    land_coverage_count++;
+  });
 });

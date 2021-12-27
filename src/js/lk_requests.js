@@ -17,20 +17,20 @@ $(document).ready(function() {
   setActiveMenuItem();
 
   // показ меню
-  function toggleMenu() {
-    const lkMenuBurger = $('.lk_menu__burger'),
-          lkMenuList = $('.lk_menu__list'),
-          lkMenuClose = $('.lk_menu__close');
-
-    lkMenuBurger.click(function() {
-      lkMenuList.addClass('active');
-    });
-
-    lkMenuClose.click(function() {
-      lkMenuList.removeClass('active');
-    });
-  };
-  toggleMenu();
+  // function toggleMenu() {
+  //   const lkMenuBurger = $('.lk_menu__burger'),
+  //         lkMenuList = $('.lk_menu__list'),
+  //         lkMenuClose = $('.lk_menu__close');
+  //
+  //   lkMenuBurger.click(function() {
+  //     lkMenuList.addClass('active');
+  //   });
+  //
+  //   lkMenuClose.click(function() {
+  //     lkMenuList.removeClass('active');
+  //   });
+  // };
+  // toggleMenu();
 
   // показ блока таблиц
   function showTablesBlock() {
@@ -42,36 +42,6 @@ $(document).ready(function() {
     })
   };
   showTablesBlock();
-
-  // форма подачи заявки запроса
-  // function handleRequestsForm() {
-  //   const requestsType = $('.requests_type__form');
-  //   const listItemInquiry = $('.list__item.inquiry');
-  //   const listItemRequest = $('.list__item.request');
-  //   const regFormArrowBack = $('.reg_form__arrow_back');
-  //   const arrowToLkRequests = $('.arrow_to_lk_requests');
-  //   const regForm = $('.reg_form');
-  //   const inquiry = $('.inquiry_or_request');
-  //   const inquiryForm = $('.reg_form.inquiry__form');
-  //   const requestForm = $('.reg_form.request__form');
-  //
-  //   function showRegForm(regForm) {
-  //     function hideRequestsTypeForm(hideForm) {
-  //       return hideForm.addClass('hidden');
-  //     };
-  //     setTimeout(() => hideRequestsTypeForm(requestsType), 0);
-  //     setTimeout(() => regForm.removeClass('hidden'), 0);
-  //   };
-  //
-  //   function rollBack() {
-  //
-  //   }
-  //
-  //   listItemInquiry.click(function() { showRegForm(inquiryForm) });
-  //   listItemRequest.click(function() { showRegForm(requestForm) });
-  //   regFormArrowBack.click(function() { rollBack() });
-  // };
-  // handleRequestsForm();
 
 
   // Модалка "Удалить"
@@ -201,6 +171,7 @@ $(document).ready(function() {
   };
   initModalAddAnswer();
 
+ // фильтр
   function initFilter() {
     const filterBtn = $('.filter__btn'),
           filterInput = $('.filter__input')

@@ -10,6 +10,8 @@
 </head>
 <body>
   @@include('templates/_lk_header.html')
+  @@include('templates/_lk_menu.html')
+
   <section class="main">
     <div class="main__content">
       <div class="requests_form">
@@ -22,10 +24,10 @@
               Выберите тип заявления:
             </h3>
             <div class="requests_type__list">
-              <a class="list__item send_request_for_contract" href="lk_send_request_for_contract_ul.html">
+              <a class="list__item send_request_for_contract" href="lk_send_request_for_ts_ul.html">
                 Запрос о выдаче ТУ
               </a>
-              <a class="list__item send_request_for_ts" href="lk_send_request_for_ts_ul.html">
+              <a class="list__item send_request_for_ts" href="lk_send_request_for_contract_ul.html">
                 Заявление о подключении
               </a>
             </div>
@@ -34,9 +36,8 @@
       </div>
     </div>
   </section>
+
   @@include('templates/_lk_footer.html')
-  @@include('templates/_personal_data.html')
-  @@include('templates/_rules.html')
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/lk_send_request.js"></script>
 </body>
