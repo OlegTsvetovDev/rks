@@ -36,5 +36,19 @@ $(document).ready(function () {
     }
   }
 
-  initPseudoSelect();
+  document.querySelector('.__select') ? initPseudoSelect() : ''; // datepicker
+
+  function initDatepickers() {
+    $('.datepicker_input').datepicker($.datepicker.regional['ru']);
+  }
+
+  if (document.querySelector('.datepicker_input')) initDatepickers(); // маски
+
+  if (document.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999");
+  if (document.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99");
+  if (document.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999");
+  if (document.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999");
+  if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999");
+  if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999");
+  if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999");
 });

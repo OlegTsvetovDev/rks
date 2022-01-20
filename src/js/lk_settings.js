@@ -11,11 +11,12 @@ $(document).ready(function () {
           parentItem = menuItem.parent(),
           pathnameLastItem = pathname[pathname.length - 1];
       menuItemHref == pathnameLastItem ? parentItem.addClass('active') : parentItem.removeClass('active');
-    });
+    })
   }
+  setActiveMenuItem()
 
-  setActiveMenuItem(); // псевдо-селект
 
+  // псевдо-селект
   function initPseudoSelect() {
     var selectSingle = document.querySelector('.__select');
     var selectSingle_title = selectSingle.querySelector('.__select__title');
@@ -35,6 +36,22 @@ $(document).ready(function () {
       });
     }
   }
+  (document.querySelector('.__select')) ? initPseudoSelect() : ''
 
-  initPseudoSelect();
+
+  // datepicker
+  function initDatepickers() {
+    $('.datepicker_input').datepicker($.datepicker.regional['ru'])
+  }
+  if (document.querySelector('.datepicker_input')) initDatepickers()
+
+  // маски
+  if (document.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999")
+  if (document.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99")
+  if (document.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999")
+  if (document.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999")
+  if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999")
+  if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999")
+  if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999")
+
 });

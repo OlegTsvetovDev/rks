@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
   <link rel="stylesheet" href="css/slick.css">
+  <link rel="stylesheet" href="css/jquery-ui.min.css">
   <link rel="stylesheet" href="css/lk_styles.min.css">
   <title>Личный кабинет - Запросы и заявки | РКС</title>
 </head>
@@ -24,6 +25,21 @@
             <p class="form__status">Статус: Черновик</p>
             <p class="form__number">Номер: 123321</p>
             <p class="form__date">Дата и время регистрации: 01.01.2022</p>
+          </div>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="field__description required">Являюсь представителем</span>
+              <span class="label__block representative">
+                <label for="">
+                  <input type="radio" name="is_representative" class="radio yes" value="" />
+                  Да
+                </label>
+                <label for="">
+                  <input type="radio" name="is_representative" class="radio no" value="" checked />
+                  Нет
+                </label>
+              </span>
+            </label>
           </div>
           <div class="form__field">
             <label for="" class="field__label">
@@ -128,7 +144,7 @@
           </div>
           <div class="form__field">
             <label for="" class="field__label">
-              <span class="field__description">Основания возникновения права для лица на земельный участок *</span>
+              <span class="field__description required">Основания возникновения права для лица на земельный участок *</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
@@ -146,31 +162,31 @@
 
           <div class="form__field">
             <label for="" class="field__label">
-              <span class="field__description">Наименование *</span>
+              <span class="field__description required">Наименование *</span>
               <div type="text" class="field__input">Данные</div>
             </label>
           </div>
           <div class="form__field fr">
             <label for="" class="field__label">
-              <span class="field__description">Наименование полное *</span>
+              <span class="field__description required">Наименование полное *</span>
               <div type="text" class="field__input">Данные</div>
             </label>
           </div>
           <div class="form__field fr">
             <label for="" class="field__label">
-              <span class="field__description">Адрес юридический *</span>
+              <span class="field__description required">Адрес юридический *</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
           <div class="form__field">
             <label for="" class="field__label">
-              <span class="field__description">Адрес почтовый *</span>
+              <span class="field__description required">Адрес почтовый *</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
           <div class="form__field">
             <label for="" class="field__label">
-              <span class="field__description">Реквизиты нормативного правового акта *</span>
+              <span class="field__description required">Реквизиты нормативного правового акта *</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
@@ -181,19 +197,19 @@
           <h3 class="form__header">Контактные данные</h3>
           <div class="form__field">
             <label for="" class="field__label">
-              <span class="field__description">Телефон заявителя *</span>
-              <input type="text" class="field__input" placeholder="Введите данные" />
+              <span class="field__description required">Телефон заявителя *</span>
+              <input type="text" class="field__input phone_input" placeholder="Введите данные" />
             </label>
           </div>
           <div class="form__field fr">
             <label for="" class="field__label">
-              <span class="field__description">Электронный адрес заявителя *</span>
+              <span class="field__description required">Электронный адрес заявителя *</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description">Способ получения *</span>
+              <span class="field__description required">Способ получения *</span>
               <span class="label__block">
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" checked />
@@ -222,7 +238,7 @@
           <h5 class="form__subheader">Очередь №1</h5>
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description">Характеристика объекта подключения *</span>
+              <span class="field__description required">Характеристика объекта подключения *</span>
               <span class="label__block">
                 <label for="">
                   <input type="radio" name="connection_object_characteristics" class="radio" value="" checked />
@@ -240,7 +256,7 @@
             </label>
             <div class="form__field width_max">
               <label for="" class="field__label">
-                <span class="field__description">Тип объекта подключения *</span>
+                <span class="field__description required">Тип объекта подключения *</span>
                 <span class="label__block">
                   <label for="">
                     <input type="radio" name="connection_object_type" class="radio" value="" checked />
@@ -255,7 +271,7 @@
             </div>
             <div class="form__field width_max">
               <label for="" class="field__label">
-                <span class="field__description">Вид объекта подключения *</span>
+                <span class="field__description required">Вид объекта подключения *</span>
                 <span class="label__block">
                   <label for="">
                     <input type="radio" name="connection_object_kind" class="radio" value="" checked />
@@ -274,13 +290,13 @@
             </div>
             <div class="form__field">
               <label for="" class="field__label">
-                <span class="field__description">Адрес, населенный пункт *</span>
+                <span class="field__description required">Адрес, населенный пункт *</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
             </div>
             <div class="form__field fr">
               <label for="" class="field__label street">
-                <span class="field__description">Улица *</span>
+                <span class="field__description required">Улица *</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
               <label for="" class="field__label house">
@@ -290,7 +306,7 @@
             </div>
             <div class="form__field">
               <label for="" class="field__label district">
-                <span class="field__description">Район/Микрорайон *</span>
+                <span class="field__description required">Район/Микрорайон *</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
               <label for="" class="field__label housing">
@@ -300,19 +316,19 @@
             </div>
             <div class="form__field width_max">
               <label for="" class="field__label">
-                <span class="field__description">Адрес *</span>
+                <span class="field__description required">Адрес *</span>
                 <div class="field__input">Полученный адрес</div>
               </label>
             </div>
             <div class="form__field">
               <label for="" class="field__label">
-                <span class="field__description">Наименование объекта подключения *</span>
+                <span class="field__description required">Наименование объекта подключения *</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
             </div>
             <div class="form__field width_max">
               <label for="" class="field__label">
-                <span class="field__description">Требуется подключение к централизованной системе *</span>
+                <span class="field__description required">Требуется подключение к централизованной системе *</span>
                 <span class="label__block">
                   <label for="">
                     <input type="checkbox" name="connection_to_system" class="checkbox connection_to_cold_water" value="" />
@@ -327,7 +343,7 @@
             </div>
             <div class="form__field width_max">
               <label for="" class="field__label">
-                <span class="field__description">Необходимые виды ресурсов или услуг, планируемых к получению через централизованную систему *</span>
+                <span class="field__description required">Необходимые виды ресурсов или услуг, планируемых к получению через централизованную систему *</span>
                 <span class="label__block">
                   <label for="">
                     <input type="checkbox" name="" class="checkbox" value="" />
@@ -348,6 +364,12 @@
             </div>
             <div class="form__field fr">
               <label for="" class="field__label">
+                <span class="field__description">Этажность объекта</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <!-- <div class="form__field fr">
+              <label for="" class="field__label">
                 <span class="field__description">Площадь земельного участка</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
@@ -357,38 +379,44 @@
                 <span class="field__description">Вид разрешенного использования</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
+            </div> -->
+            <div class="form__field width_max">
+              <label for="" class="field__label">
+                <h6 class="form__subheader">Информация о предельных параметрах разрешенного строительства (реконструкции)  подключаемых  объектов,  соответствующих  указанному земельному участку:</h6>
+              </label>
+            </div>
+            <div class="form__field">
+              <label for="" class="field__label">
+                <span class="field__description required">Высота объекта *</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <div class="form__field fr">
+              <label for="" class="field__label">
+                <span class="field__description required">Этажность *</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <div class="form__field">
+              <label for="" class="field__label">
+                <span class="field__description required">Протяженность сети *</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <div class="form__field fr">
+              <label for="" class="field__label">
+                <span class="field__description required">Диаметр сети *</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
             </div>
             <div class="form__field width_max">
               <label for="" class="field__label">
-                <h6 class="form__subheader">Информация о предельных параметрах разрешенного строительства (реконструкции) подключаемого объекта</h6>
-              </label>
-            </div>
-            <div class="form__field">
-              <label for="" class="field__label">
-                <span class="field__description">Высота объекта *</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-            </div>
-            <div class="form__field fr">
-              <label for="" class="field__label">
-                <span class="field__description">Этажность *</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-            </div>
-            <div class="form__field">
-              <label for="" class="field__label">
-                <span class="field__description">Протяженность сети *</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-            </div>
-            <div class="form__field fr">
-              <label for="" class="field__label">
-                <span class="field__description">Диаметр сети *</span>
+                <span class="field__description">Примечание</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
             </div>
 
-            <div class="form__field width_max">
+            <!-- <div class="form__field width_max">
               <label for="" class="field__label">
                 <h6 class="form__subheader">Технические параметры подключаемого объекта:</h6>
               </label>
@@ -422,9 +450,9 @@
                 <span class="field__description">Расположение средств измерений и приборов учета холодной воды и сточных вод (при их наличии)</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
-            </div>
+            </div> -->
 
-            <div class="form__field other_water_sources width_max">
+            <!-- <div class="form__field other_water_sources width_max">
               <h6 class="table__description">Наличие иных источников водоснабжения кроме централизованных систем горячего и холодного водоснабжения *</h6>
               <table class="field__table">
                 <thead class="table__head">
@@ -449,9 +477,9 @@
                 </tbody>
               </table>
               <button class="btn dark_btn add_source_btn">Добавить источник</button>
-            </div>
+            </div> -->
 
-            <div class="form__field land_coverage_characteristics width_max">
+            <!-- <div class="form__field land_coverage_characteristics width_max">
               <h6 class="table__description">Информация о площади и характеристике покрытия земельного участка для сброса в ливневую систему водоотведения</h6>
               <table class="field__table">
                 <thead class="table__head">
@@ -472,14 +500,14 @@
                 </tbody>
               </table>
               <button class="btn dark_btn add_coverage_btn">Добавить источник</button>
-            </div>
+            </div> -->
 
-            <div class="form__field width_max">
+            <!-- <div class="form__field width_max">
               <label for="" class="field__label">
                 <span class="field__description">Примечание</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
-            </div>
+            </div> -->
 
             <div class="cold_water_supply_toggle">
               <div class="form__field width_max">
@@ -489,13 +517,13 @@
               </div>
               <div class="form__field">
                 <label for="" class="field__label">
-                  <span class="field__description">Подключаемая нагрузка (м3/сут) *</span>
+                  <span class="field__description required">Подключаемая нагрузка (м3/сут) *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
               <div class="form__field fr">
                 <label for="" class="field__label">
-                  <span class="field__description">Подключаемая нагрузка (м3/час) *</span>
+                  <span class="field__description required">Подключаемая нагрузка (м3/час) *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
@@ -614,13 +642,13 @@
               </div>
               <div class="form__field">
                 <label for="" class="field__label">
-                  <span class="field__description">Подключаемая нагрузка (м3/сут) *</span>
+                  <span class="field__description required">Подключаемая нагрузка (м3/сут) *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
               <div class="form__field fr">
                 <label for="" class="field__label">
-                  <span class="field__description">Подключаемая нагрузка (м3/час) *</span>
+                  <span class="field__description required">Подключаемая нагрузка (м3/час) *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
@@ -650,28 +678,28 @@
               </div>
               <div class="form__field">
                 <label for="" class="field__label">
-                  <span class="field__description">Максимальное водоотведение, м3/час *</span>
+                  <span class="field__description required">Максимальное водоотведение, м3/час *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
               <div class="form__field fr">
                 <label for="" class="field__label">
-                  <span class="field__description">Максимальное водоотведение, л/с *</span>
+                  <span class="field__description required">Максимальное водоотведение, л/с *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
               <div class="form__field">
                 <label for="" class="field__label">
-                  <span class="field__description">Максимальное водоотведение, м3/сут *</span>
+                  <span class="field__description required">Максимальное водоотведение, м3/сут *</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field width_max">
+              <!-- <div class="form__field width_max">
                 <label for="" class="field__label">
                   <span class="field__description">Примечание</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -685,7 +713,7 @@
             </label>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Общее положение об организации *</h6>
+            <h6 class="field__description required">Общее положение об организации *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
@@ -698,98 +726,70 @@
             </label>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Свидетельство о государственной регистрации права на земельный участок *</h6>
+            <h6 class="field__description required">Свидетельство о государственной регистрации права на земельный участок *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Договор аренды с отметкой о регистрации *</h6>
+            <h6 class="field__description required">Договор аренды с отметкой о регистрации *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Выписка из Единого государственного реестра недвижимости (земельный участок) *</h6>
+            <h6 class="field__description required">Выписка из Единого государственного реестра недвижимости (земельный участок) *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Договор о комплексном развитии территории *</h6>
+            <h6 class="field__description required">Разрешение на строительство *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Решение о предварительном согласовании предоставления земельного участка *</h6>
+            <h6 class="field__description required">Выписка из Единого государственного реестра недвижимости *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Проект межевания территории и (или) градостроительного плана земельного участка *</h6>
+            <h6 class="field__description required">Топографическая карта земельного участка в масштабе 1:500 *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Схема границ земель или части земельного участка на кадастровом плане территории *</h6>
+            <h6 class="field__description required">Разрешение на использование земель *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Разрешение на строительство *</h6>
+            <h6 class="field__description required">Схема границ земель или части земельного участка на кадастровом плане территории *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Выписка из Единого государственного реестра недвижимости *</h6>
+            <h6 class="field__description required">Градостроительный план земельного участка *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
             </div>
           </div>
           <div class="form__field add_files width_max">
-            <h6 class="field__description">Ситуационный план расположения объекта *</h6>
-            <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
-            </div>
-          </div>
-          <div class="form__field add_files width_max">
-            <h6 class="field__description">Топографическая карта земельного участка в масштабе 1:500 *</h6>
-            <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
-            </div>
-          </div>
-          <div class="form__field add_files width_max">
-            <h6 class="field__description">Баланс водопотребления и водоотведения подключаемого объекта *</h6>
-            <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
-            </div>
-          </div>
-          <div class="form__field add_files width_max">
-            <h6 class="field__description">Градостроительный план земельного участка *</h6>
-            <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
-            </div>
-          </div>
-          <div class="form__field add_files width_max">
-            <h6 class="field__description">Проект планировки территории</h6>
+            <h6 class="field__description required">Решение о предварительном согласовании предоставления земельного участка *</h6>
             <div class="field__control_btns">
               <a href="#" class="add_file_btn">Прикрепить файл</a>
               <a href="#" class="delete_file_btn"></a>
@@ -799,6 +799,63 @@
             <input value="Сформировать запрос" name="ecp_button" id="ecp_button" type="submit" class="btn submit_form ecp_button" tabindex="0">
             <input value="Сохранить как черновик" name="" type="submit" class="btn dark_btn save_form button_save_tmpl" tabindex="0">
           </div>
+
+          <div class="representative_add_docs_block hidden">
+            <div class="form__field width_max">
+              <label for="" class="field__label">
+                <h6 class="form__subheader">Документы представителя</h6>
+              </label>
+            </div>
+            <div class="form__field add_files width_max">
+              <h6 class="field__description">Доверенность *</h6>
+              <div class="field__control_btns">
+                <a href="#" class="add_file_btn">Прикрепить файл</a>
+                <a href="#" class="delete_file_btn"></a>
+              </div>
+            </div>
+            <div class="form__field add_files width_max">
+              <h6 class="field__description required">Паспорт/удостоверение личности *</h6>
+              <div class="field__control_btns">
+                <a href="#" class="add_file_btn">Прикрепить файл</a>
+                <a href="#" class="delete_file_btn"></a>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form__field add_files width_max">
+            <h6 class="field__description">Договор о комплексном развитии территории *</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
+            </div>
+          </div> -->
+          <!-- <div class="form__field add_files width_max">
+            <h6 class="field__description">Проект межевания территории и (или) градостроительного плана земельного участка *</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
+            </div>
+          </div> -->
+          <!-- <div class="form__field add_files width_max">
+            <h6 class="field__description">Ситуационный план расположения объекта *</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
+            </div>
+          </div> -->
+          <!-- <div class="form__field add_files width_max">
+            <h6 class="field__description">Баланс водопотребления и водоотведения подключаемого объекта *</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
+            </div>
+          </div> -->
+          <!-- <div class="form__field add_files width_max">
+            <h6 class="field__description">Проект планировки территории</h6>
+            <div class="field__control_btns">
+              <a href="#" class="add_file_btn">Прикрепить файл</a>
+              <a href="#" class="delete_file_btn"></a>
+            </div>
+          </div> -->
         </div>
       </form>
     </div>
@@ -807,6 +864,8 @@
   @@include('templates/_lk_footer.html')
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/slick.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.maskedinput.min.js"></script>
   <script src="js/lk_send_request.min.js"></script>
 </body>
 </html>

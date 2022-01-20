@@ -200,6 +200,10 @@ input[type="button"], .btn {
   }
 }
 
+.required:after {
+  content: ' *';
+}
+
 .clearfix {
   clear: both;
 }
@@ -1073,6 +1077,12 @@ input[type="button"], .btn {
             display: none;
           }
         }
+        .representative_add_docs_block {
+          display: block;
+          &.hidden {
+            display: none;
+          }
+        }
         .form__field {
           width: 49%;
           float: left;
@@ -1500,14 +1510,52 @@ input[type="button"], .btn {
               display: -webkit-flex;
               display: -ms-flex;
               display: flex;
-              .add_file_btn {
+              flex-direction: column;
+              justify-content: space-between;
+              width: 400px;
+              height: 100%;
+              .attachment__deltrigger {
+                visibility: hidden;
+                width: 1px;
+                height: 1px;
+              }
+              .attachment {
+                display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+                .attachment__item {
+                  margin-bottom: 20px;
+                  a, a:before, a:after, a:visited, a:hover {
+                    color: $mainColor;
+                    text-decoration: none;
+
+                  }
+                }
+              }
+              .add_files_button {
+                display: block;
+                text-align: right;
+                cursor: pointer;
                 color: $mainColor;
+                padding: 12px 0 12px 24px;
+                margin-bottom: 12px;
+                width: 100%;
+                overflow-wrap: break-word;
                 &:active, &:visited, &:hover {
                   color: $mainColor;
                 }
+                .fileinput {
+                  display: block;
+                  &.hidden {
+                    display: none;
+                  }
+                }
               }
               .delete_file_btn {
-                margin-left: 27px;
+                display: block;
+                cursor: pointer;
                 width: 16px;
                 height: 16px;
                 background: url('../img/control_btns/delete_icon.svg') no-repeat 0 0 /contain;
@@ -1688,7 +1736,7 @@ input[type="button"], .btn {
 
               }
               &.active {
-                transition: al .2s ease-on;
+                transition: all .2s ease-in;
                 background: url('../img/control_btns/show_more_icon_active.svg') no-repeat 100% center;
               }
 

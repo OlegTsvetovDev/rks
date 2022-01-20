@@ -134,6 +134,10 @@ input[type="button"],
   color: #3c54a5;
 }
 
+.required:after {
+  content: ' *';
+}
+
 .clearfix {
   clear: both;
 }
@@ -1252,6 +1256,14 @@ input[type="button"],
   display: none;
 }
 
+.main__content .requests_form .request__form .representative_add_docs_block {
+  display: block;
+}
+
+.main__content .requests_form .request__form .representative_add_docs_block.hidden {
+  display: none;
+}
+
 .main__content .requests_form .request__form .form__field {
   width: 49%;
   float: left;
@@ -1807,20 +1819,84 @@ input[type="button"],
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 400px;
+  height: 100%;
 }
 
-.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_file_btn {
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment__deltrigger {
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment .attachment__item {
+  margin-bottom: 20px;
+}
+
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment .attachment__item a,
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment .attachment__item a:before,
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment .attachment__item a:after,
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment .attachment__item a:visited,
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .attachment .attachment__item a:hover {
+  color: #3c54a5;
+  text-decoration: none;
+}
+
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_files_button {
+  display: block;
+  text-align: right;
+  cursor: pointer;
+  color: #3c54a5;
+  padding: 12px 0 12px 24px;
+  margin-bottom: 12px;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_files_button:active,
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_files_button:visited,
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_files_button:hover {
   color: #3c54a5;
 }
 
-.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_file_btn:active,
-.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_file_btn:visited,
-.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_file_btn:hover {
-  color: #3c54a5;
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_files_button .fileinput {
+  display: block;
+}
+
+.main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .add_files_button .fileinput.hidden {
+  display: none;
 }
 
 .main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .delete_file_btn {
-  margin-left: 27px;
+  display: block;
+  cursor: pointer;
   width: 16px;
   height: 16px;
   background: url("../img/control_btns/delete_icon.svg") no-repeat 0 0/contain;
@@ -2088,10 +2164,10 @@ input[type="button"],
 }
 
 .main__content .lk_requests__content .lk_requests__item .item__content .item__show_more.active {
-  -webkit-transition: al .2s ease-on;
-  -o-transition: al .2s ease-on;
-  -moz-transition: al .2s ease-on;
-  transition: al .2s ease-on;
+  -webkit-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  transition: all .2s ease-in;
   background: url("../img/control_btns/show_more_icon_active.svg") no-repeat 100% center;
 }
 
