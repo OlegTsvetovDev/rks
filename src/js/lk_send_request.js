@@ -1,10 +1,8 @@
-"use strict";
-
 $(document).ready(function() {
+  const body = $('body')
 
   // инициализация слайдера
   if (document.querySelector('.slider')) {
-
     $('.slider').slick({
       nextArrow: '<button type="button" class="slick-arrow slick-next btn dark_btn">Далее</button>',
       prevArrow: '<button type="button" class="slick-arrow slick-prev btn">Назад</button>',
@@ -46,15 +44,30 @@ $(document).ready(function() {
   });
 
 
-  // общая функция на обработку (добавление, удаление) строки таблицы после клика клика
-  // tableBody - ссылка на table body, action = 'add' / 'remove' (добавить/удалить)
-  // newRow - добавляемая строка, count - счетчик количества строк в таблице
-  // function handleTableChange(tableBody, action, newRow, count) {
-  //   if (action === 'add') {
-  //     tableBody.append(newRow)
-  //
-  //   }
-  // }
+  // Модалка "Скачать инструкцию"
+  function initModalDownloadInstructions() {
+    var instructionsBtn = $('.instructions__btn'),
+        instructionsModal = $('.modal_instructions'),
+        instructionsModalContent = $('.modal_instructions__content'),
+        instructionsModalClose = $('.modal_instructions .close')
+
+    instructionsBtn.click(function (e) {
+      e.preventDefault()
+      body.css('overflow', 'hidden')
+      instructionsModalContent.css('overflow-y', 'auto')
+      instructionsModalContent.css('overflow-x', 'hidden')
+      instructionsModal.removeClass('hidden')
+    })
+
+    instructionsModalClose.click(function (e) {
+      e.preventDefault()
+      body.css('overflow', 'auto')
+      instructionsModal.addClass('hidden')
+    })
+
+  }
+  initModalDownloadInstructions()
+
 
   // пересчет высоты слайдера
   // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), значение изменения

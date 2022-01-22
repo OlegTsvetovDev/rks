@@ -3,13 +3,13 @@
 $(document).ready(function () {
   // .lk_menu стили для пункта меню
   function setActiveMenuItem() {
-    var menuItems = $('.lk_menu__list_item a'),
-        pathname = window.location.pathname.split('/');
-    menuItems.each(function (i) {
-      var menuItem = $(this),
-          menuItemHref = menuItem.attr('href'),
-          parentItem = menuItem.parent(),
-          pathnameLastItem = pathname[pathname.length - 1];
+    var menuItems = $('.lk_menu__list_item a');
+    var pathname = window.location.pathname.split('/');
+    menuItems.each(function (e) {
+      var menuItem = $(this);
+      var menuItemHref = menuItem.attr('href');
+      var parentItem = menuItem.parent();
+      var pathnameLastItem = pathname[pathname.length - 1];
       menuItemHref == pathnameLastItem ? parentItem.addClass('active') : parentItem.removeClass('active');
     });
   }
@@ -39,7 +39,6 @@ $(document).ready(function () {
     });
   }
 
-  ;
   showTablesBlock(); // Модалка "Удалить"
 
   var body = $('body');
@@ -75,7 +74,6 @@ $(document).ready(function () {
     });
   }
 
-  ;
   initModalDeleteRequest(); // Модалка "Аннулировать"
 
   function initModalAnnulRequest() {
@@ -109,7 +107,6 @@ $(document).ready(function () {
     });
   }
 
-  ;
   initModalAnnulRequest(); // Модалка "Добавить ответ"
 
   function initModalAddAnswer() {
@@ -143,18 +140,60 @@ $(document).ready(function () {
     });
   }
 
-  ;
-  initModalAddAnswer(); // фильтр
+  initModalAddAnswer(); // Модалка "Скачать инструкцию"
 
-  function initFilter() {
-    var filterBtn = $('.filter__btn'),
-        filterInput = $('.filter__input');
-    filterBtn.click(function (e) {
+  function initModalDownloadInstructions() {
+    var instructionsBtn = $('.instructions__btn');
+    var instructionsModal = $('.modal_instructions');
+    var instructionsModalContent = $('.modal_instructions__content');
+    var instructionsModalClose = $('.modal_instructions .close');
+    instructionsBtn.click(function (e) {
       e.preventDefault();
-      filterInput.toggleClass('hidden');
-      filterBtn.toggleClass('active');
+      body.css('overflow', 'hidden');
+      instructionsModalContent.css('overflow-y', 'auto');
+      instructionsModalContent.css('overflow-x', 'hidden');
+      instructionsModal.removeClass('hidden');
+    });
+    instructionsModalClose.click(function (e) {
+      e.preventDefault();
+      body.css('overflow', 'auto');
+      instructionsModal.addClass('hidden');
     });
   }
 
-  initFilter();
+  initModalDownloadInstructions(); // тогл фильтра
+
+  function initFilter() {
+    var filterBtn = $('.filter__btn');
+    var filterInput = $('.filter__input');
+    filterBtn.click(function (e) {
+      e.preventDefault();
+      setTimeout(function () {
+        filterInput.toggleClass('hidden');
+        filterBtn.toggleClass('active');
+      }, 200);
+    });
+  }
+
+  initFilter(); // тогл сортировки
+
+  function initSort() {
+    var sortBtn = $('.sort__btn');
+    var sortContent = $('.sort__content');
+    var radioBtn = $('.radio');
+    sortBtn.click(function (e) {
+      e.preventDefault();
+      sortContent.toggleClass('hidden');
+      sortBtn.toggleClass('active');
+    });
+    radioBtn.click(function (e) {
+      // функция обработки сортировки
+      setTimeout(function () {
+        sortContent.toggleClass('hidden');
+        sortBtn.toggleClass('active');
+      }, 200);
+    });
+  }
+
+  initSort();
 });

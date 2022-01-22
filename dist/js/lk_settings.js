@@ -1,7 +1,8 @@
 "use strict";
 
 $(document).ready(function () {
-  // .lk_menu стили для пункта меню
+  var body = $('body'); // .lk_menu стили для пункта меню
+
   function setActiveMenuItem() {
     var menuItems = $('.lk_menu__list_item a'),
         pathname = window.location.pathname.split('/');
@@ -36,7 +37,28 @@ $(document).ready(function () {
     }
   }
 
-  document.querySelector('.__select') ? initPseudoSelect() : ''; // datepicker
+  document.querySelector('.__select') ? initPseudoSelect() : ''; // Модалка "Скачать инструкцию"
+
+  function initModalDownloadInstructions() {
+    var instructionsBtn = $('.instructions__btn'),
+        instructionsModal = $('.modal_instructions'),
+        instructionsModalContent = $('.modal_instructions__content'),
+        instructionsModalClose = $('.modal_instructions .close');
+    instructionsBtn.click(function (e) {
+      e.preventDefault();
+      body.css('overflow', 'hidden');
+      instructionsModalContent.css('overflow-y', 'auto');
+      instructionsModalContent.css('overflow-x', 'hidden');
+      instructionsModal.removeClass('hidden');
+    });
+    instructionsModalClose.click(function (e) {
+      e.preventDefault();
+      body.css('overflow', 'auto');
+      instructionsModal.addClass('hidden');
+    });
+  }
+
+  initModalDownloadInstructions(); // datepicker
 
   function initDatepickers() {
     $('.datepicker_input').datepicker($.datepicker.regional['ru']);

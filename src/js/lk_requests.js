@@ -2,19 +2,23 @@ $(document).ready(function() {
 
   // .lk_menu стили для пункта меню
   function setActiveMenuItem() {
-    const menuItems = $('.lk_menu__list_item a'),
-          pathname = window.location.pathname.split('/');
+    const menuItems = $('.lk_menu__list_item a')
+    const pathname = window.location.pathname.split('/')
 
-    menuItems.each(function(i) {
-      const menuItem = $(this),
-            menuItemHref = menuItem.attr('href'),
-            parentItem = menuItem.parent(),
-            pathnameLastItem = pathname[pathname.length - 1];
+    menuItems.each(function(e) {
+      const menuItem = $(this)
+      const menuItemHref = menuItem.attr('href')
+      const parentItem = menuItem.parent()
+      const pathnameLastItem = pathname[pathname.length - 1];
 
-      (menuItemHref == pathnameLastItem) ? parentItem.addClass('active') : parentItem.removeClass('active');
-    });
+      (menuItemHref == pathnameLastItem) ?
+        parentItem.addClass('active') :
+        parentItem.removeClass('active')
+    })
+
   }
-  setActiveMenuItem();
+  setActiveMenuItem()
+
 
   // показ меню
   // function toggleMenu() {
@@ -32,20 +36,21 @@ $(document).ready(function() {
   // };
   // toggleMenu();
 
+
   // показ блока таблиц
   function showTablesBlock() {
-    const itemShowMore = $('.item__show_more');
+    const itemShowMore = $('.item__show_more')
 
     itemShowMore.click(function() {
-      $(this).toggleClass('active');
-      $(this).parent().next().toggleClass('hidden');
+      $(this).toggleClass('active')
+      $(this).parent().next().toggleClass('hidden')
     })
-  };
-  showTablesBlock();
+  }
+  showTablesBlock()
 
 
   // Модалка "Удалить"
-  const body = $('body');
+  const body = $('body')
 
   function initModalDeleteRequest() {
     const deleteRequest = $('.control_btns__link.delete_icon'),
@@ -61,19 +66,19 @@ $(document).ready(function() {
       deleteRequestModalContent.css('overflow-y', 'auto');
       deleteRequestModalContent.css('overflow-x', 'hidden');
       deleteRequestModal.removeClass('hidden');
-    });
+    })
 
     deleteRequestModalClose.click(function(e) {
       e.preventDefault();
       body.css('overflow', 'auto');
       deleteRequestModal.addClass('hidden');
-    });
+    })
 
     deleteRequestModalCancel.click(function(e) {
       e.preventDefault();
       body.css('overflow', 'auto');
       deleteRequestModal.addClass('hidden');
-    });
+    })
 
     deleteRequestModalSubmit.click(function(e) {
       e.preventDefault();
@@ -84,8 +89,8 @@ $(document).ready(function() {
 
     })
 
-  };
-  initModalDeleteRequest();
+  }
+  initModalDeleteRequest()
 
 
   // Модалка "Аннулировать"
@@ -126,8 +131,8 @@ $(document).ready(function() {
 
     })
 
-  };
-  initModalAnnulRequest();
+  }
+  initModalAnnulRequest()
 
 
   // Модалка "Добавить ответ"
@@ -168,20 +173,76 @@ $(document).ready(function() {
 
     })
 
-  };
-  initModalAddAnswer();
+  }
+  initModalAddAnswer()
 
- // фильтр
+
+  // Модалка "Скачать инструкцию"
+  function initModalDownloadInstructions() {
+    const instructionsBtn = $('.instructions__btn')
+    const instructionsModal = $('.modal_instructions')
+    const instructionsModalContent = $('.modal_instructions__content')
+    const instructionsModalClose = $('.modal_instructions .close')
+
+    instructionsBtn.click(function (e) {
+      e.preventDefault()
+      body.css('overflow', 'hidden')
+      instructionsModalContent.css('overflow-y', 'auto')
+      instructionsModalContent.css('overflow-x', 'hidden')
+      instructionsModal.removeClass('hidden')
+    })
+
+    instructionsModalClose.click(function (e) {
+      e.preventDefault()
+      body.css('overflow', 'auto')
+      instructionsModal.addClass('hidden')
+    })
+
+  }
+  initModalDownloadInstructions()
+
+
+ // тогл фильтра
   function initFilter() {
-    const filterBtn = $('.filter__btn'),
-          filterInput = $('.filter__input')
+    const filterBtn = $('.filter__btn')
+    const filterInput = $('.filter__input')
 
     filterBtn.click(function (e) {
       e.preventDefault()
-      filterInput.toggleClass('hidden')
-      filterBtn.toggleClass('active')
+      setTimeout(function () {
+        filterInput.toggleClass('hidden')
+        filterBtn.toggleClass('active')
+      }, 200)
     })
   }
   initFilter()
+
+  // тогл сортировки
+   function initSort() {
+     const sortBtn = $('.sort__btn')
+     const sortContent = $('.sort__content')
+     const radioBtn = $('.radio')
+
+     sortBtn.click(function (e) {
+       e.preventDefault()
+       sortContent.toggleClass('hidden')
+       sortBtn.toggleClass('active')
+     })
+
+     radioBtn.click(function (e) {
+
+
+       // функция обработки сортировки
+
+       setTimeout(() => {
+         sortContent.toggleClass('hidden')
+         sortBtn.toggleClass('active')
+       }, 200)
+     })
+
+   }
+   initSort()
+
+
 
 });

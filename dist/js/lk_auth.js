@@ -4,7 +4,7 @@ $(document).ready(function () {
   // Модалка "Восстановление пароля"
   var body = $('body');
 
-  function openModalRestorePswd() {
+  function initModalRestorePswd() {
     var restorePswd = $('.restore_pswd'),
         restorePswdModal = $('.modal_pswd_restore'),
         restorePswdModalContent = $('.modal_pswd_restore__content'),
@@ -23,5 +23,26 @@ $(document).ready(function () {
     });
   }
 
-  openModalRestorePswd();
+  initModalRestorePswd(); // Модалка "Скачать инструкцию"
+
+  function initModalDownloadInstructions() {
+    var instructionsBtn = $('.instructions__btn'),
+        instructionsModal = $('.modal_instructions'),
+        instructionsModalContent = $('.modal_instructions__content'),
+        instructionsModalClose = $('.modal_instructions .close');
+    instructionsBtn.click(function (e) {
+      e.preventDefault();
+      body.css('overflow', 'hidden');
+      instructionsModalContent.css('overflow-y', 'auto');
+      instructionsModalContent.css('overflow-x', 'hidden');
+      instructionsModal.removeClass('hidden');
+    });
+    instructionsModalClose.click(function (e) {
+      e.preventDefault();
+      body.css('overflow', 'auto');
+      instructionsModal.addClass('hidden');
+    });
+  }
+
+  initModalDownloadInstructions();
 });

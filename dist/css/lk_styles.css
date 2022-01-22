@@ -509,6 +509,80 @@ input[type="button"],
   background-color: rgba(181, 194, 217, 0.29);
 }
 
+.ui-datepicker-header .ui-datepicker-prev {
+  cursor: pointer;
+  top: 3px;
+  left: 3px;
+}
+
+.ui-datepicker-header .ui-datepicker-prev .ui-icon {
+  background: url("../img/control_btns/arrow_left.svg") no-repeat center;
+}
+
+.ui-datepicker-header .ui-datepicker-prev .ui-icon.ui-state-hover {
+  border: none !important;
+}
+
+.ui-datepicker-header .ui-datepicker-prev.ui-state-hover {
+  border: none !important;
+  top: 3px;
+  left: 3px;
+}
+
+.ui-datepicker-header .ui-datepicker-next {
+  cursor: pointer;
+  top: 3px;
+  right: 3px;
+}
+
+.ui-datepicker-header .ui-datepicker-next .ui-icon {
+  background: url("../img/control_btns/arrow_right.svg") no-repeat center;
+}
+
+.ui-datepicker-header .ui-datepicker-next .ui-icon.ui-state-hover {
+  border: none !important;
+}
+
+.ui-datepicker-header .ui-datepicker-next.ui-state-hover {
+  border: none !important;
+  top: 3px;
+  right: 3px;
+}
+
+.ui-datepicker-header .ui-datepicker-title {
+  color: #3c54a5;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+}
+
+.ui-datepicker .ui-datepicker-calendar thead tr th {
+  color: #3c54a5;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+}
+
+.ui-datepicker .ui-datepicker-calendar tbody tr td .ui-state-default {
+  color: #3c54a5;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+  border: 2px solid white;
+  background: white;
+  text-align: center;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 21px;
+}
+
+.ui-datepicker .ui-datepicker-calendar tbody tr td .ui-state-hover {
+  -webkit-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  background: #3c54a5;
+  color: white;
+  border: 2px solid #41b9e6;
+}
+
 .main.index .main__content.index__content {
   width: 1209px;
   margin: 0 auto;
@@ -655,7 +729,7 @@ input[type="button"],
   flex-direction: column;
 }
 
-.header__content .header__top .header__instructions .instructions__link {
+.header__content .header__top .header__instructions .instructions__btn {
   margin-bottom: 12px;
   padding-left: 39px;
   line-height: 26px;
@@ -1997,7 +2071,7 @@ input[type="button"],
   -webkit-column-gap: 30px;
   -moz-column-gap: 30px;
   column-gap: 30px;
-  margin-top: -3px;
+  margin-top: -9px;
 }
 
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block .filter__btn {
@@ -2013,7 +2087,8 @@ input[type="button"],
 }
 
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.filter .filter__block .filter__input {
-  padding: 6px 12px;
+  padding: 12px 24px;
+  width: 300px;
   border: 1px solid rgba(60, 84, 165, 0.3);
   opacity: 1;
   visibility: visible;
@@ -2034,7 +2109,125 @@ input[type="button"],
 }
 
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort {
-  background: url("../img/control_btns/sort.svg") no-repeat center center;
+  position: relative;
+  width: auto;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-column-gap: 30px;
+  -moz-column-gap: 30px;
+  column-gap: 30px;
+  position: relative;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__btn {
+  background: url("../img/control_btns/sort.svg") no-repeat center;
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__btn.active {
+  background: url("../img/control_btns/sort_active.svg") no-repeat center;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 12px;
+  -moz-column-gap: 12px;
+  column-gap: 12px;
+  padding: 18px 28px;
+  background: white;
+  border: 1px solid #41b9e6;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  visibility: visible;
+  -webkit-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  color: #3c54a5;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content.hidden {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content .sort__column {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 200px;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content .sort__column .column__header {
+  margin-bottom: 12px;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content .sort__column .column__row {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -moz-box-orient: horizontal;
+  -moz-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content .sort__column .column__row .radio {
+  margin-right: 8px;
 }
 
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.cancel {
@@ -2388,11 +2581,15 @@ input[type="button"],
   z-index: -1;
 }
 
+.modal__content.hidden {
+  display: none;
+}
+
 .modal__content.modal_rules__content,
 .modal__content.modal_personal_data__content,
 .modal__content.modal_alert__content {
   max-width: 1209px;
-  padding: 110px 107px 100px;
+  padding: 112px 107px 110px;
 }
 
 .modal__content.modal_pswd_restore__content,
@@ -2402,9 +2599,49 @@ input[type="button"],
 .modal__content.modal_delete_request__content,
 .modal__content.modal_annul_request__content,
 .modal__content.modal_add_answer__content,
-.modal__content.modal_delete_file__content {
-  width: 612px;
-  padding: 112px 107px 100px;
+.modal__content.modal_delete_file__content,
+.modal__content.modal_instructions__content {
+  padding: 112px 107px 110px;
+}
+
+.modal__content.modal_pswd_restore__content .modal__header,
+.modal__content.modal_change_email__content .modal__header,
+.modal__content.modal_change_phone__content .modal__header,
+.modal__content.modal_change_pswd__content .modal__header,
+.modal__content.modal_delete_request__content .modal__header,
+.modal__content.modal_annul_request__content .modal__header,
+.modal__content.modal_add_answer__content .modal__header,
+.modal__content.modal_delete_file__content .modal__header,
+.modal__content.modal_instructions__content .modal__header {
+  margin-bottom: 64px;
+}
+
+.modal__content.modal_instructions__content .modal__text {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.modal__content.modal_instructions__content .modal__text .instructions__link {
+  margin-bottom: 27px;
+  padding-left: 39px;
+  line-height: 26px;
+  height: 27px;
+  font-size: 18px;
+  -webkit-text-decoration: underline rgba(60, 84, 165, 0.3);
+  -moz-text-decoration: underline rgba(60, 84, 165, 0.3);
+  text-decoration: underline rgba(60, 84, 165, 0.3);
+  background: url("../img/control_btns/file.svg") no-repeat 0 0;
 }
 
 .modal__content.modal_add_answer__content .modal__form {
@@ -2456,10 +2693,6 @@ input[type="button"],
   margin-left: 10px;
 }
 
-.modal__content.hidden {
-  display: none;
-}
-
 .modal__content .close {
   cursor: pointer;
   position: absolute;
@@ -2473,6 +2706,7 @@ input[type="button"],
 .modal__content .modal__header {
   display: block;
   color: black;
+  font-size: 30px;
   margin-bottom: 44px;
 }
 
@@ -2799,7 +3033,8 @@ input[type="button"],
   .modal__content.modal_delete_request__content,
   .modal__content.modal_annul_request__content,
   .modal__content.modal_add_answer__content,
-  .modal__content.modal_delete_file__content {
+  .modal__content.modal_delete_file__content,
+  .modal__content.modal_instructions__content {
     width: 100%;
     padding: 61px 52px 50px;
   }
@@ -2848,7 +3083,8 @@ input[type="button"],
   .modal__content.modal_delete_request__content,
   .modal__content.modal_annul_request__content,
   .modal__content.modal_add_answer__content,
-  .modal__content.modal_delete_file__content {
+  .modal__content.modal_delete_file__content,
+  .modal__content.modal_instructions__content {
     padding: 61px 52px 50px;
   }
 
