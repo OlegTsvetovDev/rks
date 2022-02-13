@@ -20,10 +20,18 @@ $(document).ready(function () {
         selectSingle_title.textContent = e.target.textContent;
         selectSingle.setAttribute('data-state', '');
       });
-    }
+    } // скрытие при клике по body кроме .__select
+
+
+    var body = document.querySelector('body');
+    body.addEventListener('click', function (e) {
+      var eClassList = e.target.classList;
+      var trigger = eClassList[0] !== '__select__title' && eClassList[0] !== '__select__content' && eClassList[0] !== '__select__input';
+      if (trigger) selectSingle.setAttribute('data-state', '');
+    });
   }
 
-  initPseudoSelect(); // Модалка "Согласие на обработку персональных данных"
+  if (document.querySelector('.__select')) initPseudoSelect(); // Модалка "Согласие на обработку персональных данных"
 
   function initModalPersonalData() {
     var personalData = $('.personal_agreement__label .personal_data');
@@ -44,7 +52,7 @@ $(document).ready(function () {
     });
   }
 
-  initModalPersonalData(); // Модалка "Правила пользования интерактивным сервисом"
+  if (document.querySelector('.personal_agreement__label')) initModalPersonalData(); // Модалка "Правила пользования интерактивным сервисом"
 
   function initModalRules() {
     var rules = $('.personal_agreement__label .rules');
@@ -65,7 +73,7 @@ $(document).ready(function () {
     });
   }
 
-  initModalRules(); // Модалка "Скачать инструкцию"
+  if (document.querySelector('.personal_agreement__label')) initModalRules(); // Модалка "Скачать инструкцию"
 
   function initModalDownloadInstructions() {
     var instructionsBtn = $('.instructions__btn');
@@ -86,5 +94,5 @@ $(document).ready(function () {
     });
   }
 
-  initModalDownloadInstructions();
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions();
 });

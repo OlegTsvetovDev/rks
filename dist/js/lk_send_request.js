@@ -32,7 +32,15 @@ $(document).ready(function () {
         selectSingle_title.textContent = e.target.textContent;
         selectSingle.setAttribute('data-state', '');
       });
-    }
+    } // скрытие при клике по body кроме .__select
+
+
+    var body = document.querySelector('body');
+    body.addEventListener('click', function (e) {
+      var eClassList = e.target.classList;
+      var trigger = eClassList[0] !== '__select__title' && eClassList[0] !== '__select__content' && eClassList[0] !== '__select__input';
+      if (trigger) selectSingle.setAttribute('data-state', '');
+    });
   }
 
   if (document.querySelector('.__select')) initPseudoSelect(); // переключение блоков в "Запуск по очередям", слайдер 1
@@ -63,7 +71,7 @@ $(document).ready(function () {
   }
 
   initModalDownloadInstructions(); // пересчет высоты слайдера
-  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), значение изменения
+  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
 
   function changeSliderHeight(action, value) {
     var slickList = document.querySelector('.slick-list');
@@ -84,7 +92,13 @@ $(document).ready(function () {
     event.preventDefault();
     queue_tbody.append(new_row);
     queue_count += 1;
-    changeSliderHeight('increase', 39);
+    changeSliderHeight('increase', 39); // инициализация дейтпикера на последней добавленной строке
+
+    var lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input');
+    lastChildDatepicker.datepicker($.datepicker.regional['ru']);
+    lastChildDatepicker.mask("99.99.9999", {
+      autoclear: false
+    });
   }); // удаление новых строк в таблицу с очередями, слайдер 1
 
   $('.queue_btn_remove').click(function (event) {
@@ -110,7 +124,7 @@ $(document).ready(function () {
   $('.add_source_btn_remove').click(function (event) {
     event.preventDefault();
 
-    if (water_source_count > 3) {
+    if (water_source_count > 2) {
       water_source_tbody.children().last().remove();
       water_source_count -= 1;
       changeSliderHeight('decrease', 39);
@@ -125,12 +139,12 @@ $(document).ready(function () {
     land_coverage_tbody.append(new_row);
     land_coverage_count++;
     changeSliderHeight('increase', 39);
-  }); // удаление новых строк в таблицу с характеристиками земельных участков, слайдер 4
+  }); // удаление новых строк в таблице с характеристиками земельных участков, слайдер 4
 
   $('.add_coverage_btn_remove').click(function (event) {
     event.preventDefault();
 
-    if (land_coverage_count > 3) {
+    if (land_coverage_count > 2) {
       land_coverage_tbody.children().last().remove();
       land_coverage_count -= 1;
       changeSliderHeight('decrease', 39);
@@ -143,13 +157,33 @@ $(document).ready(function () {
 
   if (document.querySelector('.datepicker_input')) initDatepickers(); // маски
 
-  if (document.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999");
-  if (document.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99");
-  if (document.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999");
-  if (document.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999");
-  if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999");
-  if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999");
-  if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999"); // Блок "Являюсь представителем"
+  if (document.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999", {
+    autoclear: false
+  });
+  if (document.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99", {
+    autoclear: false
+  });
+  if (document.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999", {
+    autoclear: false
+  });
+  if (document.querySelector('.passport_serial_input')) $('.passport_serial_input').mask("99 99", {
+    autoclear: false
+  });
+  if (document.querySelector('.passport_number_input')) $('.passport_number_input').mask("999999", {
+    autoclear: false
+  });
+  if (document.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999", {
+    autoclear: false
+  });
+  if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", {
+    autoclear: false
+  });
+  if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", {
+    autoclear: false
+  });
+  if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", {
+    autoclear: false
+  }); // Блок "Являюсь представителем"
 
   function initCheckRepresentative() {
     var representativeBlock = document.querySelector('.representative');
@@ -164,5 +198,41 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.representative')) initCheckRepresentative();
+  if (document.querySelector('.representative')) initCheckRepresentative(); // Блок "Холодное водоснабжение"
+
+  function initColdWaterSupply() {
+    var connectionToColdWater = document.querySelector('.connection_to_cold_water');
+    var coldWaterBlock = document.querySelector('.cold_water_supply_toggle');
+    connectionToColdWater.addEventListener('change', function () {
+      if (connectionToColdWater.checked) {
+        coldWaterBlock.classList.remove('hidden'); // высота каждой строки = 103px - 120px + отступ снизу
+        // добавить пересчет высоты слайдера на основании сгенерированной высоты элементов
+
+        changeSliderHeight('increase', 1250);
+      } else {
+        coldWaterBlock.classList.add('hidden');
+        changeSliderHeight('decrease', 1250);
+      }
+    }); // добавить пересчет высоты слайдера
+  }
+
+  if (document.querySelector('.connection_to_cold_water')) initColdWaterSupply(); // Блок "Водоотведение"
+
+  function initDrainage() {
+    var connectionToDrainage = document.querySelector('.connection_to_drainage');
+    var drainageBlock = document.querySelector('.drainage_toggle');
+    connectionToDrainage.addEventListener('change', function () {
+      if (connectionToDrainage.checked) {
+        drainageBlock.classList.remove('hidden'); // высота каждой строки = 103px - 120px + отступ снизу
+        // добавить пересчет высоты слайдера на основании сгенерированной высоты элементов
+
+        changeSliderHeight('increase', 650);
+      } else {
+        drainageBlock.classList.add('hidden');
+        changeSliderHeight('decrease', 650);
+      }
+    });
+  }
+
+  if (document.querySelector('.connection_to_drainage')) initDrainage();
 });

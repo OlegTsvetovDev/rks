@@ -2,9 +2,9 @@
 
 $(document).ready(function () {
   // Модалка "Ошибка"
-  var body = $('body');
+  const body = $('body');
 
-  function openModalAlert() {
+  function initModalAlert() {
     var alert = $('.alert'),
         alertModal = $('.modal_alert'),
         alertModalContent = $('.modal_alert__content'),
@@ -28,6 +28,6 @@ $(document).ready(function () {
       alertModal.addClass('hidden');
     });
   }
+  initModalAlert()
 
-  openModalAlert();
 });

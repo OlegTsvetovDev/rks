@@ -75,72 +75,86 @@ $(document).ready(function () {
   }
 
   initModalDeleteRequest(); // Модалка "Аннулировать"
-
-  function initModalAnnulRequest() {
-    var annulRequest = $('.control_btns__link.annul_icon'),
-        annulRequestModal = $('.modal_annul_request'),
-        annulRequestModalContent = $('.modal_annul_request__content'),
-        annulRequestModalClose = $('.modal_annul_request .close'),
-        annulRequestModalCancel = $('.modal_annul_request .cancel'),
-        annulRequestModalSubmit = $('.modal_annul_request .submit');
-    annulRequest.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'hidden');
-      annulRequestModalContent.css('overflow-y', 'auto');
-      annulRequestModalContent.css('overflow-x', 'hidden');
-      annulRequestModal.removeClass('hidden');
-    });
-    annulRequestModalClose.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      annulRequestModal.addClass('hidden');
-    });
-    annulRequestModalCancel.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      annulRequestModal.addClass('hidden');
-    });
-    annulRequestModalSubmit.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      annulRequestModal.addClass('hidden'); // обработчик аннулирования запроса/заявки
-    });
-  }
-
-  initModalAnnulRequest(); // Модалка "Добавить ответ"
-
-  function initModalAddAnswer() {
-    var addAnswer = $('.add_answer__button'),
-        addAnswerModal = $('.modal_add_answer'),
-        addAnswerModalContent = $('.modal_add_answer__content'),
-        addAnswerModalClose = $('.modal_add_answer .close'),
-        addAnswerModalCancel = $('.modal_add_answer .cancel'),
-        addAnswerModalSubmit = $('.modal_add_answer .submit');
-    addAnswer.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'hidden');
-      addAnswerModalContent.css('overflow-y', 'auto');
-      addAnswerModalContent.css('overflow-x', 'hidden');
-      addAnswerModal.removeClass('hidden');
-    });
-    addAnswerModalClose.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      addAnswerModal.addClass('hidden');
-    });
-    addAnswerModalCancel.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      addAnswerModal.addClass('hidden');
-    });
-    addAnswerModalSubmit.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      addAnswerModal.addClass('hidden'); // обработчик отправки добавления ответа на сервер
-    });
-  }
-
-  initModalAddAnswer(); // Модалка "Скачать инструкцию"
+  // function initModalAnnulRequest() {
+  //   const annulRequest = $('.control_btns__link.annul_icon'),
+  //         annulRequestModal = $('.modal_annul_request'),
+  //         annulRequestModalContent = $('.modal_annul_request__content'),
+  //         annulRequestModalClose = $('.modal_annul_request .close'),
+  //         annulRequestModalCancel = $('.modal_annul_request .cancel'),
+  //         annulRequestModalSubmit = $('.modal_annul_request .submit');
+  //
+  //   annulRequest.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'hidden');
+  //     annulRequestModalContent.css('overflow-y', 'auto');
+  //     annulRequestModalContent.css('overflow-x', 'hidden');
+  //     annulRequestModal.removeClass('hidden');
+  //   });
+  //
+  //   annulRequestModalClose.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'auto');
+  //     annulRequestModal.addClass('hidden');
+  //   });
+  //
+  //   annulRequestModalCancel.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'auto');
+  //     annulRequestModal.addClass('hidden');
+  //   });
+  //
+  //   annulRequestModalSubmit.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'auto');
+  //     annulRequestModal.addClass('hidden');
+  //
+  //     // обработчик аннулирования запроса/заявки
+  //
+  //   })
+  //
+  // }
+  // initModalAnnulRequest()
+  // Модалка "Добавить ответ"
+  // function initModalAddAnswer() {
+  //   const addAnswer = $('.add_answer__button'),
+  //         addAnswerModal = $('.modal_add_answer'),
+  //         addAnswerModalContent = $('.modal_add_answer__content'),
+  //         addAnswerModalClose = $('.modal_add_answer .close'),
+  //         addAnswerModalCancel = $('.modal_add_answer .cancel'),
+  //         addAnswerModalSubmit = $('.modal_add_answer .submit');
+  //
+  //   addAnswer.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'hidden');
+  //     addAnswerModalContent.css('overflow-y', 'auto');
+  //     addAnswerModalContent.css('overflow-x', 'hidden');
+  //     addAnswerModal.removeClass('hidden');
+  //   });
+  //
+  //   addAnswerModalClose.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'auto');
+  //     addAnswerModal.addClass('hidden');
+  //   });
+  //
+  //   addAnswerModalCancel.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'auto');
+  //     addAnswerModal.addClass('hidden');
+  //   });
+  //
+  //   addAnswerModalSubmit.click(function(e) {
+  //     e.preventDefault();
+  //     body.css('overflow', 'auto');
+  //     addAnswerModal.addClass('hidden');
+  //
+  //     // обработчик отправки добавления ответа на сервер
+  //
+  //   })
+  //
+  // }
+  // initModalAddAnswer()
+  // Модалка "Скачать инструкцию"
 
   function initModalDownloadInstructions() {
     var instructionsBtn = $('.instructions__btn');
@@ -161,7 +175,7 @@ $(document).ready(function () {
     });
   }
 
-  initModalDownloadInstructions(); // тогл фильтра
+  initModalDownloadInstructions(); // тогл фильтра в Реестре
 
   function initFilter() {
     var filterBtn = $('.filter__btn');
@@ -175,7 +189,7 @@ $(document).ready(function () {
     });
   }
 
-  initFilter(); // тогл сортировки
+  initFilter(); // тогл сортировки в Реестре
 
   function initSort() {
     var sortBtn = $('.sort__btn');

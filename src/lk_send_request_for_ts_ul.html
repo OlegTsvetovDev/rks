@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/slick.css">
   <link rel="stylesheet" href="css/jquery-ui.min.css">
   <link rel="stylesheet" href="css/lk_styles.min.css">
-  <title>Личный кабинет - Запросы и заявки | РКС</title>
+  <title>Личный кабинет - Подать заявление | РКС</title>
 </head>
 <body>
   @@include('templates/_lk_header.html')
@@ -99,6 +99,7 @@
               </tbody>
             </table>
             <button class="btn dark_btn queue_btn">Добавить очередь</button>
+            <button class="btn queue_btn_remove">Удалить очередь</button>
           </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
@@ -233,12 +234,13 @@
                 </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
-                  По электронной почте
+                  По электронной почте *
                 </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
                   Письмом посредством почтовой связи
                 </label>
+                <span class="field__comment">Получение ТУ по электронной почте возможно в случае подписания Заявления в личном кабинете с использованием КЭП</span>
               </span>
             </label>
           </div>
@@ -521,7 +523,7 @@
               </label>
             </div> -->
 
-            <div class="cold_water_supply_toggle">
+            <div class="cold_water_supply_toggle hidden">
               <div class="form__field width_max">
                 <label for="" class="field__label">
                   <h6 class="form__subheader">Данные о подключаемой нагрузке (Холодное водоснабжение)</h6>
@@ -646,7 +648,7 @@
               </div>
             </div>
 
-            <div class="drainage__toggle">
+            <div class="drainage_toggle hidden">
               <div class="form__field width_max">
                 <label for="" class="field__label">
                   <h6 class="form__subheader">Данные о подключаемой нагрузке (Водоотведение)</h6>
@@ -724,53 +726,222 @@
               <h6 class="form__subheader">Документы о заявителе</h6>
             </label>
           </div>
+
           <div class="form__field add_files width_max">
-            <h6 class="field__description required">Устав</h6>
+            <h6 class="field__description">Устав</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
+              <input type="checkbox" class="attachment__deltrigger hidden" value="f1f473b0-3073-4be4-ab65-82b00432b6cc" name="deletefile">
+              <div class="attachment attachment__item_f1f473b0-3073-4be4-ab65-82b00432b6cc">
+                <div class="attachment__item">
+                  <a href="">
+                    Устав.png (295 Кб)
+                  </a>
+                </div>
+                <label data-target-modal-file="confirm_f1f473b0-3073-4be4-ab65-82b00432b6cc" class="attachment__del attachment__label__del delete_file_btn" for="f1f473b0-3073-4be4-ab65-82b00432b6cc">
+
+                </label>
+              </div>
+              <div class="modal modal_delete_file hidden">
+                <div class="modal__content modal_delete_file__content modal__dialog">
+                  <div class="close modal__close modaldelfileclose"></div>
+                  <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                  <div class="form__field normativedoc-button">
+                    <button type="button" class="btn form__button button submit">
+                      Согласен
+                    </button>
+                    <a class="btn form__button button cancel">
+                      Отмена
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- <div class="form__field add_files width_max">
-            <h6 class="field__description">Протокол (решение) о создании общества</h6>
-            <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
-            </div>
-          </div> -->
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Учредительный договор</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
+              <input type="checkbox" class="attachment__deltrigger hidden" value="f1f473b0-3073-4be4-ab65-82b00432b6cc" name="deletefile">
+              <div class="attachment attachment__item_f1f473b0-3073-4be4-ab65-82b00432b6cc">
+                <div class="attachment__item">
+                  <a href="">
+                    Учредительный договор.png (295 Кб)
+                  </a>
+                </div>
+                <label data-target-modal-file="confirm_f1f473b0-3073-4be4-ab65-82b00432b6cc" class="attachment__del attachment__label__del delete_file_btn" for="f1f473b0-3073-4be4-ab65-82b00432b6cc">
+
+                </label>
+              </div>
+              <div class="modal modal_delete_file hidden">
+                <div class="modal__content modal_delete_file__content modal__dialog">
+                  <div class="close modal__close modaldelfileclose"></div>
+                  <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                  <div class="form__field normativedoc-button">
+                    <button type="button" class="btn form__button button submit">
+                      Согласен
+                    </button>
+                    <a class="btn form__button button cancel">
+                      Отмена
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Общее положение об организации</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Свидетельство о регистрации ЮЛ (или лист записи ЕГРЮЛ)</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
+              <input type="checkbox" class="attachment__deltrigger hidden" value="f1f473b0-3073-4be4-ab65-82b00432b6cc" name="deletefile">
+              <div class="attachment attachment__item_f1f473b0-3073-4be4-ab65-82b00432b6cc">
+                <div class="attachment__item">
+                  <a href="">
+                    Общее положение об организации.png (295 Кб)
+                  </a>
+                </div>
+                <label data-target-modal-file="confirm_f1f473b0-3073-4be4-ab65-82b00432b6cc" class="attachment__del attachment__label__del delete_file_btn" for="f1f473b0-3073-4be4-ab65-82b00432b6cc">
+
+                </label>
+              </div>
+              <div class="modal modal_delete_file hidden">
+                <div class="modal__content modal_delete_file__content modal__dialog">
+                  <div class="close modal__close modaldelfileclose"></div>
+                  <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                  <div class="form__field normativedoc-button">
+                    <button type="button" class="btn form__button button submit">
+                      Согласен
+                    </button>
+                    <a class="btn form__button button cancel">
+                      Отмена
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <input type="checkbox" class="attachment__deltrigger hidden" value="f1f473b0-3073-4be4-ab65-82b00432b6cc" name="deletefile">
+              <div class="attachment attachment__item_f1f473b0-3073-4be4-ab65-82b00432b6cc">
+                <div class="attachment__item">
+                  <a href="">
+                    Общее положение об организации.png (295 Кб)
+                  </a>
+                </div>
+                <label data-target-modal-file="confirm_f1f473b0-3073-4be4-ab65-82b00432b6cc" class="attachment__del attachment__label__del delete_file_btn" for="f1f473b0-3073-4be4-ab65-82b00432b6cc">
+
+                </label>
+              </div>
+              <div class="modal modal_delete_file hidden">
+                <div class="modal__content modal_delete_file__content modal__dialog">
+                  <div class="close modal__close modaldelfileclose"></div>
+                  <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                  <div class="form__field normativedoc-button">
+                    <button type="button" class="btn form__button button submit">
+                      Согласен
+                    </button>
+                    <a class="btn form__button button cancel">
+                      Отмена
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <input type="checkbox" class="attachment__deltrigger hidden" value="f1f473b0-3073-4be4-ab65-82b00432b6cc" name="deletefile">
+              <div class="attachment attachment__item_f1f473b0-3073-4be4-ab65-82b00432b6cc">
+                <div class="attachment__item">
+                  <a href="">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur hic, odit dolorum necessitatibus reiciendis amet doloribus sint quae earum id voluptates voluptatibus eligendi, dolor ut omnis in fugiat qui aliquid aliquam delectus, molestiae suscipit reprehenderit. Ratione voluptatum officia maiores porro neque fuga commodi assumenda unde, atque sunt. Mollitia, ab, accusamus? Nemo consectetur maiores recusandae nam ullam sapiente quaerat placeat suscipit eligendi distinctio. Velit quisquam minus eius aut vel, nostrum repudiandae delectus quasi, minima vero quas explicabo voluptatum beatae dolorum dolore, saepe vitae! Omnis minus modi illum, nesciunt! Illum quas totam minima, placeat ipsam. Natus unde corporis optio, sequi accusamus id!.png (295 Кб)
+                  </a>
+                  <!-- Пофиксить сжимающийся значок удаления -->
+                </div>
+                <label data-target-modal-file="confirm_f1f473b0-3073-4be4-ab65-82b00432b6cc" class="attachment__del attachment__label__del delete_file_btn" for="f1f473b0-3073-4be4-ab65-82b00432b6cc">
+
+                </label>
+              </div>
+              <div class="modal modal_delete_file hidden">
+                <div class="modal__content modal_delete_file__content modal__dialog">
+                  <div class="close modal__close modaldelfileclose"></div>
+                  <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                  <div class="form__field normativedoc-button">
+                    <button type="button" class="btn form__button button submit">
+                      Согласен
+                    </button>
+                    <a class="btn form__button button cancel">
+                      Отмена
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <input type="checkbox" class="attachment__deltrigger hidden" value="f1f473b0-3073-4be4-ab65-82b00432b6cc" name="deletefile">
+              <div class="attachment attachment__item_f1f473b0-3073-4be4-ab65-82b00432b6cc">
+                <div class="attachment__item">
+                  <a href="">
+                    Общее положение об организации.png (295 Кб)
+                  </a>
+                </div>
+                <label data-target-modal-file="confirm_f1f473b0-3073-4be4-ab65-82b00432b6cc" class="attachment__del attachment__label__del delete_file_btn" for="f1f473b0-3073-4be4-ab65-82b00432b6cc">
+
+                </label>
+              </div>
+              <div class="modal modal_delete_file hidden">
+                <div class="modal__content modal_delete_file__content modal__dialog">
+                  <div class="close modal__close modaldelfileclose"></div>
+                  <h4 class="modal__header modal__title">Вы хотите удалить этот файл?</h4>
+                  <div class="form__field normativedoc-button">
+                    <button type="button" class="btn form__button button submit">
+                      Согласен
+                    </button>
+                    <a class="btn form__button button cancel">
+                      Отмена
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Протокол (решение) о создании общества</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Список участников</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
 
@@ -782,83 +953,123 @@
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Свидетельство о государственной регистрации права на земельный участок</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Договор аренды с отметкой о регистрации</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Выписка из Единого государственного реестра недвижимости</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Договор о комплексном развитии территории</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Разрешение на строительство</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Выписка из Единого государственного реестра недвижимости</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Топографическая карта земельного участка в масштабе 1:500</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Разрешение на использование земель</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description">Схема границ земель или части земельного участка на кадастровом плане территории</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Градостроительный план земельного участка</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Договор на подготовку проектной документации на подключаемый объект</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
-          </div>
-          <div class="form__field form__btns width_max">
-            <input value="Сформировать запрос" name="ecp_button" id="ecp_button" type="submit" class="btn submit_form ecp_button" tabindex="0">
-            <input value="Сохранить как черновик" name="" type="submit" class="btn dark_btn save_form button_save_tmpl" tabindex="0">
           </div>
 
           <div class="representative_add_docs_block hidden">
@@ -882,6 +1093,14 @@
               </div>
             </div>
           </div>
+
+          <div class="form__field form__btns width_max">
+            <input value="Сформировать Заявление" title="Сформировать и отправить Заявление в РКС" name="ecp_button" id="ecp_button" type="submit" class="btn submit_form ecp_button" tabindex="0" />
+            <input value="Сохранить" title="Сохранить черновик и остаться" name="" type="submit" class="btn dark_btn save_form button_save_tmpl" tabindex="0" />
+            <input value="Сохранить и выйти" title="Сохранить черновик и выйти в реестр" name="" type="submit" class="btn" />
+          </div>
+
+
         </div>
       </form>
     </div>
@@ -891,6 +1110,7 @@
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/slick.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
+  <script src="js/datepicker-ru.min.js"></script>
   <script src="js/jquery.maskedinput.min.js"></script>
   <script src="js/lk_send_request.min.js"></script>
 </body>

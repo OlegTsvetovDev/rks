@@ -4,7 +4,7 @@ $(document).ready(function () {
   // Модалка "Ошибка"
   var body = $('body');
 
-  function openModalAlert() {
+  function initModalAlert() {
     var alert = $('.alert'),
         alertModal = $('.modal_alert'),
         alertModalContent = $('.modal_alert__content'),
@@ -29,5 +29,5 @@ $(document).ready(function () {
     });
   }
 
-  openModalAlert();
+  initModalAlert();
 });

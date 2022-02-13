@@ -10,20 +10,32 @@ $(document).ready(function () {
 
     selectSingle_title.addEventListener('click', function () {
       if ('active' === selectSingle.getAttribute('data-state')) {
-        selectSingle.setAttribute('data-state', '');
+        selectSingle.setAttribute('data-state', '')
       } else {
-        selectSingle.setAttribute('data-state', 'active');
+        selectSingle.setAttribute('data-state', 'active')
       }
     });
 
     for (let i = 0; i < selectSingle_labels.length; i++) {
       selectSingle_labels[i].addEventListener('click', function (e) {
-        selectSingle_title.textContent = e.target.textContent;
-        selectSingle.setAttribute('data-state', '');
-      });
+        selectSingle_title.textContent = e.target.textContent
+        selectSingle.setAttribute('data-state', '')
+      })
     }
+
+    // скрытие при клике по body кроме .__select
+    const body = document.querySelector('body')
+    body.addEventListener('click', e => {
+      const eClassList = e.target.classList
+      const trigger = (eClassList[0] !== '__select__title') &&
+                      (eClassList[0] !== '__select__content') &&
+                      (eClassList[0] !== '__select__input')
+
+      if (trigger) selectSingle.setAttribute('data-state', '')
+    })
+
   }
-  initPseudoSelect()
+  if (document.querySelector('.__select')) initPseudoSelect()
 
 
   // Модалка "Согласие на обработку персональных данных"
@@ -48,7 +60,7 @@ $(document).ready(function () {
     })
 
   }
-  initModalPersonalData()
+  if (document.querySelector('.personal_agreement__label')) initModalPersonalData()
 
 
   // Модалка "Правила пользования интерактивным сервисом"
@@ -73,7 +85,7 @@ $(document).ready(function () {
     })
 
   }
-  initModalRules()
+  if (document.querySelector('.personal_agreement__label')) initModalRules()
 
 
   // Модалка "Скачать инструкцию"
@@ -98,6 +110,6 @@ $(document).ready(function () {
     })
 
   }
-  initModalDownloadInstructions()
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 });

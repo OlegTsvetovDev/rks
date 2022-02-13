@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/slick.css">
   <link rel="stylesheet" href="css/jquery-ui.min.css">
   <link rel="stylesheet" href="css/lk_styles.min.css">
-  <title>Личный кабинет - Запросы и заявки | РКС</title>
+  <title>Личный кабинет - Подать заявление | РКС</title>
 </head>
 <body>
   <header class="header">
@@ -54,7 +54,10 @@
         Инструкция пользователя ЛК физ.лиц
       </a>
       <a href="" class="instructions__link">
-        Инструкция пользователя ЛК ЮЛ и ИП
+        Инструкция пользователя ЛК ЮЛ
+      </a>
+      <a href="" class="instructions__link">
+        Инструкция пользователя ЛК ИП
       </a>
       <a href="" class="instructions__link">
         Инструкция пользователя для органов власти
@@ -161,6 +164,7 @@
               </tbody>
             </table>
             <button class="btn dark_btn queue_btn">Добавить очередь</button>
+            <button class="btn queue_btn_remove">Удалить очередь</button>
           </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
@@ -299,12 +303,13 @@
                 </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
-                  По электронной почте
+                  По электронной почте *
                 </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
                   Письмом посредством почтовой связи
                 </label>
+                <span class="field__comment">Получение ТУ по электронной почте возможно в случае подписания Заявления в личном кабинете с использованием КЭП</span>
               </span>
             </label>
           </div>
@@ -543,6 +548,7 @@
                 </tbody>
               </table>
               <button class="btn dark_btn add_source_btn">Добавить источник</button>
+              <button class="btn add_source_btn_remove">Удалить источник</button>
             </div>
 
             <div class="form__field land_coverage_characteristics width_max">
@@ -566,6 +572,7 @@
                 </tbody>
               </table>
               <button class="btn dark_btn add_coverage_btn">Добавить источник</button>
+              <button class="btn add_coverage_btn_remove">Удалить источник</button>
             </div>
 
             <div class="form__field width_max">
@@ -781,15 +788,23 @@
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Паспорт/удостоверение личности</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Лист ЕГРИП</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
 
@@ -801,83 +816,123 @@
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Свидетельство о государственной регистрации права на земельный участок</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Договор аренды с отметкой о регистрации</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Выписка из Единого государственного реестра недвижимости (земельный участок)</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Разрешение на строительство</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Выписка из Единого государственного реестра недвижимости</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Ситуационный план расположения объекта</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Топографическая карта земельного участка в масштабе 1:500</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Баланс водопотребления и водоотведения подключаемого объекта</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description required">Градостроительный план земельного участка</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description">Проект планировки территории</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
           </div>
           <div class="form__field add_files width_max">
             <h6 class="field__description">Проект межевания территории и (или) градостроительного плана земельного участка</h6>
             <div class="field__control_btns">
-              <a href="#" class="add_file_btn">Прикрепить файл</a>
-              <a href="#" class="delete_file_btn"></a>
+              <a href="">
+                <label placeholder="Прикрепить файл" class="button add_files_button" for="79dac86a-0ca9-481d-8ea0-dc880b9977e4">
+                  <input data-id="10022" class="fileinput hidden" name="doc" type="file">
+                  Прикрепить файл
+                </label>
+              </a>
             </div>
-          </div>
-          <div class="form__field form__btns width_max">
-            <input value="Сформировать запрос" name="ecp_button" id="ecp_button" type="submit" class="btn submit_form ecp_button" tabindex="0">
-            <input value="Сохранить как черновик" name="" type="submit" class="btn dark_btn save_form button_save_tmpl" tabindex="0">
           </div>
 
           <div class="representative_add_docs_block hidden">
@@ -902,6 +957,11 @@
             </div>
           </div>
 
+          <div class="form__field form__btns width_max">
+            <input value="Сформировать Заявление" title="Сформировать и отправить Заявление в РКС" name="ecp_button" id="ecp_button" type="submit" class="btn submit_form ecp_button" tabindex="0" />
+            <input value="Сохранить" title="Сохранить черновик и остаться" name="" type="submit" class="btn dark_btn save_form button_save_tmpl" tabindex="0" />
+            <input value="Сохранить и выйти" title="Сохранить черновик и выйти в реестр" name="" type="submit" class="btn" />
+          </div>
         </div>
       </form>
     </div>

@@ -352,7 +352,7 @@ input[type="button"], .btn {
   display: flex;
   position: relative;
   width: 100%;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   color: $mainColor;
   &[data-state="active"] {
     .__select__title {
@@ -532,7 +532,6 @@ input[type="button"], .btn {
     }
   }
 }
-
 
 // INDEX PAGE LK
 .main.index {
@@ -912,6 +911,9 @@ input[type="button"], .btn {
         @media (max-width: $w768) {
 
         }
+        .__select {
+          margin-bottom: 30px;
+        }
         select.right_side__select {
           padding: 13px 19px;
           margin-bottom: 30px;
@@ -1151,7 +1153,8 @@ input[type="button"], .btn {
           margin-bottom: 20px;
         }
         .cold_water_supply_toggle,
-        .drainage__toggle {
+        .drainage_toggle {
+          display: block;
           &.hidden {
             display: none;
           }
@@ -1177,6 +1180,15 @@ input[type="button"], .btn {
             .form__number,
             .form__date {
               margin-bottom: 9px;
+            }
+          }
+          &.passport__field {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            justify-content: space-between;
+            .field__label {
+              width: 48%;
             }
           }
           &.width_max {
@@ -1234,10 +1246,29 @@ input[type="button"], .btn {
             &.housing {
               width: 25%;
               float: right;
-
             }
             .form__subheader {
               margin-top: 30px;
+            }
+            .field_comment {
+              width: 100%;
+              font-size: 0.8*$p;
+              padding-left: 25px;
+              margin-top: 10px;
+              color: $mainColor;
+              &:before {
+                content: '* '
+              }
+            }
+            .field__comment {
+              width: 100%;
+              font-size: 0.8*$p;
+              padding-left: 25px;
+              margin-top: 10px;
+              color: $mainColor;
+              &:before {
+                content: '* '
+              }
             }
           } // end of .field__label
           .field__input {
@@ -1296,6 +1327,9 @@ input[type="button"], .btn {
               font-family: $mf;
               padding: 11px 37px;
               float: right;
+              &.queue_btn {
+                margin-left: 6px;
+              }
             }
           } // .end of .queue_launch
           &.other_water_sources {
@@ -1343,6 +1377,9 @@ input[type="button"], .btn {
               font-family: $mf;
               padding: 11px 37px;
               float: right;
+              &.add_source_btn {
+                margin-left: 6px;
+              }
             }
           } // .end of .other_water_sources
           &.land_coverage_characteristics {
@@ -1390,6 +1427,9 @@ input[type="button"], .btn {
               font-family: $mf;
               padding: 11px 37px;
               float: right;
+              &.add_coverage_btn {
+                margin-left: 6px;
+              }
             }
           } // .end of .land_coverage_characteristics
           &.form__btns {
@@ -1405,10 +1445,10 @@ input[type="button"], .btn {
             display: -ms-flex;
             display: flex;
             justify-content: space-between;
-            align-content: center;
-            align-items: center;
             padding: 25px 30px;
             border-top: 1px solid $mainColorTransparent;
+            width: 100%;
+            position: relative;
             .field__description {
               font-weight: 400;
               color: $mainColor;
@@ -1418,20 +1458,117 @@ input[type="button"], .btn {
               display: -webkit-flex;
               display: -ms-flex;
               display: flex;
-              .add_file_btn {
+              flex-direction: column;
+              justify-content: space-between;
+              width: 400px;
+              height: 100%;
+              .attachment__deltrigger {
+                visibility: hidden;
+                width: 1px;
+                height: 1px;
+              }
+              .attachment {
+                display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+                column-gap: 20px;
+                .attachment__item {
+                  margin-bottom: 20px;
+                  a, a:before, a:after, a:visited, a:hover {
+                    color: $mainColor;
+                    text-decoration: none;
+                  }
+                }
+              }
+              .add_files_button {
+                display: block;
+                text-align: right;
+                cursor: pointer;
                 color: $mainColor;
+                padding: 0 0 12px 24px;
+                margin-bottom: 12px;
+                width: 100%;
+                overflow-wrap: break-word;
                 &:active, &:visited, &:hover {
                   color: $mainColor;
                 }
+                .fileinput {
+                  display: block;
+                  &.hidden {
+                    display: none;
+                  }
+                }
               }
               .delete_file_btn {
-                margin-left: 27px;
+                display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;
+                flex-shrink: 0;
+                cursor: pointer;
                 width: 16px;
                 height: 16px;
                 background: url('../img/control_btns/delete_icon.svg') no-repeat 0 0 /contain;
               }
+              .modal {
+                position: absolute;
+                background: transparent;
+                width: 100%;
+                // backdrop-filter: blur(0);
+                .modal__content {
+                  .form__field {
+                    width: 100%;
+                  }
+                }
+              }
             }
-          }
+          } // end of .add_files
+          &.upload_ecp {
+            width: 100%;
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            align-items: start;
+            align-content: start;
+            column-gap: 20px;
+            padding: 25px 30px;
+            .ecp_button {
+              flex-shrink: 0;
+            }
+            .attachment__block {
+              display: -webkit-flex;
+              display: -ms-flex;
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              .attachment {
+                width: 100%;
+                display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 20px;
+                text-align: right;
+                .attachment__item {
+
+                }
+                .delete_file_btn {
+                  display: block;
+                  flex-shrink: 0;
+                  margin-left: 27px;
+                  width: 16px;
+                  height: 16px;
+                  background: url(../img/control_btns/delete_icon.svg) no-repeat 0 0 /contain;
+                }
+              }
+            }
+            .fileinput {
+              &.hidden {
+                display: none;
+              }
+            }
+          } // end of. upload_ecp
         } // end of .form__field
       }
     } // end of .requests_form
@@ -1468,6 +1605,7 @@ input[type="button"], .btn {
           display: -ms-flex;
           display: flex;
           width: 48%;
+          column-gap: 2%;
           .personal_data__block {
             display: -webkit-flex;
             display: -ms-flex;
@@ -1633,6 +1771,7 @@ input[type="button"], .btn {
               }
               .delete_file_btn {
                 display: block;
+                flex-shrink: 0;
                 cursor: pointer;
                 width: 16px;
                 height: 16px;
@@ -1903,7 +2042,6 @@ input[type="button"], .btn {
             &.hidden {
               margin: 0;
               transition: 0.5s ease;
-              // display: none;
               visibility: hidden;
               height: 0;
               opacity: 0;
@@ -2087,8 +2225,11 @@ input[type="button"], .btn {
 .modal {
   position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
-  display: grid;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
   align-content: center;
+  align-items: center;
   justify-content: center;
   z-index: 9990;
   background: $modalBackground;
@@ -2139,7 +2280,6 @@ input[type="button"], .btn {
     &.modal_add_answer__content,
     &.modal_delete_file__content,
     &.modal_instructions__content {
-      // width: $w612;
       padding: 112px 107px 110px;
       @media (max-width: $w768) {
         width: 100%;
@@ -2151,6 +2291,9 @@ input[type="button"], .btn {
       .modal__header {
         margin-bottom: 64px;
       }
+    }
+    &.modal_change_pswd__content {
+      min-width: 612px;
     }
     &.modal_instructions__content {
       .modal__text {
@@ -2287,27 +2430,6 @@ input[type="button"], .btn {
       }
   	} // end of .form__field
 	}
-  .modal_preloader__content {
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    .preloader__image {
-      width: 128px;
-      height: 128px;
-      background: url('../img/preloader.svg') no-repeat center;
-      animation: preloader-rotate 2s infinite linear;
-      transition: .2s ease;
-    }
-    @keyframes preloader-rotate {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  }
   &__content {
     visibility: visible;
     opacity: 1;
@@ -2321,4 +2443,5 @@ input[type="button"], .btn {
       transition: 1s ease;
     }
   }
+
 } // end of .modal

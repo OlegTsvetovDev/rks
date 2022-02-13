@@ -1,0 +1,39 @@
+ID аккаунта Бакланов = 939 (PU_ID = 2389, 2942)
+ID аккаунта Попов = 687 (PU_ID = 2032, 2061)
+ID аккаунта 
+
+
+В последних файлах переданы данные (opld20201211113309.csv):
+ACCOUNT_ID	DATE_OPL	RYEAR	RMONTH	SUM_VSEGO	SUM_KOM	SUM_CASH
+939	09.12.2020	2020	2	84.36	0.00	84.36
+939	09.12.2020	2020	11	1062.20	0.00	1062.20
+
+На странице http://xn--80aaeid6ajcngbgo.xn--p1ai/lk/accruals в колонке "Оплачено в периоде" эти данные отображены.
+
+
+Данные по ACCOUNT_ID 687 отсутствуют (opld20201211113309.csv).
+Данные в аккаунте Попова в столбце "Оплачено в периоде" также отсутствуют.
+
+
+
+В файле pu20201209101737.csv были выгружены данные в DATE_PU_T 30.11.2020.
+
+CODE_USL	RYEAR	RMONTH	PU_ID	DEVICE_NUMBER	DEVICE_NUMBERZ	DEVICE_TYPE	DEVICE_MARKA	DATE_PU	VOLUME_PU	DATE_PU_T	VOLUME_PU_T	DEVICE_DATEPR	DATE_CLOSE
+1675	2020	11	2032			ИПУ		28.10.2020	122.00	20.11.2020	126.00	06.03.2024
+1675	2020	11	2032			ИПУ		20.11.2020	126.00	30.11.2020	126.00	06.03.2024
+
+На странице http://xn--80aaeid6ajcngbgo.xn--p1ai/lk/send в столбце "Дата последних показаний" отображены даты 30.11.2020
+
+
+В последнем файле показаний ПУ выгружены эти строки:
+
+CODE_USL	RYEAR	RMONTH	PU_ID	DEVICE_NUMBER	DEVICE_NUMBERZ	DEVICE_TYPE	DEVICE_MARKA	DATE_PU	VOLUME_PU	DATE_PU_T	VOLUME_PU_T	DEVICE_DATEPR	DATE_CLOSE
+2046	2020	12	2389			ИПУ		01.01.0001	0.00	01.01.0001	0.00	01.01.2500
+
+CODE_USL	RYEAR	RMONTH	PU_ID	DEVICE_NUMBER	DEVICE_NUMBERZ	DEVICE_TYPE	DEVICE_MARKA	DATE_PU	VOLUME_PU	DATE_PU_T	VOLUME_PU_T	DEVICE_DATEPR	DATE_CLOSE
+1675	2020	12	2942			ИПУ		01.01.0001	0.00	01.01.0001	0.00	28.02.2024
+
+На странице Попова http://xn--80aaeid6ajcngbgo.xn--p1ai/lk/send в столбце "Дата последних показаний" отображены даты 01.01.0001 в соответствии с полем DATE_PU_T.
+
+
+С учетом того, что "Дата последних показаний" (DATE_PU) у Попова передана 01.01.0001, все передачи показаний будут считаться от этой даты. И высчитываться кубы будут тоже от первой подачи показаний, т.е. от 0.

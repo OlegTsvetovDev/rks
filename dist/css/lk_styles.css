@@ -338,7 +338,6 @@ input[type="button"],
   display: flex;
   position: relative;
   width: 100%;
-  margin-bottom: 30px;
   color: #3c54a5;
 }
 
@@ -1009,6 +1008,10 @@ input[type="button"],
   background: white;
 }
 
+.main__content .main__form .form__right_side .__select {
+  margin-bottom: 30px;
+}
+
 .main__content .main__form .form__right_side select.right_side__select {
   padding: 13px 19px;
   margin-bottom: 30px;
@@ -1325,8 +1328,13 @@ input[type="button"],
   margin-bottom: 20px;
 }
 
+.main__content .requests_form .request__form .cold_water_supply_toggle,
+.main__content .requests_form .request__form .drainage_toggle {
+  display: block;
+}
+
 .main__content .requests_form .request__form .cold_water_supply_toggle.hidden,
-.main__content .requests_form .request__form .drainage__toggle.hidden {
+.main__content .requests_form .request__form .drainage_toggle.hidden {
   display: none;
 }
 
@@ -1359,6 +1367,24 @@ input[type="button"],
 .main__content .requests_form .request__form .form__field.form__info_block .form__number,
 .main__content .requests_form .request__form .form__field.form__info_block .form__date {
   margin-bottom: 9px;
+}
+
+.main__content .requests_form .request__form .form__field.passport__field {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.main__content .requests_form .request__form .form__field.passport__field .field__label {
+  width: 48%;
 }
 
 .main__content .requests_form .request__form .form__field.width_max {
@@ -1467,6 +1493,30 @@ input[type="button"],
   margin-top: 30px;
 }
 
+.main__content .requests_form .request__form .form__field .field__label .field_comment {
+  width: 100%;
+  font-size: 11.2px;
+  padding-left: 25px;
+  margin-top: 10px;
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .field_comment:before {
+  content: '* ';
+}
+
+.main__content .requests_form .request__form .form__field .field__label .field__comment {
+  width: 100%;
+  font-size: 11.2px;
+  padding-left: 25px;
+  margin-top: 10px;
+  color: #3c54a5;
+}
+
+.main__content .requests_form .request__form .form__field .field__label .field__comment:before {
+  content: '* ';
+}
+
 .main__content .requests_form .request__form .form__field .field__input {
   padding: 14px 25px;
   font-size: 14px;
@@ -1525,6 +1575,10 @@ input[type="button"],
   float: right;
 }
 
+.main__content .requests_form .request__form .form__field.queue_launch .btn.queue_btn {
+  margin-left: 6px;
+}
+
 .main__content .requests_form .request__form .form__field.other_water_sources {
   margin-bottom: 30px;
 }
@@ -1570,6 +1624,10 @@ input[type="button"],
   font-family: "proxima-nova", "Roboto", sans-serif;
   padding: 11px 37px;
   float: right;
+}
+
+.main__content .requests_form .request__form .form__field.other_water_sources .btn.add_source_btn {
+  margin-left: 6px;
 }
 
 .main__content .requests_form .request__form .form__field.land_coverage_characteristics {
@@ -1619,6 +1677,10 @@ input[type="button"],
   float: right;
 }
 
+.main__content .requests_form .request__form .form__field.land_coverage_characteristics .btn.add_coverage_btn {
+  margin-left: 6px;
+}
+
 .main__content .requests_form .request__form .form__field.form__btns {
   display: -webkit-flex;
   display: -ms-flex;
@@ -1649,16 +1711,10 @@ input[type="button"],
   -moz-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   padding: 25px 30px;
   border-top: 1px solid rgba(60, 84, 165, 0.3);
+  width: 100%;
+  position: relative;
 }
 
 .main__content .requests_form .request__form .form__field.add_files .field__description {
@@ -1674,23 +1730,185 @@ input[type="button"],
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 400px;
+  height: 100%;
 }
 
-.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn {
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment__deltrigger {
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 100%;
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-gap: 20px;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment .attachment__item {
+  margin-bottom: 20px;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment .attachment__item a,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment .attachment__item a:before,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment .attachment__item a:after,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment .attachment__item a:visited,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment .attachment__item a:hover {
+  color: #3c54a5;
+  text-decoration: none;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button {
+  display: block;
+  text-align: right;
+  cursor: pointer;
+  color: #3c54a5;
+  padding: 0 0 12px 24px;
+  margin-bottom: 12px;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button:active,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button:visited,
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button:hover {
   color: #3c54a5;
 }
 
-.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn:active,
-.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn:visited,
-.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_file_btn:hover {
-  color: #3c54a5;
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button .fileinput {
+  display: block;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button .fileinput.hidden {
+  display: none;
 }
 
 .main__content .requests_form .request__form .form__field.add_files .field__control_btns .delete_file_btn {
-  margin-left: 27px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  cursor: pointer;
   width: 16px;
   height: 16px;
   background: url("../img/control_btns/delete_icon.svg") no-repeat 0 0/contain;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .modal {
+  position: absolute;
+  background: transparent;
+  width: 100%;
+}
+
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .modal .modal__content .form__field {
+  width: 100%;
+}
+
+.main__content .requests_form .request__form .form__field.upload_ecp {
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: start;
+  -moz-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+  -webkit-align-content: start;
+  -ms-flex-line-pack: start;
+  align-content: start;
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-gap: 20px;
+  padding: 25px 30px;
+}
+
+.main__content .requests_form .request__form .form__field.upload_ecp .ecp_button {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.main__content .requests_form .request__form .form__field.upload_ecp .attachment__block {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+
+.main__content .requests_form .request__form .form__field.upload_ecp .attachment__block .attachment {
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.main__content .requests_form .request__form .form__field.upload_ecp .attachment__block .attachment .delete_file_btn {
+  display: block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-left: 27px;
+  width: 16px;
+  height: 16px;
+  background: url(../img/control_btns/delete_icon.svg) no-repeat 0 0/contain;
+}
+
+.main__content .requests_form .request__form .form__field.upload_ecp .fileinput.hidden {
+  display: none;
 }
 
 .main__content .personal {
@@ -1738,6 +1956,9 @@ input[type="button"],
   display: -ms-flexbox;
   display: flex;
   width: 48%;
+  -webkit-column-gap: 2%;
+  -moz-column-gap: 2%;
+  column-gap: 2%;
 }
 
 .main__content .personal .personal_data .personal_data__line .personal_data__block {
@@ -1970,6 +2191,9 @@ input[type="button"],
 
 .main__content .personal .personal_data .add_documents_line .personal_data__block .block__control_btns .delete_file_btn {
   display: block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   cursor: pointer;
   width: 16px;
   height: 16px;
@@ -2529,10 +2753,20 @@ input[type="button"],
   left: 0;
   bottom: 0;
   right: 0;
-  display: grid;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
@@ -2614,6 +2848,10 @@ input[type="button"],
 .modal__content.modal_delete_file__content .modal__header,
 .modal__content.modal_instructions__content .modal__header {
   margin-bottom: 64px;
+}
+
+.modal__content.modal_change_pswd__content {
+  min-width: 612px;
 }
 
 .modal__content.modal_instructions__content .modal__text {
@@ -2763,75 +3001,6 @@ input[type="button"],
 
 .modal__content .form__field .form__submit.btn_close {
   margin-top: 50px;
-}
-
-.modal .modal_preloader__content {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -moz-box-orient: vertical;
-  -moz-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  position: relative;
-}
-
-.modal .modal_preloader__content .preloader__image {
-  width: 128px;
-  height: 128px;
-  background: url("../img/preloader.svg") no-repeat center;
-  -webkit-animation: preloader-rotate 2s infinite linear;
-  -moz-animation: preloader-rotate 2s infinite linear;
-  -o-animation: preloader-rotate 2s infinite linear;
-  animation: preloader-rotate 2s infinite linear;
-  -webkit-transition: .2s ease;
-  -o-transition: .2s ease;
-  -moz-transition: .2s ease;
-  transition: .2s ease;
-}
-
-@-webkit-keyframes preloader-rotate {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes preloader-rotate {
-  100% {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes preloader-rotate {
-  100% {
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes preloader-rotate {
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
 }
 
 .modal__content {
