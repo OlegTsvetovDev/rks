@@ -111,11 +111,11 @@
                 </label>
                 <label for="">
                   <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров Черезтризабораногузадерищен Черезтризабораногузадерищенич
+                  Петров Оценьдлинноотчественный Оченньоченьоченньоченьоченньоченьоченньоченьдлинноименный
                 </label>
                 <label for="">
                   <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров Черезтризабораногузадерищен Черезтризабораногузадерищенич
+                  Петров Оценьдлинноотчественный Оченньоченьоченньоченьоченньоченьоченньоченьдлинноименный
                 </label>
                 <label for="">
                   <input type="radio" name="person_in_charge" class="radio" value="" />
@@ -123,7 +123,7 @@
                 </label>
                 <label for="">
                   <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров Черезтризабораногузадерищен Черезтризабораногузадерищенич
+                  Петров Оценьдлинноотчественный Оченньоченьоченньоченьоченньоченьоченньоченьдлинноименный
                 </label>
               </span>
             </label>
@@ -306,15 +306,46 @@
                 </span>
               </label>
             </div>
+
             <div class="form__field">
               <label for="" class="field__label">
                 <span class="field__description required">Адрес, населенный пункт</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
+                <div class="__select" data-state="">
+                  <input type="text" class="__select__title field__input cascader_input" data-default="Option 0" placeholder="Введите адрес" />
+                  <div class="__select__content">
+                    <input id="locality_0" class="__select__input" type="radio" name="address__locality" selected checked />
+                    <label for="locality_0" class="__select__label">Выберите адрес</label>
+                    <input id="locality_1" class="__select__input" type="radio" name="address__locality" />
+                    <label for="locality_1" class="__select__label">Пермь</label>
+                    <input id="locality_2" class="__select__input" type="radio" name="address__locality" />
+                    <label for="locality_2" class="__select__label">Москва</label>
+                    <input id="locality_3" class="__select__input" type="radio" name="address__locality" />
+                    <label for="locality_3" class="__select__label">Санкт-Петербург</label>
+                    <input id="locality_4" class="__select__input" type="radio" name="address__locality" />
+                    <label for="locality_4" class="__select__label">Новосибирск</label>
+                  </div>
+                </div>
               </label>
             </div>
-            <div class="form__field fr">
+            <div class="form__field width_max">
               <label for="" class="field__label street">
                 <span class="field__description required">Улица</span>
+                <div class="__select" data-state="">
+                  <input type="text" class="__select__title field__input cascader_input" data-default="Option 0" placeholder="Введите улицу" />
+                  <div class="__select__content">
+                    <input id="" class="__select__input" type="radio" name="address__street" selected checked />
+                    <label for="" class="__select__label">Выберите улицу</label>
+                    <input id="" class="__select__input" type="radio" name="address__street" />
+                    <label for="" class="__select__label">1905 года</label>
+                    <input id="" class="__select__input" type="radio" name="address__street" />
+                    <label for="" class="__select__label">Ленина</label>
+                    <input id="" class="__select__input" type="radio" name="address__street" />
+                    <label for="" class="__select__label">Комсомольский проспект</label>
+                  </div>
+                </div>
+              </label>
+              <label for="" class="field__label housing">
+                <span class="field__description">Корпус</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
               <label for="" class="field__label house">
@@ -323,15 +354,42 @@
               </label>
             </div>
             <div class="form__field">
-              <label for="" class="field__label district">
-                <span class="field__description required">Район/Микрорайон</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-              <label for="" class="field__label housing">
-                <span class="field__description">Корпус</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
+              <label for="" class="field__label">
+                <span class="field__description required">Район</span>
+                <div class="__select" data-state="">
+                  <input type="text" class="__select__title field__input cascader_input" data-default="Option 0" placeholder="Введите район" />
+                  <div class="__select__content">
+                    <input id="" class="__select__input" type="radio" name="address__district" selected checked />
+                    <label for="" class="__select__label">Выберите район</label>
+                    <input id="" class="__select__input" type="radio" name="address__district" />
+                    <label for="" class="__select__label">Дзержинский</label>
+                    <input id="" class="__select__input" type="radio" name="address__district" />
+                    <label for="" class="__select__label">Индустриальный</label>
+                    <input id="" class="__select__input" type="radio" name="address__district" />
+                    <label for="" class="__select__label">Кировский</label>
+                  </div>
+                </div>
               </label>
             </div>
+            <div class="form__field fr">
+              <label for="" class="field__label">
+                <span class="field__description required">Микрорайон</span>
+                <div class="__select" data-state="">
+                  <input type="text" class="__select__title field__input cascader_input" data-default="Option 0" placeholder="Введите микрорайон" />
+                  <div class="__select__content">
+                    <input id="" class="__select__input" type="radio" name="address__microdistrict" selected checked />
+                    <label for="" class="__select__label">Выберите микрорайон</label>
+                    <input id="" class="__select__input" type="radio" name="address__microdistrict" />
+                    <label for="" class="__select__label">Закамск</label>
+                    <input id="" class="__select__input" type="radio" name="address__microdistrict" />
+                    <label for="" class="__select__label">Садовый</label>
+                    <input id="" class="__select__input" type="radio" name="address__microdistrict" />
+                    <label for="" class="__select__label">Голованово</label>
+                  </div>
+                </div>
+              </label>
+            </div>
+
             <div class="form__field width_max">
               <label for="" class="field__label">
                 <span class="field__description required">Адрес</span>
@@ -517,187 +575,156 @@
               </label>
             </div>
 
-            <div class="cold_water_supply_toggle">
+            <div class="cold_water_supply_toggle hidden">
               <div class="form__field width_max">
                 <label for="" class="field__label">
                   <h6 class="form__subheader">Данные о подключаемой нагрузке (Холодное водоснабжение)</h6>
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w50">
                   <span class="field__description required">Подключаемая нагрузка (м3/сут)</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w50">
                   <span class="field__description required">Подключаемая нагрузка (м3/час)</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w33">
                   <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/сут) с ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/сут) по ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/час) с ___ </span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w50">
                   <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/час) по ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field width_max">
-                <label for="" class="field__label">
+                <label for="" class="field__label w50">
                   <span class="field__description">Кол-во пожарных кранов, шт</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w33">
                   <span class="field__description">Максимальное водопотребление, м3/час</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Максимальное водопотребление, л/с</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Максимальное водопотребление, м3/сут</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
 
-              <div class="form__field fr">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на наружное пожаротушение, м3/час</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field ">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на наружное пожаротушение, л/с</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на наружное пожаротушение, м3/сут</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
 
-              <div class="form__field ">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на внутреннее пожаротушение, м3/час</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на внутреннее пожаротушение, л/с</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field ">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на внутреннее пожаротушение, м3/сут</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
 
-              <div class="form__field fr">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на автоматическое пожаротушение, м3/час</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field ">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на автоматическое пожаротушение, л/с</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description">Расход на автоматическое пожаротушение, м3/сут</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
+
             </div>
 
-            <div class="drainage__toggle">
+            <div class="drainage_toggle hidden">
               <div class="form__field width_max">
                 <label for="" class="field__label">
                   <h6 class="form__subheader">Данные о подключаемой нагрузке (Водоотведение)</h6>
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w50">
                   <span class="field__description required">Подключаемая нагрузка (м3/сут)</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w50">
                   <span class="field__description required">Подключаемая нагрузка (м3/час)</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+              <div class="form__field width_max">
+                <label for="" class="field__label w50">
                   <span class="field__description">Увеличение (уменьшение) водооведения для реконструкции объекта (м3/сут) с ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w50">
                   <span class="field__description">Увеличение (уменьшение) водооведения для реконструкции объекта (м3/сут) по ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+
+              <div class="form__field width_max">
+                <label for="" class="field__label w50">
                   <span class="field__description">Увеличение (уменьшение) водооведения для реконструкции объекта (м3/час) с ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w50">
                   <span class="field__description">Увеличение (уменьшение) водооведения для реконструкции объекта (м3/час) по ___</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
               </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+
+              <div class="form__field width_max">
+                <label for="" class="field__label w33">
                   <span class="field__description required">Максимальное водоотведение, м3/час</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field fr">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description required">Максимальное водоотведение, л/с</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
-              </div>
-              <div class="form__field">
-                <label for="" class="field__label">
+                <label for="" class="field__label w33">
                   <span class="field__description required">Максимальное водоотведение, м3/сут</span>
                   <input type="text" class="field__input" placeholder="Введите данные" />
                 </label>
@@ -705,10 +732,11 @@
               <div class="form__field width_max">
                 <label for="" class="field__label">
                   <span class="field__description">Примечание</span>
-                  <input type="text" class="field__input" placeholder="Введите данные" />
+                  <textarea type="text" class="field__input" placeholder="Введите данные"></textarea>
                 </label>
               </div>
             </div>
+
           </div>
         </div>
 

@@ -149,13 +149,19 @@ h6 {
   }
 }
 
-input {
+input,
+textarea {
   font-family: $mf;
 }
 
 input[type="button"], .btn {
   cursor: pointer;
   text-decoration: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }
 
 .form__input {
@@ -1102,7 +1108,6 @@ input[type="button"], .btn {
           right: 105px;
         }
         .slick-prev {
-          // right: 300px;
           left: 105px;
         }
         .slick-disabled {
@@ -1157,6 +1162,29 @@ input[type="button"], .btn {
           display: block;
           &.hidden {
             display: none;
+          }
+          .form__field {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            align-content: flex-end;
+            align-items: flex-end;
+            justify-content: space-between;
+            label {
+              display: -webkit-flex;
+              display: -ms-flex;
+              display: flex;
+              width: 100%;
+              &.w50 {
+                width: 49%;
+              }
+              &.w33 {
+                width: 32%;
+              }
+              textarea.field__input {
+                resize: none;
+              }
+            }
           }
         }
         .representative_add_docs_block {
@@ -1216,6 +1244,7 @@ input[type="button"], .btn {
               flex-wrap: wrap;
               min-height: 46px;
               label {
+                width: 100%;
                 display: -webkit-flex;
                 display: -ms-flex;
                 display: flex;
@@ -1225,6 +1254,7 @@ input[type="button"], .btn {
                 padding: 0 25px;
                 margin-bottom: 10px;
                 color: $mainColor;
+                cursor: pointer;
                 .radio,
                 .checkbox {
                   margin-right: 5px;
@@ -1232,20 +1262,21 @@ input[type="button"], .btn {
               }
             }
             &.street {
-              width: 72.5%;
+              width: 49%;
               float: left;
             }
             &.house {
-              width: 25%;
+              width: 24%;
               float: right;
+            }
+            &.housing {
+              width: 24%;
+              float: right;
+              margin-left: 1%;
             }
             &.district {
               width: 72.5%;
               float: left;
-            }
-            &.housing {
-              width: 25%;
-              float: right;
             }
             .form__subheader {
               margin-top: 30px;
@@ -1278,6 +1309,10 @@ input[type="button"], .btn {
             color: $mainColor;
             &.datepicker_input {
               background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+            }
+            &.cascader_input {
+              background: url('../img/cascader.svg') no-repeat 97.5% 50%;
+              cursor: text;
             }
           }
           &.queue_launch {
@@ -1569,6 +1604,9 @@ input[type="button"], .btn {
               }
             }
           } // end of. upload_ecp
+          input[type="text"]:disabled {
+            background-color: $lightGrey !important;
+          }
         } // end of .form__field
       }
     } // end of .requests_form

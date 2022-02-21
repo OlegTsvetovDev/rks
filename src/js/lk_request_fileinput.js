@@ -1,3 +1,16 @@
+// пересчет высоты слайдера
+  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
+
+function changeSliderHeight(action, value) {
+    var slickList = document.querySelector('.slick-list');
+    var slickListHeight = Number.parseInt(slickList.style.height);
+
+    if (action === 'increase') {
+      return slickList.style.height = slickListHeight + value + 'px';
+    }
+
+    return slickList.style.height = slickListHeight - value + 'px';
+  }
 
     function parseLimit(size) {
       if (!size) return Number.MAX_VALUE;
@@ -40,7 +53,7 @@
         totalSize -= size;
         input.remove();
         div.remove();
-		changeSliderHeight('decrease', 30)
+	      changeSliderHeight('decrease', 37)
       });
     }
 
@@ -54,7 +67,7 @@
         var label = $("label[for=" + $this.attr("id") + "]");
         if (!label.length) return;
 
-        var div = $("<div class=\"attachment\" />"); // style=\"display:grid;grid-template-columns: auto auto; justify-content: space-between;\"
+        var div = $("<div class=\"attachment\" />");
         var names = [];
         var size = 0;
         $(this.files).each(function (i, f) {
@@ -63,22 +76,9 @@
           $("<div class=\"attachment__item\" />") //
             .text(f.name + " (" + formatSize(f.size) + ")") //
             .appendTo(div);
-          $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div); //style=\"display:block\"
+          $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div);
+		      changeSliderHeight('increase', 37)
         });
-
-        // пересчет высоты слайдера
-        // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-        function changeSliderHeight(action, value) {
-          const slickList = document.querySelector('.slick-list')
-          const slickListHeight = Number.parseInt(slickList.style.height)
-
-          if (action === 'increase') {
-            return slickList.style.height = slickListHeight + value + 'px'
-          }
-          return slickList.style.height = slickListHeight - value + 'px'
-        }
-
-        changeSliderHeight('increase', 30)
 
 
 
@@ -125,7 +125,7 @@
 
     $(function() {
       bindFileInput(".fileinput");
-      });
+    });
 
     $(function() {
 
@@ -153,7 +153,17 @@
              $("label[for='" + uuid + "']").hide();
              $(".attachment__item_" + uuid).remove();
              $(".modaldelfileclose").trigger('click');
+	           changeSliderHeight('decrease', 37);
          });
+
+         $("[id^='attachment__decldel_']").click(function() {
+             var uuid = $(this).attr("id").replace("attachment__decldel_", "");
+             $("input#" + uuid).prop("checked", false);
+             $("label[for='" + uuid + "']").hide();
+             $(".attachment__item_" + uuid).remove();
+	           changeSliderHeight('decrease', 37);
+         });
+
 
 
      });

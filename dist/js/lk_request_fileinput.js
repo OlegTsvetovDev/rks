@@ -1,5 +1,18 @@
 "use strict";
 
+// пересчет высоты слайдера
+// action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
+function changeSliderHeight(action, value) {
+  var slickList = document.querySelector('.slick-list');
+  var slickListHeight = Number.parseInt(slickList.style.height);
+
+  if (action === 'increase') {
+    return slickList.style.height = slickListHeight + value + 'px';
+  }
+
+  return slickList.style.height = slickListHeight - value + 'px';
+}
+
 function parseLimit(size) {
   if (!size) return Number.MAX_VALUE;
   if (typeof size == "number") return size > 0 ? size : Number.MAX_VALUE;
@@ -40,7 +53,7 @@ function bindAttachment(div, input, size) {
     totalSize -= size;
     input.remove();
     div.remove();
-    changeSliderHeight('decrease', 30);
+    changeSliderHeight('decrease', 37);
   });
 }
 
@@ -50,8 +63,7 @@ function bindFileInput(el) {
     var $this = $(this);
     var label = $("label[for=" + $this.attr("id") + "]");
     if (!label.length) return;
-    var div = $("<div class=\"attachment\" />"); // style=\"display:grid;grid-template-columns: auto auto; justify-content: space-between;\"
-
+    var div = $("<div class=\"attachment\" />");
     var names = [];
     var size = 0;
     $(this.files).each(function (i, f) {
@@ -60,22 +72,9 @@ function bindFileInput(el) {
       $("<div class=\"attachment__item\" />") //
       .text(f.name + " (" + formatSize(f.size) + ")") //
       .appendTo(div);
-      $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div); //style=\"display:block\"
-    }); // пересчет высоты слайдера
-    // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-
-    function changeSliderHeight(action, value) {
-      var slickList = document.querySelector('.slick-list');
-      var slickListHeight = Number.parseInt(slickList.style.height);
-
-      if (action === 'increase') {
-        return slickList.style.height = slickListHeight + value + 'px';
-      }
-
-      return slickList.style.height = slickListHeight - value + 'px';
-    }
-
-    changeSliderHeight('increase', 30);
+      $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div);
+      changeSliderHeight('increase', 37);
+    });
 
     if (names.length) {
       var limit = parseLimit($this.attr("data-maxsize")); // Проверить лимит на размер выбранных файлов
@@ -131,5 +130,13 @@ $(function () {
     $("label[for='" + uuid + "']").hide();
     $(".attachment__item_" + uuid).remove();
     $(".modaldelfileclose").trigger('click');
+    changeSliderHeight('decrease', 37);
+  });
+  $("[id^='attachment__decldel_']").click(function () {
+    var uuid = $(this).attr("id").replace("attachment__decldel_", "");
+    $("input#" + uuid).prop("checked", false);
+    $("label[for='" + uuid + "']").hide();
+    $(".attachment__item_" + uuid).remove();
+    changeSliderHeight('decrease', 37);
   });
 });

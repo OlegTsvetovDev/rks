@@ -15,8 +15,7 @@ $(document).ready(function () {
   } // псевдо-селект
 
 
-  function initPseudoSelect() {
-    var selectSingle = document.querySelector('.__select');
+  function initPseudoSelect(selectSingle) {
     var selectSingle_title = selectSingle.querySelector('.__select__title');
     var selectSingle_labels = selectSingle.querySelectorAll('.__select__label');
     selectSingle_title.addEventListener('click', function () {
@@ -41,9 +40,17 @@ $(document).ready(function () {
       var trigger = eClassList[0] !== '__select__title' && eClassList[0] !== '__select__content' && eClassList[0] !== '__select__input';
       if (trigger) selectSingle.setAttribute('data-state', '');
     });
+  } // псевдо-селекты
+
+
+  function initPseudoSelects() {
+    var selects = document.querySelectorAll('.__select');
+    selects.forEach(function (select) {
+      return initPseudoSelect(select);
+    });
   }
 
-  if (document.querySelector('.__select')) initPseudoSelect(); // переключение блоков в "Запуск по очередям", слайдер 1
+  if (document.querySelector('.__select')) initPseudoSelects(); // переключение блоков в "Запуск по очередям", слайдер 1
 
   $('input[name="queue_launch"]').click(function () {
     var target = $('.queue_launch_' + $(this).val());
@@ -70,7 +77,7 @@ $(document).ready(function () {
     });
   }
 
-  initModalDownloadInstructions(); // пересчет высоты слайдера
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // пересчет высоты слайдера
   // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
 
   function changeSliderHeight(action, value) {
@@ -183,13 +190,23 @@ $(document).ready(function () {
   });
   if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", {
     autoclear: false
+  });
+  if (document.querySelector('.integer_input')) $('.integer_input').on('input', function () {
+    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+  });
+  if (document.querySelector('.float_input')) $('.float_input').keypress(function (e) {
+    var trigger = (e.which != 46 || $(this).val().indexOf('.') != -1) && (e.which < 48 || e.which > 57);
+    if (trigger) e.preventDefault();
   }); // Блок "Являюсь представителем"
 
   function initCheckRepresentative() {
     var representativeBlock = document.querySelector('.representative');
     var isRepresentative = representativeBlock.querySelector('.yes');
+    var isRepresentativeChecked = isRepresentative.checked;
     var isNotRepresentative = representativeBlock.querySelector('.no');
-    var representativeAddDocsBlock = document.querySelector('.representative_add_docs_block');
+    var representativeAddDocsBlock = document.querySelector('.representative_add_docs_block'); // проверка начального состояния чекбокса
+
+    if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden');
     isRepresentative.addEventListener('change', function () {
       return representativeAddDocsBlock.classList.remove('hidden');
     });
@@ -202,30 +219,30 @@ $(document).ready(function () {
 
   function initColdWaterSupply() {
     var connectionToColdWater = document.querySelector('.connection_to_cold_water');
+    var isConnectionToColdWaterChecked = connectionToColdWater.checked;
     var coldWaterBlock = document.querySelector('.cold_water_supply_toggle');
+    if (isConnectionToColdWaterChecked) coldWaterBlock.classList.remove('hidden');
     connectionToColdWater.addEventListener('change', function () {
       if (connectionToColdWater.checked) {
-        coldWaterBlock.classList.remove('hidden'); // высота каждой строки = 103px - 120px + отступ снизу
-        // добавить пересчет высоты слайдера на основании сгенерированной высоты элементов
-
-        changeSliderHeight('increase', 1250);
+        coldWaterBlock.classList.remove('hidden');
+        changeSliderHeight('increase', 950);
       } else {
         coldWaterBlock.classList.add('hidden');
-        changeSliderHeight('decrease', 1250);
+        changeSliderHeight('decrease', 950);
       }
-    }); // добавить пересчет высоты слайдера
+    });
   }
 
   if (document.querySelector('.connection_to_cold_water')) initColdWaterSupply(); // Блок "Водоотведение"
 
   function initDrainage() {
     var connectionToDrainage = document.querySelector('.connection_to_drainage');
+    var isConnectionToDrainageChecked = connectionToDrainage.checked;
     var drainageBlock = document.querySelector('.drainage_toggle');
+    if (isConnectionToDrainageChecked) drainageBlock.classList.remove('hidden');
     connectionToDrainage.addEventListener('change', function () {
       if (connectionToDrainage.checked) {
-        drainageBlock.classList.remove('hidden'); // высота каждой строки = 103px - 120px + отступ снизу
-        // добавить пересчет высоты слайдера на основании сгенерированной высоты элементов
-
+        drainageBlock.classList.remove('hidden');
         changeSliderHeight('increase', 650);
       } else {
         drainageBlock.classList.add('hidden');
@@ -234,5 +251,21 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.connection_to_drainage')) initDrainage();
+  if (document.querySelector('.connection_to_drainage')) initDrainage(); // переключение радио по клику на лейбл
+
+  $('.radio').parent().click(function () {
+    $(this).children('.radio').prop('checked', true);
+  }); // переключение чекбокса по клику на лейбл
+  // доработать: при разных кликах по лейблу или самому чекбоксу ломается
+  // $('.checkbox').parent().click(function () {
+  //   let checkbox = $(this).children('.checkbox')
+  //   let isCheckboxChecked = checkbox.is(':checked')
+  //
+  //   if (isCheckboxChecked) {
+  //     return checkbox.prop('checked', false)
+  //   }
+  //
+  //   return checkbox.prop('checked', true)
+  //
+  // })
 });

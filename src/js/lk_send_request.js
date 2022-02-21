@@ -14,8 +14,7 @@ $(document).ready(function() {
   }
 
   // псевдо-селект
-  function initPseudoSelect() {
-    const selectSingle = document.querySelector('.__select')
+  function initPseudoSelect(selectSingle) {
     const selectSingle_title = selectSingle.querySelector('.__select__title')
     const selectSingle_labels = selectSingle.querySelectorAll('.__select__label')
 
@@ -25,7 +24,7 @@ $(document).ready(function() {
       } else {
         selectSingle.setAttribute('data-state', 'active')
       }
-    });
+    })
 
     for (let i = 0; i < selectSingle_labels.length; i++) {
       selectSingle_labels[i].addEventListener('click', function (e) {
@@ -38,15 +37,20 @@ $(document).ready(function() {
     const body = document.querySelector('body')
     body.addEventListener('click', e => {
       const eClassList = e.target.classList
-      const trigger = (eClassList[0] !== '__select__title') &&
-                      (eClassList[0] !== '__select__content') &&
-                      (eClassList[0] !== '__select__input')
+      const trigger = (eClassList[0] !== '__select__title')
+                      && (eClassList[0] !== '__select__content')
+                      && (eClassList[0] !== '__select__input')
 
       if (trigger) selectSingle.setAttribute('data-state', '')
     })
-
   }
-  if (document.querySelector('.__select')) initPseudoSelect()
+
+  // псевдо-селекты
+  function initPseudoSelects() {
+    const selects = document.querySelectorAll('.__select')
+    selects.forEach(select => initPseudoSelect(select))
+  }
+  if (document.querySelector('.__select')) initPseudoSelects()
 
 
   // переключение блоков в "Запуск по очередям", слайдер 1
@@ -80,7 +84,7 @@ $(document).ready(function() {
     })
 
   }
-  initModalDownloadInstructions()
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
   // пересчет высоты слайдера
@@ -214,14 +218,27 @@ $(document).ready(function() {
   if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", { autoclear: false })
   if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", { autoclear: false })
   if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", { autoclear: false })
+  if (document.querySelector('.integer_input')) $('.integer_input').on('input', function () {
+    $(this).val($(this).val().replace(/[^0-9]/g, ''))
+  })
+  if (document.querySelector('.float_input')) $('.float_input').keypress(function (e) {
+    const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
+                    && (e.which < 48 || e.which > 57)
+
+    if (trigger) e.preventDefault()
+  })
 
 
   // Блок "Являюсь представителем"
   function initCheckRepresentative() {
     const representativeBlock = document.querySelector('.representative')
     const isRepresentative = representativeBlock.querySelector('.yes')
+    const isRepresentativeChecked = isRepresentative.checked
     const isNotRepresentative = representativeBlock.querySelector('.no')
     const representativeAddDocsBlock = document.querySelector('.representative_add_docs_block')
+
+    // проверка начального состояния чекбокса
+    if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden')
 
     isRepresentative.addEventListener('change', () => representativeAddDocsBlock.classList.remove('hidden'))
     isNotRepresentative.addEventListener('change', () => representativeAddDocsBlock.classList.add('hidden'))
@@ -231,23 +248,21 @@ $(document).ready(function() {
 
   // Блок "Холодное водоснабжение"
   function initColdWaterSupply() {
-    const connectionToColdWater= document.querySelector('.connection_to_cold_water')
+    const connectionToColdWater = document.querySelector('.connection_to_cold_water')
+    const isConnectionToColdWaterChecked = connectionToColdWater.checked
     const coldWaterBlock = document.querySelector('.cold_water_supply_toggle')
+
+    if (isConnectionToColdWaterChecked) coldWaterBlock.classList.remove('hidden')
 
     connectionToColdWater.addEventListener('change', () => {
       if (connectionToColdWater.checked) {
         coldWaterBlock.classList.remove('hidden')
-        // высота каждой строки = 103px - 120px + отступ снизу
-        // добавить пересчет высоты слайдера на основании сгенерированной высоты элементов
-        changeSliderHeight('increase', 1250)
+        changeSliderHeight('increase', 950)
       } else {
         coldWaterBlock.classList.add('hidden')
-        changeSliderHeight('decrease', 1250)
+        changeSliderHeight('decrease', 950)
       }
-
     })
-    // добавить пересчет высоты слайдера
-
   }
   if (document.querySelector('.connection_to_cold_water')) initColdWaterSupply()
 
@@ -255,22 +270,41 @@ $(document).ready(function() {
   // Блок "Водоотведение"
   function initDrainage() {
     const connectionToDrainage= document.querySelector('.connection_to_drainage')
+    const isConnectionToDrainageChecked = connectionToDrainage.checked
     const drainageBlock = document.querySelector('.drainage_toggle')
+
+    if (isConnectionToDrainageChecked) drainageBlock.classList.remove('hidden')
 
     connectionToDrainage.addEventListener('change', () => {
       if (connectionToDrainage.checked) {
         drainageBlock.classList.remove('hidden')
-        // высота каждой строки = 103px - 120px + отступ снизу
-        // добавить пересчет высоты слайдера на основании сгенерированной высоты элементов
         changeSliderHeight('increase', 650)
       } else {
         drainageBlock.classList.add('hidden')
         changeSliderHeight('decrease', 650)
       }
-
     })
-
   }
   if (document.querySelector('.connection_to_drainage')) initDrainage()
+
+
+  // переключение радио по клику на лейбл
+  $('.radio').parent().click(function () {
+    $(this).children('.radio').prop('checked', true)
+  })
+
+  // переключение чекбокса по клику на лейбл
+  // доработать: при разных кликах по лейблу или самому чекбоксу ломается
+  // $('.checkbox').parent().click(function () {
+  //   let checkbox = $(this).children('.checkbox')
+  //   let isCheckboxChecked = checkbox.is(':checked')
+  //
+  //   if (isCheckboxChecked) {
+  //     return checkbox.prop('checked', false)
+  //   }
+  //
+  //   return checkbox.prop('checked', true)
+  //
+  // })
 
 })
