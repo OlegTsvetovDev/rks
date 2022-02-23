@@ -34,7 +34,7 @@
           </div>
           <div class="form__field fr">
             <label for="" class="field__label">
-              <span class="field__description">Номер ранее выданного ТУ</span>
+              <span class="field__description">Номер ранее выданного ТУ (при наличии)</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
@@ -195,25 +195,25 @@
           </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description required">Способ получения</span>
+              <span class="field__description required">Желаемый способ получения</span>
               <span class="label__block">
-                <label for="">
-                  <input type="radio" name="obtaining_method" class="radio" value="" checked />
-                  В личном кабинете
-                </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
                   Лично
                 </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
-                  По электронной почте *
+                  Заказным письмом и посредством почтовой связи с уведомлением
+                </label>
+                <label for="">
+                  <input type="radio" name="obtaining_method" class="radio" value="" checked />
+                  Личный кабинет
                 </label>
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
-                  Письмом посредством почтовой связи
+                  Электронная почта *
                 </label>
-                <span class="field_comment">* Получение ТУ по электронной почте возможно в случае подписания Заявления в личном кабинете с использованием КЭП</span>
+                <span class="field_comment">Получение ТУ по электронной почте и в Личном кабинете возможно в случае подписания заявления в личном кабинете с использованием квалифицированной ЭЦП</span>
               </span>
             </label>
           </div>
@@ -224,6 +224,25 @@
           <h3 class="form__header">Данные о подключаемом объекте</h3>
           <h5 class="form__subheader">Очередь №1</h5>
           <div class="form__field width_max">
+            <div class="form__field width_max">
+              <label for="" class="field__label">
+                <span class="field__description required">Вид объекта подключения</span>
+                <span class="label__block">
+                  <label for="">
+                    <input type="radio" name="connection_object_kind" class="radio" value="" checked />
+                    Частные домовладения
+                  </label>
+                  <label for="">
+                    <input type="radio" name="connection_object_kind" class="radio" value="" />
+                    Объекты капитального строительства
+                  </label>
+                  <label for="">
+                    <input type="radio" name="connection_object_kind" class="radio" value="" />
+                    Реконструкция квартир
+                  </label>
+                </span>
+              </label>
+            </div>
             <label for="" class="field__label">
               <span class="field__description required">Характеристика объекта подключения</span>
               <span class="label__block">
@@ -256,25 +275,7 @@
                 </span>
               </label>
             </div>
-            <div class="form__field width_max">
-              <label for="" class="field__label">
-                <span class="field__description required">Вид объекта подключения</span>
-                <span class="label__block">
-                  <label for="">
-                    <input type="radio" name="connection_object_kind" class="radio" value="" checked />
-                    Частные домовладения
-                  </label>
-                  <label for="">
-                    <input type="radio" name="connection_object_kind" class="radio" value="" />
-                    Объекты капитального строительства
-                  </label>
-                  <label for="">
-                    <input type="radio" name="connection_object_kind" class="radio" value="" />
-                    Реконструкция квартир
-                  </label>
-                </span>
-              </label>
-            </div>
+
             <div class="form__field">
               <label for="" class="field__label">
                 <span class="field__description required">Адрес, населенный пункт</span>
@@ -309,7 +310,25 @@
             </div>
             <div class="form__field">
               <label for="" class="field__label">
-                <span class="field__description required">Наименование объекта подключения</span>
+                <span class="field__description">Кадастровый номер земельного участка</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <div class="form__field fr">
+              <label for="" class="field__label">
+                <span class="field__description">Площадь земельного участка</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <div class="form__field">
+              <label for="" class="field__label">
+                <span class="field__description">Вид разрешенного использования</span>
+                <input type="text" class="field__input" placeholder="Введите данные" />
+              </label>
+            </div>
+            <div class="form__field">
+              <label for="" class="field__label">
+                <span class="field__description required">Наименование объекта (МКД, магазин и т.д.)</span>
                 <input type="text" class="field__input" placeholder="Введите данные" />
               </label>
             </div>
@@ -328,7 +347,7 @@
                 </span>
               </label>
             </div>
-            <div class="form__field width_max">
+            <!-- <div class="form__field width_max">
               <label for="" class="field__label">
                 <span class="field__description required">Необходимые виды ресурсов или услуг, планируемых к получению через централизованную систему</span>
                 <span class="label__block">
@@ -342,25 +361,8 @@
                   </label>
                 </span>
               </label>
-            </div>
-            <div class="form__field">
-              <label for="" class="field__label">
-                <span class="field__description">Кадастровый номер земельного участка</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-            </div>
-            <div class="form__field fr">
-              <label for="" class="field__label">
-                <span class="field__description">Площадь земельного участка</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-            </div>
-            <div class="form__field">
-              <label for="" class="field__label">
-                <span class="field__description">Вид разрешенного использования</span>
-                <input type="text" class="field__input" placeholder="Введите данные" />
-              </label>
-            </div>
+            </div> -->
+
             <div class="form__field width_max">
               <label for="" class="field__label">
                 <h6 class="form__subheader">Информация о предельных параметрах разрешенного строительства (реконструкции) подключаемого объекта</h6>

@@ -244,7 +244,7 @@ input[type=number]::-webkit-outer-spin-button {
       left: 0;
       top: 0;
       position: absolute;
-      transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+      // transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
     }
     &:checked {
       --b: var(--active);

@@ -32,6 +32,7 @@ $(document).ready(function () {
     for (var i = 0; i < selectSingle_labels.length; i++) {
       selectSingle_labels[i].addEventListener('click', function (e) {
         selectSingle_title.textContent = e.target.textContent;
+        selectSingle_title.value = e.target.textContent;
         selectSingle.setAttribute('data-state', '');
       });
     } // скрытие при клике по body кроме .__select
@@ -100,6 +101,13 @@ $(document).ready(function () {
   });
   if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", {
     autoclear: false
+  });
+  if (document.querySelector('.integer_input')) $('.integer_input').on('input', function () {
+    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+  });
+  if (document.querySelector('.float_input')) $('.float_input').keypress(function (e) {
+    var trigger = (e.which != 46 || $(this).val().indexOf('.') != -1) && (e.which < 48 || e.which > 57);
+    if (trigger) e.preventDefault();
   }); // Модалка "Смена пароля"
 
   function initModalChangePswd() {

@@ -29,6 +29,7 @@ $(document).ready(function () {
     for (var i = 0; i < selectSingle_labels.length; i++) {
       selectSingle_labels[i].addEventListener('click', function (e) {
         selectSingle_title.textContent = e.target.textContent;
+        selectSingle_title.value = e.target.textContent;
         selectSingle.setAttribute('data-state', '');
       });
     } // скрытие при клике по body кроме .__select
@@ -257,15 +258,14 @@ $(document).ready(function () {
     $(this).children('.radio').prop('checked', true);
   }); // переключение чекбокса по клику на лейбл
   // доработать: при разных кликах по лейблу или самому чекбоксу ломается
-  // $('.checkbox').parent().click(function () {
-  //   let checkbox = $(this).children('.checkbox')
-  //   let isCheckboxChecked = checkbox.is(':checked')
-  //
-  //   if (isCheckboxChecked) {
-  //     return checkbox.prop('checked', false)
-  //   }
-  //
-  //   return checkbox.prop('checked', true)
-  //
-  // })
+
+  $('.checkbox').parent().click(function () {
+    var checkbox = $(this).children('.checkbox');
+    var isCheckboxChecked = checkbox.is(':checked');
+    console.log(isCheckboxChecked);
+    console.log(checkbox);
+
+    if (isCheckboxChecked) {// checkbox.prop('checked', false)
+    }
+  });
 });

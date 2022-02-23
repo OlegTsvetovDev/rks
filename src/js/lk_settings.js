@@ -33,6 +33,7 @@ $(document).ready(function () {
     for (let i = 0; i < selectSingle_labels.length; i++) {
       selectSingle_labels[i].addEventListener('click', function (e) {
         selectSingle_title.textContent = e.target.textContent
+        selectSingle_title.value = e.target.textContent
         selectSingle.setAttribute('data-state', '')
       })
     }
