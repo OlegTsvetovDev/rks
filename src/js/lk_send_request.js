@@ -31,6 +31,9 @@ $(document).ready(function() {
         selectSingle_title.textContent = e.target.textContent
         selectSingle_title.value = e.target.textContent
         selectSingle.setAttribute('data-state', '')
+
+        // проверка на наличие модуля пересчета итогового адреса для вызова пересчета
+        if (document.querySelector('.address__concated')) addressConcatination()
       })
     }
 
@@ -52,6 +55,39 @@ $(document).ready(function() {
     selects.forEach(select => initPseudoSelect(select))
   }
   if (document.querySelector('.__select')) initPseudoSelects()
+
+
+  // Пересчет итогового адреса
+  const concated = document.querySelector('.address__concated')
+  const locality = document.querySelector('.address__locality')
+  const district = document.querySelector('.address__district')
+  const microdistrict = document.querySelector('.address__microdistrict')
+  const street = document.querySelector('.address__street')
+  const housing = document.querySelector('.address__housing')
+  const house = document.querySelector('.address__house')
+
+  function addressConcatination() {
+    setTimeout(() => {
+      concated.textContent = `
+                              ${locality.value ? 'г. ' + locality.value + ', ' : ''}
+                              ${district.value ? district.value + ' район, ' : ''}
+                              ${microdistrict.value ? microdistrict.value + ' микрорайон, ' : ''}
+                              ${street.value ? 'ул. ' + street.value + ', ' : ''}
+                              ${housing.value ? 'корпус ' + housing.value + ', ' : ''}
+                              ${house.value ? 'дом ' + house.value + '.' : ''}
+                             `
+    }, 100)
+  }
+
+  function initAddressConcatination() {
+    locality.addEventListener('change', () => addressConcatination())
+    district.addEventListener('change', () => addressConcatination())
+    microdistrict.addEventListener('change', () => addressConcatination())
+    street.addEventListener('change', () => addressConcatination())
+    housing.addEventListener('change', () => addressConcatination())
+    house.addEventListener('change', () => addressConcatination())
+  }
+  if (document.querySelector('.address__concated')) initAddressConcatination()
 
 
   // переключение блоков в "Запуск по очередям", слайдер 1
@@ -300,8 +336,8 @@ $(document).ready(function() {
     let checkbox = $(this).children('.checkbox')
     let isCheckboxChecked = checkbox.is(':checked')
 
-    console.log(isCheckboxChecked)
-    console.log(checkbox)
+    // console.log(isCheckboxChecked)
+    // console.log(checkbox)
 
     if (isCheckboxChecked) {
 

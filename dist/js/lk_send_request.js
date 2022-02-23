@@ -30,7 +30,9 @@ $(document).ready(function () {
       selectSingle_labels[i].addEventListener('click', function (e) {
         selectSingle_title.textContent = e.target.textContent;
         selectSingle_title.value = e.target.textContent;
-        selectSingle.setAttribute('data-state', '');
+        selectSingle.setAttribute('data-state', ''); // проверка на наличие модуля пересчета итогового адреса для вызова пересчета
+
+        if (document.querySelector('.address__concated')) addressConcatination();
       });
     } // скрытие при клике по body кроме .__select
 
@@ -51,7 +53,44 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.__select')) initPseudoSelects(); // переключение блоков в "Запуск по очередям", слайдер 1
+  if (document.querySelector('.__select')) initPseudoSelects(); // Пересчет итогового адреса
+
+  var concated = document.querySelector('.address__concated');
+  var locality = document.querySelector('.address__locality');
+  var district = document.querySelector('.address__district');
+  var microdistrict = document.querySelector('.address__microdistrict');
+  var street = document.querySelector('.address__street');
+  var housing = document.querySelector('.address__housing');
+  var house = document.querySelector('.address__house');
+
+  function addressConcatination() {
+    setTimeout(function () {
+      concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value + ', ' : '', "\n                              ").concat(district.value ? district.value + ' район, ' : '', "\n                              ").concat(microdistrict.value ? microdistrict.value + ' микрорайон, ' : '', "\n                              ").concat(street.value ? 'ул. ' + street.value + ', ' : '', "\n                              ").concat(housing.value ? 'корпус ' + housing.value + ', ' : '', "\n                              ").concat(house.value ? 'дом ' + house.value + '.' : '', "\n                             ");
+    }, 100);
+  }
+
+  function initAddressConcatination() {
+    locality.addEventListener('change', function () {
+      return addressConcatination();
+    });
+    district.addEventListener('change', function () {
+      return addressConcatination();
+    });
+    microdistrict.addEventListener('change', function () {
+      return addressConcatination();
+    });
+    street.addEventListener('change', function () {
+      return addressConcatination();
+    });
+    housing.addEventListener('change', function () {
+      return addressConcatination();
+    });
+    house.addEventListener('change', function () {
+      return addressConcatination();
+    });
+  }
+
+  if (document.querySelector('.address__concated')) initAddressConcatination(); // переключение блоков в "Запуск по очередям", слайдер 1
 
   $('input[name="queue_launch"]').click(function () {
     var target = $('.queue_launch_' + $(this).val());
@@ -261,9 +300,8 @@ $(document).ready(function () {
 
   $('.checkbox').parent().click(function () {
     var checkbox = $(this).children('.checkbox');
-    var isCheckboxChecked = checkbox.is(':checked');
-    console.log(isCheckboxChecked);
-    console.log(checkbox);
+    var isCheckboxChecked = checkbox.is(':checked'); // console.log(isCheckboxChecked)
+    // console.log(checkbox)
 
     if (isCheckboxChecked) {// checkbox.prop('checked', false)
     }
