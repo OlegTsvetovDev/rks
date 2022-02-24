@@ -91,12 +91,19 @@ $(document).ready(function() {
 
 
   // переключение блоков в "Запуск по очередям", слайдер 1
-  $('input[name="queue_launch"]').click(function () {
-    var target = $('.queue_launch_' + $(this).val())
+  function initQueueLaunch() {
+    let queueLaunchInput = $('input[name="queue_launch"]')
+    let queueLaunchLabel = queueLaunchInput.parent()
 
-    $('.queue_launch').not(target).hide(0)
-    target.fadeIn(300)
-  })
+    queueLaunchLabel.click(function () {
+      let target = $('.queue_launch_' + $(this).children().val())
+
+      $('.queue_launch').not(target).hide(0)
+      target.fadeIn(300)
+    })
+
+  }
+  if (document.querySelector('input[name="queue_launch"]')) initQueueLaunch()
 
 
   // Модалка "Скачать инструкцию"
@@ -271,14 +278,18 @@ $(document).ready(function() {
     const representativeBlock = document.querySelector('.representative')
     const isRepresentative = representativeBlock.querySelector('.yes')
     const isRepresentativeChecked = isRepresentative.checked
+    const isRepresentativeLabel = isRepresentative.parentNode
     const isNotRepresentative = representativeBlock.querySelector('.no')
+    const isNotRepresentativeLabel = isNotRepresentative.parentNode
     const representativeAddDocsBlock = document.querySelector('.representative_add_docs_block')
 
     // проверка начального состояния чекбокса
     if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden')
 
-    isRepresentative.addEventListener('change', () => representativeAddDocsBlock.classList.remove('hidden'))
-    isNotRepresentative.addEventListener('change', () => representativeAddDocsBlock.classList.add('hidden'))
+    isRepresentative.addEventListener('click', () => representativeAddDocsBlock.classList.remove('hidden'))
+    isRepresentativeLabel.addEventListener('click', () => representativeAddDocsBlock.classList.remove('hidden'))
+    isNotRepresentative.addEventListener('click', () => representativeAddDocsBlock.classList.add('hidden'))
+    isNotRepresentativeLabel.addEventListener('click', () => representativeAddDocsBlock.classList.add('hidden'))
   }
   if (document.querySelector('.representative')) initCheckRepresentative()
 
@@ -286,20 +297,24 @@ $(document).ready(function() {
   // Блок "Холодное водоснабжение"
   function initColdWaterSupply() {
     const connectionToColdWater = document.querySelector('.connection_to_cold_water')
+    const connectionToColdWaterLabel = connectionToColdWater.parentNode
     const isConnectionToColdWaterChecked = connectionToColdWater.checked
-    const coldWaterBlock = document.querySelector('.cold_water_supply_toggle')
+    const coldWaterToggle = document.querySelector('.cold_water_supply_toggle')
 
-    if (isConnectionToColdWaterChecked) coldWaterBlock.classList.remove('hidden')
+    if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden')
 
-    connectionToColdWater.addEventListener('change', () => {
-      if (connectionToColdWater.checked) {
-        coldWaterBlock.classList.remove('hidden')
-        changeSliderHeight('increase', 950)
+    connectionToColdWaterLabel.addEventListener('click', () => {
+      const isConnectionToColdWaterChecked = !connectionToColdWater.checked
+
+      if (isConnectionToColdWaterChecked) {
+        coldWaterToggle.classList.remove('hidden')
+        changeSliderHeight('increase', 1000)
       } else {
-        coldWaterBlock.classList.add('hidden')
-        changeSliderHeight('decrease', 950)
+        coldWaterToggle.classList.add('hidden')
+        changeSliderHeight('decrease', 1000)
       }
     })
+
   }
   if (document.querySelector('.connection_to_cold_water')) initColdWaterSupply()
 
@@ -307,18 +322,21 @@ $(document).ready(function() {
   // Блок "Водоотведение"
   function initDrainage() {
     const connectionToDrainage= document.querySelector('.connection_to_drainage')
+    const connectionToDrainageLabel = connectionToDrainage.parentNode
     const isConnectionToDrainageChecked = connectionToDrainage.checked
-    const drainageBlock = document.querySelector('.drainage_toggle')
+    const drainageToggle = document.querySelector('.drainage_toggle')
 
-    if (isConnectionToDrainageChecked) drainageBlock.classList.remove('hidden')
+    if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden')
 
-    connectionToDrainage.addEventListener('change', () => {
-      if (connectionToDrainage.checked) {
-        drainageBlock.classList.remove('hidden')
-        changeSliderHeight('increase', 650)
+    connectionToDrainageLabel.addEventListener('click', () => {
+      const isConnectionToDrainageChecked = !connectionToDrainage.checked
+
+      if (isConnectionToDrainageChecked) {
+        drainageToggle.classList.remove('hidden')
+        changeSliderHeight('increase', 750)
       } else {
-        drainageBlock.classList.add('hidden')
-        changeSliderHeight('decrease', 650)
+        drainageToggle.classList.add('hidden')
+        changeSliderHeight('decrease', 750)
       }
     })
   }
@@ -330,21 +348,27 @@ $(document).ready(function() {
     $(this).children('.radio').prop('checked', true)
   })
 
+
   // переключение чекбокса по клику на лейбл
-  // доработать: при разных кликах по лейблу или самому чекбоксу ломается
-  $('.checkbox').parent().click(function () {
-    let checkbox = $(this).children('.checkbox')
-    let isCheckboxChecked = checkbox.is(':checked')
+  function initCheckboxLabels() {
+    let checkboxes = $('.checkbox')
+    let labels = checkboxes.parent()
 
-    // console.log(isCheckboxChecked)
-    // console.log(checkbox)
+    checkboxes.click(function () {
+      let checkbox = $(this)
+      let isCheckboxChecked = checkbox.is(':checked')
 
-    if (isCheckboxChecked) {
+      checkbox.prop('checked', !isCheckboxChecked)
+    })
 
-        // checkbox.prop('checked', false)
+    labels.click(function () {
+      let checkbox = $(this).children()
+      let isCheckboxChecked = checkbox.is(':checked')
 
-    }
+      checkbox.prop('checked', !isCheckboxChecked)
+    })
+  }
+  if (document.querySelector('.checkbox')) initCheckboxLabels()
 
-  })
 
 })

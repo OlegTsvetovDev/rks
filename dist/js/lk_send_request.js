@@ -92,11 +92,17 @@ $(document).ready(function () {
 
   if (document.querySelector('.address__concated')) initAddressConcatination(); // переключение блоков в "Запуск по очередям", слайдер 1
 
-  $('input[name="queue_launch"]').click(function () {
-    var target = $('.queue_launch_' + $(this).val());
-    $('.queue_launch').not(target).hide(0);
-    target.fadeIn(300);
-  }); // Модалка "Скачать инструкцию"
+  function initQueueLaunch() {
+    var queueLaunchInput = $('input[name="queue_launch"]');
+    var queueLaunchLabel = queueLaunchInput.parent();
+    queueLaunchLabel.click(function () {
+      var target = $('.queue_launch_' + $(this).children().val());
+      $('.queue_launch').not(target).hide(0);
+      target.fadeIn(300);
+    });
+  }
+
+  if (document.querySelector('input[name="queue_launch"]')) initQueueLaunch(); // Модалка "Скачать инструкцию"
 
   function initModalDownloadInstructions() {
     var instructionsBtn = $('.instructions__btn'),
@@ -243,14 +249,22 @@ $(document).ready(function () {
     var representativeBlock = document.querySelector('.representative');
     var isRepresentative = representativeBlock.querySelector('.yes');
     var isRepresentativeChecked = isRepresentative.checked;
+    var isRepresentativeLabel = isRepresentative.parentNode;
     var isNotRepresentative = representativeBlock.querySelector('.no');
+    var isNotRepresentativeLabel = isNotRepresentative.parentNode;
     var representativeAddDocsBlock = document.querySelector('.representative_add_docs_block'); // проверка начального состояния чекбокса
 
     if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden');
-    isRepresentative.addEventListener('change', function () {
+    isRepresentative.addEventListener('click', function () {
       return representativeAddDocsBlock.classList.remove('hidden');
     });
-    isNotRepresentative.addEventListener('change', function () {
+    isRepresentativeLabel.addEventListener('click', function () {
+      return representativeAddDocsBlock.classList.remove('hidden');
+    });
+    isNotRepresentative.addEventListener('click', function () {
+      return representativeAddDocsBlock.classList.add('hidden');
+    });
+    isNotRepresentativeLabel.addEventListener('click', function () {
       return representativeAddDocsBlock.classList.add('hidden');
     });
   }
@@ -259,16 +273,19 @@ $(document).ready(function () {
 
   function initColdWaterSupply() {
     var connectionToColdWater = document.querySelector('.connection_to_cold_water');
+    var connectionToColdWaterLabel = connectionToColdWater.parentNode;
     var isConnectionToColdWaterChecked = connectionToColdWater.checked;
-    var coldWaterBlock = document.querySelector('.cold_water_supply_toggle');
-    if (isConnectionToColdWaterChecked) coldWaterBlock.classList.remove('hidden');
-    connectionToColdWater.addEventListener('change', function () {
-      if (connectionToColdWater.checked) {
-        coldWaterBlock.classList.remove('hidden');
-        changeSliderHeight('increase', 950);
+    var coldWaterToggle = document.querySelector('.cold_water_supply_toggle');
+    if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden');
+    connectionToColdWaterLabel.addEventListener('click', function () {
+      var isConnectionToColdWaterChecked = !connectionToColdWater.checked;
+
+      if (isConnectionToColdWaterChecked) {
+        coldWaterToggle.classList.remove('hidden');
+        changeSliderHeight('increase', 1000);
       } else {
-        coldWaterBlock.classList.add('hidden');
-        changeSliderHeight('decrease', 950);
+        coldWaterToggle.classList.add('hidden');
+        changeSliderHeight('decrease', 1000);
       }
     });
   }
@@ -277,16 +294,19 @@ $(document).ready(function () {
 
   function initDrainage() {
     var connectionToDrainage = document.querySelector('.connection_to_drainage');
+    var connectionToDrainageLabel = connectionToDrainage.parentNode;
     var isConnectionToDrainageChecked = connectionToDrainage.checked;
-    var drainageBlock = document.querySelector('.drainage_toggle');
-    if (isConnectionToDrainageChecked) drainageBlock.classList.remove('hidden');
-    connectionToDrainage.addEventListener('change', function () {
-      if (connectionToDrainage.checked) {
-        drainageBlock.classList.remove('hidden');
-        changeSliderHeight('increase', 650);
+    var drainageToggle = document.querySelector('.drainage_toggle');
+    if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden');
+    connectionToDrainageLabel.addEventListener('click', function () {
+      var isConnectionToDrainageChecked = !connectionToDrainage.checked;
+
+      if (isConnectionToDrainageChecked) {
+        drainageToggle.classList.remove('hidden');
+        changeSliderHeight('increase', 750);
       } else {
-        drainageBlock.classList.add('hidden');
-        changeSliderHeight('decrease', 650);
+        drainageToggle.classList.add('hidden');
+        changeSliderHeight('decrease', 750);
       }
     });
   }
@@ -296,14 +316,21 @@ $(document).ready(function () {
   $('.radio').parent().click(function () {
     $(this).children('.radio').prop('checked', true);
   }); // переключение чекбокса по клику на лейбл
-  // доработать: при разных кликах по лейблу или самому чекбоксу ломается
 
-  $('.checkbox').parent().click(function () {
-    var checkbox = $(this).children('.checkbox');
-    var isCheckboxChecked = checkbox.is(':checked'); // console.log(isCheckboxChecked)
-    // console.log(checkbox)
+  function initCheckboxLabels() {
+    var checkboxes = $('.checkbox');
+    var labels = checkboxes.parent();
+    checkboxes.click(function () {
+      var checkbox = $(this);
+      var isCheckboxChecked = checkbox.is(':checked');
+      checkbox.prop('checked', !isCheckboxChecked);
+    });
+    labels.click(function () {
+      var checkbox = $(this).children();
+      var isCheckboxChecked = checkbox.is(':checked');
+      checkbox.prop('checked', !isCheckboxChecked);
+    });
+  }
 
-    if (isCheckboxChecked) {// checkbox.prop('checked', false)
-    }
-  });
+  if (document.querySelector('.checkbox')) initCheckboxLabels();
 });
