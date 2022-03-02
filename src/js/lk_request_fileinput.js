@@ -161,7 +161,7 @@ function changeSliderHeight(action, value) {
              $("input#" + uuid).prop("checked", false);
              $("label[for='" + uuid + "']").hide();
              $(".attachment__item_" + uuid).remove();
-	           changeSliderHeight('decrease', 37);
+	           changeSliderHeight('decrease', 35);
          });
 
 
