@@ -1840,6 +1840,12 @@ input[type=number]::-webkit-outer-spin-button {
   text-decoration: none;
 }
 
+.main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment__doctype {
+  visibility: hidden;
+  height: 0;
+  border: none;
+}
+
 .main__content .requests_form .request__form .form__field.add_files .field__control_btns .add_files_button {
   display: block;
   text-align: right;
