@@ -135,34 +135,69 @@ $(document).ready(function () {
     }
 
     return slickList.style.height = slickListHeight - value + 'px';
-  } // добавление новых строк в таблицу с очередями, слайдер 1
+  } // логика блоков очередей (добавление, удаление), 1 и 4 сладер
 
 
-  var queue_tbody = $('.queue_launch_yes tbody');
-  var queue_count = 3;
-  $('.queue_btn').click(function (event) {
-    var new_row = "\n                    <tr class=\"table__row\">\n                      <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input datepicker_input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                    </tr>\n                   ");
-    event.preventDefault();
-    queue_tbody.append(new_row);
-    queue_count += 1;
-    changeSliderHeight('increase', 39); // инициализация дейтпикера на последней добавленной строке
+  function initMultipleQueues() {
+    // состояние количества очередей
+    var queue_count = 1; // добавление блоков очередей, 4 сладер
+    // создание новой ноды
 
-    var lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input');
-    lastChildDatepicker.datepicker($.datepicker.regional['ru']);
-    lastChildDatepicker.mask("99.99.9999", {
-      autoclear: false
+    function createNewNode() {
+      var baseNode = document.querySelector('.queue_block');
+      return baseNode.cloneNode(true);
+    } // замена суффиксов в аттрибутах name в зависимости от номера очереди
+
+
+    function pasteNameSuffixes(node) {
+      var subheader = node.querySelector('.form__subheader');
+      subheader.innerText = "\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count);
+      console.log(subheader);
+    } // вставка новой ноды в блок .step_5, 4 слайдера
+
+
+    function renderNewNode(newNode) {
+      var parentNode = document.querySelector('.step_5');
+      console.log(parentNode);
+      parentNode.append(newNode);
+    } // общая функция на создание и рендер новой ноды, 4 слайдер
+
+
+    function createAndRenderNewNode() {
+      var newNode = createNewNode();
+      pasteNameSuffixes(newNode);
+      renderNewNode(newNode);
+    } // добавление новых строк в таблицу с очередями, слайдер 1
+
+
+    var queue_tbody = $('.queue_launch_yes tbody');
+    $('.queue_btn').click(function (e) {
+      e.preventDefault();
+      queue_count += 1;
+      var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
+      queue_tbody.append(new_row);
+      createAndRenderNewNode();
+      changeSliderHeight('increase', 39); // инициализация дейтпикера на последней добавленной строке
+
+      var lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input');
+      lastChildDatepicker.datepicker($.datepicker.regional['ru']);
+      lastChildDatepicker.mask("99.99.9999", {
+        autoclear: false
+      });
+    }); // удаление новых строк в таблицу с очередями, слайдер 1
+
+    $('.queue_btn_remove').click(function (e) {
+      e.preventDefault();
+
+      if (queue_count >= 2) {
+        queue_count -= 1;
+        queue_tbody.children().last().remove();
+        changeSliderHeight('decrease', 39);
+      }
     });
-  }); // удаление новых строк в таблицу с очередями, слайдер 1
+  }
 
-  $('.queue_btn_remove').click(function (event) {
-    event.preventDefault();
-
-    if (queue_count > 3) {
-      queue_tbody.children().last().remove();
-      queue_count -= 1;
-      changeSliderHeight('decrease', 39);
-    }
-  }); // добавление новых строк в таблицу с иными источниками, слайдер 4
+  initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4
 
   var water_source_tbody = $('.other_water_sources tbody');
   var water_source_count = 2;
@@ -179,7 +214,7 @@ $(document).ready(function () {
 
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove();
-      water_source_count -= 1;
+      water_source_count--;
       changeSliderHeight('decrease', 39);
     }
   }); // добавление новых строк в таблицу с характеристиками земельных участков, слайдер 4

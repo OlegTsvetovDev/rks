@@ -144,40 +144,81 @@ $(document).ready(function() {
   }
 
 
-  // добавление новых строк в таблицу с очередями, слайдер 1
-  const queue_tbody = $('.queue_launch_yes tbody')
-  let queue_count = 3
+  // логика блоков очередей (добавление, удаление), 1 и 4 сладер
+  function initMultipleQueues() {
+    // состояние количества очередей
+    let queue_count = 1
 
-  $('.queue_btn').click(function(event) {
-    const new_row = `
-                    <tr class="table__row">
-                      <td class="table__cell">Очередь №${queue_count}</td>
-                      <td class="table__cell">
-                        <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
-                      </td>
-                    </tr>
-                   `
-    event.preventDefault()
-
-    queue_tbody.append(new_row)
-    queue_count += 1
-    changeSliderHeight('increase', 39)
-
-    // инициализация дейтпикера на последней добавленной строке
-    const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
-    lastChildDatepicker.datepicker($.datepicker.regional['ru'])
-    lastChildDatepicker.mask("99.99.9999", { autoclear: false })
-  })
-  // удаление новых строк в таблицу с очередями, слайдер 1
-  $('.queue_btn_remove').click(function(event) {
-    event.preventDefault()
-
-    if (queue_count > 3) {
-      queue_tbody.children().last().remove()
-      queue_count -= 1
-      changeSliderHeight('decrease', 39)
+    // добавление блоков очередей, 4 сладер
+    // создание новой ноды
+    function createNewNode() {
+      const baseNode = document.querySelector('.queue_block')
+      return baseNode.cloneNode(true)
     }
-  })
+
+    // замена суффиксов в аттрибутах name в зависимости от номера очереди
+    function pasteNameSuffixes(node) {
+      const subheader = node.querySelector('.form__subheader')
+
+      subheader.innerText = `Очередь №${queue_count}`
+      console.log(subheader)
+    }
+
+    // вставка новой ноды в блок .step_5, 4 слайдера
+    function renderNewNode(newNode) {
+      const parentNode = document.querySelector('.step_5')
+      console.log(parentNode)
+      parentNode.append(newNode)
+    }
+
+    // общая функция на создание и рендер новой ноды, 4 слайдер
+    function createAndRenderNewNode() {
+      const newNode = createNewNode()
+      pasteNameSuffixes(newNode)
+      renderNewNode(newNode)
+    }
+
+
+    // добавление новых строк в таблицу с очередями, слайдер 1
+    const queue_tbody = $('.queue_launch_yes tbody')
+
+    $('.queue_btn').click(function(e) {
+      e.preventDefault()
+      queue_count += 1
+
+      const new_row = `
+                      <tr class="table__row">
+                        <td class="table__cell">Очередь №${queue_count}</td>
+                        <td class="table__cell">
+                          <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
+                        </td>
+                      </tr>
+                     `
+
+      queue_tbody.append(new_row)
+      createAndRenderNewNode()
+      changeSliderHeight('increase', 39)
+
+      // инициализация дейтпикера на последней добавленной строке
+      const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
+      lastChildDatepicker.datepicker($.datepicker.regional['ru'])
+      lastChildDatepicker.mask("99.99.9999", { autoclear: false })
+    })
+
+    // удаление новых строк в таблицу с очередями, слайдер 1
+    $('.queue_btn_remove').click(function(e) {
+      e.preventDefault()
+
+      if (queue_count >= 2) {
+        queue_count -= 1
+        queue_tbody.children().last().remove()
+        changeSliderHeight('decrease', 39)
+      }
+    })
+
+  }
+  initMultipleQueues()
+
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
   const water_source_tbody = $('.other_water_sources tbody')
@@ -210,7 +251,7 @@ $(document).ready(function() {
 
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove()
-      water_source_count -= 1
+      water_source_count--
       changeSliderHeight('decrease', 39)
     }
   })

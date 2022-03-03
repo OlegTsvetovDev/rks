@@ -642,6 +642,9 @@ input[type=number]::-webkit-outer-spin-button {
           text-decoration: underline $mainColorTransparent;
           background: url('../img/control_btns/file.svg') no-repeat 0 0;
         }
+        a:link, a:visited, a:active {
+          color: $mainColor;
+        }
       }
   	} // end of .header__top
     .header__bottom {
@@ -1148,6 +1151,12 @@ input[type=number]::-webkit-outer-spin-button {
         }
       } // end of .slider
       .request__form {
+        .queue_block {
+          display: -webkit-flex;
+          display: -ms-flex;
+          display: flex;
+          flex-direction: column;
+        }
 
         .form__header {
           color: $black;
@@ -1479,6 +1488,7 @@ input[type=number]::-webkit-outer-spin-button {
             display: -webkit-flex;
             display: -ms-flex;
             display: flex;
+            // flex-direction: column;
             justify-content: space-between;
             padding: 25px 30px;
             border-top: 1px solid $mainColorTransparent;

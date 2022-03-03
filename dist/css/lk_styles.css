@@ -739,6 +739,12 @@ input[type=number]::-webkit-outer-spin-button {
   background: url("../img/control_btns/file.svg") no-repeat 0 0;
 }
 
+.header__content .header__top .header__instructions a:link,
+.header__content .header__top .header__instructions a:visited,
+.header__content .header__top .header__instructions a:active {
+  color: #3c54a5;
+}
+
 .header__content .header__bottom {
   display: -webkit-flex;
   display: -ms-flex;
@@ -1316,6 +1322,22 @@ input[type=number]::-webkit-outer-spin-button {
   -moz-box-ordinal-group: 3;
   -ms-flex-order: 2;
   order: 2;
+}
+
+.main__content .requests_form .request__form .queue_block {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .main__content .requests_form .request__form .form__header {
