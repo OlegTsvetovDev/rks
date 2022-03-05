@@ -147,7 +147,19 @@ $(document).ready(function() {
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
-    let queue_count = 1
+    let queue_count = 0
+
+    function getCurrentQueueCount() {
+      const nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row')
+      const nodesLength = nodes.length
+
+      if (!nodesLength) return console.log('Не найдены строки очередей в таблице .queue_launch_yes .field__table')
+
+      nodes.forEach((node, i) => queue_count += 1)
+    }
+    getCurrentQueueCount()
+
+    initQueueSlider()
 
     // добавление блоков очередей, 4 сладер
     // создание новой ноды
@@ -159,16 +171,40 @@ $(document).ready(function() {
     // замена суффиксов в аттрибутах name в зависимости от номера очереди
     function pasteNameSuffixes(node) {
       const subheader = node.querySelector('.form__subheader')
-
       subheader.innerText = `Очередь №${queue_count}`
-      console.log(subheader)
+
+
+
+
+
     }
 
     // вставка новой ноды в блок .step_5, 4 слайдера
     function renderNewNode(newNode) {
       const parentNode = document.querySelector('.step_5')
-      console.log(parentNode)
       parentNode.append(newNode)
+    }
+
+    // удаление последней очереди
+    function deleteLastNode() {
+      const nodeContainer = $('.step_5')
+      nodeContainer.children().last().remove()
+    }
+
+    function destroyQueueSlider() {
+      // $('.queue_slider').slick('unslick')
+      console.log('Слайдер разрушен')
+    }
+
+    function initQueueSlider() {
+      $('.queue_slider').slick({
+        dots: true,
+        infinite: false,
+        draggable: false,
+        adaptiveHeight: true
+      })
+
+      console.log('Слайдер создан')
     }
 
     // общая функция на создание и рендер новой ноды, 4 слайдер
@@ -203,6 +239,10 @@ $(document).ready(function() {
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
       lastChildDatepicker.datepicker($.datepicker.regional['ru'])
       lastChildDatepicker.mask("99.99.9999", { autoclear: false })
+
+      // переинициализация слайдера с очередями, слайдер 4
+      destroyQueueSlider()
+      initQueueSlider()
     })
 
     // удаление новых строк в таблицу с очередями, слайдер 1
@@ -212,12 +252,17 @@ $(document).ready(function() {
       if (queue_count >= 2) {
         queue_count -= 1
         queue_tbody.children().last().remove()
+        deleteLastNode()
         changeSliderHeight('decrease', 39)
+
+        // переинициализация слайдера с очередями, слайдер 4
+        destroyQueueSlider()
+        initQueueSlider()
       }
     })
 
   }
-  initMultipleQueues()
+  if (document.querySelector('.queue_launch_yes')) initMultipleQueues()
 
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
@@ -246,8 +291,8 @@ $(document).ready(function() {
   })
 
   // удаление новых строк в таблице с иными источниками, слайдер 4
-  $('.add_source_btn_remove').click(function(event) {
-    event.preventDefault()
+  $('.add_source_btn_remove').click(function(e) {
+    e.preventDefault()
 
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove()
@@ -260,7 +305,9 @@ $(document).ready(function() {
   const land_coverage_tbody = $('.land_coverage_characteristics tbody')
   let land_coverage_count = 2
 
-  $('.add_coverage_btn').click(function(event) {
+  $('.add_coverage_btn').click(function(e) {
+    e.preventDefault()
+
     const new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
@@ -271,8 +318,8 @@ $(document).ready(function() {
                       </td>
                     </tr>
                    `
-    event.preventDefault()
-    land_coverage_tbody.append(new_row);
+
+    land_coverage_tbody.append(new_row)
     land_coverage_count++
     changeSliderHeight('increase', 39)
   })
@@ -282,7 +329,7 @@ $(document).ready(function() {
 
     if (land_coverage_count > 2) {
       land_coverage_tbody.children().last().remove()
-      land_coverage_count -= 1
+      land_coverage_count--
       changeSliderHeight('decrease', 39)
     }
   })

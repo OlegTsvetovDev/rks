@@ -140,7 +140,19 @@ $(document).ready(function () {
 
   function initMultipleQueues() {
     // состояние количества очередей
-    var queue_count = 1; // добавление блоков очередей, 4 сладер
+    var queue_count = 0;
+
+    function getCurrentQueueCount() {
+      var nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row');
+      var nodesLength = nodes.length;
+      if (!nodesLength) return console.log('Не найдены строки очередей в таблице .queue_launch_yes .field__table');
+      nodes.forEach(function (node, i) {
+        return queue_count += 1;
+      });
+    }
+
+    getCurrentQueueCount();
+    initQueueSlider(); // добавление блоков очередей, 4 сладер
     // создание новой ноды
 
     function createNewNode() {
@@ -152,14 +164,33 @@ $(document).ready(function () {
     function pasteNameSuffixes(node) {
       var subheader = node.querySelector('.form__subheader');
       subheader.innerText = "\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count);
-      console.log(subheader);
     } // вставка новой ноды в блок .step_5, 4 слайдера
 
 
     function renderNewNode(newNode) {
       var parentNode = document.querySelector('.step_5');
-      console.log(parentNode);
       parentNode.append(newNode);
+    } // удаление последней очереди
+
+
+    function deleteLastNode() {
+      var nodeContainer = $('.step_5');
+      nodeContainer.children().last().remove();
+    }
+
+    function destroyQueueSlider() {
+      // $('.queue_slider').slick('unslick')
+      console.log('Слайдер разрушен');
+    }
+
+    function initQueueSlider() {
+      $('.queue_slider').slick({
+        dots: true,
+        infinite: false,
+        draggable: false,
+        adaptiveHeight: true
+      });
+      console.log('Слайдер создан');
     } // общая функция на создание и рендер новой ноды, 4 слайдер
 
 
@@ -183,7 +214,10 @@ $(document).ready(function () {
       lastChildDatepicker.datepicker($.datepicker.regional['ru']);
       lastChildDatepicker.mask("99.99.9999", {
         autoclear: false
-      });
+      }); // переинициализация слайдера с очередями, слайдер 4
+
+      destroyQueueSlider();
+      initQueueSlider();
     }); // удаление новых строк в таблицу с очередями, слайдер 1
 
     $('.queue_btn_remove').click(function (e) {
@@ -192,12 +226,16 @@ $(document).ready(function () {
       if (queue_count >= 2) {
         queue_count -= 1;
         queue_tbody.children().last().remove();
-        changeSliderHeight('decrease', 39);
+        deleteLastNode();
+        changeSliderHeight('decrease', 39); // переинициализация слайдера с очередями, слайдер 4
+
+        destroyQueueSlider();
+        initQueueSlider();
       }
     });
   }
 
-  initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4
+  if (document.querySelector('.queue_launch_yes')) initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4
 
   var water_source_tbody = $('.other_water_sources tbody');
   var water_source_count = 2;
@@ -209,8 +247,8 @@ $(document).ready(function () {
     changeSliderHeight('increase', 39);
   }); // удаление новых строк в таблице с иными источниками, слайдер 4
 
-  $('.add_source_btn_remove').click(function (event) {
-    event.preventDefault();
+  $('.add_source_btn_remove').click(function (e) {
+    e.preventDefault();
 
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove();
@@ -221,9 +259,9 @@ $(document).ready(function () {
 
   var land_coverage_tbody = $('.land_coverage_characteristics tbody');
   var land_coverage_count = 2;
-  $('.add_coverage_btn').click(function (event) {
+  $('.add_coverage_btn').click(function (e) {
+    e.preventDefault();
     var new_row = "\n                    <tr class=\"table__row\">\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                    </tr>\n                   ";
-    event.preventDefault();
     land_coverage_tbody.append(new_row);
     land_coverage_count++;
     changeSliderHeight('increase', 39);
@@ -234,7 +272,7 @@ $(document).ready(function () {
 
     if (land_coverage_count > 2) {
       land_coverage_tbody.children().last().remove();
-      land_coverage_count -= 1;
+      land_coverage_count--;
       changeSliderHeight('decrease', 39);
     }
   }); // datepicker
