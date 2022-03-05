@@ -458,5 +458,64 @@ $(document).ready(function() {
   }
   if (document.querySelector('.checkbox')) initCheckboxLabels()
 
+//#region женин код
+if($('input[name="requesttype_id"]').val() == '10002')
+  $('input[name="personbasis"][value="05"]').parent().attr( 'style', 'display:none;' );
 
+function getTitle(el) {
+  return el.siblings(".required").text();
+}
+
+let form = $('form');
+$("input[type='submit']").click(function (e) {
+  let activeElement = $(document.activeElement, this).attr("name")
+  switch (activeElement) {
+    case "ecp_button":
+      e.preventDefault();
+      e.stopPropagation();
+      var err = [];
+      let elems = form.find(".required + *");
+      elems.each(function () {
+        var $this = $(this);
+        let attr = $this.prop("tagName");
+        switch (attr) {
+          case "SPAN":
+            if ($this.find('input:checked').length == 0)
+              err.push("Не выбрано ни одно значение поля " + getTitle($this));
+            break;
+          case "INPUT":
+            if (!$this.val() && $this.is(':visible'))
+              err.push("Не указано значение поля " + getTitle($this));
+            break;
+          case "DIV":
+            let qweqwe = $this.find(".attachment").length;
+            if ($this.is(':visible') && (
+                $this.find(".__select__title").text() == "Выберите тип документа" ||
+                $this.text() == "Полученный адрес"/* ||
+                ($this.find(".attachment").length == 0 &&
+                  $this.hasClass("field__control_btns")) закомментирована проверка файлов на 5-ой вкладке*/
+              ))
+              err.push("Не указано значение поля " + getTitle($this));
+            break;
+          case "TABLE":
+            // тут надо проверить обязательную таблицу на заполненность в Заявлении на подключение
+            break;
+        }
+      });
+      if (err.length) {
+        $('.modal.modal_alert.autopopup.hidden .modal__text').text(err[0]);
+        $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
+        return;
+      }
+      form = $(this).closest('form');
+      form.append("<input type='hidden' name='ecp' value='true' />");
+      form.submit();
+      break;
+    case "save_button":
+      $('input[name="redirect"]').val('newrequesttp')
+      break;
+  }
+
+});
+//#endregion
 })
