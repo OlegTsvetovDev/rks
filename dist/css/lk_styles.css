@@ -1324,7 +1324,7 @@ input[type=number]::-webkit-outer-spin-button {
   order: 2;
 }
 
-.main__content .requests_form .request__form .queue_block {
+.main__content .requests_form .request__form .queue_slider {
   display: -webkit-flex;
   display: -ms-flex;
   display: -webkit-box;
@@ -1338,6 +1338,22 @@ input[type=number]::-webkit-outer-spin-button {
   -moz-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+
+.main__content .requests_form .request__form .queue_slider .slick-dots {
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 1;
+  -moz-box-ordinal-group: 2;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.main__content .requests_form .request__form .queue_slider .slick-list {
+  -webkit-box-ordinal-group: 3;
+  -webkit-order: 2;
+  -moz-box-ordinal-group: 3;
+  -ms-flex-order: 2;
+  order: 2;
 }
 
 .main__content .requests_form .request__form .form__header {

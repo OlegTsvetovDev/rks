@@ -1151,11 +1151,24 @@ input[type=number]::-webkit-outer-spin-button {
         }
       } // end of .slider
       .request__form {
-        .queue_block {
+        .queue_slider {
           display: -webkit-flex;
           display: -ms-flex;
           display: flex;
           flex-direction: column;
+          .slick-dots {
+            order: 1;
+          }
+          .slick-list {
+            order: 2;
+          }
+        }
+        .queue_block {
+          // display: -webkit-flex;
+          // display: -ms-flex;
+          // display: flex;
+          // flex-direction: column;
+
         }
 
         .form__header {

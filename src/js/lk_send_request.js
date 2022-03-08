@@ -13,6 +13,34 @@ $(document).ready(function() {
     })
   }
 
+
+  // переключение радио по клику на лейбл
+  $('.radio').parent().click(function () {
+    $(this).children('.radio').prop('checked', true)
+  })
+
+
+  // переключение чекбокса по клику на лейбл
+  function initCheckboxLabels() {
+    let checkboxes = $('.checkbox')
+    let labels = checkboxes.parent()
+
+    checkboxes.click(function () {
+      let checkbox = $(this)
+      let isCheckboxChecked = checkbox.is(':checked')
+
+      checkbox.prop('checked', !isCheckboxChecked)
+    })
+
+    labels.click(function () {
+      let checkbox = $(this).children()
+      let isCheckboxChecked = checkbox.is(':checked')
+
+      checkbox.prop('checked', !isCheckboxChecked)
+    })
+  }
+  if (document.querySelector('.checkbox')) initCheckboxLabels()
+
   // псевдо-селект
   function initPseudoSelect(selectSingle) {
     const selectSingle_title = selectSingle.querySelector('.__select__title')
@@ -108,10 +136,10 @@ $(document).ready(function() {
 
   // Модалка "Скачать инструкцию"
   function initModalDownloadInstructions() {
-    var instructionsBtn = $('.instructions__btn'),
-        instructionsModal = $('.modal_instructions'),
-        instructionsModalContent = $('.modal_instructions__content'),
-        instructionsModalClose = $('.modal_instructions .close')
+    const instructionsBtn = $('.instructions__btn')
+    const instructionsModal = $('.modal_instructions')
+    const instructionsModalContent = $('.modal_instructions__content')
+    const instructionsModalClose = $('.modal_instructions .close')
 
     instructionsBtn.click(function (e) {
       e.preventDefault()
@@ -131,7 +159,7 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
-  // пересчет высоты слайдера
+  // изменение высоты слайдера
   // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
   function changeSliderHeight(action, value) {
     const slickList = document.querySelector('.slick-list')
@@ -145,10 +173,14 @@ $(document).ready(function() {
 
 
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
+  // TODO: добавить слушателей на чекбоксы и радио в новых очередях, слайдер 4
+  // TODO: добавить слайдер на новые блоки, слайдер 4
+  //       добавить реинит слайдера в случае, если слайдер уже создан
   function initMultipleQueues() {
     // состояние количества очередей
-    let queue_count = 0
+    let queue_count = -1
 
+    // пересчет текущего количества очередей, отраженных на странице
     function getCurrentQueueCount() {
       const nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row')
       const nodesLength = nodes.length
@@ -159,8 +191,6 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    initQueueSlider()
-
     // добавление блоков очередей, 4 сладер
     // создание новой ноды
     function createNewNode() {
@@ -169,49 +199,69 @@ $(document).ready(function() {
     }
 
     // замена суффиксов в аттрибутах name в зависимости от номера очереди
+    // заменят _0 на _<номер очереди>, ожидает окончание на _0 в базовой ноде
     function pasteNameSuffixes(node) {
       const subheader = node.querySelector('.form__subheader')
       subheader.innerText = `Очередь №${queue_count}`
 
+      const inputs = node.querySelectorAll('input')
+      inputs.forEach(input => {
+        if (!input.name) return
 
-
-
-
+        let newName = input.name
+        newName = newName.slice(0, -2) + `_${queue_count}`
+        input.name = newName
+      })
     }
 
-    // вставка новой ноды в блок .step_5, 4 слайдера
+    // рендер новой ноды в блок .step_5, 4 слайдера
     function renderNewNode(newNode) {
-      const parentNode = document.querySelector('.step_5')
+      const parentNode = document.querySelector('.step_5 .queue_slider')
       parentNode.append(newNode)
     }
 
     // удаление последней очереди
     function deleteLastNode() {
-      const nodeContainer = $('.step_5')
+      const nodeContainer = $('.step_5 .queue_slider')
       nodeContainer.children().last().remove()
     }
 
-    function destroyQueueSlider() {
-      // $('.queue_slider').slick('unslick')
-      console.log('Слайдер разрушен')
-    }
-
-    function initQueueSlider() {
-      $('.queue_slider').slick({
-        dots: true,
-        infinite: false,
-        draggable: false,
-        adaptiveHeight: true
-      })
-
-      console.log('Слайдер создан')
-    }
-
-    // общая функция на создание и рендер новой ноды, 4 слайдер
+    // создание и рендер новой ноды, 4 слайдер
     function createAndRenderNewNode() {
       const newNode = createNewNode()
       pasteNameSuffixes(newNode)
       renderNewNode(newNode)
+    }
+
+    // инит слайдера
+    // TODO:
+    function initQueueSlider() {
+      // $('.queue_slider').slick({
+      //   dots: true,
+      //   arrows: false
+      // })
+
+      // $('.queue_slider').slick()
+      console.log('Слайдер создан')
+    }
+
+
+    // реинит слайдера
+    // TODO:
+    function reInitQueueSlider() {
+      const slider = $('.queue_slider')
+      slider.slick('unslick')
+      slider.slick({
+        dots: true,
+        arrows: false
+      })
+    }
+
+    function destroyQueueSlider() {
+      if (!queue_count) return
+      if (queue_count === 1) return
+      // $('.queue_slider').slick('unslick')
+      console.log('Слайдер разрушен')
     }
 
 
@@ -241,8 +291,8 @@ $(document).ready(function() {
       lastChildDatepicker.mask("99.99.9999", { autoclear: false })
 
       // переинициализация слайдера с очередями, слайдер 4
-      destroyQueueSlider()
-      initQueueSlider()
+      // destroyQueueSlider()
+      // initQueueSlider()
     })
 
     // удаление новых строк в таблицу с очередями, слайдер 1
@@ -254,13 +304,20 @@ $(document).ready(function() {
         queue_tbody.children().last().remove()
         deleteLastNode()
         changeSliderHeight('decrease', 39)
-
-        // переинициализация слайдера с очередями, слайдер 4
-        destroyQueueSlider()
-        initQueueSlider()
       }
     })
 
+    // слушатели на инит, реинит слайдера
+    $('#slick-slide-control03').click(function(e) {
+      // const slickSliderActive = document.querySelector('.queue_slider.slick-slider')
+
+      // if (slickSliderActive) return reInitQueueSlider()
+
+      // reInitQueueSlider()
+
+    })
+
+    // initQueueSlider()
   }
   if (document.querySelector('.queue_launch_yes')) initMultipleQueues()
 
@@ -269,7 +326,7 @@ $(document).ready(function() {
   const water_source_tbody = $('.other_water_sources tbody')
   let water_source_count = 2
 
-  $('.add_source_btn').click(function(event) {
+  $('.add_source_btn').click(function(e) {
     const new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
@@ -283,7 +340,7 @@ $(document).ready(function() {
                       </td>
                     </tr>
                    `
-    event.preventDefault()
+    e.preventDefault()
 
     water_source_tbody.append(new_row)
     water_source_count++
@@ -373,6 +430,7 @@ $(document).ready(function() {
 
     // проверка начального состояния чекбокса
     if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden')
+    if (!isRepresentativeChecked) representativeAddDocsBlock.classList.add('hidden')
 
     isRepresentative.addEventListener('click', () => representativeAddDocsBlock.classList.remove('hidden'))
     isRepresentativeLabel.addEventListener('click', () => representativeAddDocsBlock.classList.remove('hidden'))
@@ -386,13 +444,14 @@ $(document).ready(function() {
   function initColdWaterSupply() {
     const connectionToColdWater = document.querySelector('.connection_to_cold_water')
     const connectionToColdWaterLabel = connectionToColdWater.parentNode
-    const isConnectionToColdWaterChecked = connectionToColdWater.checked
+    let isConnectionToColdWaterChecked = connectionToColdWater.checked
     const coldWaterToggle = document.querySelector('.cold_water_supply_toggle')
 
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden')
+    if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden')
 
     connectionToColdWaterLabel.addEventListener('click', () => {
-      const isConnectionToColdWaterChecked = !connectionToColdWater.checked
+      isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
@@ -401,6 +460,7 @@ $(document).ready(function() {
         coldWaterToggle.classList.add('hidden')
         changeSliderHeight('decrease', 1000)
       }
+
     })
 
   }
@@ -411,13 +471,13 @@ $(document).ready(function() {
   function initDrainage() {
     const connectionToDrainage= document.querySelector('.connection_to_drainage')
     const connectionToDrainageLabel = connectionToDrainage.parentNode
-    const isConnectionToDrainageChecked = connectionToDrainage.checked
+    let isConnectionToDrainageChecked = connectionToDrainage.checked
     const drainageToggle = document.querySelector('.drainage_toggle')
 
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden')
 
     connectionToDrainageLabel.addEventListener('click', () => {
-      const isConnectionToDrainageChecked = !connectionToDrainage.checked
+      isConnectionToDrainageChecked = !isConnectionToDrainageChecked
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden')
@@ -431,91 +491,64 @@ $(document).ready(function() {
   if (document.querySelector('.connection_to_drainage')) initDrainage()
 
 
-  // переключение радио по клику на лейбл
-  $('.radio').parent().click(function () {
-    $(this).children('.radio').prop('checked', true)
-  })
+  //#region женин код
+  if($('input[name="requesttype_id"]').val() == '10002')
+    $('input[name="personbasis"][value="05"]').parent().attr( 'style', 'display:none;' );
 
-
-  // переключение чекбокса по клику на лейбл
-  function initCheckboxLabels() {
-    let checkboxes = $('.checkbox')
-    let labels = checkboxes.parent()
-
-    checkboxes.click(function () {
-      let checkbox = $(this)
-      let isCheckboxChecked = checkbox.is(':checked')
-
-      checkbox.prop('checked', !isCheckboxChecked)
-    })
-
-    labels.click(function () {
-      let checkbox = $(this).children()
-      let isCheckboxChecked = checkbox.is(':checked')
-
-      checkbox.prop('checked', !isCheckboxChecked)
-    })
+  function getTitle(el) {
+    return el.siblings(".required").text();
   }
-  if (document.querySelector('.checkbox')) initCheckboxLabels()
 
-//#region женин код
-if($('input[name="requesttype_id"]').val() == '10002')
-  $('input[name="personbasis"][value="05"]').parent().attr( 'style', 'display:none;' );
-
-function getTitle(el) {
-  return el.siblings(".required").text();
-}
-
-let form = $('form');
-$("input[type='submit']").click(function (e) {
-  let activeElement = $(document.activeElement, this).attr("name")
-  switch (activeElement) {
-    case "ecp_button":
-      e.preventDefault();
-      e.stopPropagation();
-      var err = [];
-      let elems = form.find(".required + *");
-      elems.each(function () {
-        var $this = $(this);
-        let attr = $this.prop("tagName");
-        switch (attr) {
-          case "SPAN":
-            if ($this.find('input:checked').length == 0)
-              err.push("Не выбрано ни одно значение поля " + getTitle($this));
-            break;
-          case "INPUT":
-            if (!$this.val() && $this.is(':visible'))
-              err.push("Не указано значение поля " + getTitle($this));
-            break;
-          case "DIV":
-            let qweqwe = $this.find(".attachment").length;
-            if ($this.is(':visible') && (
-                $this.find(".__select__title").text() == "Выберите тип документа" ||
-                $this.text() == "Полученный адрес"/* ||
-                ($this.find(".attachment").length == 0 &&
-                  $this.hasClass("field__control_btns")) закомментирована проверка файлов на 5-ой вкладке*/
-              ))
-              err.push("Не указано значение поля " + getTitle($this));
-            break;
-          case "TABLE":
-            // тут надо проверить обязательную таблицу на заполненность в Заявлении на подключение
-            break;
+  let form = $('form');
+  $("input[type='submit']").click(function (e) {
+    let activeElement = $(document.activeElement, this).attr("name")
+    switch (activeElement) {
+      case "ecp_button":
+        e.preventDefault();
+        e.stopPropagation();
+        var err = [];
+        let elems = form.find(".required + *");
+        elems.each(function () {
+          var $this = $(this);
+          let attr = $this.prop("tagName");
+          switch (attr) {
+            case "SPAN":
+              if ($this.find('input:checked').length == 0)
+                err.push("Не выбрано ни одно значение поля " + getTitle($this));
+              break;
+            case "INPUT":
+              if (!$this.val() && $this.is(':visible'))
+                err.push("Не указано значение поля " + getTitle($this));
+              break;
+            case "DIV":
+              let qweqwe = $this.find(".attachment").length;
+              if ($this.is(':visible') && (
+                  $this.find(".__select__title").text() == "Выберите тип документа" ||
+                  $this.text() == "Полученный адрес"/* ||
+                  ($this.find(".attachment").length == 0 &&
+                    $this.hasClass("field__control_btns")) закомментирована проверка файлов на 5-ой вкладке*/
+                ))
+                err.push("Не указано значение поля " + getTitle($this));
+              break;
+            case "TABLE":
+              // тут надо проверить обязательную таблицу на заполненность в Заявлении на подключение
+              break;
+          }
+        });
+        if (err.length) {
+          $('.modal.modal_alert.autopopup.hidden .modal__text').text(err[0]);
+          $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
+          return;
         }
-      });
-      if (err.length) {
-        $('.modal.modal_alert.autopopup.hidden .modal__text').text(err[0]);
-        $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
-        return;
-      }
-      form = $(this).closest('form');
-      form.append("<input type='hidden' name='ecp' value='true' />");
-      form.submit();
-      break;
-    case "save_button":
-      $('input[name="redirect"]').val('newrequesttp')
-      break;
-  }
+        form = $(this).closest('form');
+        form.append("<input type='hidden' name='ecp' value='true' />");
+        form.submit();
+        break;
+      case "save_button":
+        $('input[name="redirect"]').val('newrequesttp')
+        break;
+    }
 
-});
-//#endregion
+  });
+  //#endregion
 })

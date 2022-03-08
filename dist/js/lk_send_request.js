@@ -12,8 +12,29 @@ $(document).ready(function () {
       draggable: false,
       adaptiveHeight: true
     });
-  } // псевдо-селект
+  } // переключение радио по клику на лейбл
 
+
+  $('.radio').parent().click(function () {
+    $(this).children('.radio').prop('checked', true);
+  }); // переключение чекбокса по клику на лейбл
+
+  function initCheckboxLabels() {
+    var checkboxes = $('.checkbox');
+    var labels = checkboxes.parent();
+    checkboxes.click(function () {
+      var checkbox = $(this);
+      var isCheckboxChecked = checkbox.is(':checked');
+      checkbox.prop('checked', !isCheckboxChecked);
+    });
+    labels.click(function () {
+      var checkbox = $(this).children();
+      var isCheckboxChecked = checkbox.is(':checked');
+      checkbox.prop('checked', !isCheckboxChecked);
+    });
+  }
+
+  if (document.querySelector('.checkbox')) initCheckboxLabels(); // псевдо-селект
 
   function initPseudoSelect(selectSingle) {
     var selectSingle_title = selectSingle.querySelector('.__select__title');
@@ -105,10 +126,10 @@ $(document).ready(function () {
   if (document.querySelector('input[name="queue_launch"]')) initQueueLaunch(); // Модалка "Скачать инструкцию"
 
   function initModalDownloadInstructions() {
-    var instructionsBtn = $('.instructions__btn'),
-        instructionsModal = $('.modal_instructions'),
-        instructionsModalContent = $('.modal_instructions__content'),
-        instructionsModalClose = $('.modal_instructions .close');
+    var instructionsBtn = $('.instructions__btn');
+    var instructionsModal = $('.modal_instructions');
+    var instructionsModalContent = $('.modal_instructions__content');
+    var instructionsModalClose = $('.modal_instructions .close');
     instructionsBtn.click(function (e) {
       e.preventDefault();
       body.css('overflow', 'hidden');
@@ -123,7 +144,7 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // пересчет высоты слайдера
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // изменение высоты слайдера
   // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
 
   function changeSliderHeight(action, value) {
@@ -136,11 +157,14 @@ $(document).ready(function () {
 
     return slickList.style.height = slickListHeight - value + 'px';
   } // логика блоков очередей (добавление, удаление), 1 и 4 сладер
+  // TODO: добавить слушателей на чекбоксы и радио в новых очередях, слайдер 4
+  // TODO: добавить слайдер на новые блоки, слайдер 4
+  //       добавить реинит слайдера в случае, если слайдер уже создан
 
 
   function initMultipleQueues() {
     // состояние количества очередей
-    var queue_count = 0;
+    var queue_count = -1; // пересчет текущего количества очередей, отраженных на странице
 
     function getCurrentQueueCount() {
       var nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row');
@@ -151,53 +175,74 @@ $(document).ready(function () {
       });
     }
 
-    getCurrentQueueCount();
-    initQueueSlider(); // добавление блоков очередей, 4 сладер
+    getCurrentQueueCount(); // добавление блоков очередей, 4 сладер
     // создание новой ноды
 
     function createNewNode() {
       var baseNode = document.querySelector('.queue_block');
       return baseNode.cloneNode(true);
     } // замена суффиксов в аттрибутах name в зависимости от номера очереди
+    // заменят _0 на _<номер очереди>, ожидает окончание на _0 в базовой ноде
 
 
     function pasteNameSuffixes(node) {
       var subheader = node.querySelector('.form__subheader');
       subheader.innerText = "\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count);
-    } // вставка новой ноды в блок .step_5, 4 слайдера
+      var inputs = node.querySelectorAll('input');
+      inputs.forEach(function (input) {
+        if (!input.name) return;
+        var newName = input.name;
+        newName = newName.slice(0, -2) + "_".concat(queue_count);
+        input.name = newName;
+      });
+    } // рендер новой ноды в блок .step_5, 4 слайдера
 
 
     function renderNewNode(newNode) {
-      var parentNode = document.querySelector('.step_5');
+      var parentNode = document.querySelector('.step_5 .queue_slider');
       parentNode.append(newNode);
     } // удаление последней очереди
 
 
     function deleteLastNode() {
-      var nodeContainer = $('.step_5');
+      var nodeContainer = $('.step_5 .queue_slider');
       nodeContainer.children().last().remove();
-    }
-
-    function destroyQueueSlider() {
-      // $('.queue_slider').slick('unslick')
-      console.log('Слайдер разрушен');
-    }
-
-    function initQueueSlider() {
-      $('.queue_slider').slick({
-        dots: true,
-        infinite: false,
-        draggable: false,
-        adaptiveHeight: true
-      });
-      console.log('Слайдер создан');
-    } // общая функция на создание и рендер новой ноды, 4 слайдер
+    } // создание и рендер новой ноды, 4 слайдер
 
 
     function createAndRenderNewNode() {
       var newNode = createNewNode();
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
+    } // инит слайдера
+    // TODO:
+
+
+    function initQueueSlider() {
+      // $('.queue_slider').slick({
+      //   dots: true,
+      //   arrows: false
+      // })
+      // $('.queue_slider').slick()
+      console.log('Слайдер создан');
+    } // реинит слайдера
+    // TODO:
+
+
+    function reInitQueueSlider() {
+      var slider = $('.queue_slider');
+      slider.slick('unslick');
+      slider.slick({
+        dots: true,
+        arrows: false
+      });
+    }
+
+    function destroyQueueSlider() {
+      if (!queue_count) return;
+      if (queue_count === 1) return; // $('.queue_slider').slick('unslick')
+
+      console.log('Слайдер разрушен');
     } // добавление новых строк в таблицу с очередями, слайдер 1
 
 
@@ -215,9 +260,8 @@ $(document).ready(function () {
       lastChildDatepicker.mask("99.99.9999", {
         autoclear: false
       }); // переинициализация слайдера с очередями, слайдер 4
-
-      destroyQueueSlider();
-      initQueueSlider();
+      // destroyQueueSlider()
+      // initQueueSlider()
     }); // удаление новых строк в таблицу с очередями, слайдер 1
 
     $('.queue_btn_remove').click(function (e) {
@@ -227,21 +271,23 @@ $(document).ready(function () {
         queue_count -= 1;
         queue_tbody.children().last().remove();
         deleteLastNode();
-        changeSliderHeight('decrease', 39); // переинициализация слайдера с очередями, слайдер 4
-
-        destroyQueueSlider();
-        initQueueSlider();
+        changeSliderHeight('decrease', 39);
       }
-    });
+    }); // слушатели на инит, реинит слайдера
+
+    $('#slick-slide-control03').click(function (e) {// const slickSliderActive = document.querySelector('.queue_slider.slick-slider')
+      // if (slickSliderActive) return reInitQueueSlider()
+      // reInitQueueSlider()
+    }); // initQueueSlider()
   }
 
   if (document.querySelector('.queue_launch_yes')) initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4
 
   var water_source_tbody = $('.other_water_sources tbody');
   var water_source_count = 2;
-  $('.add_source_btn').click(function (event) {
+  $('.add_source_btn').click(function (e) {
     var new_row = "\n                    <tr class=\"table__row\">\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                    </tr>\n                   ";
-    event.preventDefault();
+    e.preventDefault();
     water_source_tbody.append(new_row);
     water_source_count++;
     changeSliderHeight('increase', 39);
@@ -328,6 +374,7 @@ $(document).ready(function () {
     var representativeAddDocsBlock = document.querySelector('.representative_add_docs_block'); // проверка начального состояния чекбокса
 
     if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden');
+    if (!isRepresentativeChecked) representativeAddDocsBlock.classList.add('hidden');
     isRepresentative.addEventListener('click', function () {
       return representativeAddDocsBlock.classList.remove('hidden');
     });
@@ -350,8 +397,9 @@ $(document).ready(function () {
     var isConnectionToColdWaterChecked = connectionToColdWater.checked;
     var coldWaterToggle = document.querySelector('.cold_water_supply_toggle');
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden');
+    if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
     connectionToColdWaterLabel.addEventListener('click', function () {
-      var isConnectionToColdWaterChecked = !connectionToColdWater.checked;
+      isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden');
@@ -372,7 +420,7 @@ $(document).ready(function () {
     var drainageToggle = document.querySelector('.drainage_toggle');
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden');
     connectionToDrainageLabel.addEventListener('click', function () {
-      var isConnectionToDrainageChecked = !connectionToDrainage.checked;
+      isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden');
@@ -384,28 +432,7 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.connection_to_drainage')) initDrainage(); // переключение радио по клику на лейбл
-
-  $('.radio').parent().click(function () {
-    $(this).children('.radio').prop('checked', true);
-  }); // переключение чекбокса по клику на лейбл
-
-  function initCheckboxLabels() {
-    var checkboxes = $('.checkbox');
-    var labels = checkboxes.parent();
-    checkboxes.click(function () {
-      var checkbox = $(this);
-      var isCheckboxChecked = checkbox.is(':checked');
-      checkbox.prop('checked', !isCheckboxChecked);
-    });
-    labels.click(function () {
-      var checkbox = $(this).children();
-      var isCheckboxChecked = checkbox.is(':checked');
-      checkbox.prop('checked', !isCheckboxChecked);
-    });
-  }
-
-  if (document.querySelector('.checkbox')) initCheckboxLabels(); //#region женин код
+  if (document.querySelector('.connection_to_drainage')) initDrainage(); //#region женин код
 
   if ($('input[name="requesttype_id"]').val() == '10002') $('input[name="personbasis"][value="05"]').parent().attr('style', 'display:none;');
 
