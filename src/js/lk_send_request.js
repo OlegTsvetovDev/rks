@@ -441,11 +441,11 @@ $(document).ready(function() {
 
 
   // Блок "Холодное водоснабжение"
-  function initColdWaterSupply() {
-    const connectionToColdWater = document.querySelector('.connection_to_cold_water')
+  function initColdWaterSupply(baseNode) {
+    const connectionToColdWater = baseNode.querySelector('.connection_to_cold_water')
     const connectionToColdWaterLabel = connectionToColdWater.parentNode
     let isConnectionToColdWaterChecked = connectionToColdWater.checked
-    const coldWaterToggle = document.querySelector('.cold_water_supply_toggle')
+    const coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle')
 
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden')
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden')
@@ -462,12 +462,16 @@ $(document).ready(function() {
       }
 
     })
-
   }
-  if (document.querySelector('.connection_to_cold_water')) initColdWaterSupply()
+  const queueBlocks = document.querySelectorAll('.queue_block')
+  if (queueBlocks) queueBlocks.forEach(queueBlock => initColdWaterSupply(queueBlock))
+
+  // initColdWaterSupply(document.querySelector('.queue_block'))
 
 
   // Блок "Водоотведение"
+  // TODO: добавить инит по конкретной ноде, а не по документу
+  // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
   function initDrainage() {
     const connectionToDrainage= document.querySelector('.connection_to_drainage')
     const connectionToDrainageLabel = connectionToDrainage.parentNode
