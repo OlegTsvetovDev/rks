@@ -214,6 +214,8 @@ $(document).ready(function () {
       var newNode = createNewNode();
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
+      initColdWaterSupply(newNode);
+      initDrainage(newNode);
     } // инит слайдера
     // TODO:
 

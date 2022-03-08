@@ -231,6 +231,8 @@ $(document).ready(function() {
       const newNode = createNewNode()
       pasteNameSuffixes(newNode)
       renderNewNode(newNode)
+      initColdWaterSupply(newNode)
+      initDrainage(newNode)
     }
 
     // инит слайдера
