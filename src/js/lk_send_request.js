@@ -466,19 +466,17 @@ $(document).ready(function() {
   const queueBlocks = document.querySelectorAll('.queue_block')
   if (queueBlocks) queueBlocks.forEach(queueBlock => initColdWaterSupply(queueBlock))
 
-  // initColdWaterSupply(document.querySelector('.queue_block'))
-
-
   // Блок "Водоотведение"
   // TODO: добавить инит по конкретной ноде, а не по документу
   // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
-  function initDrainage() {
-    const connectionToDrainage= document.querySelector('.connection_to_drainage')
+  function initDrainage(baseNode) {
+    const connectionToDrainage= baseNode.querySelector('.connection_to_drainage')
     const connectionToDrainageLabel = connectionToDrainage.parentNode
     let isConnectionToDrainageChecked = connectionToDrainage.checked
-    const drainageToggle = document.querySelector('.drainage_toggle')
+    const drainageToggle = baseNode.querySelector('.drainage_toggle')
 
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden')
+    if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden')
 
     connectionToDrainageLabel.addEventListener('click', () => {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked
@@ -492,7 +490,7 @@ $(document).ready(function() {
       }
     })
   }
-  if (document.querySelector('.connection_to_drainage')) initDrainage()
+  if (queueBlocks) queueBlocks.forEach(queueBlock => initDrainage(queueBlock))
 
 
   //#region женин код

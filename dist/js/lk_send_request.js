@@ -414,17 +414,17 @@ $(document).ready(function () {
   var queueBlocks = document.querySelectorAll('.queue_block');
   if (queueBlocks) queueBlocks.forEach(function (queueBlock) {
     return initColdWaterSupply(queueBlock);
-  }); // initColdWaterSupply(document.querySelector('.queue_block'))
-  // Блок "Водоотведение"
+  }); // Блок "Водоотведение"
   // TODO: добавить инит по конкретной ноде, а не по документу
   // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
 
-  function initDrainage() {
-    var connectionToDrainage = document.querySelector('.connection_to_drainage');
+  function initDrainage(baseNode) {
+    var connectionToDrainage = baseNode.querySelector('.connection_to_drainage');
     var connectionToDrainageLabel = connectionToDrainage.parentNode;
     var isConnectionToDrainageChecked = connectionToDrainage.checked;
-    var drainageToggle = document.querySelector('.drainage_toggle');
+    var drainageToggle = baseNode.querySelector('.drainage_toggle');
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden');
+    if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden');
     connectionToDrainageLabel.addEventListener('click', function () {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
 
@@ -438,7 +438,9 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.connection_to_drainage')) initDrainage(); //#region женин код
+  if (queueBlocks) queueBlocks.forEach(function (queueBlock) {
+    return initDrainage(queueBlock);
+  }); //#region женин код
 
   if ($('input[name="requesttype_id"]').val() == '10002') $('input[name="personbasis"][value="05"]').parent().attr('style', 'display:none;');
 
