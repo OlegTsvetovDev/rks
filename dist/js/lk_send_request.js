@@ -18,6 +18,7 @@ $(document).ready(function () {
   $('.radio').parent().click(function () {
     $(this).children('.radio').prop('checked', true);
   }); // переключение чекбокса по клику на лейбл
+  // TODO: ломается на новых очередях в слайдере 4
 
   function initCheckboxLabels() {
     var checkboxes = $('.checkbox');
@@ -157,9 +158,6 @@ $(document).ready(function () {
 
     return slickList.style.height = slickListHeight - value + 'px';
   } // логика блоков очередей (добавление, удаление), 1 и 4 сладер
-  // TODO: добавить слушателей на чекбоксы и радио в новых очередях, слайдер 4
-  // TODO: добавить слайдер на новые блоки, слайдер 4
-  //       добавить реинит слайдера в случае, если слайдер уже создан
 
 
   function initMultipleQueues() {
@@ -170,13 +168,22 @@ $(document).ready(function () {
       var nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row');
       var nodesLength = nodes.length;
       if (!nodesLength) return console.log('Не найдены строки очередей в таблице .queue_launch_yes .field__table');
-      nodes.forEach(function (node, i) {
+      nodes.forEach(function (node) {
         return queue_count += 1;
       });
     }
 
-    getCurrentQueueCount(); // добавление блоков очередей, 4 сладер
+    getCurrentQueueCount(); // инит слайдера
+
+    function initQueueSlider() {
+      $('.queue_slider').slick({
+        dots: true,
+        arrows: false
+      });
+    } // initQueueSlider()
+    // добавление блоков очередей, 4 сладер
     // создание новой ноды
+
 
     function createNewNode() {
       var baseNode = document.querySelector('.queue_block');
@@ -207,6 +214,17 @@ $(document).ready(function () {
     function deleteLastNode() {
       var nodeContainer = $('.step_5 .queue_slider');
       nodeContainer.children().last().remove();
+    } // TODO: дефект - не добавляется больше 3 слайдов
+    // TODO: создать пустой слайдер и потом в него сложить все ноды, включая базовую?
+
+
+    function addNewSlide(newNode) {
+      $('.queue_slider').slick('slickAdd', queue_count + 1, newNode); // newNode.setAttribute('data-slick-index', queue_count)
+      // $('.queue_slider').slick('slickAdd', '<div><h3>' + queue_count + '</h3></div>')
+    }
+
+    function removeLastSlide() {
+      $('.queue_slider').slick('slickRemove');
     } // создание и рендер новой ноды, 4 слайдер
 
 
@@ -215,36 +233,8 @@ $(document).ready(function () {
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
       initColdWaterSupply(newNode);
-      initDrainage(newNode);
-    } // инит слайдера
-    // TODO:
-
-
-    function initQueueSlider() {
-      // $('.queue_slider').slick({
-      //   dots: true,
-      //   arrows: false
-      // })
-      // $('.queue_slider').slick()
-      console.log('Слайдер создан');
-    } // реинит слайдера
-    // TODO:
-
-
-    function reInitQueueSlider() {
-      var slider = $('.queue_slider');
-      slider.slick('unslick');
-      slider.slick({
-        dots: true,
-        arrows: false
-      });
-    }
-
-    function destroyQueueSlider() {
-      if (!queue_count) return;
-      if (queue_count === 1) return; // $('.queue_slider').slick('unslick')
-
-      console.log('Слайдер разрушен');
+      initDrainage(newNode); // console.log(newNode)
+      // addNewSlide(newNode)
     } // добавление новых строк в таблицу с очередями, слайдер 1
 
 
@@ -261,26 +251,20 @@ $(document).ready(function () {
       lastChildDatepicker.datepicker($.datepicker.regional['ru']);
       lastChildDatepicker.mask("99.99.9999", {
         autoclear: false
-      }); // переинициализация слайдера с очередями, слайдер 4
-      // destroyQueueSlider()
-      // initQueueSlider()
+      });
     }); // удаление новых строк в таблицу с очередями, слайдер 1
 
     $('.queue_btn_remove').click(function (e) {
       e.preventDefault();
 
-      if (queue_count >= 2) {
+      if (queue_count >= 1) {
         queue_count -= 1;
         queue_tbody.children().last().remove();
         deleteLastNode();
         changeSliderHeight('decrease', 39);
+        removeLastSlide();
       }
-    }); // слушатели на инит, реинит слайдера
-
-    $('#slick-slide-control03').click(function (e) {// const slickSliderActive = document.querySelector('.queue_slider.slick-slider')
-      // if (slickSliderActive) return reInitQueueSlider()
-      // reInitQueueSlider()
-    }); // initQueueSlider()
+    });
   }
 
   if (document.querySelector('.queue_launch_yes')) initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4
