@@ -554,8 +554,6 @@ $(document).ready(function() {
           let qweqwe = $('#typeOfConnectionObject');
           let qwqweeqwe = $('#typeOfConnectionObject input');
           let qwqweeqwqewe = $("");
-
-          let odin = 1;
       }
     }
   });
