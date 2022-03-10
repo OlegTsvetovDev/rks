@@ -551,9 +551,6 @@ $(document).ready(function() {
           "[name='infmaxparam2']"
           ).parent().hide();
           //).parent().addClass('hidden');
-          let qweqwe = $('#typeOfConnectionObject');
-          let qwqweeqwe = $('#typeOfConnectionObject input');
-          let qwqweeqwqewe = $("");
       }
     }
   });
