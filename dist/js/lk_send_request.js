@@ -199,7 +199,8 @@ $(document).ready(function () {
       inputs.forEach(function (input) {
         if (!input.name) return;
         var newName = input.name;
-        newName = newName.slice(0, -2) + "_".concat(queue_count);
+        newName += "_".concat(queue_count); // newName = newName.slice(0, -2) + `_${queue_count}`
+
         input.name = newName;
       });
     } // рендер новой ноды в блок .step_5, 4 слайдера

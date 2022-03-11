@@ -216,7 +216,8 @@ $(document).ready(function() {
         if (!input.name) return
 
         let newName = input.name
-        newName = newName.slice(0, -2) + `_${queue_count}`
+        newName += `_${queue_count}`
+        // newName = newName.slice(0, -2) + `_${queue_count}`
         input.name = newName
       })
     }
