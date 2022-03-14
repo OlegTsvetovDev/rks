@@ -248,11 +248,9 @@ $(document).ready(function () {
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
       initPseudoSelects(newNode.querySelector('.__select'));
-      console.log(newNode.querySelector('.__select'));
       initColdWaterSupply(newNode);
       initDrainage(newNode);
-      initAddressConcatination(newNode); // console.log(newNode)
-      // addNewSlide(newNode)
+      initAddressConcatination(newNode); // addNewSlide(newNode)
     } // добавление новых строк в таблицу с очередями, слайдер 1
 
 
