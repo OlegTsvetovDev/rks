@@ -268,6 +268,7 @@ $(document).ready(function() {
       renderNewNode(newNode)
       initColdWaterSupply(newNode)
       initDrainage(newNode)
+      initAddressConcatination(newNode)
       // console.log(newNode)
       // addNewSlide(newNode)
     }
