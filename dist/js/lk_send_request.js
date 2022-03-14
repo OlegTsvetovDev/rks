@@ -90,7 +90,7 @@ $(document).ready(function () {
     var house = document.querySelector('.address__house');
     console.log(housing);
     setTimeout(function () {
-      concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value + ', ' : '', "\n                              ").concat(district.value ? district.value + ' район, ' : '', "\n                              ").concat(microdistrict.value ? 'микрорайон ' + microdistrict.value + ', ' : '', "\n                              ").concat(street.value ? 'ул. ' + street.value + ', ' : '', "\n                              ").concat(housing.value ? 'корпус ' + housing.value ? housing.value : '' + ', ' : '', "\n                              ").concat(house.value ? 'дом ' + house.value + '.' : '', "\n                             ");
+      concated.textContent = "\n                              ".concat(locality ? 'г. ' + locality.value + ', ' : '', "\n                              ").concat(district ? district.value + ' район, ' : '', "\n                              ").concat(microdistrict ? 'микрорайон ' + microdistrict.value + ', ' : '', "\n                              ").concat(street ? 'ул. ' + street.value + ', ' : '', "\n                              ").concat(housing ? 'корпус ' + housing.value ? housing.value : '' + ', ' : '', "\n                              ").concat(house ? 'дом ' + house.value + '.' : '', "\n                             ");
     }, 100);
   }
 
