@@ -1816,6 +1816,7 @@ input[type=number]::-webkit-outer-spin-button {
   visibility: hidden;
   height: 0;
   border: none;
+  width: 1px;
 }
 
 .main__content .requests_form .request__form .form__field.add_files .field__description {
@@ -1851,6 +1852,7 @@ input[type=number]::-webkit-outer-spin-button {
   visibility: hidden;
   height: 0;
   border: none;
+  width: 1px;
 }
 
 .main__content .requests_form .request__form .form__field.add_files .field__control_btns .attachment__deltrigger {
