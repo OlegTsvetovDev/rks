@@ -55,9 +55,11 @@ $(document).ready(function () {
       selectSingle_labels[i].addEventListener('click', function (e) {
         selectSingle_title.textContent = e.target.textContent;
         selectSingle_title.value = e.target.textContent;
-        selectSingle.setAttribute('data-state', ''); // проверка на наличие модуля пересчета итогового адреса для вызова пересчета
+        selectSingle.setAttribute('data-state', ''); // вызов пересчета адреса в случае, если модуль активен
 
-        if (document.querySelector('.address__concated')) addressConcatination();
+        var addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var thisAddressConcatination = addressNode.querySelector('.address__concated');
+        if (thisAddressConcatination) addressConcatination(addressNode);
       });
     } // скрытие при клике по body кроме .__select
 
@@ -80,49 +82,51 @@ $(document).ready(function () {
 
   if (document.querySelector('.__select')) initPseudoSelects(); // Пересчет итогового адреса
 
-  function addressConcatination() {
-    var concated = document.querySelector('.address__concated') || null;
-    var locality = document.querySelector('.address__locality') || null;
-    var district = document.querySelector('.address__district') || null;
-    var microdistrict = document.querySelector('.address__microdistrict') || null;
-    var street = document.querySelector('.address__street') || null;
-    var housing = document.querySelector('.address__housing') || null;
-    var house = document.querySelector('.address__house') || null;
-    console.log(housing);
+  function addressConcatination(baseNode) {
+    var concated = baseNode.querySelector('.address__concated');
+    var locality = baseNode.querySelector('.address__locality');
+    var district = baseNode.querySelector('.address__district');
+    var microdistrict = baseNode.querySelector('.address__microdistrict');
+    var street = baseNode.querySelector('.address__street');
+    var housing = baseNode.querySelector('.address__housing');
+    var house = baseNode.querySelector('.address__house');
     setTimeout(function () {
       concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value : '', "\n                              ").concat(district.value ? ', ' + district.value + ' район' : '', "\n                              ").concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '', "\n                              ").concat(street.value ? ', ул. ' + street.value : '', "\n                              ").concat(housing.value ? ', корпус ' + housing.value : '', "\n                              ").concat(house.value ? ', дом ' + house.value : '', "\n                              ", '.', "\n                             ");
     }, 100);
   }
 
-  function initAddressConcatination() {
-    var concated = document.querySelector('.address__concated') || null;
-    var locality = document.querySelector('.address__locality') || null;
-    var district = document.querySelector('.address__district') || null;
-    var microdistrict = document.querySelector('.address__microdistrict') || null;
-    var street = document.querySelector('.address__street') || null;
-    var housing = document.querySelector('.address__housing') || null;
-    var house = document.querySelector('.address__house') || null;
+  function initAddressConcatination(baseNode) {
+    var concated = baseNode.querySelector('.address__concated');
+    var locality = baseNode.querySelector('.address__locality');
+    var district = baseNode.querySelector('.address__district');
+    var microdistrict = baseNode.querySelector('.address__microdistrict');
+    var street = baseNode.querySelector('.address__street');
+    var housing = baseNode.querySelector('.address__housing');
+    var house = baseNode.querySelector('.address__house');
     if (locality) locality.addEventListener('change', function () {
-      return addressConcatination();
+      return addressConcatination(baseNode);
     });
     if (district) district.addEventListener('change', function () {
-      return addressConcatination();
+      return addressConcatination(baseNode);
     });
     if (microdistrict) microdistrict.addEventListener('change', function () {
-      return addressConcatination();
+      return addressConcatination(baseNode);
     });
     if (street) street.addEventListener('change', function () {
-      return addressConcatination();
+      return addressConcatination(baseNode);
     });
     if (housing) housing.addEventListener('change', function () {
-      return addressConcatination();
+      return addressConcatination(baseNode);
     });
     if (house) house.addEventListener('change', function () {
-      return addressConcatination();
+      return addressConcatination(baseNode);
     });
   }
 
-  if (document.querySelector('.address__concated')) initAddressConcatination(); // переключение блоков в "Запуск по очередям", слайдер 1
+  var addressBlocks = document.querySelectorAll('.address__concated');
+  if (addressBlocks) addressBlocks.forEach(function (addressBlock) {
+    return initAddressConcatination(addressBlock.parentNode.parentNode.parentNode);
+  }); // переключение блоков в "Запуск по очередям", слайдер 1
 
   function initQueueLaunch() {
     var queueLaunchInput = $('input[name="queue_launch"]');
@@ -244,7 +248,8 @@ $(document).ready(function () {
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
       initColdWaterSupply(newNode);
-      initDrainage(newNode); // console.log(newNode)
+      initDrainage(newNode);
+      initAddressConcatination(newNode); // console.log(newNode)
       // addNewSlide(newNode)
     } // добавление новых строк в таблицу с очередями, слайдер 1
 
