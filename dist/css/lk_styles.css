@@ -2016,6 +2016,17 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #f7f7f7 !important;
 }
 
+.main__content .requests_form.simple .request__form .form__field .field__label.hidden {
+  display: none;
+}
+
+.main__content .requests_form.simple .request__form .form__field .field__label.house {
+  float: left;
+  width: 49%;
+  margin-left: 2%;
+  margin-right: 0;
+}
+
 .main__content .personal {
   width: 1209px;
   margin: 0 auto;

@@ -1,7 +1,10 @@
 "use strict";
 
 $(document).ready(function () {
-  var body = $('body'); // инициализация слайдера
+  var body = $('body'); // упрощенная подача заявления
+
+  var simpleSendRequest = false;
+  if (document.querySelector('.requests_form.simple')) simpleSendRequest = true; // инициализация слайдера
 
   if (document.querySelector('.slider')) {
     $('.slider').slick({
@@ -77,21 +80,28 @@ $(document).ready(function () {
 
   if (document.querySelector('.__select')) initPseudoSelects(); // Пересчет итогового адреса
 
-  var concated = document.querySelector('.address__concated');
-  var locality = document.querySelector('.address__locality');
-  var district = document.querySelector('.address__district');
-  var microdistrict = document.querySelector('.address__microdistrict');
-  var street = document.querySelector('.address__street');
-  var housing = document.querySelector('.address__housing');
-  var house = document.querySelector('.address__house');
-
   function addressConcatination() {
+    var concated = document.querySelector('.address__concated');
+    var locality = document.querySelector('.address__locality');
+    var district = document.querySelector('.address__district');
+    var microdistrict = document.querySelector('.address__microdistrict');
+    var street = document.querySelector('.address__street');
+    var housing = document.querySelector('.address__housing') || null;
+    var house = document.querySelector('.address__house');
+    console.log(housing);
     setTimeout(function () {
-      concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value + ', ' : '', "\n                              ").concat(district.value ? district.value + ' район, ' : '', "\n                              ").concat(microdistrict.value ? microdistrict.value + ' микрорайон, ' : '', "\n                              ").concat(street.value ? 'ул. ' + street.value + ', ' : '', "\n                              ").concat(housing.value ? 'корпус ' + housing.value + ', ' : '', "\n                              ").concat(house.value ? 'дом ' + house.value + '.' : '', "\n                             ");
+      concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value + ', ' : '', "\n                              ").concat(district.value ? district.value + ' район, ' : '', "\n                              ").concat(microdistrict.value ? 'микрорайон ' + microdistrict.value + ', ' : '', "\n                              ").concat(street.value ? 'ул. ' + street.value + ', ' : '', "\n                              ").concat(housing.value ? 'корпус ' + housing.value ? housing.value : '' + ', ' : '', "\n                              ").concat(house.value ? 'дом ' + house.value + '.' : '', "\n                             ");
     }, 100);
   }
 
   function initAddressConcatination() {
+    var concated = document.querySelector('.address__concated');
+    var locality = document.querySelector('.address__locality');
+    var district = document.querySelector('.address__district');
+    var microdistrict = document.querySelector('.address__microdistrict');
+    var street = document.querySelector('.address__street');
+    var housing = document.querySelector('.address__housing');
+    var house = document.querySelector('.address__house');
     locality.addEventListener('change', function () {
       return addressConcatination();
     });
@@ -387,13 +397,15 @@ $(document).ready(function () {
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
     connectionToColdWaterLabel.addEventListener('click', function () {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
+      var height = 1000;
+      if (simpleSendRequest) height = 300;
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden');
-        changeSliderHeight('increase', 1000);
+        changeSliderHeight('increase', height);
       } else {
         coldWaterToggle.classList.add('hidden');
-        changeSliderHeight('decrease', 1000);
+        changeSliderHeight('decrease', height);
       }
     });
   }
@@ -402,7 +414,6 @@ $(document).ready(function () {
   if (queueBlocks) queueBlocks.forEach(function (queueBlock) {
     return initColdWaterSupply(queueBlock);
   }); // Блок "Водоотведение"
-  // TODO: добавить инит по конкретной ноде, а не по документу
   // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
 
   function initDrainage(baseNode) {

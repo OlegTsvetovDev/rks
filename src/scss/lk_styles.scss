@@ -1507,6 +1507,11 @@ input[type=number]::-webkit-outer-spin-button {
             border-top: 1px solid $mainColorTransparent;
             width: 100%;
             position: relative;
+            .attachment__doctype {
+              visibility: hidden;
+              height: 0;
+              border: none;
+            }
             .field__description {
               font-weight: 400;
               color: $mainColor;
@@ -1539,11 +1544,6 @@ input[type=number]::-webkit-outer-spin-button {
                     text-decoration: none;
                   }
                 }
-              }
-              .attachment__doctype {
-                visibility: hidden;
-                height: 0;
-                border: none;
               }
               .add_files_button {
                 display: block;
@@ -1636,6 +1636,23 @@ input[type=number]::-webkit-outer-spin-button {
             background-color: $lightGrey !important;
           }
         } // end of .form__field
+      }
+      &.simple {
+        .request__form {
+          .form__field {
+            .field__label {
+              &.hidden {
+                display: none;
+              }
+              &.house {
+                float: left;
+                width: 49%;
+                margin-left: 2%;
+                margin-right: 0;
+              }
+            }
+          }
+        }
       }
     } // end of .requests_form
 

@@ -1,5 +1,8 @@
 $(document).ready(function() {
   const body = $('body')
+  // упрощенная подача заявления
+  let simpleSendRequest = false
+  if (document.querySelector('.requests_form.simple')) simpleSendRequest = true
 
   // инициализация слайдера
   if (document.querySelector('.slider')) {
@@ -87,28 +90,38 @@ $(document).ready(function() {
 
 
   // Пересчет итогового адреса
-  const concated = document.querySelector('.address__concated')
-  const locality = document.querySelector('.address__locality')
-  const district = document.querySelector('.address__district')
-  const microdistrict = document.querySelector('.address__microdistrict')
-  const street = document.querySelector('.address__street')
-  const housing = document.querySelector('.address__housing')
-  const house = document.querySelector('.address__house')
-
   function addressConcatination() {
+    const concated = document.querySelector('.address__concated')
+    const locality = document.querySelector('.address__locality')
+    const district = document.querySelector('.address__district')
+    const microdistrict = document.querySelector('.address__microdistrict')
+    const street = document.querySelector('.address__street')
+    const housing = document.querySelector('.address__housing') || null
+    const house = document.querySelector('.address__house')
+
+    console.log(housing)
+
     setTimeout(() => {
       concated.textContent = `
-                              ${locality.value ? 'г. ' + locality.value + ', ' : ''}
-                              ${district.value ? district.value + ' район, ' : ''}
-                              ${microdistrict.value ? microdistrict.value + ' микрорайон, ' : ''}
-                              ${street.value ? 'ул. ' + street.value + ', ' : ''}
-                              ${housing.value ? 'корпус ' + housing.value + ', ' : ''}
-                              ${house.value ? 'дом ' + house.value + '.' : ''}
+                              ${locality ? 'г. ' + locality.value + ', ' : ''}
+                              ${district ? district.value + ' район, ' : ''}
+                              ${microdistrict ? 'микрорайон ' + microdistrict.value + ', ' : ''}
+                              ${street ? 'ул. ' + street.value + ', ' : ''}
+                              ${housing ? 'корпус ' + (housing.value) ? housing.value : '' + ', ' : ''}
+                              ${house ? 'дом ' + house.value + '.' : ''}
                              `
     }, 100)
   }
 
   function initAddressConcatination() {
+    const concated = document.querySelector('.address__concated')
+    const locality = document.querySelector('.address__locality')
+    const district = document.querySelector('.address__district')
+    const microdistrict = document.querySelector('.address__microdistrict')
+    const street = document.querySelector('.address__street')
+    const housing = document.querySelector('.address__housing')
+    const house = document.querySelector('.address__house')
+
     locality.addEventListener('change', () => addressConcatination())
     district.addEventListener('change', () => addressConcatination())
     microdistrict.addEventListener('change', () => addressConcatination())
@@ -429,13 +442,15 @@ $(document).ready(function() {
 
     connectionToColdWaterLabel.addEventListener('click', () => {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
+      let height = 1000
+      if (simpleSendRequest) height = 300
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
-        changeSliderHeight('increase', 1000)
+        changeSliderHeight('increase', height)
       } else {
         coldWaterToggle.classList.add('hidden')
-        changeSliderHeight('decrease', 1000)
+        changeSliderHeight('decrease', height)
       }
 
     })
@@ -444,7 +459,6 @@ $(document).ready(function() {
   if (queueBlocks) queueBlocks.forEach(queueBlock => initColdWaterSupply(queueBlock))
 
   // Блок "Водоотведение"
-  // TODO: добавить инит по конкретной ноде, а не по документу
   // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
   function initDrainage(baseNode) {
     const connectionToDrainage= baseNode.querySelector('.connection_to_drainage')
@@ -535,7 +549,7 @@ $(document).ready(function() {
     success: function(data){
       if(data == 'true')
       {
-        $("[name='infmaxparam4']," + 
+        $("[name='infmaxparam4']," +
           "[name='infmaxparam3']," +
           "[name='connectloadparamdata_value2']," +
           "[name='addconnectloadparamdata_value_05']," +
