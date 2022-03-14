@@ -81,43 +81,43 @@ $(document).ready(function () {
   if (document.querySelector('.__select')) initPseudoSelects(); // Пересчет итогового адреса
 
   function addressConcatination() {
-    var concated = document.querySelector('.address__concated');
-    var locality = document.querySelector('.address__locality');
-    var district = document.querySelector('.address__district');
-    var microdistrict = document.querySelector('.address__microdistrict');
-    var street = document.querySelector('.address__street');
+    var concated = document.querySelector('.address__concated') || null;
+    var locality = document.querySelector('.address__locality') || null;
+    var district = document.querySelector('.address__district') || null;
+    var microdistrict = document.querySelector('.address__microdistrict') || null;
+    var street = document.querySelector('.address__street') || null;
     var housing = document.querySelector('.address__housing') || null;
-    var house = document.querySelector('.address__house');
+    var house = document.querySelector('.address__house') || null;
     console.log(housing);
     setTimeout(function () {
-      concated.textContent = "\n                              ".concat(locality ? 'г. ' + locality.value + ', ' : '', "\n                              ").concat(district ? district.value + ' район, ' : '', "\n                              ").concat(microdistrict ? 'микрорайон ' + microdistrict.value + ', ' : '', "\n                              ").concat(street ? 'ул. ' + street.value + ', ' : '', "\n                              ").concat(housing ? 'корпус ' + housing.value ? housing.value : '' + ', ' : '', "\n                              ").concat(house ? 'дом ' + house.value + '.' : '', "\n                             ");
+      concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value : '', "\n                              ").concat(district.value ? ', ' + district.value + ' район' : '', "\n                              ").concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '', "\n                              ").concat(street.value ? ', ул. ' + street.value : '', "\n                              ").concat(housing.value ? ', корпус ' + housing.value : '', "\n                              ").concat(house.value ? ', дом ' + house.value : '', "\n                              ", '.', "\n                             ");
     }, 100);
   }
 
   function initAddressConcatination() {
-    var concated = document.querySelector('.address__concated');
-    var locality = document.querySelector('.address__locality');
-    var district = document.querySelector('.address__district');
-    var microdistrict = document.querySelector('.address__microdistrict');
-    var street = document.querySelector('.address__street');
-    var housing = document.querySelector('.address__housing');
-    var house = document.querySelector('.address__house');
-    locality.addEventListener('change', function () {
+    var concated = document.querySelector('.address__concated') || null;
+    var locality = document.querySelector('.address__locality') || null;
+    var district = document.querySelector('.address__district') || null;
+    var microdistrict = document.querySelector('.address__microdistrict') || null;
+    var street = document.querySelector('.address__street') || null;
+    var housing = document.querySelector('.address__housing') || null;
+    var house = document.querySelector('.address__house') || null;
+    if (locality) locality.addEventListener('change', function () {
       return addressConcatination();
     });
-    district.addEventListener('change', function () {
+    if (district) district.addEventListener('change', function () {
       return addressConcatination();
     });
-    microdistrict.addEventListener('change', function () {
+    if (microdistrict) microdistrict.addEventListener('change', function () {
       return addressConcatination();
     });
-    street.addEventListener('change', function () {
+    if (street) street.addEventListener('change', function () {
       return addressConcatination();
     });
-    housing.addEventListener('change', function () {
+    if (housing) housing.addEventListener('change', function () {
       return addressConcatination();
     });
-    house.addEventListener('change', function () {
+    if (house) house.addEventListener('change', function () {
       return addressConcatination();
     });
   }

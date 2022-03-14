@@ -367,7 +367,7 @@
                   <label class="field__label" for="">
                     <span class="field__description required">Населенный пункт</span>
                     <div data-state="" class="__select">
-                      <input placeholder="Выберите населенный пункт" data-default="Option 0" class="__select__title field__input cascader_input" type="text" tabindex="0">
+                      <input placeholder="Выберите населенный пункт" data-default="Option 0" class="__select__title field__input cascader_input address__locality" type="text" tabindex="0">
                       <div class="__select__content">
                         <input checked="" selected="" name="address__locality" type="radio" class="__select__input address__locality" id="locality_0" tabindex="0">
                         <label class="__select__label" for="locality_0">Выберите населенный пункт</label>
@@ -387,7 +387,7 @@
                   <label class="field__label street" for="">
                     <span class="field__description required">Улица</span>
                     <div data-state="" class="__select">
-                      <input placeholder="Выберите улицу" data-default="Option 0" class="__select__title field__input cascader_input" type="text" tabindex="0">
+                      <input placeholder="Выберите улицу" data-default="Option 0" class="__select__title field__input cascader_input address__street" type="text" tabindex="0">
                       <div class="__select__content">
                         <input checked="" selected="" name="address__street" type="radio" class="__select__input" id="" tabindex="0">
                         <label class="__select__label" for="">Выберите улицу</label>
@@ -402,20 +402,19 @@
                   </label>
                   <label class="field__label housing hidden" for="">
                     <span class="field__description">Корпус</span>
-                    <input placeholder="Введите данные" class="field__input" type="text" tabindex="0"></label>
-                    <label class="field__label house" for="">
-                      <span class="field__description">
-                        Дом
-                      </span>
-                      <input placeholder="Введите данные" class="field__input" type="text" tabindex="0">
-                    </label>
+                    <input placeholder="Введите данные" class="field__input address__housing" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label house" for="">
+                    <span class="field__description">Дом</span>
+                    <input placeholder="Введите данные" class="field__input address__house" type="text" tabindex="0">
+                  </label>
                   </label>
                 </div>
                 <div class="form__field">
                   <label class="field__label" for="">
                     <span class="field__description required">Район</span>
                     <div data-state="" class="__select">
-                      <input placeholder="Выберите район" data-default="Option 0" class="__select__title field__input cascader_input" type="text" tabindex="0">
+                      <input placeholder="Выберите район" data-default="Option 0" class="__select__title field__input cascader_input address__district" type="text" tabindex="0">
                       <div class="__select__content">
                         <input checked="" selected="" name="address__district" type="radio" class="__select__input" id="" tabindex="0">
                         <label class="__select__label" for="">Выберите район</label>

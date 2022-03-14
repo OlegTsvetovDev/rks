@@ -90,46 +90,48 @@ $(document).ready(function() {
 
 
   // Пересчет итогового адреса
-  function addressConcatination() {
-    const concated = document.querySelector('.address__concated')
-    const locality = document.querySelector('.address__locality')
-    const district = document.querySelector('.address__district')
-    const microdistrict = document.querySelector('.address__microdistrict')
-    const street = document.querySelector('.address__street')
-    const housing = document.querySelector('.address__housing') || null
-    const house = document.querySelector('.address__house')
+  function addressConcatination(baseNode) {
+    const concated = baseNode.querySelector('.address__concated') || null
+    const locality = baseNode.querySelector('.address__locality') || null
+    const district = baseNode.querySelector('.address__district') || null
+    const microdistrict = baseNode.querySelector('.address__microdistrict') || null
+    const street = baseNode.querySelector('.address__street') || null
+    const housing = baseNode.querySelector('.address__housing') || null
+    const house = baseNode.querySelector('.address__house') || null
 
     console.log(housing)
 
     setTimeout(() => {
       concated.textContent = `
-                              ${locality ? 'г. ' + locality.value + ', ' : ''}
-                              ${district ? district.value + ' район, ' : ''}
-                              ${microdistrict ? 'микрорайон ' + microdistrict.value + ', ' : ''}
-                              ${street ? 'ул. ' + street.value + ', ' : ''}
-                              ${housing ? 'корпус ' + (housing.value) ? housing.value : '' + ', ' : ''}
-                              ${house ? 'дом ' + house.value + '.' : ''}
+                              ${locality.value ? 'г. ' + locality.value : ''}
+                              ${district.value ?  ', ' + district.value + ' район' : ''}
+                              ${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}
+                              ${street.value ? ', ул. ' + street.value : ''}
+                              ${housing.value ? ', корпус ' + housing.value : ''}
+                              ${house.value ? ', дом ' + house.value : ''}
+                              ${'.'}
                              `
     }, 100)
   }
 
-  function initAddressConcatination() {
-    const concated = document.querySelector('.address__concated')
-    const locality = document.querySelector('.address__locality')
-    const district = document.querySelector('.address__district')
-    const microdistrict = document.querySelector('.address__microdistrict')
-    const street = document.querySelector('.address__street')
-    const housing = document.querySelector('.address__housing')
-    const house = document.querySelector('.address__house')
+  function initAddressConcatination(baseNode) {
+    const concated = baseNode.querySelector('.address__concated') || null
+    const locality = baseNode.querySelector('.address__locality') || null
+    const district = baseNode.querySelector('.address__district') || null
+    const microdistrict = baseNode.querySelector('.address__microdistrict') || null
+    const street = baseNode.querySelector('.address__street') || null
+    const housing = baseNode.querySelector('.address__housing') || null
+    const house = baseNode.querySelector('.address__house') || null
 
-    locality.addEventListener('change', () => addressConcatination())
-    district.addEventListener('change', () => addressConcatination())
-    microdistrict.addEventListener('change', () => addressConcatination())
-    street.addEventListener('change', () => addressConcatination())
-    housing.addEventListener('change', () => addressConcatination())
-    house.addEventListener('change', () => addressConcatination())
+    if (locality) locality.addEventListener('change', () => addressConcatination())
+    if (district) district.addEventListener('change', () => addressConcatination())
+    if (microdistrict) microdistrict.addEventListener('change', () => addressConcatination())
+    if (street) street.addEventListener('change', () => addressConcatination())
+    if (housing) housing.addEventListener('change', () => addressConcatination())
+    if (house) house.addEventListener('change', () => addressConcatination())
   }
-  if (document.querySelector('.address__concated')) initAddressConcatination()
+  const addressBlocks = document.querySelectorAll('.address__concated')
+  if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlocks))
 
 
   // переключение блоков в "Запуск по очередям", слайдер 1
