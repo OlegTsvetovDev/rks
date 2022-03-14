@@ -46,23 +46,23 @@ $(document).ready(function() {
   if (document.querySelector('.checkbox')) initCheckboxLabels()
 
   // псевдо-селект
-  function initPseudoSelect(selectSingle) {
-    const selectSingle_title = selectSingle.querySelector('.__select__title')
-    const selectSingle_labels = selectSingle.querySelectorAll('.__select__label')
+  function initPseudoSelect(select) {
+    const selectTitle = select.querySelector('.__select__title')
+    const selectLabels = select.querySelectorAll('.__select__label')
 
-    selectSingle_title.addEventListener('click', function () {
-      if ('active' === selectSingle.getAttribute('data-state')) {
-        selectSingle.setAttribute('data-state', '')
+    selectTitle.addEventListener('click', function () {
+      if ('active' === select.getAttribute('data-state')) {
+        select.setAttribute('data-state', '')
       } else {
-        selectSingle.setAttribute('data-state', 'active')
+        select.setAttribute('data-state', 'active')
       }
     })
 
-    for (let i = 0; i < selectSingle_labels.length; i++) {
-      selectSingle_labels[i].addEventListener('click', function (e) {
-        selectSingle_title.textContent = e.target.textContent
-        selectSingle_title.value = e.target.textContent
-        selectSingle.setAttribute('data-state', '')
+    for (let i = 0; i < selectLabels.length; i++) {
+      selectLabels[i].addEventListener('click', function (e) {
+        selectTitle.textContent = e.target.textContent
+        selectTitle.value = e.target.textContent
+        select.setAttribute('data-state', '')
 
         // вызов пересчета адреса в случае, если модуль активен
         const addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode
@@ -79,16 +79,16 @@ $(document).ready(function() {
                       && (eClassList[0] !== '__select__content')
                       && (eClassList[0] !== '__select__input')
 
-      if (trigger) selectSingle.setAttribute('data-state', '')
+      if (trigger) select.setAttribute('data-state', '')
     })
   }
 
   // псевдо-селекты
-  function initPseudoSelects() {
+  function initPseudoSelects(baseNode) {
     const selects = document.querySelectorAll('.__select')
     selects.forEach(select => initPseudoSelect(select))
   }
-  if (document.querySelector('.__select')) initPseudoSelects()
+  if (document.querySelector('.__select')) initPseudoSelects(document)
 
 
   // Пересчет итогового адреса
@@ -267,6 +267,8 @@ $(document).ready(function() {
       const newNode = createNewNode()
       pasteNameSuffixes(newNode)
       renderNewNode(newNode)
+      initPseudoSelects(newNode.querySelector('.__select'))
+      console.log(newNode.querySelector('.__select'))
       initColdWaterSupply(newNode)
       initDrainage(newNode)
       initAddressConcatination(newNode)
