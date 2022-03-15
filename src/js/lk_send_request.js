@@ -452,15 +452,15 @@ $(document).ready(function() {
 
     connectionToColdWaterLabel.addEventListener('click', () => {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
-      let height = 1000
-      if (simpleSendRequest) height = 300
+      let blockHeight = 1000
+      if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
-        changeSliderHeight('increase', height)
+        changeSliderHeight('increase', blockHeight)
       } else {
         coldWaterToggle.classList.add('hidden')
-        changeSliderHeight('decrease', height)
+        changeSliderHeight('decrease', blockHeight)
       }
 
     })
@@ -481,13 +481,15 @@ $(document).ready(function() {
 
     connectionToDrainageLabel.addEventListener('click', () => {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked
+      let blockHeight = 750
+      if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden')
-        changeSliderHeight('increase', 750)
+        changeSliderHeight('increase', blockHeight)
       } else {
         drainageToggle.classList.add('hidden')
-        changeSliderHeight('decrease', 750)
+        changeSliderHeight('decrease', blockHeight)
       }
     })
   }

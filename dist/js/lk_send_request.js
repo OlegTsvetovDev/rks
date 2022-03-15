@@ -407,15 +407,15 @@ $(document).ready(function () {
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
     connectionToColdWaterLabel.addEventListener('click', function () {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
-      var height = 1000;
-      if (simpleSendRequest) height = 300;
+      var blockHeight = 1000;
+      if (simpleSendRequest) blockHeight = 225;
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden');
-        changeSliderHeight('increase', height);
+        changeSliderHeight('increase', blockHeight);
       } else {
         coldWaterToggle.classList.add('hidden');
-        changeSliderHeight('decrease', height);
+        changeSliderHeight('decrease', blockHeight);
       }
     });
   }
@@ -435,13 +435,15 @@ $(document).ready(function () {
     if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden');
     connectionToDrainageLabel.addEventListener('click', function () {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
+      var blockHeight = 750;
+      if (simpleSendRequest) blockHeight = 225;
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden');
-        changeSliderHeight('increase', 750);
+        changeSliderHeight('increase', blockHeight);
       } else {
         drainageToggle.classList.add('hidden');
-        changeSliderHeight('decrease', 750);
+        changeSliderHeight('decrease', blockHeight);
       }
     });
   }
