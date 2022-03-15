@@ -45,27 +45,30 @@ $(document).ready(function() {
   }
   if (document.querySelector('.checkbox')) initCheckboxLabels()
 
-  // псевдо-селект
-  function initPseudoSelect(selectSingle) {
-    const selectSingle_title = selectSingle.querySelector('.__select__title')
-    const selectSingle_labels = selectSingle.querySelectorAll('.__select__label')
 
-    selectSingle_title.addEventListener('click', function () {
-      if ('active' === selectSingle.getAttribute('data-state')) {
-        selectSingle.setAttribute('data-state', '')
+  // псевдо-селект
+  function initPseudoSelect(select) {
+    const selectTitle = select.querySelector('.__select__title')
+    const selectLabels = select.querySelectorAll('.__select__label')
+
+    selectTitle.addEventListener('click', function () {
+      if ('active' === select.getAttribute('data-state')) {
+        select.setAttribute('data-state', '')
       } else {
-        selectSingle.setAttribute('data-state', 'active')
+        select.setAttribute('data-state', 'active')
       }
     })
 
-    for (let i = 0; i < selectSingle_labels.length; i++) {
-      selectSingle_labels[i].addEventListener('click', function (e) {
-        selectSingle_title.textContent = e.target.textContent
-        selectSingle_title.value = e.target.textContent
-        selectSingle.setAttribute('data-state', '')
+    for (let i = 0; i < selectLabels.length; i++) {
+      selectLabels[i].addEventListener('click', function (e) {
+        selectTitle.textContent = e.target.textContent
+        selectTitle.value = e.target.textContent
+        select.setAttribute('data-state', '')
 
-        // проверка на наличие модуля пересчета итогового адреса для вызова пересчета
-        if (document.querySelector('.address__concated')) addressConcatination()
+        // вызов пересчета адреса в случае, если модуль активен
+        const addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode
+        const thisAddressConcatination = addressNode.querySelector('.address__concated')
+        if (thisAddressConcatination) addressConcatination(addressNode)
       })
     }
 
@@ -77,59 +80,62 @@ $(document).ready(function() {
                       && (eClassList[0] !== '__select__content')
                       && (eClassList[0] !== '__select__input')
 
-      if (trigger) selectSingle.setAttribute('data-state', '')
+      if (trigger) select.setAttribute('data-state', '')
     })
   }
 
-  // псевдо-селекты
-  function initPseudoSelects() {
+
+  // стартовый инит псевдо-селектов
+  function initPseudoSelects(baseNode) {
     const selects = document.querySelectorAll('.__select')
     selects.forEach(select => initPseudoSelect(select))
   }
-  if (document.querySelector('.__select')) initPseudoSelects()
+  if (document.querySelector('.__select')) initPseudoSelects(document)
 
 
   // Пересчет итогового адреса
-  function addressConcatination() {
-    const concated = document.querySelector('.address__concated')
-    const locality = document.querySelector('.address__locality')
-    const district = document.querySelector('.address__district')
-    const microdistrict = document.querySelector('.address__microdistrict')
-    const street = document.querySelector('.address__street')
-    const housing = document.querySelector('.address__housing') || null
-    const house = document.querySelector('.address__house')
-
-    console.log(housing)
+  function addressConcatination(baseNode) {
+    const concated = baseNode.querySelector('.address__concated')
+    const locality = baseNode.querySelector('.address__locality')
+    const district = baseNode.querySelector('.address__district')
+    const microdistrict = baseNode.querySelector('.address__microdistrict')
+    const street = baseNode.querySelector('.address__street')
+    const housing = baseNode.querySelector('.address__housing')
+    const house = baseNode.querySelector('.address__house')
 
     setTimeout(() => {
-      concated.textContent = `
-                              ${locality ? 'г. ' + locality.value + ', ' : ''}
-                              ${district ? district.value + ' район, ' : ''}
-                              ${microdistrict ? 'микрорайон ' + microdistrict.value + ', ' : ''}
-                              ${street ? 'ул. ' + street.value + ', ' : ''}
-                              ${housing ? 'корпус ' + (housing.value) ? housing.value : '' + ', ' : ''}
-                              ${house ? 'дом ' + house.value + '.' : ''}
-                             `
+      const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
+      const resultdDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
+      const resultMicrodistrict = `${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}`
+      const resultStreet = `${street.value ? ', ул. ' + street.value : ''}`
+      const resultHousing = `${housing.value ? ', корпус ' + housing.value : ''}`
+      const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
+      let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
+      if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
+
+      concated.textContent = resultAddress
     }, 100)
   }
 
-  function initAddressConcatination() {
-    const concated = document.querySelector('.address__concated')
-    const locality = document.querySelector('.address__locality')
-    const district = document.querySelector('.address__district')
-    const microdistrict = document.querySelector('.address__microdistrict')
-    const street = document.querySelector('.address__street')
-    const housing = document.querySelector('.address__housing')
-    const house = document.querySelector('.address__house')
+  function initAddressConcatination(baseNode) {
+    const concated = baseNode.querySelector('.address__concated')
+    const locality = baseNode.querySelector('.address__locality')
+    const district = baseNode.querySelector('.address__district')
+    const microdistrict = baseNode.querySelector('.address__microdistrict')
+    const street = baseNode.querySelector('.address__street')
+    const housing = baseNode.querySelector('.address__housing')
+    const house = baseNode.querySelector('.address__house')
 
-    locality.addEventListener('change', () => addressConcatination())
-    district.addEventListener('change', () => addressConcatination())
-    microdistrict.addEventListener('change', () => addressConcatination())
-    street.addEventListener('change', () => addressConcatination())
-    housing.addEventListener('change', () => addressConcatination())
-    house.addEventListener('change', () => addressConcatination())
+
+    if (locality) locality.addEventListener('change', () => addressConcatination(baseNode))
+    if (district) district.addEventListener('change', () => addressConcatination(baseNode))
+    if (microdistrict) microdistrict.addEventListener('change', () => addressConcatination(baseNode))
+    if (street) street.addEventListener('change', () => addressConcatination(baseNode))
+    if (housing) housing.addEventListener('change', () => addressConcatination(baseNode))
+    if (house) house.addEventListener('change', () => addressConcatination(baseNode))
   }
-  if (document.querySelector('.address__concated')) initAddressConcatination()
+  const addressBlocks = document.querySelectorAll('.address__concated')
+  if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
 
 
   // переключение блоков в "Запуск по очередям", слайдер 1
@@ -202,7 +208,7 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    // инит слайдера
+    // инит слайдера в слайд 4
     function initQueueSlider() {
       $('.queue_slider').slick({
         dots: true,
@@ -224,6 +230,7 @@ $(document).ready(function() {
       const subheader = node.querySelector('.form__subheader')
       subheader.innerText = `Очередь №${queue_count}`
 
+      // все инпуты, слайд 4
       const inputs = node.querySelectorAll('input')
       inputs.forEach(input => {
         if (!input.name) return
@@ -233,6 +240,20 @@ $(document).ready(function() {
         // newName = newName.slice(0, -2) + `_${queue_count}`
         input.name = newName
       })
+
+      // дивы с name = "show_name", слайд 4
+      const divs = node.querySelectorAll('div#show_name')
+      console.log(divs)
+      divs.forEach(div => {
+        if (!div.id) return
+
+        let newName = div.id
+        console.log(newName)
+        newName += `_${queue_count}`
+        console.log(newName)
+        div.id = newName
+      })
+
     }
 
     // рендер новой ноды в блок .step_5, 4 слайдера
@@ -264,9 +285,12 @@ $(document).ready(function() {
       const newNode = createNewNode()
       pasteNameSuffixes(newNode)
       renderNewNode(newNode)
+      initPseudoSelects(newNode.querySelector('.__select'))
+      initMasks(newNode)
       initColdWaterSupply(newNode)
       initDrainage(newNode)
-      // console.log(newNode)
+      initAddressConcatination(newNode)
+
       // addNewSlide(newNode)
     }
 
@@ -281,7 +305,7 @@ $(document).ready(function() {
                       <tr class="table__row">
                         <td class="table__cell">Очередь №${queue_count}</td>
                         <td class="table__cell">
-                          <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
+                          <input type="text" class="field__input datepicker_input" name=${'TechCondObj_QueueName_' + queue_count} placeholder="Введите данные" />
                         </td>
                       </tr>
                      `
@@ -294,6 +318,7 @@ $(document).ready(function() {
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
       lastChildDatepicker.datepicker($.datepicker.regional['ru'])
       lastChildDatepicker.mask("99.99.9999", { autoclear: false })
+
     })
 
     // удаление новых строк в таблицу с очередями, слайдер 1
@@ -387,25 +412,29 @@ $(document).ready(function() {
   }
   if (document.querySelector('.datepicker_input')) initDatepickers()
 
-  // маски
-  if (document.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999", { autoclear: false })
-  if (document.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99", { autoclear: false })
-  if (document.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999", { autoclear: false })
-  if (document.querySelector('.passport_serial_input')) $('.passport_serial_input').mask("99 99", { autoclear: false })
-  if (document.querySelector('.passport_number_input')) $('.passport_number_input').mask("999999", { autoclear: false })
-  if (document.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999", { autoclear: false })
-  if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", { autoclear: false })
-  if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", { autoclear: false })
-  if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", { autoclear: false })
-  if (document.querySelector('.integer_input')) $('.integer_input').on('input', function () {
-    $(this).val($(this).val().replace(/[^0-9]/g, ''))
-  })
-  if (document.querySelector('.float_input')) $('.float_input').keypress(function (e) {
-    const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
-                    && (e.which < 48 || e.which > 57)
 
-    if (trigger) e.preventDefault()
-  })
+  // маски
+  function initMasks(parentNode) {
+    if (parentNode.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999", { autoclear: false })
+    if (parentNode.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99", { autoclear: false })
+    if (parentNode.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999", { autoclear: false })
+    if (parentNode.querySelector('.passport_serial_input')) $('.passport_serial_input').mask("99 99", { autoclear: false })
+    if (parentNode.querySelector('.passport_number_input')) $('.passport_number_input').mask("999999", { autoclear: false })
+    if (parentNode.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999", { autoclear: false })
+    if (parentNode.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", { autoclear: false })
+    if (parentNode.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", { autoclear: false })
+    if (parentNode.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", { autoclear: false })
+    if (parentNode.querySelector('.integer_input')) $('.integer_input').on('input', function () {
+      $(this).val($(this).val().replace(/[^0-9]/g, ''))
+    })
+    if (parentNode.querySelector('.float_input')) $('.float_input').keypress(function (e) {
+      const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
+                      && (e.which < 48 || e.which > 57)
+
+      if (trigger) e.preventDefault()
+    })
+  }
+  initMasks(document)
 
 
   // Блок "Являюсь представителем"
@@ -442,15 +471,15 @@ $(document).ready(function() {
 
     connectionToColdWaterLabel.addEventListener('click', () => {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
-      let height = 1000
-      if (simpleSendRequest) height = 300
+      let blockHeight = 1000
+      if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
-        changeSliderHeight('increase', height)
+        changeSliderHeight('increase', blockHeight)
       } else {
         coldWaterToggle.classList.add('hidden')
-        changeSliderHeight('decrease', height)
+        changeSliderHeight('decrease', blockHeight)
       }
 
     })
@@ -471,13 +500,15 @@ $(document).ready(function() {
 
     connectionToDrainageLabel.addEventListener('click', () => {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked
+      let blockHeight = 750
+      if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden')
-        changeSliderHeight('increase', 750)
+        changeSliderHeight('increase', blockHeight)
       } else {
         drainageToggle.classList.add('hidden')
-        changeSliderHeight('decrease', 750)
+        changeSliderHeight('decrease', blockHeight)
       }
     })
   }
