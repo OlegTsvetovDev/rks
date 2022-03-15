@@ -242,13 +242,16 @@ $(document).ready(function() {
       })
 
       // дивы с name = "show_name", слайд 4
-      const divs = node.querySelectorAll('div[name="show_name"]')
+      const divs = node.querySelectorAll('div#show_name')
+      console.log(divs)
       divs.forEach(div => {
-        if (!div.name) return
+        if (!div.id) return
 
-        let newName = div.name
+        let newName = div.id
+        console.log(newName)
         newName += `_${queue_count}`
-        div.name = newName
+        console.log(newName)
+        div.id = newName
       })
 
     }

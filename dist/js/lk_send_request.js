@@ -227,12 +227,15 @@ $(document).ready(function () {
         input.name = newName;
       }); // дивы с name = "show_name", слайд 4
 
-      var divs = node.querySelectorAll('div[name="show_name"]');
+      var divs = node.querySelectorAll('div#show_name');
+      console.log(divs);
       divs.forEach(function (div) {
-        if (!div.name) return;
-        var newName = div.name;
+        if (!div.id) return;
+        var newName = div.id;
+        console.log(newName);
         newName += "_".concat(queue_count);
-        div.name = newName;
+        console.log(newName);
+        div.id = newName;
       });
     } // рендер новой ноды в блок .step_5, 4 слайдера
 
