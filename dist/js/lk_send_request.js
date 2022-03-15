@@ -70,7 +70,7 @@ $(document).ready(function () {
       var trigger = eClassList[0] !== '__select__title' && eClassList[0] !== '__select__content' && eClassList[0] !== '__select__input';
       if (trigger) select.setAttribute('data-state', '');
     });
-  } // псевдо-селекты
+  } // стартовый инит псевдо-селектов
 
 
   function initPseudoSelects(baseNode) {
@@ -91,7 +91,15 @@ $(document).ready(function () {
     var housing = baseNode.querySelector('.address__housing');
     var house = baseNode.querySelector('.address__house');
     setTimeout(function () {
-      concated.textContent = "\n                              ".concat(locality.value ? 'г. ' + locality.value : '', "\n                              ").concat(district.value ? ', ' + district.value + ' район' : '', "\n                              ").concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '', "\n                              ").concat(street.value ? ', ул. ' + street.value : '', "\n                              ").concat(housing.value ? ', корпус ' + housing.value : '', "\n                              ").concat(house.value ? ', дом ' + house.value : '', "\n                              ", '.', "\n                             ");
+      var resultLocality = "".concat(locality.value ? 'г. ' + locality.value : '');
+      var resultdDistrict = "".concat(district.value ? ', ' + district.value + ' район' : '');
+      var resultMicrodistrict = "".concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '');
+      var resultStreet = "".concat(street.value ? ', ул. ' + street.value : '');
+      var resultHousing = "".concat(housing.value ? ', корпус ' + housing.value : '');
+      var resultHouse = "".concat(house.value ? ', дом ' + house.value : '');
+      var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
+      if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
+      concated.textContent = resultAddress;
     }, 100);
   }
 
@@ -187,7 +195,7 @@ $(document).ready(function () {
       });
     }
 
-    getCurrentQueueCount(); // инит слайдера
+    getCurrentQueueCount(); // инит слайдера в слайд 4
 
     function initQueueSlider() {
       $('.queue_slider').slick({
@@ -208,7 +216,8 @@ $(document).ready(function () {
 
     function pasteNameSuffixes(node) {
       var subheader = node.querySelector('.form__subheader');
-      subheader.innerText = "\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count);
+      subheader.innerText = "\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count); // все инпуты, слайд 4
+
       var inputs = node.querySelectorAll('input');
       inputs.forEach(function (input) {
         if (!input.name) return;
@@ -216,6 +225,14 @@ $(document).ready(function () {
         newName += "_".concat(queue_count); // newName = newName.slice(0, -2) + `_${queue_count}`
 
         input.name = newName;
+      }); // дивы с name = "show_name", слайд 4
+
+      var divs = node.querySelectorAll('div[name="show_name"]');
+      divs.forEach(function (div) {
+        if (!div.name) return;
+        var newName = div.name;
+        newName += "_".concat(queue_count);
+        div.name = newName;
       });
     } // рендер новой ноды в блок .step_5, 4 слайдера
 
@@ -259,7 +276,7 @@ $(document).ready(function () {
     $('.queue_btn').click(function (e) {
       e.preventDefault();
       queue_count += 1;
-      var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
+      var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" name=").concat('TechCondObj_QueueName_' + queue_count, " placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
       queue_tbody.append(new_row);
       createAndRenderNewNode();
       changeSliderHeight('increase', 39); // инициализация дейтпикера на последней добавленной строке

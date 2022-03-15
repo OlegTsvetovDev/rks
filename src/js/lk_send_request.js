@@ -45,6 +45,7 @@ $(document).ready(function() {
   }
   if (document.querySelector('.checkbox')) initCheckboxLabels()
 
+
   // псевдо-селект
   function initPseudoSelect(select) {
     const selectTitle = select.querySelector('.__select__title')
@@ -83,7 +84,8 @@ $(document).ready(function() {
     })
   }
 
-  // псевдо-селекты
+
+  // стартовый инит псевдо-селектов
   function initPseudoSelects(baseNode) {
     const selects = document.querySelectorAll('.__select')
     selects.forEach(select => initPseudoSelect(select))
@@ -102,15 +104,16 @@ $(document).ready(function() {
     const house = baseNode.querySelector('.address__house')
 
     setTimeout(() => {
-      concated.textContent = `
-                              ${locality.value ? 'г. ' + locality.value : ''}
-                              ${district.value ?  ', ' + district.value + ' район' : ''}
-                              ${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}
-                              ${street.value ? ', ул. ' + street.value : ''}
-                              ${housing.value ? ', корпус ' + housing.value : ''}
-                              ${house.value ? ', дом ' + house.value : ''}
-                              ${'.'}
-                             `
+      const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
+      const resultdDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
+      const resultMicrodistrict = `${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}`
+      const resultStreet = `${street.value ? ', ул. ' + street.value : ''}`
+      const resultHousing = `${housing.value ? ', корпус ' + housing.value : ''}`
+      const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
+      let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
+      if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
+
+      concated.textContent = resultAddress
     }, 100)
   }
 
@@ -205,7 +208,7 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    // инит слайдера
+    // инит слайдера в слайд 4
     function initQueueSlider() {
       $('.queue_slider').slick({
         dots: true,
@@ -227,6 +230,7 @@ $(document).ready(function() {
       const subheader = node.querySelector('.form__subheader')
       subheader.innerText = `Очередь №${queue_count}`
 
+      // все инпуты, слайд 4
       const inputs = node.querySelectorAll('input')
       inputs.forEach(input => {
         if (!input.name) return
@@ -236,6 +240,17 @@ $(document).ready(function() {
         // newName = newName.slice(0, -2) + `_${queue_count}`
         input.name = newName
       })
+
+      // дивы с name = "show_name", слайд 4
+      const divs = node.querySelectorAll('div[name="show_name"]')
+      divs.forEach(div => {
+        if (!div.name) return
+
+        let newName = div.name
+        newName += `_${queue_count}`
+        div.name = newName
+      })
+
     }
 
     // рендер новой ноды в блок .step_5, 4 слайдера
@@ -287,7 +302,7 @@ $(document).ready(function() {
                       <tr class="table__row">
                         <td class="table__cell">Очередь №${queue_count}</td>
                         <td class="table__cell">
-                          <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
+                          <input type="text" class="field__input datepicker_input" name=${'TechCondObj_QueueName_' + queue_count} placeholder="Введите данные" />
                         </td>
                       </tr>
                      `
@@ -300,6 +315,7 @@ $(document).ready(function() {
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
       lastChildDatepicker.datepicker($.datepicker.regional['ru'])
       lastChildDatepicker.mask("99.99.9999", { autoclear: false })
+
     })
 
     // удаление новых строк в таблицу с очередями, слайдер 1

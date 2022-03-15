@@ -82,7 +82,7 @@
 
   <section class="main">
     <div class="main__content">
-      <form class="requests_form simple slider" action="">
+      <form class="requests_form slider" action="">
 
         <!-- REQUEST STEP 2 -->
         <div class="request__form step_2">
@@ -153,7 +153,7 @@
                 <tr class="table__row queue_row">
                   <td class="table__cell">Базовая очередь</td>
                   <td class="table__cell">
-                    <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
+                    <input type="text" class="field__input datepicker_input" name="TechCondObj_QueueName" placeholder="Введите данные" />
                   </td>
                 </tr>
               </tbody>
@@ -401,7 +401,7 @@
                       </div>
                     </div>
                   </label>
-                  <label class="field__label housing hidden" for="">
+                  <label class="field__label housing" for="">
                     <span class="field__description">Корпус</span>
                     <input placeholder="Введите данные" class="field__input address__housing" type="text" tabindex="0">
                   </label>
@@ -450,7 +450,7 @@
                 <div class="form__field width_max">
                   <label class="field__label" for="">
                     <span class="field__description required">Адрес</span>
-                    <div class="field__input address__concated">Полученный адрес</div>
+                    <div class="field__input address__concated" name="show_name">Полученный адрес</div>
                   </label>
                 </div>
                 <div class="form__field width_max">
