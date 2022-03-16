@@ -228,13 +228,10 @@ $(document).ready(function () {
       }); // дивы с name = "show_name", слайд 4
 
       var divs = node.querySelectorAll('div#show_name');
-      console.log(divs);
       divs.forEach(function (div) {
         if (!div.id) return;
         var newName = div.id;
-        console.log(newName);
         newName += "_".concat(queue_count);
-        console.log(newName);
         div.id = newName;
       });
     } // рендер новой ноды в блок .step_5, 4 слайдера
@@ -301,7 +298,52 @@ $(document).ready(function () {
         changeSliderHeight('decrease', 39);
         removeLastSlide();
       }
-    });
+    }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
+
+    function clearTableQueues(queueTable) {
+      var queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row');
+      queueRows.forEach(function (queueRow, i) {
+        if (i === 0) return;
+        queueRow.remove();
+      });
+      queue_count = 0;
+    } // очистка всех развернутых очередей при переключении "Запуск по очередям" в нет, слайд 4
+
+
+    function clearDetailedQueues(queueSlider) {
+      var queueBlocks = queueSlider.querySelectorAll('.queue_block');
+      queueBlocks.forEach(function (queueBlock, i) {
+        if (i === 0) return;
+        queueBlock.remove();
+      });
+    } // очистка всех очередей при переключении "Запуск по очередям" в нет, слайд 1, 4
+
+
+    function clearAllQueues() {
+      var queueTable = document.querySelector('.queue_launch_yes table');
+      var queueSlider = document.querySelector('.queue_slider');
+      clearTableQueues(queueTable);
+      clearDetailedQueues(queueSlider);
+    }
+
+    function initClearAllQueues() {
+      var step2 = document.querySelector('.step_2');
+      var queueBtns = step2.querySelectorAll('input[name="queue_launch"]');
+
+      function handleClick() {
+        // вызываем модалку на подтверждение
+        // возвращем true/false
+        // на true вызываем удаление clearAllQueues()
+        // на false закрываем модалку
+        clearAllQueues();
+      }
+
+      queueBtns.forEach(function (queueBtn) {
+        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', handleClick);
+      });
+    }
+
+    initClearAllQueues();
   }
 
   if (document.querySelector('.queue_launch_yes')) initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4

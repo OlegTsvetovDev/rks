@@ -243,14 +243,11 @@ $(document).ready(function() {
 
       // дивы с name = "show_name", слайд 4
       const divs = node.querySelectorAll('div#show_name')
-      console.log(divs)
       divs.forEach(div => {
         if (!div.id) return
 
         let newName = div.id
-        console.log(newName)
         newName += `_${queue_count}`
-        console.log(newName)
         div.id = newName
       })
 
@@ -333,6 +330,57 @@ $(document).ready(function() {
         removeLastSlide()
       }
     })
+
+    // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
+    function clearTableQueues(queueTable) {
+      const queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row')
+      queueRows.forEach((queueRow, i) => {
+        if (i === 0) return
+        queueRow.remove()
+      })
+
+      queue_count = 0
+    }
+
+    // очистка всех развернутых очередей при переключении "Запуск по очередям" в нет, слайд 4
+    function clearDetailedQueues(queueSlider) {
+      const queueBlocks = queueSlider.querySelectorAll('.queue_block')
+
+      queueBlocks.forEach((queueBlock, i) => {
+        if (i === 0) return
+        queueBlock.remove()
+      })
+    }
+
+    // очистка всех очередей при переключении "Запуск по очередям" в нет, слайд 1, 4
+    function clearAllQueues() {
+      const queueTable = document.querySelector('.queue_launch_yes table')
+      const queueSlider = document.querySelector('.queue_slider')
+
+      clearTableQueues(queueTable)
+      clearDetailedQueues(queueSlider)
+    }
+
+    function initClearAllQueues() {
+      const step2 = document.querySelector('.step_2')
+      const queueBtns = step2.querySelectorAll('input[name="queue_launch"]')
+
+      function handleClick() {
+        // вызываем модалку на подтверждение
+        // возвращем true/false
+        // на true вызываем удаление clearAllQueues()
+        // на false закрываем модалку
+        clearAllQueues()
+      }
+
+      queueBtns.forEach(queueBtn => {
+        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', handleClick)
+      })
+
+    }
+    initClearAllQueues()
+
+
   }
   if (document.querySelector('.queue_launch_yes')) initMultipleQueues()
 
