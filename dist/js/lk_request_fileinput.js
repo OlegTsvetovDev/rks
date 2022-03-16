@@ -139,4 +139,44 @@ $(function () {
     $(".attachment__item_" + uuid).remove();
     changeSliderHeight('decrease', 35);
   });
-});
+}); // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения"
+
+function initCheckRadios(radio_name) {
+  var docblocks = $('[name^="doc_' + radio_name + '_"]');
+  docblocksHide(docblocks);
+  var radios = $('input[name=' + radio_name + ']');
+
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].addEventListener('click', function () {
+      return docblocksHide(docblocks, radio_name);
+    });
+    var label = $(radios[i]).parent();
+    label[0].addEventListener('click', function () {
+      return docblocksHide(docblocks, radio_name);
+    });
+  } // добавить логику для элементов с разными признаками (№4-9)
+  // добавить попап, удаление нессответвующих (скрыть видимость и пометить файлы на удаление в обработчике)
+
+}
+
+function docblocksHide(doc_blocks, radio_name) {
+  var cur_val = $('input[name=' + radio_name + ']:checked').val();
+
+  if (cur_val != null) {
+    doc_blocks.each(function () {
+      var $this = $(this);
+      var doctype_vals = $this.val();
+      var docblock = $this.parent();
+
+      if (doctype_vals.indexOf(cur_val) === -1) {
+        docblock.addClass('hidden');
+      } else {
+        docblock.removeClass('hidden');
+      }
+    });
+  }
+}
+
+if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
+if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
+if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
