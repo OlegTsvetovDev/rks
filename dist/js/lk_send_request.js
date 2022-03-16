@@ -339,15 +339,18 @@ $(document).ready(function () {
         var modalAlert = document.querySelector('.modal_alert');
         var closeModal = modalAlert.querySelector('.close');
         var abortModal = modalAlert.querySelector('.btn_abort');
-        var btnAgree = modalAlert.querySelector('.btn_agree');
+        var btnAgree = modalAlert.querySelector('.btn_agree'); //// TODO: проверить верную логику радио после нажатия кнопок в модалке
 
         var handleCloseModal = function handleCloseModal() {
-          return modalAlert.remove();
+          queueBtns.forEach(function (queueBtn) {
+            if (queueBtn.value === 'yes') queueBtn.checked = true;
+          });
+          modalAlert.remove();
         };
 
         var handleProceedModal = function handleProceedModal() {
-          handleCloseModal();
           clearAllQueues();
+          modalAlert.remove();
         };
 
         closeModal.addEventListener('click', handleCloseModal);

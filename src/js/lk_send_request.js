@@ -391,11 +391,17 @@ $(document).ready(function() {
         const abortModal = modalAlert.querySelector('.btn_abort')
         const btnAgree = modalAlert.querySelector('.btn_agree')
 
-        const handleCloseModal = () => modalAlert.remove()
+        //// TODO: проверить верную логику радио после нажатия кнопок в модалке
+        const handleCloseModal = () => {
+          queueBtns.forEach(queueBtn => {
+            if (queueBtn.value === 'yes') queueBtn.checked = true
+          })
+          modalAlert.remove()
+        }
 
         const handleProceedModal = () => {
-          handleCloseModal()
           clearAllQueues()
+          modalAlert.remove()
         }
 
         closeModal.addEventListener('click', handleCloseModal)
