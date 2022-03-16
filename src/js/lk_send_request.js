@@ -364,13 +364,49 @@ $(document).ready(function() {
     function initClearAllQueues() {
       const step2 = document.querySelector('.step_2')
       const queueBtns = step2.querySelectorAll('input[name="queue_launch"]')
+      // let agreeQueueDelete = false
+
+      function createModal() {
+        const modalAlert = `
+                            <section class="modal modal_alert" id="alert">
+                              <div class="modal__content modal_alert__content">
+                                <div class="close"></div>
+                                <div class="modal__text">
+                                  Будут удалены все данные по очередям. Удалить?
+                                </div>
+                                <div class="form__field">
+                                  <button class="form__submit btn btn_agree">Да</button>
+                                  <button class="form__submit btn btn_abort">Нет</button>
+                                </div>
+                              </div>
+                            </section>
+                           `
+
+        document.body.insertAdjacentHTML('beforeend', modalAlert)
+      }
+
+      function addListenersToModal() {
+        const modalAlert = document.querySelector('.modal_alert')
+        const closeModal = modalAlert.querySelector('.close')
+        const abortModal = modalAlert.querySelector('.btn_abort')
+        const btnAgree = modalAlert.querySelector('.btn_agree')
+
+        const handleCloseModal = () => modalAlert.remove()
+
+        const handleProceedModal = () => {
+          handleCloseModal()
+          clearAllQueues()
+        }
+
+        closeModal.addEventListener('click', handleCloseModal)
+        abortModal.addEventListener('click', handleCloseModal)
+        btnAgree.addEventListener('click', handleProceedModal)
+
+      }
 
       function handleClick() {
-        // вызываем модалку на подтверждение
-        // возвращем true/false
-        // на true вызываем удаление clearAllQueues()
-        // на false закрываем модалку
-        clearAllQueues()
+        createModal()
+        addListenersToModal()
       }
 
       queueBtns.forEach(queueBtn => {

@@ -328,14 +328,36 @@ $(document).ready(function () {
 
     function initClearAllQueues() {
       var step2 = document.querySelector('.step_2');
-      var queueBtns = step2.querySelectorAll('input[name="queue_launch"]');
+      var queueBtns = step2.querySelectorAll('input[name="queue_launch"]'); // let agreeQueueDelete = false
+
+      function createModal() {
+        var modalAlert = "\n                            <section class=\"modal modal_alert\" id=\"alert\">\n                              <div class=\"modal__content modal_alert__content\">\n                                <div class=\"close\"></div>\n                                <div class=\"modal__text\">\n                                  \u0411\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0432\u0441\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u043F\u043E \u043E\u0447\u0435\u0440\u0435\u0434\u044F\u043C. \u0423\u0434\u0430\u043B\u0438\u0442\u044C?\n                                </div>\n                                <div class=\"form__field\">\n                                  <button class=\"form__submit btn btn_agree\">\u0414\u0430</button>\n                                  <button class=\"form__submit btn btn_abort\">\u041D\u0435\u0442</button>\n                                </div>\n                              </div>\n                            </section>\n                           ";
+        document.body.insertAdjacentHTML('beforeend', modalAlert);
+      }
+
+      function addListenersToModal() {
+        var modalAlert = document.querySelector('.modal_alert');
+        var closeModal = modalAlert.querySelector('.close');
+        var abortModal = modalAlert.querySelector('.btn_abort');
+        var btnAgree = modalAlert.querySelector('.btn_agree');
+
+        var handleCloseModal = function handleCloseModal() {
+          return modalAlert.remove();
+        };
+
+        var handleProceedModal = function handleProceedModal() {
+          handleCloseModal();
+          clearAllQueues();
+        };
+
+        closeModal.addEventListener('click', handleCloseModal);
+        abortModal.addEventListener('click', handleCloseModal);
+        btnAgree.addEventListener('click', handleProceedModal);
+      }
 
       function handleClick() {
-        // вызываем модалку на подтверждение
-        // возвращем true/false
-        // на true вызываем удаление clearAllQueues()
-        // на false закрываем модалку
-        clearAllQueues();
+        createModal();
+        addListenersToModal();
       }
 
       queueBtns.forEach(function (queueBtn) {
