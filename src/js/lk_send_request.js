@@ -363,6 +363,8 @@ $(document).ready(function() {
 
     function initClearAllQueues() {
       const step2 = document.querySelector('.step_2')
+      const queueLaunchYes = step2.querySelector('.queue_launch_yes')
+      const queueLaunchNo = step2.querySelector('.queue_launch_no')
       const queueBtns = step2.querySelectorAll('input[name="queue_launch"]')
       // let agreeQueueDelete = false
 
@@ -395,6 +397,8 @@ $(document).ready(function() {
         const handleCloseModal = () => {
           queueBtns.forEach(queueBtn => {
             if (queueBtn.value === 'yes') queueBtn.checked = true
+            queueLaunchYes.classList.remove('hidden')
+            queueLaunchNo.classList.add('hidden')
           })
           modalAlert.remove()
         }

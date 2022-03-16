@@ -328,6 +328,8 @@ $(document).ready(function () {
 
     function initClearAllQueues() {
       var step2 = document.querySelector('.step_2');
+      var queueLaunchYes = step2.querySelector('.queue_launch_yes');
+      var queueLaunchNo = step2.querySelector('.queue_launch_no');
       var queueBtns = step2.querySelectorAll('input[name="queue_launch"]'); // let agreeQueueDelete = false
 
       function createModal() {
@@ -344,6 +346,8 @@ $(document).ready(function () {
         var handleCloseModal = function handleCloseModal() {
           queueBtns.forEach(function (queueBtn) {
             if (queueBtn.value === 'yes') queueBtn.checked = true;
+            queueLaunchYes.classList.remove('hidden');
+            queueLaunchNo.classList.add('hidden');
           });
           modalAlert.remove();
         };
