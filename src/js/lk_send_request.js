@@ -689,8 +689,9 @@ $(document).ready(function() {
           "#needToHide," +
           "#typeOfConnectionObject label:contains('Реконструкция') input," +
           "[name='infmaxparam2']"
-          ).parent().hide();
-          //).parent().addClass('hidden');
+          //).parent().hide();
+          ).parent().addClass('hidden');
+          $(".requests_form").addClass('simple');
       }
     }
   });
