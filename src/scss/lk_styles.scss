@@ -2359,7 +2359,8 @@ input[type=number]::-webkit-outer-spin-button {
     }
     &.modal_rules__content,
     &.modal_personal_data__content,
-    &.modal_alert__content {
+    &.modal_alert__content,
+    &.modal_popup_confirm__content {
       max-width: $w1209;
       padding: 112px 107px 110px;
       @media (max-width: $w1209) {
@@ -2428,7 +2429,8 @@ input[type=number]::-webkit-outer-spin-button {
         }
       }
     }
-    &.modal_alert__content {
+    &.modal_alert__content,
+    &.modal_popup_confirm__content {
       min-width: $w612;
       @media (max-width: $w612) {
         min-width: 100%;

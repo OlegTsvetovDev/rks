@@ -368,10 +368,11 @@ $(document).ready(function() {
       const queueBtns = step2.querySelectorAll('input[name="queue_launch"]')
       // let agreeQueueDelete = false
 
+      // создается модалка
       function createModal() {
-        const modalAlert = `
-                            <section class="modal modal_alert" id="alert">
-                              <div class="modal__content modal_alert__content">
+        const modalPopupConfirm = `
+                            <section class="modal modal_popup_confirm">
+                              <div class="modal__content modal_popup_confirm__content">
                                 <div class="close"></div>
                                 <div class="modal__text">
                                   Будут удалены все данные по очередям. Удалить?
@@ -384,34 +385,33 @@ $(document).ready(function() {
                             </section>
                            `
 
-        document.body.insertAdjacentHTML('beforeend', modalAlert)
+        document.body.insertAdjacentHTML('beforeend', modalPopupConfirm)
       }
 
+      // добавление прослушки эвентов у модалки
       function addListenersToModal() {
-        const modalAlert = document.querySelector('.modal_alert')
-        const closeModal = modalAlert.querySelector('.close')
-        const abortModal = modalAlert.querySelector('.btn_abort')
-        const btnAgree = modalAlert.querySelector('.btn_agree')
+        const modalPopupConfirm = document.querySelector('.modal_popup_confirm')
+        const closeModal = modalPopupConfirm.querySelector('.close')
+        const abortModal = modalPopupConfirm.querySelector('.btn_abort')
+        const btnAgree = modalPopupConfirm.querySelector('.btn_agree')
 
-        //// TODO: проверить верную логику радио после нажатия кнопок в модалке
         const handleCloseModal = () => {
           queueBtns.forEach(queueBtn => {
             if (queueBtn.value === 'yes') queueBtn.checked = true
             queueLaunchYes.classList.remove('hidden')
             queueLaunchNo.classList.add('hidden')
           })
-          modalAlert.remove()
+          modalPopupConfirm.remove()
         }
 
         const handleProceedModal = () => {
           clearAllQueues()
-          modalAlert.remove()
+          modalPopupConfirm.remove()
         }
 
         closeModal.addEventListener('click', handleCloseModal)
         abortModal.addEventListener('click', handleCloseModal)
         btnAgree.addEventListener('click', handleProceedModal)
-
       }
 
       function handleClick() {

@@ -2950,7 +2950,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .modal__content.modal_rules__content,
 .modal__content.modal_personal_data__content,
-.modal__content.modal_alert__content {
+.modal__content.modal_alert__content,
+.modal__content.modal_popup_confirm__content {
   max-width: 1209px;
   padding: 112px 107px 110px;
 }
@@ -3027,22 +3028,26 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 10px;
 }
 
-.modal__content.modal_alert__content {
+.modal__content.modal_alert__content,
+.modal__content.modal_popup_confirm__content {
   min-width: 612px;
 }
 
-.modal__content.modal_alert__content .modal__text {
+.modal__content.modal_alert__content .modal__text,
+.modal__content.modal_popup_confirm__content .modal__text {
   padding-top: 108px;
   margin-bottom: 40px;
   background: url("../img/control_btns/alert.svg") no-repeat center 0;
   text-align: center;
 }
 
-.modal__content.modal_alert__content .modal__text .page-title-error {
+.modal__content.modal_alert__content .modal__text .page-title-error,
+.modal__content.modal_popup_confirm__content .modal__text .page-title-error {
   margin-bottom: 15px;
 }
 
-.modal__content.modal_alert__content .form__field {
+.modal__content.modal_alert__content .form__field,
+.modal__content.modal_popup_confirm__content .form__field {
   display: -webkit-flex;
   display: -ms-flex;
   display: -webkit-box;
@@ -3228,7 +3233,8 @@ input[type=number]::-webkit-outer-spin-button {
 
   .modal__content.modal_rules__content,
   .modal__content.modal_personal_data__content,
-  .modal__content.modal_alert__content {
+  .modal__content.modal_alert__content,
+  .modal__content.modal_popup_confirm__content {
     width: 100%;
   }
 }
@@ -3396,7 +3402,8 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 61px 52px 50px;
   }
 
-  .modal__content.modal_alert__content {
+  .modal__content.modal_alert__content,
+  .modal__content.modal_popup_confirm__content {
     min-width: 100%;
     padding: 61px 52px 50px;
   }
