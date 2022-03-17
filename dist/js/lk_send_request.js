@@ -295,8 +295,7 @@ $(document).ready(function () {
         queue_count -= 1;
         queue_tbody.children().last().remove();
         deleteLastNode();
-        changeSliderHeight('decrease', 39);
-        removeLastSlide();
+        changeSliderHeight('decrease', 39); // removeLastSlide()
       }
     }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
 
@@ -316,7 +315,7 @@ $(document).ready(function () {
         if (i === 0) return;
         queueBlock.remove();
       });
-    } // очистка всех очередей при переключении "Запуск по очередям" в нет, слайд 1, 4
+    } // очистка всех очередей при переключении "Запуск по очередям" в "Нет", слайд 1, 4
 
 
     function clearAllQueues() {
@@ -330,11 +329,15 @@ $(document).ready(function () {
       var step2 = document.querySelector('.step_2');
       var queueLaunchYes = step2.querySelector('.queue_launch_yes');
       var queueLaunchNo = step2.querySelector('.queue_launch_no');
-      var queueBtns = step2.querySelectorAll('input[name="queue_launch"]'); // let agreeQueueDelete = false
-      // создается модалка
+      var queueBtns = step2.querySelectorAll('input[name="queue_launch"]');
+      var queueLaunchYesBtn, queueLaunchNoBtn;
+      queueBtns.forEach(function (queueBtn) {
+        if (queueBtn.value === 'yes') return queueLaunchYesBtn = queueBtn;
+        if (queueBtn.value === 'no') return queueLaunchNoBtn = queueBtn;
+      }); // создание и рендер модалки
 
       function createModal() {
-        var modalPopupConfirm = "\n                            <section class=\"modal modal_popup_confirm\">\n                              <div class=\"modal__content modal_popup_confirm__content\">\n                                <div class=\"close\"></div>\n                                <div class=\"modal__text\">\n                                  \u0411\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0432\u0441\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u043F\u043E \u043E\u0447\u0435\u0440\u0435\u0434\u044F\u043C. \u0423\u0434\u0430\u043B\u0438\u0442\u044C?\n                                </div>\n                                <div class=\"form__field\">\n                                  <button class=\"form__submit btn btn_agree\">\u0414\u0430</button>\n                                  <button class=\"form__submit btn btn_abort\">\u041D\u0435\u0442</button>\n                                </div>\n                              </div>\n                            </section>\n                           ";
+        var modalPopupConfirm = "\n                            <section class=\"modal modal_popup_confirm\">\n                              <div class=\"modal__content modal_popup_confirm__content\">\n                                <div class=\"close\"></div>\n                                <div class=\"modal__text\">\n                                  \u0411\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0432\u0441\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u043F\u043E \u043E\u0447\u0435\u0440\u0435\u0434\u044F\u043C. \u0423\u0434\u0430\u043B\u0438\u0442\u044C?\n                                </div>\n                                <div class=\"form__field\">\n                                  <button class=\"form__submit btn btn_agree\">\u0414\u0430</button>\n                                  <button class=\"form__submit btn dark_btn btn_abort\">\u041D\u0435\u0442</button>\n                                </div>\n                              </div>\n                            </section>\n                           ";
         document.body.insertAdjacentHTML('beforeend', modalPopupConfirm);
       } // добавление прослушки эвентов у модалки
 
@@ -343,34 +346,45 @@ $(document).ready(function () {
         var modalPopupConfirm = document.querySelector('.modal_popup_confirm');
         var closeModal = modalPopupConfirm.querySelector('.close');
         var abortModal = modalPopupConfirm.querySelector('.btn_abort');
-        var btnAgree = modalPopupConfirm.querySelector('.btn_agree');
-
-        var handleCloseModal = function handleCloseModal() {
-          queueBtns.forEach(function (queueBtn) {
-            if (queueBtn.value === 'yes') queueBtn.checked = true;
-            queueLaunchYes.classList.remove('hidden');
-            queueLaunchNo.classList.add('hidden');
-          });
-          modalPopupConfirm.remove();
-        };
+        var btnAgree = modalPopupConfirm.querySelector('.btn_agree'); // хэндлер подтверждения удаления очередей
 
         var handleProceedModal = function handleProceedModal() {
+          queueLaunchYes.removeAttribute('style');
+          queueLaunchNo.removeAttribute('style');
+          queueLaunchYes.classList.add('hidden');
+          queueLaunchNo.classList.remove('hidden');
+          modalPopupConfirm.remove();
           clearAllQueues();
+        }; // хэндер отказа от удаления очередей
+
+
+        var handleCloseModal = function handleCloseModal() {
+          queueLaunchYesBtn.checked = true; // ебучий jQuery прописывает инлайн стили
+
+          queueLaunchYes.removeAttribute('style');
+          queueLaunchNo.removeAttribute('style');
+          queueLaunchYes.classList.remove('hidden');
+          queueLaunchNo.classList.add('hidden');
           modalPopupConfirm.remove();
         };
 
         closeModal.addEventListener('click', handleCloseModal);
         abortModal.addEventListener('click', handleCloseModal);
         btnAgree.addEventListener('click', handleProceedModal);
-      }
+      } // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
 
-      function handleClick() {
+
+      function handleClick(queueBtn) {
+        // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+        if (queue_count < 1) return;
         createModal();
         addListenersToModal();
       }
 
       queueBtns.forEach(function (queueBtn) {
-        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', handleClick);
+        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', function () {
+          return handleClick(queueBtn);
+        });
       });
     }
 

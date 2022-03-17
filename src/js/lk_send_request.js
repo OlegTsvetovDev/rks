@@ -327,7 +327,7 @@ $(document).ready(function() {
         queue_tbody.children().last().remove()
         deleteLastNode()
         changeSliderHeight('decrease', 39)
-        removeLastSlide()
+        // removeLastSlide()
       }
     })
 
@@ -352,7 +352,7 @@ $(document).ready(function() {
       })
     }
 
-    // очистка всех очередей при переключении "Запуск по очередям" в нет, слайд 1, 4
+    // очистка всех очередей при переключении "Запуск по очередям" в "Нет", слайд 1, 4
     function clearAllQueues() {
       const queueTable = document.querySelector('.queue_launch_yes table')
       const queueSlider = document.querySelector('.queue_slider')
@@ -366,9 +366,14 @@ $(document).ready(function() {
       const queueLaunchYes = step2.querySelector('.queue_launch_yes')
       const queueLaunchNo = step2.querySelector('.queue_launch_no')
       const queueBtns = step2.querySelectorAll('input[name="queue_launch"]')
-      // let agreeQueueDelete = false
+      let queueLaunchYesBtn, queueLaunchNoBtn
 
-      // создается модалка
+      queueBtns.forEach(queueBtn => {
+        if (queueBtn.value === 'yes') return queueLaunchYesBtn = queueBtn
+        if (queueBtn.value === 'no') return queueLaunchNoBtn = queueBtn
+      })
+
+      // создание и рендер модалки
       function createModal() {
         const modalPopupConfirm = `
                             <section class="modal modal_popup_confirm">
@@ -379,7 +384,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="form__field">
                                   <button class="form__submit btn btn_agree">Да</button>
-                                  <button class="form__submit btn btn_abort">Нет</button>
+                                  <button class="form__submit btn dark_btn btn_abort">Нет</button>
                                 </div>
                               </div>
                             </section>
@@ -395,17 +400,24 @@ $(document).ready(function() {
         const abortModal = modalPopupConfirm.querySelector('.btn_abort')
         const btnAgree = modalPopupConfirm.querySelector('.btn_agree')
 
-        const handleCloseModal = () => {
-          queueBtns.forEach(queueBtn => {
-            if (queueBtn.value === 'yes') queueBtn.checked = true
-            queueLaunchYes.classList.remove('hidden')
-            queueLaunchNo.classList.add('hidden')
-          })
+        // хэндлер подтверждения удаления очередей
+        const handleProceedModal = () => {
+          queueLaunchYes.removeAttribute('style')
+          queueLaunchNo.removeAttribute('style')
+          queueLaunchYes.classList.add('hidden')
+          queueLaunchNo.classList.remove('hidden')
           modalPopupConfirm.remove()
+          clearAllQueues()
         }
 
-        const handleProceedModal = () => {
-          clearAllQueues()
+        // хэндер отказа от удаления очередей
+        const handleCloseModal = () => {
+          queueLaunchYesBtn.checked = true
+          // ебучий jQuery прописывает инлайн стили
+          queueLaunchYes.removeAttribute('style')
+          queueLaunchNo.removeAttribute('style')
+          queueLaunchYes.classList.remove('hidden')
+          queueLaunchNo.classList.add('hidden')
           modalPopupConfirm.remove()
         }
 
@@ -414,13 +426,16 @@ $(document).ready(function() {
         btnAgree.addEventListener('click', handleProceedModal)
       }
 
-      function handleClick() {
+      // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
+      function handleClick(queueBtn) {
+        // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+        if (queue_count < 1) return
         createModal()
         addListenersToModal()
       }
 
       queueBtns.forEach(queueBtn => {
-        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', handleClick)
+        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', () => handleClick(queueBtn))
       })
 
     }
