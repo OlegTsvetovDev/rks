@@ -151,11 +151,14 @@ $(document).ready(function() {
 
   // переключение блоков в "Запуск по очередям", слайдер 1
   function initQueueLaunch() {
-    let queueLaunchInput = $('input[name="queue_launch"]')
-    let queueLaunchLabel = queueLaunchInput.parent()
+    const queueLaunchInput = $('input[name="queue_launch"]')
+    const isDisabledQueueLaunchInput = queueLaunchInput.is(':disabled')
+    const queueLaunchLabel = queueLaunchInput.parent()
+
+    if (isDisabledQueueLaunchInput) return
 
     queueLaunchLabel.click(function () {
-      let target = $('.queue_launch_' + $(this).children().val())
+      const target = $('.queue_launch_' + $(this).children().val())
 
       $('.queue_launch').not(target).hide(0)
       target.fadeIn(300)
@@ -307,7 +310,7 @@ $(document).ready(function() {
 
     $('.queue_btn').click(function(e) {
       e.preventDefault()
-      queue_count += 1
+      queue_count++
 
       const new_row = `
                       <tr class="table__row">
@@ -332,14 +335,14 @@ $(document).ready(function() {
     // удаление новых строк в таблицу с очередями, слайдер 1
     $('.queue_btn_remove').click(function(e) {
       e.preventDefault()
+      if (queue_count < 1) return
 
-      if (queue_count >= 1) {
-        queue_count -= 1
-        queue_tbody.children().last().remove()
-        deleteLastNode()
-        changeSliderHeight('decrease', 39)
-        // removeLastSlide()
-      }
+      queue_count -= 1
+      queue_tbody.children().last().remove()
+      deleteLastNode()
+      changeSliderHeight('decrease', 39)
+      // removeLastSlide()
+
     })
 
     // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
@@ -383,6 +386,9 @@ $(document).ready(function() {
         if (queueBtn.value === 'yes') return queueLaunchYesBtn = queueBtn
         if (queueBtn.value === 'no') return queueLaunchNoBtn = queueBtn
       })
+
+      const trigger = queueLaunchYesBtn.disabled || queueLaunchNoBtn.disabled
+      if (trigger) return
 
       // создание и рендер модалки
       function createModal() {
@@ -521,12 +527,11 @@ $(document).ready(function() {
   // удаление новых строк в таблице с характеристиками земельных участков, слайдер 4
   $('.add_coverage_btn_remove').click(function(event) {
     event.preventDefault()
+    if (land_coverage_count <= 1) return
 
-    if (land_coverage_count > 2) {
-      land_coverage_tbody.children().last().remove()
-      land_coverage_count--
-      changeSliderHeight('decrease', 39)
-    }
+    land_coverage_tbody.children().last().remove()
+    land_coverage_count--
+    changeSliderHeight('decrease', 39)
   })
 
   // datepicker
