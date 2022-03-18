@@ -113,7 +113,8 @@ $(document).ready(function() {
       let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
 
-      concated.textContent = resultAddress
+      concated.value = resultAddress
+      // concated.textContent = resultAddress
     }, 100)
   }
 
@@ -242,14 +243,14 @@ $(document).ready(function() {
       })
 
       // дивы с name = "show_name", слайд 4
-      const divs = node.querySelectorAll('div#show_name')
-      divs.forEach(div => {
-        if (!div.id) return
-
-        let newName = div.id
-        newName += `_${queue_count}`
-        div.id = newName
-      })
+      // const divs = node.querySelectorAll('div#show_name')
+      // divs.forEach(div => {
+      //   if (!div.id) return
+      //
+      //   let newName = div.id
+      //   newName += `_${queue_count}`
+      //   div.id = newName
+      // })
 
     }
 

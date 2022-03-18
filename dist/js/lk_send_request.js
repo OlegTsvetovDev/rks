@@ -99,7 +99,7 @@ $(document).ready(function () {
       var resultHouse = "".concat(house.value ? ', дом ' + house.value : '');
       var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
-      concated.textContent = resultAddress;
+      concated.value = resultAddress; // concated.textContent = resultAddress
     }, 100);
   }
 
@@ -226,14 +226,14 @@ $(document).ready(function () {
 
         input.name = newName;
       }); // дивы с name = "show_name", слайд 4
-
-      var divs = node.querySelectorAll('div#show_name');
-      divs.forEach(function (div) {
-        if (!div.id) return;
-        var newName = div.id;
-        newName += "_".concat(queue_count);
-        div.id = newName;
-      });
+      // const divs = node.querySelectorAll('div#show_name')
+      // divs.forEach(div => {
+      //   if (!div.id) return
+      //
+      //   let newName = div.id
+      //   newName += `_${queue_count}`
+      //   div.id = newName
+      // })
     } // рендер новой ноды в блок .step_5, 4 слайдера
 
 
