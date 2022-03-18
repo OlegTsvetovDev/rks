@@ -576,7 +576,7 @@ $(document).ready(function() {
   });
 
   $.ajax({
-    url: "/lktp/getSimpleJson/",
+    url: "./getSimpleJson/",
     success: function(data){
       if(data == 'true')
       {
