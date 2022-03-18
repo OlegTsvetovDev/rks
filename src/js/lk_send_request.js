@@ -19,28 +19,37 @@ $(document).ready(function() {
 
   // переключение радио по клику на лейбл
   $('.radio').parent().click(function () {
-    $(this).children('.radio').prop('checked', true)
+    const $this = $(this)
+    const $radio = $this.children('.radio')
+    const $radioIsDisabled = $radio.is(':disabled')
+
+    if ($radioIsDisabled) return
+    $radio.prop('checked', true)
   })
 
 
   // переключение чекбокса по клику на лейбл
   // TODO: ломается на новых очередях в слайдере 4
   function initCheckboxLabels() {
-    let checkboxes = $('.checkbox')
-    let labels = checkboxes.parent()
+    const $checkboxes = $('.checkbox')
+    const $labels = $checkboxes.parent()
 
-    checkboxes.click(function () {
-      let checkbox = $(this)
-      let isCheckboxChecked = checkbox.is(':checked')
+    $checkboxes.click(function () {
+      const $checkbox = $(this)
+      const $checkboxIsChecked = $checkbox.is(':checked')
+      const $checkboxIsDisabled = $checkbox.is(':disabled')
 
-      checkbox.prop('checked', !isCheckboxChecked)
+      if ($checkboxIsDisabled) return
+      $checkbox.prop('checked', !$checkboxIsChecked)
     })
 
-    labels.click(function () {
-      let checkbox = $(this).children()
-      let isCheckboxChecked = checkbox.is(':checked')
+    $labels.click(function () {
+      const $checkbox = $(this).children()
+      const $checkboxIsChecked = $checkbox.is(':checked')
+      const $checkboxIsDisabled = $checkbox.is(':disabled')
 
-      checkbox.prop('checked', !isCheckboxChecked)
+      if ($checkboxIsDisabled) return
+      $checkbox.prop('checked', !$checkboxIsChecked)
     })
   }
   if (document.querySelector('.checkbox')) initCheckboxLabels()
@@ -104,6 +113,7 @@ $(document).ready(function() {
     const house = baseNode.querySelector('.address__house')
 
     setTimeout(() => {
+      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
       const resultdDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
       const resultMicrodistrict = `${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}`
@@ -226,7 +236,7 @@ $(document).ready(function() {
     }
 
     // замена суффиксов в аттрибутах name в зависимости от номера очереди
-    // заменят _0 на _<номер очереди>, ожидает окончание на _0 в базовой ноде
+    // добавляет "_<номер очереди>" ко всем name очереди
     function pasteNameSuffixes(node) {
       const subheader = node.querySelector('.form__subheader')
       subheader.innerText = `Очередь №${queue_count}`
@@ -411,7 +421,7 @@ $(document).ready(function() {
           clearAllQueues()
         }
 
-        // хэндер отказа от удаления очередей
+        // хэндлер отказа от удаления очередей
         const handleCloseModal = () => {
           queueLaunchYesBtn.checked = true
           // ебучий jQuery прописывает инлайн стили
@@ -436,7 +446,10 @@ $(document).ready(function() {
       }
 
       queueBtns.forEach(queueBtn => {
-        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', () => handleClick(queueBtn))
+        const trigger = queueBtn.value === "no"
+        const label = queueBtn.parentNode
+
+        if (trigger) label.addEventListener('click', () => handleClick(queueBtn))
       })
 
     }
@@ -569,15 +582,18 @@ $(document).ready(function() {
   if (document.querySelector('.representative')) initCheckRepresentative()
 
 
-  // Блок "Холодное водоснабжение"
+  // Блок "Холодное водоснабжение", слайд 4
   function initColdWaterSupply(baseNode) {
     const connectionToColdWater = baseNode.querySelector('.connection_to_cold_water')
     const connectionToColdWaterLabel = connectionToColdWater.parentNode
     let isConnectionToColdWaterChecked = connectionToColdWater.checked
+    const isConnectionToColdWaterDisabled = connectionToColdWater.disabled
     const coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle')
 
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden')
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden')
+
+    if (isConnectionToColdWaterDisabled) return
 
     connectionToColdWaterLabel.addEventListener('click', () => {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
@@ -597,16 +613,18 @@ $(document).ready(function() {
   const queueBlocks = document.querySelectorAll('.queue_block')
   if (queueBlocks) queueBlocks.forEach(queueBlock => initColdWaterSupply(queueBlock))
 
-  // Блок "Водоотведение"
-  // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
+  // Блок "Водоотведение", слайд 4
   function initDrainage(baseNode) {
     const connectionToDrainage= baseNode.querySelector('.connection_to_drainage')
     const connectionToDrainageLabel = connectionToDrainage.parentNode
     let isConnectionToDrainageChecked = connectionToDrainage.checked
+    const isConnectionToDrainageDisabled = connectionToDrainage.disabled
     const drainageToggle = baseNode.querySelector('.drainage_toggle')
 
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden')
     if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden')
+
+    if (isConnectionToDrainageDisabled) return
 
     connectionToDrainageLabel.addEventListener('click', () => {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked

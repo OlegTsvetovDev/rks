@@ -19,22 +19,30 @@ $(document).ready(function () {
 
 
   $('.radio').parent().click(function () {
-    $(this).children('.radio').prop('checked', true);
+    var $this = $(this);
+    var $radio = $this.children('.radio');
+    var $radioIsDisabled = $radio.is(':disabled');
+    if ($radioIsDisabled) return;
+    $radio.prop('checked', true);
   }); // переключение чекбокса по клику на лейбл
   // TODO: ломается на новых очередях в слайдере 4
 
   function initCheckboxLabels() {
-    var checkboxes = $('.checkbox');
-    var labels = checkboxes.parent();
-    checkboxes.click(function () {
-      var checkbox = $(this);
-      var isCheckboxChecked = checkbox.is(':checked');
-      checkbox.prop('checked', !isCheckboxChecked);
+    var $checkboxes = $('.checkbox');
+    var $labels = $checkboxes.parent();
+    $checkboxes.click(function () {
+      var $checkbox = $(this);
+      var $checkboxIsChecked = $checkbox.is(':checked');
+      var $checkboxIsDisabled = $checkbox.is(':disabled');
+      if ($checkboxIsDisabled) return;
+      $checkbox.prop('checked', !$checkboxIsChecked);
     });
-    labels.click(function () {
-      var checkbox = $(this).children();
-      var isCheckboxChecked = checkbox.is(':checked');
-      checkbox.prop('checked', !isCheckboxChecked);
+    $labels.click(function () {
+      var $checkbox = $(this).children();
+      var $checkboxIsChecked = $checkbox.is(':checked');
+      var $checkboxIsDisabled = $checkbox.is(':disabled');
+      if ($checkboxIsDisabled) return;
+      $checkbox.prop('checked', !$checkboxIsChecked);
     });
   }
 
@@ -91,6 +99,7 @@ $(document).ready(function () {
     var housing = baseNode.querySelector('.address__housing');
     var house = baseNode.querySelector('.address__house');
     setTimeout(function () {
+      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       var resultLocality = "".concat(locality.value ? 'г. ' + locality.value : '');
       var resultdDistrict = "".concat(district.value ? ', ' + district.value + ' район' : '');
       var resultMicrodistrict = "".concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '');
@@ -211,7 +220,7 @@ $(document).ready(function () {
       var baseNode = document.querySelector('.queue_block');
       return baseNode.cloneNode(true);
     } // замена суффиксов в аттрибутах name в зависимости от номера очереди
-    // заменят _0 на _<номер очереди>, ожидает окончание на _0 в базовой ноде
+    // добавляет "_<номер очереди>" ко всем name очереди
 
 
     function pasteNameSuffixes(node) {
@@ -355,7 +364,7 @@ $(document).ready(function () {
           queueLaunchNo.classList.remove('hidden');
           modalPopupConfirm.remove();
           clearAllQueues();
-        }; // хэндер отказа от удаления очередей
+        }; // хэндлер отказа от удаления очередей
 
 
         var handleCloseModal = function handleCloseModal() {
@@ -382,7 +391,9 @@ $(document).ready(function () {
       }
 
       queueBtns.forEach(function (queueBtn) {
-        if (queueBtn.value === "no") queueBtn.parentNode.addEventListener('click', function () {
+        var trigger = queueBtn.value === "no";
+        var label = queueBtn.parentNode;
+        if (trigger) label.addEventListener('click', function () {
           return handleClick(queueBtn);
         });
       });
@@ -503,15 +514,17 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.representative')) initCheckRepresentative(); // Блок "Холодное водоснабжение"
+  if (document.querySelector('.representative')) initCheckRepresentative(); // Блок "Холодное водоснабжение", слайд 4
 
   function initColdWaterSupply(baseNode) {
     var connectionToColdWater = baseNode.querySelector('.connection_to_cold_water');
     var connectionToColdWaterLabel = connectionToColdWater.parentNode;
     var isConnectionToColdWaterChecked = connectionToColdWater.checked;
+    var isConnectionToColdWaterDisabled = connectionToColdWater.disabled;
     var coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle');
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden');
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
+    if (isConnectionToColdWaterDisabled) return;
     connectionToColdWaterLabel.addEventListener('click', function () {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
       var blockHeight = 1000;
@@ -530,16 +543,17 @@ $(document).ready(function () {
   var queueBlocks = document.querySelectorAll('.queue_block');
   if (queueBlocks) queueBlocks.forEach(function (queueBlock) {
     return initColdWaterSupply(queueBlock);
-  }); // Блок "Водоотведение"
-  // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
+  }); // Блок "Водоотведение", слайд 4
 
   function initDrainage(baseNode) {
     var connectionToDrainage = baseNode.querySelector('.connection_to_drainage');
     var connectionToDrainageLabel = connectionToDrainage.parentNode;
     var isConnectionToDrainageChecked = connectionToDrainage.checked;
+    var isConnectionToDrainageDisabled = connectionToDrainage.disabled;
     var drainageToggle = baseNode.querySelector('.drainage_toggle');
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden');
     if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden');
+    if (isConnectionToDrainageDisabled) return;
     connectionToDrainageLabel.addEventListener('click', function () {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
       var blockHeight = 750;
