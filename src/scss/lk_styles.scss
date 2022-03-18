@@ -2359,7 +2359,8 @@ input[type=number]::-webkit-outer-spin-button {
     }
     &.modal_rules__content,
     &.modal_personal_data__content,
-    &.modal_alert__content {
+    &.modal_alert__content,
+    &.modal_popup_confirm__content {
       max-width: $w1209;
       padding: 112px 107px 110px;
       @media (max-width: $w1209) {
@@ -2428,19 +2429,26 @@ input[type=number]::-webkit-outer-spin-button {
         }
       }
     }
-    &.modal_alert__content {
+    &.modal_alert__content,
+    &.modal_popup_confirm__content {
       min-width: $w612;
       @media (max-width: $w612) {
         min-width: 100%;
         padding: 61px 52px 50px;
       }
       .modal__text {
-        padding-top: 120px;
+        padding-top: 108px;
+        margin-bottom: 40px;
         background: url('../img/control_btns/alert.svg') no-repeat center 0;
         text-align: center;
         .page-title-error {
           margin-bottom: 15px;
         }
+      }
+      .form__field {
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
       }
     }
     &.modal_delete_file__content {

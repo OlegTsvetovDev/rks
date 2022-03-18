@@ -19,22 +19,30 @@ $(document).ready(function () {
 
 
   $('.radio').parent().click(function () {
-    $(this).children('.radio').prop('checked', true);
+    var $this = $(this);
+    var $radio = $this.children('.radio');
+    var $radioIsDisabled = $radio.is(':disabled');
+    if ($radioIsDisabled) return;
+    $radio.prop('checked', true);
   }); // переключение чекбокса по клику на лейбл
   // TODO: ломается на новых очередях в слайдере 4
 
   function initCheckboxLabels() {
-    var checkboxes = $('.checkbox');
-    var labels = checkboxes.parent();
-    checkboxes.click(function () {
-      var checkbox = $(this);
-      var isCheckboxChecked = checkbox.is(':checked');
-      checkbox.prop('checked', !isCheckboxChecked);
+    var $checkboxes = $('.checkbox');
+    var $labels = $checkboxes.parent();
+    $checkboxes.click(function () {
+      var $checkbox = $(this);
+      var $checkboxIsChecked = $checkbox.is(':checked');
+      var $checkboxIsDisabled = $checkbox.is(':disabled');
+      if ($checkboxIsDisabled) return;
+      $checkbox.prop('checked', !$checkboxIsChecked);
     });
-    labels.click(function () {
-      var checkbox = $(this).children();
-      var isCheckboxChecked = checkbox.is(':checked');
-      checkbox.prop('checked', !isCheckboxChecked);
+    $labels.click(function () {
+      var $checkbox = $(this).children();
+      var $checkboxIsChecked = $checkbox.is(':checked');
+      var $checkboxIsDisabled = $checkbox.is(':disabled');
+      if ($checkboxIsDisabled) return;
+      $checkbox.prop('checked', !$checkboxIsChecked);
     });
   }
 
@@ -91,6 +99,7 @@ $(document).ready(function () {
     var housing = baseNode.querySelector('.address__housing');
     var house = baseNode.querySelector('.address__house');
     setTimeout(function () {
+      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       var resultLocality = "".concat(locality.value ? 'г. ' + locality.value : '');
       var resultdDistrict = "".concat(district.value ? ', ' + district.value + ' район' : '');
       var resultMicrodistrict = "".concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '');
@@ -99,7 +108,7 @@ $(document).ready(function () {
       var resultHouse = "".concat(house.value ? ', дом ' + house.value : '');
       var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
-      concated.textContent = resultAddress;
+      concated.value = resultAddress; // concated.textContent = resultAddress
     }, 100);
   }
 
@@ -138,7 +147,9 @@ $(document).ready(function () {
 
   function initQueueLaunch() {
     var queueLaunchInput = $('input[name="queue_launch"]');
+    var isDisabledQueueLaunchInput = queueLaunchInput.is(':disabled');
     var queueLaunchLabel = queueLaunchInput.parent();
+    if (isDisabledQueueLaunchInput) return;
     queueLaunchLabel.click(function () {
       var target = $('.queue_launch_' + $(this).children().val());
       $('.queue_launch').not(target).hide(0);
@@ -211,7 +222,7 @@ $(document).ready(function () {
       var baseNode = document.querySelector('.queue_block');
       return baseNode.cloneNode(true);
     } // замена суффиксов в аттрибутах name в зависимости от номера очереди
-    // заменят _0 на _<номер очереди>, ожидает окончание на _0 в базовой ноде
+    // добавляет "_<номер очереди>" ко всем name очереди
 
 
     function pasteNameSuffixes(node) {
@@ -226,17 +237,14 @@ $(document).ready(function () {
 
         input.name = newName;
       }); // дивы с name = "show_name", слайд 4
-
-      var divs = node.querySelectorAll('div#show_name');
-      console.log(divs);
-      divs.forEach(function (div) {
-        if (!div.id) return;
-        var newName = div.id;
-        console.log(newName);
-        newName += "_".concat(queue_count);
-        console.log(newName);
-        div.id = newName;
-      });
+      // const divs = node.querySelectorAll('div#show_name')
+      // divs.forEach(div => {
+      //   if (!div.id) return
+      //
+      //   let newName = div.id
+      //   newName += `_${queue_count}`
+      //   div.id = newName
+      // })
     } // рендер новой ноды в блок .step_5, 4 слайдера
 
 
@@ -278,7 +286,7 @@ $(document).ready(function () {
     var queue_tbody = $('.queue_launch_yes tbody');
     $('.queue_btn').click(function (e) {
       e.preventDefault();
-      queue_count += 1;
+      queue_count++;
       var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" name=").concat('TechCondObj_QueueName_' + queue_count, " placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
       queue_tbody.append(new_row);
       createAndRenderNewNode();
@@ -293,15 +301,107 @@ $(document).ready(function () {
 
     $('.queue_btn_remove').click(function (e) {
       e.preventDefault();
+      if (queue_count < 1) return;
+      queue_count -= 1;
+      queue_tbody.children().last().remove();
+      deleteLastNode();
+      changeSliderHeight('decrease', 39); // removeLastSlide()
+    }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
 
-      if (queue_count >= 1) {
-        queue_count -= 1;
-        queue_tbody.children().last().remove();
-        deleteLastNode();
-        changeSliderHeight('decrease', 39);
-        removeLastSlide();
+    function clearTableQueues(queueTable) {
+      var queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row');
+      queueRows.forEach(function (queueRow, i) {
+        if (i === 0) return;
+        queueRow.remove();
+      });
+      queue_count = 0;
+    } // очистка всех развернутых очередей при переключении "Запуск по очередям" в нет, слайд 4
+
+
+    function clearDetailedQueues(queueSlider) {
+      var queueBlocks = queueSlider.querySelectorAll('.queue_block');
+      queueBlocks.forEach(function (queueBlock, i) {
+        if (i === 0) return;
+        queueBlock.remove();
+      });
+    } // очистка всех очередей при переключении "Запуск по очередям" в "Нет", слайд 1, 4
+
+
+    function clearAllQueues() {
+      var queueTable = document.querySelector('.queue_launch_yes table');
+      var queueSlider = document.querySelector('.queue_slider');
+      clearTableQueues(queueTable);
+      clearDetailedQueues(queueSlider);
+    }
+
+    function initClearAllQueues() {
+      var step2 = document.querySelector('.step_2');
+      var queueLaunchYes = step2.querySelector('.queue_launch_yes');
+      var queueLaunchNo = step2.querySelector('.queue_launch_no');
+      var queueBtns = step2.querySelectorAll('input[name="queue_launch"]');
+      var queueLaunchYesBtn, queueLaunchNoBtn;
+      queueBtns.forEach(function (queueBtn) {
+        if (queueBtn.value === 'yes') return queueLaunchYesBtn = queueBtn;
+        if (queueBtn.value === 'no') return queueLaunchNoBtn = queueBtn;
+      });
+      var trigger = queueLaunchYesBtn.disabled || queueLaunchNoBtn.disabled;
+      if (trigger) return; // создание и рендер модалки
+
+      function createModal() {
+        var modalPopupConfirm = "\n                            <section class=\"modal modal_popup_confirm\">\n                              <div class=\"modal__content modal_popup_confirm__content\">\n                                <div class=\"close\"></div>\n                                <div class=\"modal__text\">\n                                  \u0411\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0432\u0441\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u043F\u043E \u043E\u0447\u0435\u0440\u0435\u0434\u044F\u043C. \u0423\u0434\u0430\u043B\u0438\u0442\u044C?\n                                </div>\n                                <div class=\"form__field\">\n                                  <button class=\"form__submit btn btn_agree\">\u0414\u0430</button>\n                                  <button class=\"form__submit btn dark_btn btn_abort\">\u041D\u0435\u0442</button>\n                                </div>\n                              </div>\n                            </section>\n                           ";
+        document.body.insertAdjacentHTML('beforeend', modalPopupConfirm);
+      } // добавление прослушки эвентов у модалки
+
+
+      function addListenersToModal() {
+        var modalPopupConfirm = document.querySelector('.modal_popup_confirm');
+        var closeModal = modalPopupConfirm.querySelector('.close');
+        var abortModal = modalPopupConfirm.querySelector('.btn_abort');
+        var btnAgree = modalPopupConfirm.querySelector('.btn_agree'); // хэндлер подтверждения удаления очередей
+
+        var handleProceedModal = function handleProceedModal() {
+          queueLaunchYes.removeAttribute('style');
+          queueLaunchNo.removeAttribute('style');
+          queueLaunchYes.classList.add('hidden');
+          queueLaunchNo.classList.remove('hidden');
+          modalPopupConfirm.remove();
+          clearAllQueues();
+        }; // хэндлер отказа от удаления очередей
+
+
+        var handleCloseModal = function handleCloseModal() {
+          queueLaunchYesBtn.checked = true; // ебучий jQuery прописывает инлайн стили
+
+          queueLaunchYes.removeAttribute('style');
+          queueLaunchNo.removeAttribute('style');
+          queueLaunchYes.classList.remove('hidden');
+          queueLaunchNo.classList.add('hidden');
+          modalPopupConfirm.remove();
+        };
+
+        closeModal.addEventListener('click', handleCloseModal);
+        abortModal.addEventListener('click', handleCloseModal);
+        btnAgree.addEventListener('click', handleProceedModal);
+      } // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
+
+
+      function handleClick(queueBtn) {
+        // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+        if (queue_count < 1) return;
+        createModal();
+        addListenersToModal();
       }
-    });
+
+      queueBtns.forEach(function (queueBtn) {
+        var trigger = queueBtn.value === "no";
+        var label = queueBtn.parentNode;
+        if (trigger) label.addEventListener('click', function () {
+          return handleClick(queueBtn);
+        });
+      });
+    }
+
+    initClearAllQueues();
   }
 
   if (document.querySelector('.queue_launch_yes')) initMultipleQueues(); // добавление новых строк в таблицу с иными источниками, слайдер 4
@@ -338,12 +438,10 @@ $(document).ready(function () {
 
   $('.add_coverage_btn_remove').click(function (event) {
     event.preventDefault();
-
-    if (land_coverage_count > 2) {
-      land_coverage_tbody.children().last().remove();
-      land_coverage_count--;
-      changeSliderHeight('decrease', 39);
-    }
+    if (land_coverage_count <= 1) return;
+    land_coverage_tbody.children().last().remove();
+    land_coverage_count--;
+    changeSliderHeight('decrease', 39);
   }); // datepicker
 
   function initDatepickers() {
@@ -416,15 +514,17 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.representative')) initCheckRepresentative(); // Блок "Холодное водоснабжение"
+  if (document.querySelector('.representative')) initCheckRepresentative(); // Блок "Холодное водоснабжение", слайд 4
 
   function initColdWaterSupply(baseNode) {
     var connectionToColdWater = baseNode.querySelector('.connection_to_cold_water');
     var connectionToColdWaterLabel = connectionToColdWater.parentNode;
     var isConnectionToColdWaterChecked = connectionToColdWater.checked;
+    var isConnectionToColdWaterDisabled = connectionToColdWater.disabled;
     var coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle');
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden');
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
+    if (isConnectionToColdWaterDisabled) return;
     connectionToColdWaterLabel.addEventListener('click', function () {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
       var blockHeight = 1000;
@@ -443,16 +543,17 @@ $(document).ready(function () {
   var queueBlocks = document.querySelectorAll('.queue_block');
   if (queueBlocks) queueBlocks.forEach(function (queueBlock) {
     return initColdWaterSupply(queueBlock);
-  }); // Блок "Водоотведение"
-  // TODO: добавить проверку при редактиваронии документа, когда уже существует ряд родительских нод
+  }); // Блок "Водоотведение", слайд 4
 
   function initDrainage(baseNode) {
     var connectionToDrainage = baseNode.querySelector('.connection_to_drainage');
     var connectionToDrainageLabel = connectionToDrainage.parentNode;
     var isConnectionToDrainageChecked = connectionToDrainage.checked;
+    var isConnectionToDrainageDisabled = connectionToDrainage.disabled;
     var drainageToggle = baseNode.querySelector('.drainage_toggle');
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden');
     if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden');
+    if (isConnectionToDrainageDisabled) return;
     connectionToDrainageLabel.addEventListener('click', function () {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
       var blockHeight = 750;
@@ -536,7 +637,9 @@ $(document).ready(function () {
     url: "/lktp/getSimpleJson/",
     success: function success(data) {
       if (data == 'true') {
-        $("[name='infmaxparam4']," + "[name='infmaxparam3']," + "[name='connectloadparamdata_value2']," + "[name='addconnectloadparamdata_value_05']," + "[name='addconnectloadparamdata_value_08']," + "[name='addconnectloadparamdata_value_02']," + "[name='addconnectloadparamdata_value_07']," + "[name='connectloadparamdata_value2_2']," + "[name='addconnectloadparamdata_value_06']," + "[name='connectloadparamdata_value3']," + "[name='connectloadparamdata_value1'].mh," + "[name='connectloadparamdata_value1_2'].mh," + "#needToHide," + "#typeOfConnectionObject label:contains('Реконструкция') input," + "[name='infmaxparam2']").parent().hide(); //).parent().addClass('hidden');
+        $("[name='infmaxparam4']," + "[name='infmaxparam3']," + "[name='connectloadparamdata_value2']," + "[name='addconnectloadparamdata_value_05']," + "[name='addconnectloadparamdata_value_08']," + "[name='addconnectloadparamdata_value_02']," + "[name='addconnectloadparamdata_value_07']," + "[name='connectloadparamdata_value2_2']," + "[name='addconnectloadparamdata_value_06']," + "[name='connectloadparamdata_value3']," + "[name='connectloadparamdata_value1'].mh," + "[name='connectloadparamdata_value1_2'].mh," + "#needToHide," + "#typeOfConnectionObject label:contains('Реконструкция') input," + "[name='infmaxparam2']" //).parent().hide();
+        ).parent().addClass('hidden');
+        $(".requests_form").addClass('simple');
       }
     }
   }); //#endregion
