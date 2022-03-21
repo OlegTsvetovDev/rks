@@ -748,11 +748,39 @@ $(document).ready(function() {
           "#needToHide," +
           "#typeOfConnectionObject label:contains('Реконструкция') input," +
           "[name='infmaxparam2']"
-          //).parent().hide();
           ).parent().addClass('hidden');
           $(".requests_form").addClass('simple');
       }
     }
   });
+  
+  $('.__select input[name="Town_code"]').change(function(e){ChangeAddress()});
+  $('.__select__title.field__input.cascader_input.address__street').keyup(function(e){ChangeAddress()});
+
+  function ChangeAddress(){
+    let street_name = $('.__select__title.field__input.cascader_input.address__street').val();
+    let town_code = $('.__select input[name="Town_code"]:checked').val();
+    let select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
+    if(street_name != '' && town_code != undefined)
+    {
+      $.ajax({
+        url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
+        success: function(data){
+          let streets = JSON.parse(JSON.parse(data));          
+          select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+          '<label for="street_0" class="__select__label">Выберите улицу</label>');
+          streets.forEach(street =>
+            select_list.html(select_list.html() +
+            '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+            '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
+            )
+          )
+        }
+      });
+    }
+    else{
+      select_list.empty();
+    }
+  }
   //#endregion
 })
