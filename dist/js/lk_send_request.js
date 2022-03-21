@@ -634,7 +634,7 @@ $(document).ready(function () {
     }
   });
   $.ajax({
-    url: "/lktp/getSimpleJson/",
+    url: "./getSimpleJson/",
     success: function success(data) {
       if (data == 'true') {
         $("[name='infmaxparam4']," + "[name='infmaxparam3']," + "[name='connectloadparamdata_value2']," + "[name='addconnectloadparamdata_value_05']," + "[name='addconnectloadparamdata_value_08']," + "[name='addconnectloadparamdata_value_02']," + "[name='addconnectloadparamdata_value_07']," + "[name='connectloadparamdata_value2_2']," + "[name='addconnectloadparamdata_value_06']," + "[name='connectloadparamdata_value3']," + "[name='connectloadparamdata_value1'].mh," + "[name='connectloadparamdata_value1_2'].mh," + "#needToHide," + "#typeOfConnectionObject label:contains('Реконструкция') input," + "[name='infmaxparam2']" //).parent().hide();
