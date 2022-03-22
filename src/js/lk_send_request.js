@@ -206,6 +206,7 @@ $(document).ready(function() {
   }
 
 
+
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -216,11 +217,21 @@ $(document).ready(function() {
       const nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row')
       const nodesLength = nodes.length
 
-      if (!nodesLength) return console.log('Не найдены строки очередей в таблице .queue_launch_yes .field__table')
-
+      if (!nodesLength) return
       nodes.forEach(node => queue_count += 1)
     }
     getCurrentQueueCount()
+
+    // если количество очередей >=1, то "Запуск по очередям" в "Да"
+    // добавление высоты слайду 1, если количество очередей >=1
+    function initCurrentQueueState() {
+      if (queue_count < 1) return
+
+      // 73px в "Нет"
+      // 32px + 81px + X*41px в "Да"
+      changeSliderHeight('increase', 113 + queue_count * 41)
+    }
+    initCurrentQueueState()
 
     // инит слайдера в слайд 4
     function initQueueSlider() {
@@ -345,7 +356,7 @@ $(document).ready(function() {
 
     })
 
-    // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
+    // очистка всех очередей в таблице при переключении "Запуск по очередям" в "Нет", слайд 1
     function clearTableQueues(queueTable) {
       const queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row')
       queueRows.forEach((queueRow, i) => {
@@ -356,7 +367,7 @@ $(document).ready(function() {
       queue_count = 0
     }
 
-    // очистка всех развернутых очередей при переключении "Запуск по очередям" в нет, слайд 4
+    // очистка всех развернутых очередей при переключении "Запуск по очередям" в "Нет", слайд 4
     function clearDetailedQueues(queueSlider) {
       const queueBlocks = queueSlider.querySelectorAll('.queue_block')
 
@@ -387,6 +398,7 @@ $(document).ready(function() {
         if (queueBtn.value === 'no') return queueLaunchNoBtn = queueBtn
       })
 
+      // блокируем события при disabled
       const trigger = queueLaunchYesBtn.disabled || queueLaunchNoBtn.disabled
       if (trigger) return
 
@@ -444,19 +456,29 @@ $(document).ready(function() {
       }
 
       // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
-      function handleClick(queueBtn) {
+      function handleNoClick() {
         // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
         if (queue_count < 1) return
         createModal()
         addListenersToModal()
+        changeSliderHeight('decrease', 100)
+        changeSliderHeight('increase', 50)
       }
 
-      queueBtns.forEach(queueBtn => {
-        const trigger = queueBtn.value === "no"
-        const label = queueBtn.parentNode
+      function handleYesClick() {
+        changeSliderHeight('decrease', 50)
+        changeSliderHeight('increase', 100)
+      }
 
-        if (trigger) label.addEventListener('click', () => handleClick(queueBtn))
-      })
+      // queueBtns.forEach(queueBtn => {
+      //   const trigger = queueBtn.value === "no"
+      //   const label = queueBtn.parentNode
+      //
+      //   if (trigger) label.addEventListener('click', () => handleClick(queueBtn))
+      // })
+
+      queueLaunchNoBtn.parentNode.addEventListener('click', () => handleNoClick())
+      queueLaunchYesBtn.parentNode.addEventListener('click', () => handleYesClick())
 
     }
     initClearAllQueues()
@@ -579,9 +601,7 @@ $(document).ready(function() {
     if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden')
     if (!isRepresentativeChecked) representativeAddDocsBlock.classList.add('hidden')
 
-    isRepresentative.addEventListener('click', () => representativeAddDocsBlock.classList.remove('hidden'))
     isRepresentativeLabel.addEventListener('click', () => representativeAddDocsBlock.classList.remove('hidden'))
-    isNotRepresentative.addEventListener('click', () => representativeAddDocsBlock.classList.add('hidden'))
     isNotRepresentativeLabel.addEventListener('click', () => representativeAddDocsBlock.classList.add('hidden'))
   }
   if (document.querySelector('.representative')) initCheckRepresentative()
@@ -728,11 +748,58 @@ $(document).ready(function() {
           "#needToHide," +
           "#typeOfConnectionObject label:contains('Реконструкция') input," +
           "[name='infmaxparam2']"
-          //).parent().hide();
           ).parent().addClass('hidden');
           $(".requests_form").addClass('simple');
       }
     }
   });
+<<<<<<< HEAD
+
+  $('.__select input[name="Town_code"]').change(function(e){ChangeAddress()});
+  $('.__select__title.field__input.cascader_input.address__street').keyup(function(e){ChangeAddress()});
+
+  function ChangeAddress(){
+    let street_name = $('.__select__title.field__input.cascader_input.address__street').val();
+    let town_code = $('.__select input[name="Town_code"]:checked').val();
+    let select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
+    if(street_name != '' && town_code != undefined)
+=======
+    
+  document.querySelectorAll('.__select__content .__select__input').forEach(x => x.addEventListener('change', changeAddress));
+
+  function changeAddress(){
+    let elem = this;
+    /*let elemName = elem.getAttribute('name');
+    let number = elemName.indexOf("_", elemName.indexOf("_") + 1);
+    /*let streetName = $('.address__street').val();
+    let townCode = $('.__select input[name="Town_code"]:checked').val();
+    let selectList = $('.address__street').next('.__select__content');
+    if(streetName != '' && townCode != undefined)
+>>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
+    {
+      $.ajax({
+        url: "./getStreetsJson/?townCode=" + townCode + "&street_name=" + streetName,
+        success: function(data){
+<<<<<<< HEAD
+          let streets = JSON.parse(JSON.parse(data));
+          select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+=======
+          let streets = JSON.parse(JSON.parse(data));          
+          selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+>>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
+          '<label for="street_0" class="__select__label">Выберите улицу</label>');
+          streets.forEach(street =>
+            selectList.html(selectList.html() +
+            '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+            '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
+            )
+          )
+        }
+      });
+    }
+    else{
+      selectList.empty();
+    }*/
+  }
   //#endregion
 })

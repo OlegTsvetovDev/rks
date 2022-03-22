@@ -200,13 +200,23 @@ $(document).ready(function () {
     function getCurrentQueueCount() {
       var nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row');
       var nodesLength = nodes.length;
-      if (!nodesLength) return console.log('Не найдены строки очередей в таблице .queue_launch_yes .field__table');
+      if (!nodesLength) return;
       nodes.forEach(function (node) {
         return queue_count += 1;
       });
     }
 
-    getCurrentQueueCount(); // инит слайдера в слайд 4
+    getCurrentQueueCount(); // если количество очередей >=1, то "Запуск по очередям" в "Да"
+    // добавление высоты слайду 1, если количество очередей >=1
+
+    function initCurrentQueueState() {
+      if (queue_count < 1) return; // 73px в "Нет"
+      // 32px + 81px + X*41px в "Да"
+
+      changeSliderHeight('increase', 113 + queue_count * 41);
+    }
+
+    initCurrentQueueState(); // инит слайдера в слайд 4
 
     function initQueueSlider() {
       $('.queue_slider').slick({
@@ -306,7 +316,7 @@ $(document).ready(function () {
       queue_tbody.children().last().remove();
       deleteLastNode();
       changeSliderHeight('decrease', 39); // removeLastSlide()
-    }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в нет, слайд 1
+    }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в "Нет", слайд 1
 
     function clearTableQueues(queueTable) {
       var queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row');
@@ -315,7 +325,7 @@ $(document).ready(function () {
         queueRow.remove();
       });
       queue_count = 0;
-    } // очистка всех развернутых очередей при переключении "Запуск по очередям" в нет, слайд 4
+    } // очистка всех развернутых очередей при переключении "Запуск по очередям" в "Нет", слайд 4
 
 
     function clearDetailedQueues(queueSlider) {
@@ -343,7 +353,8 @@ $(document).ready(function () {
       queueBtns.forEach(function (queueBtn) {
         if (queueBtn.value === 'yes') return queueLaunchYesBtn = queueBtn;
         if (queueBtn.value === 'no') return queueLaunchNoBtn = queueBtn;
-      });
+      }); // блокируем события при disabled
+
       var trigger = queueLaunchYesBtn.disabled || queueLaunchNoBtn.disabled;
       if (trigger) return; // создание и рендер модалки
 
@@ -385,19 +396,31 @@ $(document).ready(function () {
       } // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
 
 
-      function handleClick(queueBtn) {
+      function handleNoClick() {
         // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
         if (queue_count < 1) return;
         createModal();
         addListenersToModal();
+        changeSliderHeight('decrease', 100);
+        changeSliderHeight('increase', 50);
       }
 
-      queueBtns.forEach(function (queueBtn) {
-        var trigger = queueBtn.value === "no";
-        var label = queueBtn.parentNode;
-        if (trigger) label.addEventListener('click', function () {
-          return handleClick(queueBtn);
-        });
+      function handleYesClick() {
+        changeSliderHeight('decrease', 50);
+        changeSliderHeight('increase', 100);
+      } // queueBtns.forEach(queueBtn => {
+      //   const trigger = queueBtn.value === "no"
+      //   const label = queueBtn.parentNode
+      //
+      //   if (trigger) label.addEventListener('click', () => handleClick(queueBtn))
+      // })
+
+
+      queueLaunchNoBtn.parentNode.addEventListener('click', function () {
+        return handleNoClick();
+      });
+      queueLaunchYesBtn.parentNode.addEventListener('click', function () {
+        return handleYesClick();
       });
     }
 
@@ -500,14 +523,8 @@ $(document).ready(function () {
 
     if (isRepresentativeChecked) representativeAddDocsBlock.classList.remove('hidden');
     if (!isRepresentativeChecked) representativeAddDocsBlock.classList.add('hidden');
-    isRepresentative.addEventListener('click', function () {
-      return representativeAddDocsBlock.classList.remove('hidden');
-    });
     isRepresentativeLabel.addEventListener('click', function () {
       return representativeAddDocsBlock.classList.remove('hidden');
-    });
-    isNotRepresentative.addEventListener('click', function () {
-      return representativeAddDocsBlock.classList.add('hidden');
     });
     isNotRepresentativeLabel.addEventListener('click', function () {
       return representativeAddDocsBlock.classList.add('hidden');
@@ -634,7 +651,7 @@ $(document).ready(function () {
     }
   });
   $.ajax({
-    url: "/lktp/getSimpleJson/",
+    url: "./getSimpleJson/",
     success: function success(data) {
       if (data == 'true') {
         $("[name='infmaxparam4']," + "[name='infmaxparam3']," + "[name='connectloadparamdata_value2']," + "[name='addconnectloadparamdata_value_05']," + "[name='addconnectloadparamdata_value_08']," + "[name='addconnectloadparamdata_value_02']," + "[name='addconnectloadparamdata_value_07']," + "[name='connectloadparamdata_value2_2']," + "[name='addconnectloadparamdata_value_06']," + "[name='connectloadparamdata_value3']," + "[name='connectloadparamdata_value1'].mh," + "[name='connectloadparamdata_value1_2'].mh," + "#needToHide," + "#typeOfConnectionObject label:contains('Реконструкция') input," + "[name='infmaxparam2']" //).parent().hide();
