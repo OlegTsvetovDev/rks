@@ -753,6 +753,7 @@ $(document).ready(function() {
       }
     }
   });
+<<<<<<< HEAD
 
   $('.__select input[name="Town_code"]').change(function(e){ChangeAddress()});
   $('.__select__title.field__input.cascader_input.address__street').keyup(function(e){ChangeAddress()});
@@ -762,15 +763,33 @@ $(document).ready(function() {
     let town_code = $('.__select input[name="Town_code"]:checked').val();
     let select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
     if(street_name != '' && town_code != undefined)
+=======
+    
+  document.querySelectorAll('.__select__content .__select__input').forEach(x => x.addEventListener('change', changeAddress));
+
+  function changeAddress(){
+    let elem = this;
+    /*let elemName = elem.getAttribute('name');
+    let number = elemName.indexOf("_", elemName.indexOf("_") + 1);
+    /*let streetName = $('.address__street').val();
+    let townCode = $('.__select input[name="Town_code"]:checked').val();
+    let selectList = $('.address__street').next('.__select__content');
+    if(streetName != '' && townCode != undefined)
+>>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
     {
       $.ajax({
-        url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
+        url: "./getStreetsJson/?townCode=" + townCode + "&street_name=" + streetName,
         success: function(data){
+<<<<<<< HEAD
           let streets = JSON.parse(JSON.parse(data));
           select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+=======
+          let streets = JSON.parse(JSON.parse(data));          
+          selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+>>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
           '<label for="street_0" class="__select__label">Выберите улицу</label>');
           streets.forEach(street =>
-            select_list.html(select_list.html() +
+            selectList.html(selectList.html() +
             '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
             '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
             )
@@ -779,8 +798,8 @@ $(document).ready(function() {
       });
     }
     else{
-      select_list.empty();
-    }
+      selectList.empty();
+    }*/
   }
   //#endregion
 })
