@@ -753,7 +753,7 @@ $(document).ready(function() {
       }
     }
   });
-  
+
   $('.__select input[name="Town_code"]').change(function(e){ChangeAddress()});
   $('.__select__title.field__input.cascader_input.address__street').keyup(function(e){ChangeAddress()});
 
@@ -766,7 +766,7 @@ $(document).ready(function() {
       $.ajax({
         url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
         success: function(data){
-          let streets = JSON.parse(JSON.parse(data));          
+          let streets = JSON.parse(JSON.parse(data));
           select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
           '<label for="street_0" class="__select__label">Выберите улицу</label>');
           streets.forEach(street =>
