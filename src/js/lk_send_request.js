@@ -758,18 +758,7 @@ $(document).ready(function() {
       }
     }
   });
-<<<<<<< HEAD
-
-  $('.__select input[name="Town_code"]').change(function(e){ChangeAddress()});
-  $('.__select__title.field__input.cascader_input.address__street').keyup(function(e){ChangeAddress()});
-
-  function ChangeAddress(){
-    let street_name = $('.__select__title.field__input.cascader_input.address__street').val();
-    let town_code = $('.__select input[name="Town_code"]:checked').val();
-    let select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
-    if(street_name != '' && town_code != undefined)
-=======
-    
+   
   document.querySelectorAll('.__select__content .__select__input').forEach(x => x.addEventListener('change', changeAddress));
 
   function changeAddress(){
@@ -780,18 +769,14 @@ $(document).ready(function() {
     let townCode = $('.__select input[name="Town_code"]:checked').val();
     let selectList = $('.address__street').next('.__select__content');
     if(streetName != '' && townCode != undefined)
->>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
     {
       $.ajax({
         url: "./getStreetsJson/?townCode=" + townCode + "&street_name=" + streetName,
         success: function(data){
-<<<<<<< HEAD
           let streets = JSON.parse(JSON.parse(data));
           select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
-=======
           let streets = JSON.parse(JSON.parse(data));          
           selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
->>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
           '<label for="street_0" class="__select__label">Выберите улицу</label>');
           streets.forEach(street =>
             selectList.html(selectList.html() +
