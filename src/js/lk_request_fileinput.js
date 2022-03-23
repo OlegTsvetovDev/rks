@@ -172,7 +172,7 @@ function changeSliderHeight(action, value) {
 
     function docblocksHide(doc_blocks, radio_name) {
 
-        var $cur_val = $('input[name='+radio_name+']:checked').val(); // при клике на лейбл в этот метод попадаем 2 раза, один раз значение старое, в другой - новое; нужно только новое
+        var $cur_val = $('input[name='+radio_name+']:checked').val();
 
         doc_blocks.each(
             function () {
@@ -213,17 +213,11 @@ function changeSliderHeight(action, value) {
 
         const radios = document.querySelectorAll('input[name='+radio_name+']');
 
-
         for (let i = 0; i < radios.length; i++) {
-
-            radios[i].addEventListener('change', () => docblocksHide(docblocks, radio_name));
-
-            // const label = radios[i].parentNode;
-            // label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
+            const label = radios[i].parentNode;
+            label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
         }
     }
-
-
 
     if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
     if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
