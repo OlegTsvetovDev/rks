@@ -178,7 +178,7 @@ function changeSliderHeight(action, value) {
             function () {
                 var $this = $(this);
                 var doctype_vals = $this.val()
-                var docblock = $this.parent();
+                var docblock = $this.parent().parent();
                 //docblock = this.parentNode;
 
                 if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1))
