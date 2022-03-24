@@ -753,7 +753,11 @@ $(document).ready(function() {
       }
     }
   });
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> cff35d93c1cdca39e50f03be1cbf748df94ca6b6
   document.querySelectorAll('.__select__content .__select__input').forEach(x => x.addEventListener('change', changeAddress));
 
   function changeAddress(){
@@ -770,7 +774,11 @@ $(document).ready(function() {
         success: function(data){
           let streets = JSON.parse(JSON.parse(data));
           select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+<<<<<<< HEAD
           let streets = JSON.parse(JSON.parse(data));
+=======
+          let streets = JSON.parse(JSON.parse(data));          
+>>>>>>> cff35d93c1cdca39e50f03be1cbf748df94ca6b6
           selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
           '<label for="street_0" class="__select__label">Выберите улицу</label>');
           streets.forEach(street =>
