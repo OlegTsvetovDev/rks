@@ -657,7 +657,8 @@ $(document).ready(function () {
   $.ajax({
     url: "./getSimpleJson/",
     success: function success(data) {
-      var is_simple = JSON.parse(data);
+      // let is_simple = JSON.parse(data);
+      var is_simple = false;
 
       if (is_simple) {
         var list_hidden_elem = document.querySelectorAll("[name='infmaxparam3']" + ",[name='infmaxparam4']" + ",[name='techcondobj_note']" + ",[name='connectloadparamdata_value2']" + ",[name='addconnectloadparamdata_value_05']" + ",[name='connectloadparamdata_value2_2']" + ",[name='addconnectloadparamdata_value_06']");

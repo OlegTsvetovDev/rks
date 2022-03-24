@@ -736,10 +736,12 @@ $(document).ready(function() {
 
   });
 
+
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
-      let is_simple = JSON.parse(data);
+      // let is_simple = JSON.parse(data);
+      const is_simple = false
       if(is_simple)
       {
           let list_hidden_elem = document.querySelectorAll(
