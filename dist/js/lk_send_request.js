@@ -376,6 +376,7 @@ $(document).ready(function () {
           queueLaunchYes.classList.add('hidden');
           queueLaunchNo.classList.remove('hidden');
           modalPopupConfirm.remove();
+          body.addClass('');
           clearAllQueues();
         }; // хэндлер отказа от удаления очередей
 
@@ -393,21 +394,33 @@ $(document).ready(function () {
         closeModal.addEventListener('click', handleCloseModal);
         abortModal.addEventListener('click', handleCloseModal);
         btnAgree.addEventListener('click', handleProceedModal);
+      }
+
+      function calcTableYesHeight() {
+        return 156;
+      }
+
+      function calcTableNoHeight() {
+        return 103;
       } // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
 
 
       function handleNoClick() {
-        // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+        var tableHeight = calcTableYesHeight();
+        var initialHeight = calcTableNoHeight();
+        changeSliderHeight('decrease', tableHeight);
+        changeSliderHeight('increase', initialHeight); // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+
         if (queue_count < 1) return;
         createModal();
         addListenersToModal();
-        changeSliderHeight('decrease', 100);
-        changeSliderHeight('increase', 50);
       }
 
       function handleYesClick() {
-        changeSliderHeight('decrease', 50);
-        changeSliderHeight('increase', 100);
+        var tableHeight = calcTableYesHeight();
+        var initialHeight = calcTableNoHeight();
+        changeSliderHeight('decrease', initialHeight);
+        changeSliderHeight('increase', tableHeight);
       }
 
       queueLaunchNoBtn.parentNode.addEventListener('click', function () {
@@ -640,57 +653,70 @@ $(document).ready(function () {
         $('input[name="redirect"]').val('newrequesttp');
         break;
     }
-  });
-  $.ajax({
-    url: "./getSimpleJson/",
-    success: function success(data) {
-      var is_simple = JSON.parse(data);
+  }); // $.ajax({
+  //   url: "./getSimpleJson/",
+  //   success: function(data){
+  //     let is_simple = JSON.parse(data);
+  //     if(is_simple)
+  //     {
+  //         let list_hidden_elem = document.querySelectorAll(
+  //           "[name='infmaxparam3']" +
+  //           ",[name='infmaxparam4']" +
+  //           ",[name='techcondobj_note']" +
+  //           ",[name='connectloadparamdata_value2']" +
+  //           ",[name='addconnectloadparamdata_value_05']" +
+  //           ",[name='connectloadparamdata_value2_2']" +
+  //           ",[name='addconnectloadparamdata_value_06']"
+  //         );
+  //
+  //         list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
+  //
+  //         document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
+  //           let elem = this;
+  //           // проверка elem и че делать надо
+  //         }));
+  //     }
+  //     else{
+  //       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
+  //         let elem = this;
+  //         // проверка elem и че делать надо
+  //       }));
+  //     }
+  //   }
+  // });
 
-      if (is_simple) {
-        var list_hidden_elem = document.querySelectorAll("[name='infmaxparam3']" + ",[name='infmaxparam4']" + ",[name='techcondobj_note']" + ",[name='connectloadparamdata_value2']" + ",[name='addconnectloadparamdata_value_05']" + ",[name='connectloadparamdata_value2_2']" + ",[name='addconnectloadparamdata_value_06']");
-        list_hidden_elem.forEach(function (x) {
-          return x.parentElement.classList.add('hidden');
-        });
-        document.querySelectorAll('[name="connectobjkind"]').forEach(function (x) {
-          return x.addEventListener('change', function () {
-            var elem = this; // проверка elem и че делать надо
-          });
-        });
-      } else {
-        document.querySelectorAll('[name="connectobjkind"]').forEach(function (x) {
-          return x.addEventListener('change', function () {
-            var elem = this; // проверка elem и че делать надо
-          });
-        });
-      }
-    }
-  });
-  $('.__select input[name="Town_code"]').change(function (e) {
-    ChangeAddress();
-  });
-  $('.__select__title.field__input.cascader_input.address__street').keyup(function (e) {
-    ChangeAddress();
+  document.querySelectorAll('.__select__content .__select__input').forEach(function (x) {
+    return x.addEventListener('change', changeAddress);
   });
 
-  function ChangeAddress() {
-    var street_name = $('.__select__title.field__input.cascader_input.address__street').val();
-    var town_code = $('.__select input[name="Town_code"]:checked').val();
-    var select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
-
-    if (street_name != '' && town_code != undefined) {
-      $.ajax({
-        url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
-        success: function success(data) {
-          var streets = JSON.parse(JSON.parse(data));
-          select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />' + '<label for="street_0" class="__select__label">Выберите улицу</label>');
-          streets.forEach(function (street) {
-            return select_list.html(select_list.html() + '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />' + '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>');
-          });
-        }
-      });
-    } else {
-      select_list.empty();
-    }
+  function changeAddress() {// let elem = this;
+    // let elemName = elem.getAttribute('name');
+    // let number = elemName.indexOf("_", elemName.indexOf("_") + 1);
+    // let streetName = $('.address__street').val();
+    // let townCode = $('.__select input[name="Town_code"]:checked').val();
+    // let selectList = $('.address__street').next('.__select__content');
+    // if(streetName != '' && townCode != undefined)
+    // {
+    //   $.ajax({
+    //     url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
+    //     success: function(data){
+    //       let streets = JSON.parse(JSON.parse(data));
+    //       select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //       let streets = JSON.parse(JSON.parse(data));
+    //       selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //       '<label for="street_0" class="__select__label">Выберите улицу</label>');
+    //       streets.forEach(street =>
+    //         select_list.html(select_list.html() +
+    //         '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //         '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
+    //         )
+    //       )
+    //     }
+    //   });
+    // }
+    // else {
+    //   select_list.empty();
+    // }
   } //#endregion
 
 });
