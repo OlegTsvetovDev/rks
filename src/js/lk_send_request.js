@@ -740,10 +740,12 @@ $(document).ready(function() {
 
   });
 
+
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
-      let is_simple = JSON.parse(data);
+      // let is_simple = JSON.parse(data);
+      const is_simple = false
       if(is_simple)
       {
         // отрабатывает при загрузке заявления упрощенного вида
