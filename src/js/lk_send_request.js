@@ -693,12 +693,11 @@ $(document).ready(function() {
                 err.push("Не указано значение поля " + getTitle($this));
               break;
             case "DIV":
-              let qweqwe = $this.find(".attachment").length;
               if ($this.is(':visible') && (
                   $this.find(".__select__title").text() == "Выберите тип документа" ||
-                  $this.text() == "Полученный адрес"/* ||
+                  $this.text() == "Полученный адрес" ||
                   ($this.find(".attachment").length == 0 &&
-                    $this.hasClass("field__control_btns")) закомментирована проверка файлов на 5-ой вкладке*/
+                    $this.hasClass("field__control_btns"))
                 ))
                 err.push("Не указано значение поля " + getTitle($this));
               break;
@@ -726,25 +725,31 @@ $(document).ready(function() {
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
-      if(data == 'true')
+      let is_simple = JSON.parse(data);
+      if(is_simple)
       {
-        $("[name='infmaxparam4']," +
-          "[name='infmaxparam3']," +
-          "[name='connectloadparamdata_value2']," +
-          "[name='addconnectloadparamdata_value_05']," +
-          "[name='addconnectloadparamdata_value_08']," +
-          "[name='addconnectloadparamdata_value_02']," +
-          "[name='addconnectloadparamdata_value_07']," +
-          "[name='connectloadparamdata_value2_2']," +
-          "[name='addconnectloadparamdata_value_06']," +
-          "[name='connectloadparamdata_value3']," +
-          "[name='connectloadparamdata_value1'].mh," +
-          "[name='connectloadparamdata_value1_2'].mh," +
-          "#needToHide," +
-          "#typeOfConnectionObject label:contains('Реконструкция') input," +
-          "[name='infmaxparam2']"
-          ).parent().addClass('hidden');
-          $(".requests_form").addClass('simple');
+          let list_hidden_elem = document.querySelectorAll(
+            "[name='infmaxparam3']" +
+            ",[name='infmaxparam4']" +
+            ",[name='techcondobj_note']" +
+            ",[name='connectloadparamdata_value2']" +
+            ",[name='addconnectloadparamdata_value_05']" +
+            ",[name='connectloadparamdata_value2_2']" +
+            ",[name='addconnectloadparamdata_value_06']"
+          );
+
+          list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
+
+          document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
+            let elem = this;
+            // проверка elem и че делать надо
+          }));
+      }
+      else{
+        document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
+          let elem = this;
+          // проверка elem и че делать надо
+        }));
       }
     }
   });

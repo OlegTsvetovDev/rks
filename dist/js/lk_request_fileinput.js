@@ -142,12 +142,11 @@ $(function () {
 }); // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения"
 
 function docblocksHide(doc_blocks, radio_name) {
-  var $cur_val = $('input[name=' + radio_name + ']:checked').val(); // при клике на лейбл в этот метод попадаем 2 раза, один раз значение старое, в другой - новое; нужно только новое
-
+  var $cur_val = $('input[name=' + radio_name + ']:checked').val();
   doc_blocks.each(function () {
     var $this = $(this);
     var doctype_vals = $this.val();
-    var docblock = $this.parent(); //docblock = this.parentNode;
+    var docblock = $this.parent().parent(); //docblock = this.parentNode;
 
     if ($cur_val === null || $cur_val === undefined || doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1) {
       docblock.addClass(radio_name + '_hide');
@@ -172,10 +171,10 @@ function initCheckRadios(radio_name) {
   var radios = document.querySelectorAll('input[name=' + radio_name + ']');
 
   for (var i = 0; i < radios.length; i++) {
-    radios[i].addEventListener('change', function () {
+    var label = radios[i].parentNode;
+    label.addEventListener('click', function () {
       return docblocksHide(docblocks, radio_name);
-    }); // const label = radios[i].parentNode;
-    // label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
+    });
   }
 }
 
