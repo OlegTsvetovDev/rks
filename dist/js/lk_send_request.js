@@ -408,13 +408,7 @@ $(document).ready(function () {
       function handleYesClick() {
         changeSliderHeight('decrease', 50);
         changeSliderHeight('increase', 100);
-      } // queueBtns.forEach(queueBtn => {
-      //   const trigger = queueBtn.value === "no"
-      //   const label = queueBtn.parentNode
-      //
-      //   if (trigger) label.addEventListener('click', () => handleClick(queueBtn))
-      // })
-
+      }
 
       queueLaunchNoBtn.parentNode.addEventListener('click', function () {
         return handleNoClick();
@@ -538,7 +532,8 @@ $(document).ready(function () {
     var connectionToColdWaterLabel = connectionToColdWater.parentNode;
     var isConnectionToColdWaterChecked = connectionToColdWater.checked;
     var isConnectionToColdWaterDisabled = connectionToColdWater.disabled;
-    var coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle');
+    var coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle'); // проверка начального состояния чекбокса
+
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden');
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
     if (isConnectionToColdWaterDisabled) return;
@@ -567,7 +562,8 @@ $(document).ready(function () {
     var connectionToDrainageLabel = connectionToDrainage.parentNode;
     var isConnectionToDrainageChecked = connectionToDrainage.checked;
     var isConnectionToDrainageDisabled = connectionToDrainage.disabled;
-    var drainageToggle = baseNode.querySelector('.drainage_toggle');
+    var drainageToggle = baseNode.querySelector('.drainage_toggle'); // проверка начального состояния чекбокса
+
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden');
     if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden');
     if (isConnectionToDrainageDisabled) return;
@@ -654,10 +650,37 @@ $(document).ready(function () {
     url: "./getSimpleJson/",
     success: function success(data) {
       if (data == 'true') {
-        $("[name='infmaxparam4']," + "[name='infmaxparam3']," + "[name='connectloadparamdata_value2']," + "[name='addconnectloadparamdata_value_05']," + "[name='addconnectloadparamdata_value_08']," + "[name='addconnectloadparamdata_value_02']," + "[name='addconnectloadparamdata_value_07']," + "[name='connectloadparamdata_value2_2']," + "[name='addconnectloadparamdata_value_06']," + "[name='connectloadparamdata_value3']," + "[name='connectloadparamdata_value1'].mh," + "[name='connectloadparamdata_value1_2'].mh," + "#needToHide," + "#typeOfConnectionObject label:contains('Реконструкция') input," + "[name='infmaxparam2']" //).parent().hide();
-        ).parent().addClass('hidden');
+        $("[name='infmaxparam4']," + "[name='infmaxparam3']," + "[name='connectloadparamdata_value2']," + "[name='addconnectloadparamdata_value_05']," + "[name='addconnectloadparamdata_value_08']," + "[name='addconnectloadparamdata_value_02']," + "[name='addconnectloadparamdata_value_07']," + "[name='connectloadparamdata_value2_2']," + "[name='addconnectloadparamdata_value_06']," + "[name='connectloadparamdata_value3']," + "[name='connectloadparamdata_value1'].mh," + "[name='connectloadparamdata_value1_2'].mh," + "#needToHide," + "#typeOfConnectionObject label:contains('Реконструкция') input," + "[name='infmaxparam2']").parent().addClass('hidden');
         $(".requests_form").addClass('simple');
       }
     }
-  }); //#endregion
+  });
+  $('.__select input[name="Town_code"]').change(function (e) {
+    ChangeAddress();
+  });
+  $('.__select__title.field__input.cascader_input.address__street').keyup(function (e) {
+    ChangeAddress();
+  });
+
+  function ChangeAddress() {
+    var street_name = $('.__select__title.field__input.cascader_input.address__street').val();
+    var town_code = $('.__select input[name="Town_code"]:checked').val();
+    var select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
+
+    if (street_name != '' && town_code != undefined) {
+      $.ajax({
+        url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
+        success: function success(data) {
+          var streets = JSON.parse(JSON.parse(data));
+          select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />' + '<label for="street_0" class="__select__label">Выберите улицу</label>');
+          streets.forEach(function (street) {
+            return select_list.html(select_list.html() + '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />' + '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>');
+          });
+        }
+      });
+    } else {
+      select_list.empty();
+    }
+  } //#endregion
+
 });

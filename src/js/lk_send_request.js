@@ -470,13 +470,6 @@ $(document).ready(function() {
         changeSliderHeight('increase', 100)
       }
 
-      // queueBtns.forEach(queueBtn => {
-      //   const trigger = queueBtn.value === "no"
-      //   const label = queueBtn.parentNode
-      //
-      //   if (trigger) label.addEventListener('click', () => handleClick(queueBtn))
-      // })
-
       queueLaunchNoBtn.parentNode.addEventListener('click', () => handleNoClick())
       queueLaunchYesBtn.parentNode.addEventListener('click', () => handleYesClick())
 
@@ -615,6 +608,7 @@ $(document).ready(function() {
     const isConnectionToColdWaterDisabled = connectionToColdWater.disabled
     const coldWaterToggle = baseNode.querySelector('.cold_water_supply_toggle')
 
+    // проверка начального состояния чекбокса
     if (isConnectionToColdWaterChecked) coldWaterToggle.classList.remove('hidden')
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden')
 
@@ -646,6 +640,7 @@ $(document).ready(function() {
     const isConnectionToDrainageDisabled = connectionToDrainage.disabled
     const drainageToggle = baseNode.querySelector('.drainage_toggle')
 
+    // проверка начального состояния чекбокса
     if (isConnectionToDrainageChecked) drainageToggle.classList.remove('hidden')
     if (!isConnectionToDrainageChecked) drainageToggle.classList.add('hidden')
 
@@ -753,7 +748,6 @@ $(document).ready(function() {
       }
     }
   });
-<<<<<<< HEAD
 
   $('.__select input[name="Town_code"]').change(function(e){ChangeAddress()});
   $('.__select__title.field__input.cascader_input.address__street').keyup(function(e){ChangeAddress()});
@@ -763,33 +757,15 @@ $(document).ready(function() {
     let town_code = $('.__select input[name="Town_code"]:checked').val();
     let select_list = $('.__select__title.field__input.cascader_input.address__street').next('.__select__content');
     if(street_name != '' && town_code != undefined)
-=======
-    
-  document.querySelectorAll('.__select__content .__select__input').forEach(x => x.addEventListener('change', changeAddress));
-
-  function changeAddress(){
-    let elem = this;
-    /*let elemName = elem.getAttribute('name');
-    let number = elemName.indexOf("_", elemName.indexOf("_") + 1);
-    /*let streetName = $('.address__street').val();
-    let townCode = $('.__select input[name="Town_code"]:checked').val();
-    let selectList = $('.address__street').next('.__select__content');
-    if(streetName != '' && townCode != undefined)
->>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
     {
       $.ajax({
-        url: "./getStreetsJson/?townCode=" + townCode + "&street_name=" + streetName,
+        url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
         success: function(data){
-<<<<<<< HEAD
           let streets = JSON.parse(JSON.parse(data));
           select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
-=======
-          let streets = JSON.parse(JSON.parse(data));          
-          selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
->>>>>>> 3fe2d6985da8ff35fc52635d9a6e64449350ac08
-          '<label for="street_0" class="__select__label">Выберите улицу</label>');
+'<label for="street_0" class="__select__label">Выберите улицу</label>');
           streets.forEach(street =>
-            selectList.html(selectList.html() +
+            select_list.html(select_list.html() +
             '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
             '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
             )
@@ -798,8 +774,8 @@ $(document).ready(function() {
       });
     }
     else{
-      selectList.empty();
-    }*/
+      select_list.empty();
+    }
   }
   //#endregion
 })

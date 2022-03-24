@@ -141,39 +141,41 @@ $(function () {
   });
 }); // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения"
 
-function initCheckRadios(radio_name) {
-  var docblocks = $('[name^="doc_' + radio_name + '_"]');
-  docblocksHide(docblocks);
-  var radios = $('input[name=' + radio_name + ']');
+function docblocksHide(doc_blocks, radio_name) {
+  var $cur_val = $('input[name=' + radio_name + ']:checked').val(); // при клике на лейбл в этот метод попадаем 2 раза, один раз значение старое, в другой - новое; нужно только новое
 
-  for (var i = 0; i < radios.length; i++) {
-    radios[i].addEventListener('click', function () {
-      return docblocksHide(docblocks, radio_name);
-    });
-    var label = $(radios[i]).parent();
-    label[0].addEventListener('click', function () {
-      return docblocksHide(docblocks, radio_name);
-    });
-  } // добавить логику для элементов с разными признаками (№4-9)
-  // добавить попап, удаление нессответвующих (скрыть видимость и пометить файлы на удаление в обработчике)
+  doc_blocks.each(function () {
+    var $this = $(this);
+    var doctype_vals = $this.val();
+    var docblock = $this.parent(); //docblock = this.parentNode;
 
+    if ($cur_val === null || $cur_val === undefined || doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1) {
+      docblock.addClass(radio_name + '_hide');
+    } else {
+      docblock.removeClass(radio_name + '_hide');
+    }
+
+    if (docblock.hasClass('personbasis_hide') || docblock.hasClass('owner_or_tenant_hide') || docblock.hasClass('connectobjkind_hide')) {
+      docblock.addClass('hidden');
+      docblock.css("display", "none"); //временно
+    } else if (!docblock.hasClass('personbasis_hide') && !docblock.hasClass('owner_or_tenant_hide') && !docblock.hasClass('connectobjkind_hide')) {
+      docblock.removeClass('hidden');
+      docblock.css("display", "flex"); //временно
+    }
+  });
 }
 
-function docblocksHide(doc_blocks, radio_name) {
-  var cur_val = $('input[name=' + radio_name + ']:checked').val();
+function initCheckRadios(radio_name) {
+  var docblocks = $('[name^="doc_' + radio_name + '_"]'); // поменять на querySelectorAll
 
-  if (cur_val != null) {
-    doc_blocks.each(function () {
-      var $this = $(this);
-      var doctype_vals = $this.val();
-      var docblock = $this.parent();
+  docblocksHide(docblocks, radio_name);
+  var radios = document.querySelectorAll('input[name=' + radio_name + ']');
 
-      if (doctype_vals.indexOf(cur_val) === -1) {
-        docblock.addClass('hidden');
-      } else {
-        docblock.removeClass('hidden');
-      }
-    });
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].addEventListener('change', function () {
+      return docblocksHide(docblocks, radio_name);
+    }); // const label = radios[i].parentNode;
+    // label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
   }
 }
 
