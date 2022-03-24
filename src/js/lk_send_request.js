@@ -736,39 +736,6 @@ $(document).ready(function() {
 
   });
 
-<<<<<<< HEAD
-  // $.ajax({
-  //   url: "./getSimpleJson/",
-  //   success: function(data){
-  //     let is_simple = JSON.parse(data);
-  //     if(is_simple)
-  //     {
-  //         let list_hidden_elem = document.querySelectorAll(
-  //           "[name='infmaxparam3']" +
-  //           ",[name='infmaxparam4']" +
-  //           ",[name='techcondobj_note']" +
-  //           ",[name='connectloadparamdata_value2']" +
-  //           ",[name='addconnectloadparamdata_value_05']" +
-  //           ",[name='connectloadparamdata_value2_2']" +
-  //           ",[name='addconnectloadparamdata_value_06']"
-  //         );
-  //
-  //         list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
-  //
-  //         document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
-  //           let elem = this;
-  //           // проверка elem и че делать надо
-  //         }));
-  //     }
-  //     else{
-  //       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
-  //         let elem = this;
-  //         // проверка elem и че делать надо
-  //       }));
-  //     }
-  //   }
-  // });
-=======
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
@@ -798,7 +765,7 @@ $(document).ready(function() {
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
               break;
               case 'connectobjkind_03':
-                document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden'); 
+                document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
               break;
             }
@@ -840,8 +807,6 @@ $(document).ready(function() {
       }));
     }
   });
-<<<<<<< HEAD
->>>>>>> e89bbb6f7c2fc839fc666538a5edb7cabb86a23d
 
   document.querySelectorAll('.__select__content .__select__input').forEach(x => x.addEventListener('change', changeAddress));
 
