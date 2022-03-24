@@ -745,17 +745,57 @@ $(document).ready(function() {
 
           list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
 
-          document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
-            let elem = this;
-            // проверка elem и че делать надо
+          document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', function(){
+            switch(this.getAttribute('for')){
+              case 'connectobjkind_01':
+                document.querySelector('[name="room_number"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+              break;
+              case 'connectobjkind_02':
+                document.querySelector('[name="room_number"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
+              break;
+              case 'connectobjkind_03':
+                document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden'); 
+                document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+              break;
+            }
           }));
       }
-      else{
-        document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.addEventListener('change', function(){
-          let elem = this;
-          // проверка elem и че делать надо
-        }));
+
+      if(document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_01')
+      {
+        document.querySelector('[name="connectloadparamdata_value1"]').setAttribute('title', 'Не более 1 м3/сут');
+        document.querySelector('[name="connectloadparamdata_value1"]').value = '1';
+        document.querySelector('[name="connectloadparamdata_value1_2"]').setAttribute('title', 'Не более 1 м3/сут');
+        document.querySelector('[name="connectloadparamdata_value1_2"]').value = '1';
+        document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
       }
+      if(document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_02')
+      {
+        document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
+      }
+      if(document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_03')
+      {
+        document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+      }
+
+      document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', function(){
+        if(this.getAttribute('for') == 'connectobjkind_01')
+        {
+          document.querySelector('[name="connectloadparamdata_value1"]').setAttribute('title', 'Не более 1 м3/сут');
+          document.querySelector('[name="connectloadparamdata_value1"]').value = '1';
+          document.querySelector('[name="connectloadparamdata_value1_2"]').setAttribute('title', 'Не более 1 м3/сут');
+          document.querySelector('[name="connectloadparamdata_value1_2"]').value = '1';
+        }
+        else
+        {
+          document.querySelector('[name="connectloadparamdata_value1"]').removeAttribute('title');
+          document.querySelector('[name="connectloadparamdata_value1"]').value = '';
+          document.querySelector('[name="connectloadparamdata_value1_2"]').removeAttribute('title');
+          document.querySelector('[name="connectloadparamdata_value1_2"]').value = '';
+        }
+      }));
     }
   });
    
