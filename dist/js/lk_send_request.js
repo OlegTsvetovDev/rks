@@ -6,8 +6,6 @@ function changeSliderHeight(action, value) {
     var slickList = document.querySelector('.slick-list');
     var slickCurrent = slickList.querySelector('.slick-current');
     var slickCurrentHeight = getComputedStyle(slickCurrent).height;
-    console.log(slickCurrentHeight);
-    console.log(slickCurrentHeight);
     slickList.style.height = slickCurrentHeight;
   }, 0);
 }
