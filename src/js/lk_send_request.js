@@ -20,6 +20,7 @@ $(document).ready(function() {
   // переключение радио по клику на лейбл
   $('.radio').parent().click(function () {
     const $this = $(this)
+    console.log($this)
     const $radio = $this.children('.radio')
     const $radioIsDisabled = $radio.is(':disabled')
 
@@ -222,17 +223,6 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    // если количество очередей >=1, то "Запуск по очередям" в "Да"
-    // добавление высоты слайду 1, если количество очередей >=1
-    function initCurrentQueueState() {
-      if (queue_count < 1) return
-
-      // 73px в "Нет"
-      // 32px + 81px + X*41px в "Да"
-      changeSliderHeight('increase', 113 + queue_count * 41)
-    }
-    initCurrentQueueState()
-
     // инит слайдера в слайд 4
     function initQueueSlider() {
       $('.queue_slider').slick({
@@ -334,7 +324,7 @@ $(document).ready(function() {
 
       queue_tbody.append(new_row)
       createAndRenderNewNode()
-      changeSliderHeight('increase', 39)
+      changeSliderHeight('increase', 40)
 
       // инициализация дейтпикера на последней добавленной строке
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
@@ -351,7 +341,7 @@ $(document).ready(function() {
       queue_count -= 1
       queue_tbody.children().last().remove()
       deleteLastNode()
-      changeSliderHeight('decrease', 39)
+      changeSliderHeight('decrease', 40)
       // removeLastSlide()
 
     })
@@ -629,7 +619,9 @@ $(document).ready(function() {
     if (isConnectionToColdWaterDisabled) return
 
     connectionToColdWaterLabel.addEventListener('click', () => {
+      console.log(isConnectionToColdWaterChecked)
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
+      console.log(isConnectionToColdWaterChecked)
       let blockHeight = 1000
       if (simpleSendRequest) blockHeight = 225
 

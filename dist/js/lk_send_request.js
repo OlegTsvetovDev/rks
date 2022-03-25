@@ -20,6 +20,7 @@ $(document).ready(function () {
 
   $('.radio').parent().click(function () {
     var $this = $(this);
+    console.log($this);
     var $radio = $this.children('.radio');
     var $radioIsDisabled = $radio.is(':disabled');
     if ($radioIsDisabled) return;
@@ -206,17 +207,7 @@ $(document).ready(function () {
       });
     }
 
-    getCurrentQueueCount(); // если количество очередей >=1, то "Запуск по очередям" в "Да"
-    // добавление высоты слайду 1, если количество очередей >=1
-
-    function initCurrentQueueState() {
-      if (queue_count < 1) return; // 73px в "Нет"
-      // 32px + 81px + X*41px в "Да"
-
-      changeSliderHeight('increase', 113 + queue_count * 41);
-    }
-
-    initCurrentQueueState(); // инит слайдера в слайд 4
+    getCurrentQueueCount(); // инит слайдера в слайд 4
 
     function initQueueSlider() {
       $('.queue_slider').slick({
@@ -300,7 +291,7 @@ $(document).ready(function () {
       var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" name=").concat('TechCondObj_QueueName_' + queue_count, " placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
       queue_tbody.append(new_row);
       createAndRenderNewNode();
-      changeSliderHeight('increase', 39); // инициализация дейтпикера на последней добавленной строке
+      changeSliderHeight('increase', 40); // инициализация дейтпикера на последней добавленной строке
 
       var lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input');
       lastChildDatepicker.datepicker($.datepicker.regional['ru']);
@@ -315,7 +306,7 @@ $(document).ready(function () {
       queue_count -= 1;
       queue_tbody.children().last().remove();
       deleteLastNode();
-      changeSliderHeight('decrease', 39); // removeLastSlide()
+      changeSliderHeight('decrease', 40); // removeLastSlide()
     }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в "Нет", слайд 1
 
     function clearTableQueues(queueTable) {
@@ -551,7 +542,9 @@ $(document).ready(function () {
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
     if (isConnectionToColdWaterDisabled) return;
     connectionToColdWaterLabel.addEventListener('click', function () {
+      console.log(isConnectionToColdWaterChecked);
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
+      console.log(isConnectionToColdWaterChecked);
       var blockHeight = 1000;
       if (simpleSendRequest) blockHeight = 225;
 
