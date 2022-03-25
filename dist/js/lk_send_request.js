@@ -30,36 +30,32 @@ $(document).ready(function () {
   // TODO: добавить инит в каждом новом блоке
 
 
-  $('.radio').parent().click(function () {
-    var $this = $(this);
-    console.log($this);
-    var $radio = $this.children('.radio');
-    var $radioIsDisabled = $radio.is(':disabled');
-    if ($radioIsDisabled) return;
-    $radio.prop('checked', true);
-  }); // переключение чекбокса по клику на лейбл
-  // TODO: ломается на новых очередях в слайдере 4
-
-  function initCheckboxLabels() {
-    var $checkboxes = $('.checkbox');
-    var $labels = $checkboxes.parent();
-    $checkboxes.click(function () {
-      var $checkbox = $(this);
-      var $checkboxIsChecked = $checkbox.is(':checked');
-      var $checkboxIsDisabled = $checkbox.is(':disabled');
-      if ($checkboxIsDisabled) return;
-      $checkbox.prop('checked', !$checkboxIsChecked);
-    });
-    $labels.click(function () {
-      var $checkbox = $(this).children();
-      var $checkboxIsChecked = $checkbox.is(':checked');
-      var $checkboxIsDisabled = $checkbox.is(':disabled');
-      if ($checkboxIsDisabled) return;
-      $checkbox.prop('checked', !$checkboxIsChecked);
+  function initRadioLabels(node) {
+    $('.radio').parent().click(function () {
+      var $this = $(this);
+      var $radio = $this.children('.radio');
+      var $radioIsDisabled = $radio.is(':disabled');
+      if ($radioIsDisabled) return;
+      $radio.prop('checked', true);
     });
   }
 
-  if (document.querySelector('.checkbox')) initCheckboxLabels(); // псевдо-селект
+  if (document.querySelector('.radio')) initRadioLabels(document); // переключение чекбокса по клику на лейбл
+
+  function initCheckboxLabels(node) {
+    var checkboxes = node.querySelectorAll('.checkbox');
+    checkboxes.forEach(function (checkbox) {
+      var label = checkbox.parentNode;
+      var isDisabled = checkbox.disabled;
+      if (isDisabled) return;
+      label.addEventListener('click', function () {
+        var checkbox = label.querySelector('.checkbox');
+        checkbox.checked = !checkbox.checked;
+      });
+    });
+  }
+
+  if (document.querySelector('.checkbox')) initCheckboxLabels(document); // псевдо-селект
 
   function initPseudoSelect(select) {
     var selectTitle = select.querySelector('.__select__title');
@@ -193,19 +189,7 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // изменение высоты слайдера
-  // function changeSliderHeight(action, value) {
-  //   setTimeout(() => {
-  //     const slickList = document.querySelector('.slick-list')
-  //     const slickCurrent = slickList.querySelector('.slick-current')
-  //     const slickCurrentHeight = getComputedStyle(slickCurrent).height
-  //     console.log(slickCurrentHeight)
-  //
-  //     console.log(slickCurrentHeight)
-  //     slickList.style.height = slickCurrentHeight
-  //   }, 0)
-  // }
-  // логика блоков очередей (добавление, удаление), 1 и 4 сладер
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // логика блоков очередей (добавление, удаление), 1 и 4 сладер
 
   function initMultipleQueues() {
     // состояние количества очередей
@@ -290,11 +274,12 @@ $(document).ready(function () {
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
       initPseudoSelects(newNode.querySelector('.__select'));
+      initRadioLabels(newNode);
+      initCheckboxLabels(newNode);
       initMasks(newNode);
       initColdWaterSupply(newNode);
       initDrainage(newNode);
-      initAddressConcatination(newNode);
-      addNewSlide(newNode);
+      initAddressConcatination(newNode); // addNewSlide(newNode)
     } // добавление новых строк в таблицу с очередями, слайдер 1
 
 
@@ -539,10 +524,7 @@ $(document).ready(function () {
     if (!isConnectionToColdWaterChecked) coldWaterToggle.classList.add('hidden');
     if (isConnectionToColdWaterDisabled) return;
     connectionToColdWaterLabel.addEventListener('click', function () {
-      console.log(isConnectionToColdWaterChecked);
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
-      console.log(isConnectionToColdWaterChecked); // let blockHeight = 1000
-      // if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden');

@@ -32,42 +32,36 @@ $(document).ready(function() {
   // переключение радио по клику на лейбл
   //
   // TODO: добавить инит в каждом новом блоке
-  $('.radio').parent().click(function () {
-    const $this = $(this)
-    console.log($this)
-    const $radio = $this.children('.radio')
-    const $radioIsDisabled = $radio.is(':disabled')
+  function initRadioLabels(node) {
+    $('.radio').parent().click(function () {
+      const $this = $(this)
+      const $radio = $this.children('.radio')
+      const $radioIsDisabled = $radio.is(':disabled')
 
-    if ($radioIsDisabled) return
-    $radio.prop('checked', true)
-  })
+      if ($radioIsDisabled) return
+      $radio.prop('checked', true)
+    })
+  }
+  if (document.querySelector('.radio')) initRadioLabels(document)
 
 
   // переключение чекбокса по клику на лейбл
-  // TODO: ломается на новых очередях в слайдере 4
-  function initCheckboxLabels() {
-    const $checkboxes = $('.checkbox')
-    const $labels = $checkboxes.parent()
+  function initCheckboxLabels(node) {
+    const checkboxes = node.querySelectorAll('.checkbox')
 
-    $checkboxes.click(function () {
-      const $checkbox = $(this)
-      const $checkboxIsChecked = $checkbox.is(':checked')
-      const $checkboxIsDisabled = $checkbox.is(':disabled')
+    checkboxes.forEach(checkbox => {
+      const label = checkbox.parentNode
+      const isDisabled = checkbox.disabled
 
-      if ($checkboxIsDisabled) return
-      $checkbox.prop('checked', !$checkboxIsChecked)
-    })
+      if (isDisabled) return
 
-    $labels.click(function () {
-      const $checkbox = $(this).children()
-      const $checkboxIsChecked = $checkbox.is(':checked')
-      const $checkboxIsDisabled = $checkbox.is(':disabled')
-
-      if ($checkboxIsDisabled) return
-      $checkbox.prop('checked', !$checkboxIsChecked)
+      label.addEventListener('click', function () {
+        const checkbox = label.querySelector('.checkbox')
+        checkbox.checked = !checkbox.checked
+      })
     })
   }
-  if (document.querySelector('.checkbox')) initCheckboxLabels()
+  if (document.querySelector('.checkbox')) initCheckboxLabels(document)
 
 
   // псевдо-селект
@@ -212,20 +206,6 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
-  // изменение высоты слайдера
-  // function changeSliderHeight(action, value) {
-  //   setTimeout(() => {
-  //     const slickList = document.querySelector('.slick-list')
-  //     const slickCurrent = slickList.querySelector('.slick-current')
-  //     const slickCurrentHeight = getComputedStyle(slickCurrent).height
-  //     console.log(slickCurrentHeight)
-  //
-  //     console.log(slickCurrentHeight)
-  //     slickList.style.height = slickCurrentHeight
-  //   }, 0)
-  // }
-
-
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -316,12 +296,14 @@ $(document).ready(function() {
       pasteNameSuffixes(newNode)
       renderNewNode(newNode)
       initPseudoSelects(newNode.querySelector('.__select'))
+      initRadioLabels(newNode)
+      initCheckboxLabels(newNode)
       initMasks(newNode)
       initColdWaterSupply(newNode)
       initDrainage(newNode)
       initAddressConcatination(newNode)
 
-      addNewSlide(newNode)
+      // addNewSlide(newNode)
     }
 
     // добавление новых строк в таблицу с очередями, слайдер 1
@@ -622,11 +604,7 @@ $(document).ready(function() {
     if (isConnectionToColdWaterDisabled) return
 
     connectionToColdWaterLabel.addEventListener('click', () => {
-      console.log(isConnectionToColdWaterChecked)
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
-      console.log(isConnectionToColdWaterChecked)
-      // let blockHeight = 1000
-      // if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
