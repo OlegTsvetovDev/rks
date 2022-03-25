@@ -1,3 +1,17 @@
+// изменение высоты слайдера
+function changeSliderHeight(action, value) {
+  setTimeout(() => {
+    const slickList = document.querySelector('.slick-list')
+    const slickCurrent = slickList.querySelector('.slick-current')
+    const slickCurrentHeight = getComputedStyle(slickCurrent).height
+    console.log(slickCurrentHeight)
+
+    console.log(slickCurrentHeight)
+    slickList.style.height = slickCurrentHeight
+  }, 0)
+}
+
+
 $(document).ready(function() {
   const body = $('body')
   // упрощенная подача заявления
@@ -199,17 +213,17 @@ $(document).ready(function() {
 
 
   // изменение высоты слайдера
-  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-  function changeSliderHeight(action, value) {
-    const slickList = document.querySelector('.slick-list')
-    const slickListHeight = Number.parseInt(slickList.style.height)
-
-    if (action === 'increase') {
-      return slickList.style.height = slickListHeight + value + 'px'
-    }
-    return slickList.style.height = slickListHeight - value + 'px'
-  }
-
+  // function changeSliderHeight(action, value) {
+  //   setTimeout(() => {
+  //     const slickList = document.querySelector('.slick-list')
+  //     const slickCurrent = slickList.querySelector('.slick-current')
+  //     const slickCurrentHeight = getComputedStyle(slickCurrent).height
+  //     console.log(slickCurrentHeight)
+  //
+  //     console.log(slickCurrentHeight)
+  //     slickList.style.height = slickCurrentHeight
+  //   }, 0)
+  // }
 
 
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
@@ -430,6 +444,7 @@ $(document).ready(function() {
           queueLaunchYes.classList.add('hidden')
           queueLaunchNo.classList.remove('hidden')
           modalPopupConfirm.remove()
+          // TODO:
           body.addClass('')
           clearAllQueues()
         }
