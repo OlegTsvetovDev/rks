@@ -123,8 +123,12 @@ $(document).ready(function() {
       const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
       let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
+      if (resultAddress[0] === '.') resultAddress = resultAddress.slice(1)
 
       concated.value = resultAddress
+
+      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
+        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
       // concated.textContent = resultAddress
     }, 100)
   }
@@ -736,6 +740,7 @@ $(document).ready(function() {
       const is_simple = false
       if(is_simple)
       {
+        // отрабатывает при загрузке заявления упрощенного вида
           let list_hidden_elem = document.querySelectorAll(
             "[name='infmaxparam3']" +
             ",[name='infmaxparam4']" +
@@ -743,60 +748,123 @@ $(document).ready(function() {
             ",[name='connectloadparamdata_value2']" +
             ",[name='addconnectloadparamdata_value_05']" +
             ",[name='connectloadparamdata_value2_2']" +
-            ",[name='addconnectloadparamdata_value_06']"
+            ",[name='addconnectloadparamdata_value_06']" +
+            ",[name='addconnectloadparamdata_value_08'].mh" +
+            ",[name='addconnectloadparamdata_value_08'].md" +
+            ",[name='addconnectloadparamdata_value_02'].mh" +
+            ",[name='addconnectloadparamdata_value_02'].md" +
+            ",[name='addconnectloadparamdata_value_07'].mh" +
+            ",[name='addconnectloadparamdata_value_07'].md"
           );
 
           list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
+          if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
+            document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
 
+          // события, которые должны отрабатывать в упрощенном виде заявления
           document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', function(){
             switch(this.getAttribute('for')){
               case 'connectobjkind_01':
                 document.querySelector('[name="room_number"]').parentElement.classList.add('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
               break;
               case 'connectobjkind_02':
                 document.querySelector('[name="room_number"]').parentElement.classList.add('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
+                document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden');
+                document.querySelector('[name="infmaxparam1"]').parentElement.classList.remove('hidden');
+                document.querySelector('[name="infmaxparam2"]').parentElement.classList.remove('hidden');
+                document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.remove('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden');
+                document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden');
               break;
               case 'connectobjkind_03':
                 document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
               break;
             }
           }));
       }
 
-      if(document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_01')
+      // отрабатывает при загрузке заявления любого вида
+      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
       {
-        document.querySelector('[name="connectloadparamdata_value1"]').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1"]').value = '1';
-        document.querySelector('[name="connectloadparamdata_value1_2"]').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1_2"]').value = '1';
+        document.querySelector('[name="connectloadparamdata_value1"].md').setAttribute('title', 'Не более 1 м3/сут');
+        document.querySelector('[name="connectloadparamdata_value1"].md').value = '1';
+        document.querySelector('[name="connectloadparamdata_value1_2"].md').setAttribute('title', 'Не более 1 м3/сут');
+        document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
+        document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения';
+        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`;
         document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+        document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+        document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1"].mh').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
       }
-      if(document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_02')
+      else if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_02')
       {
-        document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
+        document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)';
       }
-      if(document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_03')
+      else if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
       {
+        document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)';
         document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+        document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+        document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1"].mh').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
       }
 
+      // события, которые должны отрабатывать в любом виде заявления
       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', function(){
         if(this.getAttribute('for') == 'connectobjkind_01')
         {
           document.querySelector('[name="connectloadparamdata_value1"]').setAttribute('title', 'Не более 1 м3/сут');
           document.querySelector('[name="connectloadparamdata_value1"]').value = '1';
-          document.querySelector('[name="connectloadparamdata_value1_2"]').setAttribute('title', 'Не более 1 м3/сут');
-          document.querySelector('[name="connectloadparamdata_value1_2"]').value = '1';
+          document.querySelector('[name="connectloadparamdata_value1_2"].md').setAttribute('title', 'Не более 1 м3/сут');
+          document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
+          document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения';
+          document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`;
         }
         else
         {
           document.querySelector('[name="connectloadparamdata_value1"]').removeAttribute('title');
           document.querySelector('[name="connectloadparamdata_value1"]').value = '';
-          document.querySelector('[name="connectloadparamdata_value1_2"]').removeAttribute('title');
-          document.querySelector('[name="connectloadparamdata_value1_2"]').value = '';
+          document.querySelector('[name="connectloadparamdata_value1_2"].md').removeAttribute('title');
+          document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '';
+          document.querySelector('[name="statementtc_connectobjname"]').value = '';
+          if(this.getAttribute('for') == 'connectobjkind_02')
+            document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)';
+          else
+            document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)';
         }
       }));
     }
