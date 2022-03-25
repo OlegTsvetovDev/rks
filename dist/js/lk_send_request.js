@@ -26,6 +26,8 @@ $(document).ready(function () {
       adaptiveHeight: true
     });
   } // переключение радио по клику на лейбл
+  //
+  // TODO: добавить инит в каждом новом блоке
 
 
   $('.radio').parent().click(function () {
@@ -291,7 +293,8 @@ $(document).ready(function () {
       initMasks(newNode);
       initColdWaterSupply(newNode);
       initDrainage(newNode);
-      initAddressConcatination(newNode); // addNewSlide(newNode)
+      initAddressConcatination(newNode);
+      addNewSlide(newNode);
     } // добавление новых строк в таблицу с очередями, слайдер 1
 
 
@@ -302,7 +305,7 @@ $(document).ready(function () {
       var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" name=").concat('TechCondObj_QueueName_' + queue_count, " placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
       queue_tbody.append(new_row);
       createAndRenderNewNode();
-      changeSliderHeight('increase', 40); // инициализация дейтпикера на последней добавленной строке
+      changeSliderHeight(); // инициализация дейтпикера на последней добавленной строке
 
       var lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input');
       lastChildDatepicker.datepicker($.datepicker.regional['ru']);
@@ -314,10 +317,10 @@ $(document).ready(function () {
     $('.queue_btn_remove').click(function (e) {
       e.preventDefault();
       if (queue_count < 1) return;
-      queue_count -= 1;
+      queue_count--;
       queue_tbody.children().last().remove();
       deleteLastNode();
-      changeSliderHeight('decrease', 40); // removeLastSlide()
+      changeSliderHeight(); // removeLastSlide()
     }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в "Нет", слайд 1
 
     function clearTableQueues(queueTable) {
@@ -377,7 +380,7 @@ $(document).ready(function () {
           queueLaunchNo.removeAttribute('style');
           queueLaunchYes.classList.add('hidden');
           queueLaunchNo.classList.remove('hidden');
-          modalPopupConfirm.remove(); // TODO:
+          modalPopupConfirm.remove(); // TODO: overflow: hidden для body
 
           body.addClass('');
           clearAllQueues();
@@ -397,41 +400,23 @@ $(document).ready(function () {
         closeModal.addEventListener('click', handleCloseModal);
         abortModal.addEventListener('click', handleCloseModal);
         btnAgree.addEventListener('click', handleProceedModal);
-      }
-
-      function calcTableYesHeight() {
-        return 156;
-      }
-
-      function calcTableNoHeight() {
-        return 103;
       } // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
 
 
-      function handleNoClick() {
-        var tableHeight = calcTableYesHeight();
-        var initialHeight = calcTableNoHeight();
-        changeSliderHeight('decrease', tableHeight);
-        changeSliderHeight('increase', initialHeight); // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+      var handleNoClick = function handleNoClick() {
+        changeSliderHeight(); // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
 
         if (queue_count < 1) return;
         createModal();
         addListenersToModal();
-      }
+      };
 
-      function handleYesClick() {
-        var tableHeight = calcTableYesHeight();
-        var initialHeight = calcTableNoHeight();
-        changeSliderHeight('decrease', initialHeight);
-        changeSliderHeight('increase', tableHeight);
-      }
+      var handleYesClick = function handleYesClick() {
+        return changeSliderHeight();
+      };
 
-      queueLaunchNoBtn.parentNode.addEventListener('click', function () {
-        return handleNoClick();
-      });
-      queueLaunchYesBtn.parentNode.addEventListener('click', function () {
-        return handleYesClick();
-      });
+      queueLaunchNoBtn.parentNode.addEventListener('click', handleNoClick);
+      queueLaunchYesBtn.parentNode.addEventListener('click', handleYesClick);
     }
 
     initClearAllQueues();
@@ -446,7 +431,7 @@ $(document).ready(function () {
     e.preventDefault();
     water_source_tbody.append(new_row);
     water_source_count++;
-    changeSliderHeight('increase', 39);
+    changeSliderHeight();
   }); // удаление новых строк в таблице с иными источниками, слайдер 4
 
   $('.add_source_btn_remove').click(function (e) {
@@ -455,7 +440,7 @@ $(document).ready(function () {
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove();
       water_source_count--;
-      changeSliderHeight('decrease', 39);
+      changeSliderHeight();
     }
   }); // добавление новых строк в таблицу с характеристиками земельных участков, слайдер 4
 
@@ -466,7 +451,7 @@ $(document).ready(function () {
     var new_row = "\n                    <tr class=\"table__row\">\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                    </tr>\n                   ";
     land_coverage_tbody.append(new_row);
     land_coverage_count++;
-    changeSliderHeight('increase', 39);
+    changeSliderHeight();
   }); // удаление новых строк в таблице с характеристиками земельных участков, слайдер 4
 
   $('.add_coverage_btn_remove').click(function (event) {
@@ -474,7 +459,7 @@ $(document).ready(function () {
     if (land_coverage_count <= 1) return;
     land_coverage_tbody.children().last().remove();
     land_coverage_count--;
-    changeSliderHeight('decrease', 39);
+    changeSliderHeight();
   }); // datepicker
 
   function initDatepickers() {
@@ -556,16 +541,15 @@ $(document).ready(function () {
     connectionToColdWaterLabel.addEventListener('click', function () {
       console.log(isConnectionToColdWaterChecked);
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
-      console.log(isConnectionToColdWaterChecked);
-      var blockHeight = 1000;
-      if (simpleSendRequest) blockHeight = 225;
+      console.log(isConnectionToColdWaterChecked); // let blockHeight = 1000
+      // if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden');
-        changeSliderHeight('increase', blockHeight);
+        changeSliderHeight();
       } else {
         coldWaterToggle.classList.add('hidden');
-        changeSliderHeight('decrease', blockHeight);
+        changeSliderHeight();
       }
     });
   }
@@ -592,10 +576,10 @@ $(document).ready(function () {
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden');
-        changeSliderHeight('increase', blockHeight);
+        changeSliderHeight();
       } else {
         drainageToggle.classList.add('hidden');
-        changeSliderHeight('decrease', blockHeight);
+        changeSliderHeight();
       }
     });
   }

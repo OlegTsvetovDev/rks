@@ -30,6 +30,8 @@ $(document).ready(function() {
 
 
   // переключение радио по клику на лейбл
+  //
+  // TODO: добавить инит в каждом новом блоке
   $('.radio').parent().click(function () {
     const $this = $(this)
     console.log($this)
@@ -319,7 +321,7 @@ $(document).ready(function() {
       initDrainage(newNode)
       initAddressConcatination(newNode)
 
-      // addNewSlide(newNode)
+      addNewSlide(newNode)
     }
 
     // добавление новых строк в таблицу с очередями, слайдер 1
@@ -340,7 +342,7 @@ $(document).ready(function() {
 
       queue_tbody.append(new_row)
       createAndRenderNewNode()
-      changeSliderHeight('increase', 40)
+      changeSliderHeight()
 
       // инициализация дейтпикера на последней добавленной строке
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
@@ -354,10 +356,10 @@ $(document).ready(function() {
       e.preventDefault()
       if (queue_count < 1) return
 
-      queue_count -= 1
+      queue_count--
       queue_tbody.children().last().remove()
       deleteLastNode()
-      changeSliderHeight('decrease', 40)
+      changeSliderHeight()
       // removeLastSlide()
 
     })
@@ -442,7 +444,7 @@ $(document).ready(function() {
           queueLaunchYes.classList.add('hidden')
           queueLaunchNo.classList.remove('hidden')
           modalPopupConfirm.remove()
-          // TODO:
+          // TODO: overflow: hidden для body
           body.addClass('')
           clearAllQueues()
         }
@@ -463,20 +465,9 @@ $(document).ready(function() {
         btnAgree.addEventListener('click', handleProceedModal)
       }
 
-      function calcTableYesHeight() {
-        return 156
-      }
-
-      function calcTableNoHeight() {
-        return 103
-      }
-
       // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
-      function handleNoClick() {
-        const tableHeight = calcTableYesHeight()
-        const initialHeight = calcTableNoHeight()
-        changeSliderHeight('decrease', tableHeight)
-        changeSliderHeight('increase', initialHeight)
+      const handleNoClick = () => {
+        changeSliderHeight()
 
         // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
         if (queue_count < 1) return
@@ -484,15 +475,10 @@ $(document).ready(function() {
         addListenersToModal()
       }
 
-      function handleYesClick() {
-        const tableHeight = calcTableYesHeight()
-        const initialHeight = calcTableNoHeight()
-        changeSliderHeight('decrease', initialHeight)
-        changeSliderHeight('increase', tableHeight)
-      }
+      const handleYesClick = () => changeSliderHeight()
 
-      queueLaunchNoBtn.parentNode.addEventListener('click', () => handleNoClick())
-      queueLaunchYesBtn.parentNode.addEventListener('click', () => handleYesClick())
+      queueLaunchNoBtn.parentNode.addEventListener('click', handleNoClick)
+      queueLaunchYesBtn.parentNode.addEventListener('click', handleYesClick)
 
     }
     initClearAllQueues()
@@ -524,7 +510,7 @@ $(document).ready(function() {
 
     water_source_tbody.append(new_row)
     water_source_count++
-    changeSliderHeight('increase', 39)
+    changeSliderHeight()
   })
 
   // удаление новых строк в таблице с иными источниками, слайдер 4
@@ -534,7 +520,7 @@ $(document).ready(function() {
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove()
       water_source_count--
-      changeSliderHeight('decrease', 39)
+      changeSliderHeight()
     }
   })
 
@@ -558,7 +544,7 @@ $(document).ready(function() {
 
     land_coverage_tbody.append(new_row)
     land_coverage_count++
-    changeSliderHeight('increase', 39)
+    changeSliderHeight()
   })
   // удаление новых строк в таблице с характеристиками земельных участков, слайдер 4
   $('.add_coverage_btn_remove').click(function(event) {
@@ -567,7 +553,7 @@ $(document).ready(function() {
 
     land_coverage_tbody.children().last().remove()
     land_coverage_count--
-    changeSliderHeight('decrease', 39)
+    changeSliderHeight()
   })
 
   // datepicker
@@ -639,15 +625,15 @@ $(document).ready(function() {
       console.log(isConnectionToColdWaterChecked)
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
       console.log(isConnectionToColdWaterChecked)
-      let blockHeight = 1000
-      if (simpleSendRequest) blockHeight = 225
+      // let blockHeight = 1000
+      // if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
-        changeSliderHeight('increase', blockHeight)
+        changeSliderHeight()
       } else {
         coldWaterToggle.classList.add('hidden')
-        changeSliderHeight('decrease', blockHeight)
+        changeSliderHeight()
       }
 
     })
@@ -676,10 +662,10 @@ $(document).ready(function() {
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden')
-        changeSliderHeight('increase', blockHeight)
+        changeSliderHeight()
       } else {
         drainageToggle.classList.add('hidden')
-        changeSliderHeight('decrease', blockHeight)
+        changeSliderHeight()
       }
     })
   }
