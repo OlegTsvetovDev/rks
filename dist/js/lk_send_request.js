@@ -23,14 +23,13 @@ $(document).ready(function () {
       dots: true,
       infinite: false,
       draggable: false,
-      adaptiveHeight: true
+      adaptiveHeight: true,
+      initialSlide: 3
     });
   } // переключение радио по клику на лейбл
-  //
-  // TODO: добавить инит в каждом новом блоке
 
 
-  function initRadioLabels(node) {
+  function initRadioLabels() {
     $('.radio').parent().click(function () {
       var $this = $(this);
       var $radio = $this.children('.radio');
@@ -40,7 +39,7 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.radio')) initRadioLabels(document); // переключение чекбокса по клику на лейбл
+  if (document.querySelector('.radio')) initRadioLabels(); // переключение чекбокса по клику на лейбл
 
   function initCheckboxLabels(node) {
     var checkboxes = node.querySelectorAll('.checkbox');
@@ -121,7 +120,8 @@ $(document).ready(function () {
       concated.value = resultAddress;
       if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01') document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(resultAddress); // concated.textContent = resultAddress
     }, 100);
-  }
+  } // инит модуля пересчета адреса
+
 
   function initAddressConcatination(baseNode) {
     var concated = baseNode.querySelector('.address__concated');
@@ -154,7 +154,64 @@ $(document).ready(function () {
   var addressBlocks = document.querySelectorAll('.address__concated');
   if (addressBlocks) addressBlocks.forEach(function (addressBlock) {
     return initAddressConcatination(addressBlock.parentNode.parentNode.parentNode);
-  }); // переключение блоков в "Запуск по очередям", слайдер 1
+  }); // лукап
+  // node - это input в лукапе
+
+  function initLookup(node) {
+    var parentNode = node.parentNode;
+    var localitiesNode = parentNode.querySelector('.__select__content'); // TODO: нужно написать функцию запроса к пост сервису
+    // функция должна возвращать массив из строк
+
+    function getLocality() {
+      return ['Пермь', 'Москва', 'Санкт-Петербург', 'Новосибирск'];
+    } // поиск по объекту
+
+
+    function searchInArray(query, arr) {
+      var result = [];
+      query = query.toLowerCase();
+      arr.forEach(function (string) {
+        string = string.toLowerCase();
+        if (string.includes(query)) result.push(string);
+      });
+      return result;
+    } // рендер ноды в лукап
+
+
+    function renderNode(city, index) {
+      var template = "\n                        <input name=\"address__locality\" type=\"radio\" class=\"__select__input\" id=\"locality_1\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_1\">".concat(city, "</label>\n                       ");
+      localitiesNode.insertAdjacentHTML('beforeend', template);
+    }
+
+    function removePreviousList(node) {
+      console.log(node.innerHTML);
+      node.innerHTML = "\n                        <input checked=\"\" selected=\"\" name=\"address__street\" type=\"radio\" class=\"__select__input\" id=\"\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0443\u043B\u0438\u0446\u0443</label>\n                       ";
+      console.log(node.innerHTML);
+    } // рендер всех найденных нод
+
+
+    function renderList(cityList) {
+      removePreviousList(localitiesNode);
+      cityList.forEach(function (city, i) {
+        return renderNode(city, i);
+      }); // активируем выпадающий список
+
+      parentNode['data-state'] = 'active';
+    } // логика работы лукапа
+
+
+    var localities = getLocality();
+    node.addEventListener('keyup', function (e) {
+      var query = e.target.value; // DEBUG: searchResult неверно работает
+
+      var searchResult = searchInArray(query, localities); // setTimeout(() => renderList(searchResult), 100)
+
+      renderList(searchResult);
+    });
+  }
+
+  var lookup = document.querySelector('.address__locality');
+  if (lookup) initLookup(lookup); // переключение блоков в "Запуск по очередям", слайдер 1
 
   function initQueueLaunch() {
     var queueLaunchInput = $('input[name="queue_launch"]');
@@ -211,10 +268,10 @@ $(document).ready(function () {
         dots: true,
         arrows: false
       });
-    } // initQueueSlider()
-    // добавление блоков очередей, 4 сладер
-    // создание новой ноды
+    }
 
+    initQueueSlider(); // добавление блоков очередей, 4 сладер
+    // создание новой ноды
 
     function createNewNode() {
       var baseNode = document.querySelector('.queue_block');

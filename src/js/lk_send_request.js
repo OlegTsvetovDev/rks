@@ -24,15 +24,14 @@ $(document).ready(function() {
       dots: true,
       infinite: false,
       draggable: false,
-      adaptiveHeight: true
+      adaptiveHeight: true,
+      initialSlide: 3
     })
   }
 
 
   // переключение радио по клику на лейбл
-  //
-  // TODO: добавить инит в каждом новом блоке
-  function initRadioLabels(node) {
+  function initRadioLabels() {
     $('.radio').parent().click(function () {
       const $this = $(this)
       const $radio = $this.children('.radio')
@@ -42,7 +41,7 @@ $(document).ready(function() {
       $radio.prop('checked', true)
     })
   }
-  if (document.querySelector('.radio')) initRadioLabels(document)
+  if (document.querySelector('.radio')) initRadioLabels()
 
 
   // переключение чекбокса по клику на лейбл
@@ -141,6 +140,7 @@ $(document).ready(function() {
     }, 100)
   }
 
+  // инит модуля пересчета адреса
   function initAddressConcatination(baseNode) {
     const concated = baseNode.querySelector('.address__concated')
     const locality = baseNode.querySelector('.address__locality')
@@ -160,6 +160,79 @@ $(document).ready(function() {
   }
   const addressBlocks = document.querySelectorAll('.address__concated')
   if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
+
+
+
+
+
+
+  // лукап
+  // node - это input в лукапе
+  function initLookup(node) {
+    const parentNode = node.parentNode
+    const localitiesNode = parentNode.querySelector('.__select__content')
+
+    // TODO: нужно написать функцию запроса к пост сервису
+    // функция должна возвращать массив из строк
+    function getLocality() {
+      return ['Пермь', 'Москва', 'Санкт-Петербург', 'Новосибирск']
+    }
+
+    // поиск по объекту
+    function searchInArray(query, arr) {
+      let result = []
+      query = query.toLowerCase()
+
+      arr.forEach(string => {
+        string = string.toLowerCase()
+        if (string.includes(query)) result.push(string)
+      })
+      return result
+    }
+
+    // рендер ноды в лукап
+    function renderNode(city, index) {
+      const template = `
+                        <input name="address__locality" type="radio" class="__select__input" id="locality_1" tabindex="0">
+                        <label class="__select__label" for="locality_1">${city}</label>
+                       `
+
+      localitiesNode.insertAdjacentHTML('beforeend', template)
+    }
+
+    function removePreviousList(node) {
+      console.log(node.innerHTML);
+      node.innerHTML = `
+                        <input checked="" selected="" name="address__street" type="radio" class="__select__input" id="" tabindex="0">
+                        <label class="__select__label" for="">Выберите улицу</label>
+                       `
+      console.log(node.innerHTML);
+    }
+
+    // рендер всех найденных нод
+    function renderList(cityList) {
+      removePreviousList(localitiesNode)
+      cityList.forEach((city, i) => renderNode(city, i))
+      // активируем выпадающий список
+      parentNode['data-state'] = 'active'
+    }
+
+    // логика работы лукапа
+    let localities = getLocality()
+    node.addEventListener('keyup', e => {
+      const query = e.target.value
+
+      // DEBUG: searchResult неверно работает
+      const searchResult = searchInArray(query, localities)
+      // setTimeout(() => renderList(searchResult), 100)
+      renderList(searchResult)
+    })
+
+  }
+  const lookup = document.querySelector('.address__locality')
+  if (lookup) initLookup(lookup)
+
+
 
 
   // переключение блоков в "Запуск по очередям", слайдер 1
@@ -228,7 +301,7 @@ $(document).ready(function() {
         arrows: false
       })
     }
-    // initQueueSlider()
+    initQueueSlider()
 
     // добавление блоков очередей, 4 сладер
     // создание новой ноды
