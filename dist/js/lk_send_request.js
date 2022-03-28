@@ -109,7 +109,6 @@ $(document).ready(function () {
     var housing = baseNode.querySelector('.address__housing');
     var house = baseNode.querySelector('.address__house');
     setTimeout(function () {
-      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       var resultLocality = "".concat(locality.value ? 'г. ' + locality.value : '');
       var resultdDistrict = "".concat(district.value ? ', ' + district.value + ' район' : '');
       var resultMicrodistrict = "".concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '');
@@ -118,7 +117,7 @@ $(document).ready(function () {
       var resultHouse = "".concat(house.value ? ', дом ' + house.value : '');
       var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
-      if (resultAddress[0] === '.') resultAddress = resultAddress.slice(1);
+      if (resultAddress[0] === '.') resultAddress = '';
       concated.value = resultAddress;
       if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01') document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(resultAddress); // concated.textContent = resultAddress
     }, 100);
@@ -158,54 +157,116 @@ $(document).ready(function () {
     return initAddressConcatination(addressBlock.parentNode.parentNode.parentNode);
   }); // лукап
   // node - это input в лукапе
+  // type = 'locality' / 'street' / 'district' / 'microdistrict'
 
-  function initLookup(node) {
+  function initLookup(type, node) {
     var parentNode = node.parentNode;
-    var localitiesNode = parentNode.querySelector('.__select__content'); // TODO: нужно написать функцию запроса к пост сервису
-    // функция должна возвращать массив из строк
+    var contentNode = parentNode.querySelector('.__select__content'); // получить города с бэка
+    // TODO: нужно написать функцию запроса к пост сервису
+    // функция должна возвращать массив из объектов
 
-    var initialLocalities = [{
-      id: 1,
-      code: 1,
-      name: 'Пермь'
-    }, {
-      id: 2,
-      code: 2,
-      name: 'Москва'
-    }, {
-      id: 3,
-      code: 3,
-      name: 'Санкт-Петербург'
-    }, {
-      id: 4,
-      code: 4,
-      name: 'Новосибирск'
-    }]; // получить города с бэка
+    var getData = function getData() {
+      if (type === 'locality') return getLocality();
+      if (type === 'street') return getStreets();
+      if (type === 'district') return getDistricts();
+      if (type === 'microdistrict') return getMicrodistricts();
+      return console.log('Неверный тип лукапа');
+    };
 
-    function getLocality() {
+    var getLocality = function getLocality() {
+      var initialLocalities = [{
+        id: 1,
+        code: 1,
+        name: 'Пермь'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Москва'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Санкт-Петербург'
+      }, {
+        id: 4,
+        code: 4,
+        name: 'Новосибирск'
+      }];
       return initialLocalities;
-    } // поиск по объекту
+    }; // получить улицы с бэка
 
 
-    function searchInArray(query, arr) {
+    var getStreets = function getStreets() {
+      var initialStreets = [{
+        id: 1,
+        code: 1,
+        name: '1905 года'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Ленина'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Комсомольский проспект'
+      }];
+      return initialStreets;
+    }; // получить районы с бэка
+
+
+    var getDistricts = function getDistricts() {
+      var initialDistricts = [{
+        id: 1,
+        code: 1,
+        name: 'Дзержинский'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Индустриальный'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Кировский'
+      }];
+      return initialDistricts;
+    }; // получить микрорайоны с бэка
+
+
+    var getMicrodistricts = function getMicrodistricts() {
+      var initialMicrodistricts = [{
+        id: 1,
+        code: 1,
+        name: 'Закамск'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Садовый'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Голованово'
+      }];
+      return initialMicrodistricts;
+    }; // поиск по объекту
+
+
+    var searchInArray = function searchInArray(query, arr) {
       var result = [];
       query = query.toLowerCase();
       arr.forEach(function (obj) {
         if (obj.name.toLowerCase().includes(query)) result.push(obj);
       });
       return result;
-    } // рендер ноды в лукап
+    }; // рендер ноды в лукап
 
 
-    function renderNode(obj) {
-      // TODO: добавить параметры для шаблона
-      var template = "\n                        <input value=\"".concat(obj.value, "\" name=\"address__locality\" type=\"radio\" class=\"__select__input\" id=\"locality_").concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
-      localitiesNode.insertAdjacentHTML('beforeend', template);
-    } // возвращаем строки в начальное состояние
+    var renderNode = function renderNode(obj) {
+      var template = "\n                        <input value=\"".concat(obj.value, "\" type=\"radio\" class=\"__select__input\" id=\"locality_").concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
+      contentNode.insertAdjacentHTML('beforeend', template);
+    }; // возвращаем строки в начальное состояние
 
 
-    function removePreviousList(localitiesNode) {
-      localitiesNode.innerHTML = "\n                                  <input checked=\"\" selected=\"\" name=\"address__street\" type=\"radio\" class=\"__select__input\" id=\"\" tabindex=\"0\">\n                                  <label class=\"__select__label\" for=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                                 ";
+    function removePreviousList(contentNode) {
+      contentNode.innerHTML = "\n                               <input type=\"radio\" class=\"__select__input\" id=\"\" tabindex=\"0\">\n                               <label class=\"__select__label\" for=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                              ";
     }
 
     function initEventListeners(node) {
@@ -226,9 +287,9 @@ $(document).ready(function () {
 
 
     function renderList(list) {
-      var localitiesNode = parentNode.querySelector('.__select__content'); // удаляем предыдущие ноды
+      var contentNode = parentNode.querySelector('.__select__content'); // удаляем предыдущие ноды
 
-      removePreviousList(localitiesNode);
+      removePreviousList(contentNode);
       parentNode.setAttribute('data-state', ''); // добавляем новые ноды
 
       list.forEach(function (obj) {
@@ -236,31 +297,44 @@ $(document).ready(function () {
       });
       parentNode.setAttribute('data-state', 'active'); // вешаем прослушку по строкам для изменения значения
 
-      initEventListeners(localitiesNode);
+      initEventListeners(contentNode);
     } // логика работы лукапа
 
 
-    var localities = getLocality();
+    var data = getData();
 
     var handleNodeKeyUp = function handleNodeKeyUp(e) {
       // TODO: заблокировать enter -> добавляет новые очереди
-      // TODO: при клике по значению в списке, присваивать полю значение из списка
       var query = e.target.value;
       setTimeout(function () {
-        var searchResult = searchInArray(query, localities);
+        var searchResult = searchInArray(query, data);
         renderList(searchResult);
       }, 10);
     };
 
     node.addEventListener('keyup', handleNodeKeyUp);
-  } // базовый инит всех лукапов
+  } // инит лукапов в ноде
 
 
   function initLookups(node) {
-    var lookup = node.querySelector('.address__locality');
-    if (lookup) return initLookup(lookup);
-    return;
-  }
+    var localityNodes = node.querySelectorAll('.address__locality');
+    var streetNodes = node.querySelectorAll('.address__street');
+    var districtNodes = node.querySelectorAll('.address__district');
+    var microdistrictNodes = node.querySelectorAll('.address__microdistrict');
+    if (localityNodes) localityNodes.forEach(function (node) {
+      return initLookup('locality', node);
+    });
+    if (streetNodes) streetNodes.forEach(function (node) {
+      return initLookup('street', node);
+    });
+    if (districtNodes) districtNodes.forEach(function (node) {
+      return initLookup('district', node);
+    });
+    if (microdistrictNodes) microdistrictNodes.forEach(function (node) {
+      return initLookup('microdistrict', node);
+    });
+  } // базовый инит всех лукапов
+
 
   initLookups(document); // переключение блоков в "Запуск по очередям", слайдер 1
 

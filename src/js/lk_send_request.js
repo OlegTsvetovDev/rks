@@ -121,7 +121,6 @@ $(document).ready(function() {
     const house = baseNode.querySelector('.address__house')
 
     setTimeout(() => {
-      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
       const resultdDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
       const resultMicrodistrict = `${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}`
@@ -130,7 +129,7 @@ $(document).ready(function() {
       const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
       let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
-      if (resultAddress[0] === '.') resultAddress = resultAddress.slice(1)
+      if (resultAddress[0] === '.') resultAddress = ''
 
       concated.value = resultAddress
 
@@ -164,69 +163,94 @@ $(document).ready(function() {
 
   // лукап
   // node - это input в лукапе
-  function initLookup(node) {
+  // type = 'locality' / 'street' / 'district' / 'microdistrict'
+  function initLookup(type, node) {
     const parentNode = node.parentNode
-    const localitiesNode = parentNode.querySelector('.__select__content')
-
-    // TODO: нужно написать функцию запроса к пост сервису
-    // функция должна возвращать массив из строк
-    const initialLocalities = [
-      {
-        id: 1,
-        code: 1,
-        name: 'Пермь'
-      },
-      {
-        id: 2,
-        code: 2,
-        name: 'Москва'
-      },
-      {
-        id: 3,
-        code: 3,
-        name: 'Санкт-Петербург'
-      },
-      {
-        id: 4,
-        code: 4,
-        name: 'Новосибирск'
-      }
-    ]
+    const contentNode = parentNode.querySelector('.__select__content')
 
     // получить города с бэка
-    function getLocality() {
+    // TODO: нужно написать функцию запроса к пост сервису
+    // функция должна возвращать массив из объектов
+    const getData = () => {
+      if (type === 'locality') return getLocality()
+      if (type === 'street') return getStreets()
+      if (type === 'district') return getDistricts()
+      if (type === 'microdistrict') return getMicrodistricts()
+      return console.log('Неверный тип лукапа')
+    }
+
+    const getLocality = () => {
+      const initialLocalities = [
+        { id: 1, code: 1, name: 'Пермь' },
+        { id: 2, code: 2, name: 'Москва' },
+        { id: 3, code: 3, name: 'Санкт-Петербург' },
+        { id: 4, code: 4, name: 'Новосибирск' }
+      ]
 
       return initialLocalities
     }
 
+    // получить улицы с бэка
+    const getStreets = () => {
+      const initialStreets = [
+        { id: 1, code: 1, name: '1905 года' },
+        { id: 2, code: 2, name: 'Ленина' },
+        { id: 3, code: 3, name: 'Комсомольский проспект' }
+      ]
+
+      return initialStreets
+    }
+
+    // получить районы с бэка
+    const getDistricts = () => {
+      const initialDistricts = [
+        { id: 1, code: 1, name: 'Дзержинский' },
+        { id: 2, code: 2, name: 'Индустриальный' },
+        { id: 3, code: 3, name: 'Кировский' }
+      ]
+
+      return initialDistricts
+    }
+
+    // получить микрорайоны с бэка
+    const getMicrodistricts = () => {
+      const initialMicrodistricts = [
+        { id: 1, code: 1, name: 'Закамск' },
+        { id: 2, code: 2, name: 'Садовый' },
+        { id: 3, code: 3, name: 'Голованово' }
+      ]
+
+      return initialMicrodistricts
+    }
+
     // поиск по объекту
-    function searchInArray(query, arr) {
+    const searchInArray = (query, arr) => {
       let result = []
       query = query.toLowerCase()
 
       arr.forEach(obj => {
         if (obj.name.toLowerCase().includes(query)) result.push(obj)
       })
+
       return result
     }
 
     // рендер ноды в лукап
-    function renderNode(obj) {
-      // TODO: добавить параметры для шаблона
+    const renderNode = (obj) => {
       const template = `
-                        <input value="${obj.value}" name="address__locality" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
+                        <input value="${obj.value}" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
                         <label class="__select__label" for="locality_${obj.id}">${obj.name}</label>
                        `
 
-      localitiesNode.insertAdjacentHTML('beforeend', template)
+      contentNode.insertAdjacentHTML('beforeend', template)
     }
 
     // возвращаем строки в начальное состояние
-    function removePreviousList(localitiesNode) {
-      localitiesNode.innerHTML = `
-                                  <input checked="" selected="" name="address__street" type="radio" class="__select__input" id="" tabindex="0">
-                                  <label class="__select__label" for="">Выберите значение</label>
-                                 `
+    function removePreviousList(contentNode) {
+      contentNode.innerHTML = `
+                               <input type="radio" class="__select__input" id="" tabindex="0">
+                               <label class="__select__label" for="">Выберите значение</label>
+                              `
     }
 
     function initEventListeners(node) {
@@ -244,9 +268,9 @@ $(document).ready(function() {
 
     // рендер всех найденных нод
     function renderList(list) {
-      const localitiesNode = parentNode.querySelector('.__select__content')
+      const contentNode = parentNode.querySelector('.__select__content')
       // удаляем предыдущие ноды
-      removePreviousList(localitiesNode)
+      removePreviousList(contentNode)
       parentNode.setAttribute('data-state', '')
 
       // добавляем новые ноды
@@ -254,19 +278,18 @@ $(document).ready(function() {
       parentNode.setAttribute('data-state', 'active')
 
       // вешаем прослушку по строкам для изменения значения
-      initEventListeners(localitiesNode)
+      initEventListeners(contentNode)
     }
 
 
 
     // логика работы лукапа
-    let localities = getLocality()
+    let data = getData()
     const handleNodeKeyUp = e => {
       // TODO: заблокировать enter -> добавляет новые очереди
-      // TODO: при клике по значению в списке, присваивать полю значение из списка
       const query = e.target.value
       setTimeout(() => {
-        const searchResult = searchInArray(query, localities)
+        const searchResult = searchInArray(query, data)
         renderList(searchResult)
       }, 10)
     }
@@ -275,12 +298,19 @@ $(document).ready(function() {
 
   }
 
-  // базовый инит всех лукапов
+  // инит лукапов в ноде
   function initLookups(node) {
-    const lookup = node.querySelector('.address__locality')
-    if (lookup) return initLookup(lookup)
-    return
+    const localityNodes = node.querySelectorAll('.address__locality')
+    const streetNodes = node.querySelectorAll('.address__street')
+    const districtNodes = node.querySelectorAll('.address__district')
+    const microdistrictNodes = node.querySelectorAll('.address__microdistrict')
+
+    if (localityNodes) localityNodes.forEach(node => initLookup('locality', node))
+    if (streetNodes) streetNodes.forEach(node => initLookup('street', node))
+    if (districtNodes) districtNodes.forEach(node => initLookup('district', node))
+    if (microdistrictNodes) microdistrictNodes.forEach(node => initLookup('microdistrict', node))
   }
+  // базовый инит всех лукапов
   initLookups(document)
 
 
@@ -298,7 +328,7 @@ $(document).ready(function() {
     queueLaunchLabel.click(function () {
       const target = $('.queue_launch_' + $(this).children().val())
 
-      $('.queue_launch').not(target).hide(0)
+      $('.queue_launch').not(target ).hide(0)
       target.fadeIn(300)
     })
 
