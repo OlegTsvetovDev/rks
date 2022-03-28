@@ -57,6 +57,8 @@ $(document).ready(function () {
   if (document.querySelector('.checkbox')) initCheckboxLabels(document); // псевдо-селект
 
   function initPseudoSelect(select) {
+    var _this = this;
+
     var selectTitle = select.querySelector('.__select__title');
     var selectLabels = select.querySelectorAll('.__select__label');
     selectTitle.addEventListener('click', function () {
@@ -73,7 +75,7 @@ $(document).ready(function () {
         selectTitle.value = e.target.textContent;
         select.setAttribute('data-state', ''); // вызов пересчета адреса в случае, если модуль активен
 
-        var addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var addressNode = _this.parentNode.parentNode.parentNode.parentNode.parentNode;
         var thisAddressConcatination = addressNode.querySelector('.address__concated');
         if (thisAddressConcatination) addressConcatination(addressNode);
       });
@@ -162,56 +164,105 @@ $(document).ready(function () {
     var localitiesNode = parentNode.querySelector('.__select__content'); // TODO: нужно написать функцию запроса к пост сервису
     // функция должна возвращать массив из строк
 
+    var initialLocalities = [{
+      id: 1,
+      code: 1,
+      name: 'Пермь'
+    }, {
+      id: 2,
+      code: 2,
+      name: 'Москва'
+    }, {
+      id: 3,
+      code: 3,
+      name: 'Санкт-Петербург'
+    }, {
+      id: 4,
+      code: 4,
+      name: 'Новосибирск'
+    }]; // получить города с бэка
+
     function getLocality() {
-      return ['Пермь', 'Москва', 'Санкт-Петербург', 'Новосибирск'];
+      return initialLocalities;
     } // поиск по объекту
 
 
     function searchInArray(query, arr) {
       var result = [];
       query = query.toLowerCase();
-      arr.forEach(function (string) {
-        string = string.toLowerCase();
-        if (string.includes(query)) result.push(string);
+      arr.forEach(function (obj) {
+        if (obj.name.toLowerCase().includes(query)) result.push(obj);
       });
       return result;
     } // рендер ноды в лукап
 
 
-    function renderNode(city, index) {
-      var template = "\n                        <input name=\"address__locality\" type=\"radio\" class=\"__select__input\" id=\"locality_1\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_1\">".concat(city, "</label>\n                       ");
+    function renderNode(obj, index) {
+      // TODO: добавить параметры для шаблона
+      var template = "\n                        <input name=\"address__locality\" type=\"radio\" class=\"__select__input\" id=\"locality_".concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
       localitiesNode.insertAdjacentHTML('beforeend', template);
+    } // возвращаем строки в начальное состояние
+
+
+    function removePreviousList(localitiesNode) {
+      localitiesNode.innerHTML = "\n                                  <input checked=\"\" selected=\"\" name=\"address__street\" type=\"radio\" class=\"__select__input\" id=\"\" tabindex=\"0\">\n                                  <label class=\"__select__label\" for=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                                 ";
     }
 
-    function removePreviousList(node) {
-      console.log(node.innerHTML);
-      node.innerHTML = "\n                        <input checked=\"\" selected=\"\" name=\"address__street\" type=\"radio\" class=\"__select__input\" id=\"\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0443\u043B\u0438\u0446\u0443</label>\n                       ";
-      console.log(node.innerHTML);
+    function initEventListeners(node) {
+      var labels = node.querySelectorAll('label');
+      var inputs = node.querySelectorAll('input');
+
+      var handleLabelClick = function handleLabelClick(label, i) {
+        var queryInput = node.parentNode.querySelector('input');
+        queryInput.value = label.innerText;
+      };
+
+      labels.forEach(function (label, i) {
+        return label.addEventListener('click', function () {
+          return handleLabelClick(label, i);
+        });
+      });
     } // рендер всех найденных нод
 
 
-    function renderList(cityList) {
-      removePreviousList(localitiesNode);
-      cityList.forEach(function (city, i) {
-        return renderNode(city, i);
-      }); // активируем выпадающий список
+    function renderList(list) {
+      var localitiesNode = parentNode.querySelector('.__select__content'); // удаляем предыдущие ноды
 
-      parentNode['data-state'] = 'active';
+      removePreviousList(localitiesNode);
+      parentNode.setAttribute('data-state', ''); // добавляем новые ноды
+
+      list.forEach(function (obj, i) {
+        return renderNode(obj, i);
+      });
+      parentNode.setAttribute('data-state', 'active'); // вешаем прослушку по строкам для изменения значения
+
+      initEventListeners(localitiesNode);
     } // логика работы лукапа
 
 
     var localities = getLocality();
-    node.addEventListener('keyup', function (e) {
-      var query = e.target.value; // DEBUG: searchResult неверно работает
 
-      var searchResult = searchInArray(query, localities); // setTimeout(() => renderList(searchResult), 100)
+    var handleNodeKeyUp = function handleNodeKeyUp(e) {
+      // TODO: заблокировать enter -> добавляет новые очереди
+      // TODO: при клике по значению в списке, присваивать полю значение из списка
+      var query = e.target.value;
+      setTimeout(function () {
+        var searchResult = searchInArray(query, localities);
+        renderList(searchResult);
+      }, 10);
+    };
 
-      renderList(searchResult);
-    });
+    node.addEventListener('keyup', handleNodeKeyUp);
+  } // базовый инит всех лукапов
+
+
+  function initLookups(node) {
+    var lookup = node.querySelector('.address__locality');
+    if (lookup) return initLookup(lookup);
+    return console.log('Лукапы не найдены');
   }
 
-  var lookup = document.querySelector('.address__locality');
-  if (lookup) initLookup(lookup); // переключение блоков в "Запуск по очередям", слайдер 1
+  initLookups(document); // переключение блоков в "Запуск по очередям", слайдер 1
 
   function initQueueLaunch() {
     var queueLaunchInput = $('input[name="queue_launch"]');
@@ -832,4 +883,4 @@ $(document).ready(function () {
     // }
   } //#endregion
 
-});
+}); // export changeSliderHeight
