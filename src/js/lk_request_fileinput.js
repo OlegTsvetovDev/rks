@@ -1,16 +1,4 @@
-// пересчет высоты слайдера
-  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-
-function changeSliderHeight(action, value) {
-    var slickList = document.querySelector('.slick-list');
-    var slickListHeight = Number.parseInt(slickList.style.height);
-
-    if (action === 'increase') {
-      return slickList.style.height = slickListHeight + value + 'px';
-    }
-
-    return slickList.style.height = slickListHeight - value + 'px';
-  }
+import {changeSliderHeight} from './lk_send_request.js';
 
     function parseLimit(size) {
       if (!size) return Number.MAX_VALUE;
@@ -73,8 +61,8 @@ function changeSliderHeight(action, value) {
         $(this.files).each(function (i, f) {
           names.push(f.name);
           size += f.size;
-          $("<div class=\"attachment__item\" />") //
-            .text(f.name + " (" + formatSize(f.size) + ")") //
+          $("<div class=\"attachment__item\" />")
+            .text(f.name + " (" + formatSize(f.size) + ")")
             .appendTo(div);
           $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div);
 		      changeSliderHeight('increase', 37)
@@ -161,7 +149,7 @@ function changeSliderHeight(action, value) {
              $("input#" + uuid).prop("checked", false);
              $("label[for='" + uuid + "']").hide();
              $(".attachment__item_" + uuid).remove();
-	           changeSliderHeight('decrease', 35);
+	         changeSliderHeight('decrease', 35);
          });
 
 

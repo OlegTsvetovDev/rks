@@ -1,5 +1,5 @@
 // изменение высоты слайдера
-function changeSliderHeight(action, value) {
+export function changeSliderHeight(action, value) {
   setTimeout(() => {
     const slickList = document.querySelector('.slick-list')
     const slickCurrent = slickList.querySelector('.slick-current')
@@ -729,8 +729,41 @@ $(document).ready(function() {
               break;
           }
         });
+
+        let elems_req_group = $('.form__field:not(.hidden) [class*=req_group_]');
+        var group_names = [];   // получаем существующие названия групп
+        elems_req_group.each(function () {
+          var $this = $(this);
+          var el_id = $this[0].id;
+          if (!group_names.includes(el_id))
+            group_names.push(el_id);
+        });
+        group_names.forEach(function (e) {    // для каждой группы получаем ее элементы
+          let group = elems_req_group.filter('#' + e);
+          let isAtt = false;
+          group.each(function () {
+            var $this = $(this);
+            if ($this.find(".attachment").length != 0) {
+              isAtt = true;
+              return false;
+              }
+          });
+          if (!isAtt) {   // если в группе не оказалось прикрепленных файлов, то выдаем обшибку
+            if (group.length === 1 ) err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + group[0].previousElementSibling.innerText + '</p>');
+            else {
+              let text = "<h6>Требуется прикрепить один из документов: \n</h6>";
+              group.each(function () {
+                var $this = $(this);
+                text = text + '<p>' + $this[0].previousElementSibling.innerText + ';</p>';
+              })
+              err.push(text);
+            }
+          }
+        })
+
+
         if (err.length) {
-          $('.modal.modal_alert.autopopup.hidden .modal__text').text(err[0]);
+          $('.modal.modal_alert.autopopup.hidden .modal__text').html(err[0]);
           $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
           return;
         }
@@ -749,8 +782,8 @@ $(document).ready(function() {
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
-      // let is_simple = JSON.parse(data);
-      const is_simple = false
+      let is_simple = JSON.parse(data);
+      //const is_simple = false
       if(is_simple)
       {
         // отрабатывает при загрузке заявления упрощенного вида
