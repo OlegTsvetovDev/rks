@@ -140,14 +140,17 @@ function watchFiles() {
 
 // starting php server and live reload
 function connectSync() {
-  return phpConnect.server({
-          base: projectFolder.self,
-         }, function (){
-          browserSync({
-            proxy: '127.0.0.1:8000',
-            notify: false
-          });
-         });
+  return phpConnect.server(
+         {
+           base: projectFolder.self,
+         },
+         function() {
+            browserSync({
+              proxy: '127.0.0.1:8000',
+              notify: false,
+              startPath: 'lk_send_request_for_contract_ul.html'
+            })
+         })
 }
 
 // building css
