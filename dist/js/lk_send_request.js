@@ -197,9 +197,9 @@ $(document).ready(function () {
     } // рендер ноды в лукап
 
 
-    function renderNode(obj, index) {
+    function renderNode(obj) {
       // TODO: добавить параметры для шаблона
-      var template = "\n                        <input name=\"address__locality\" type=\"radio\" class=\"__select__input\" id=\"locality_".concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
+      var template = "\n                        <input value=\"".concat(obj.value, "\" name=\"address__locality\" type=\"radio\" class=\"__select__input\" id=\"locality_").concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
       localitiesNode.insertAdjacentHTML('beforeend', template);
     } // возвращаем строки в начальное состояние
 
@@ -231,8 +231,8 @@ $(document).ready(function () {
       removePreviousList(localitiesNode);
       parentNode.setAttribute('data-state', ''); // добавляем новые ноды
 
-      list.forEach(function (obj, i) {
-        return renderNode(obj, i);
+      list.forEach(function (obj) {
+        return renderNode(obj);
       });
       parentNode.setAttribute('data-state', 'active'); // вешаем прослушку по строкам для изменения значения
 
@@ -259,7 +259,7 @@ $(document).ready(function () {
   function initLookups(node) {
     var lookup = node.querySelector('.address__locality');
     if (lookup) return initLookup(lookup);
-    return console.log('Лукапы не найдены');
+    return;
   }
 
   initLookups(document); // переключение блоков в "Запуск по очередям", слайдер 1

@@ -211,10 +211,10 @@ $(document).ready(function() {
     }
 
     // рендер ноды в лукап
-    function renderNode(obj, index) {
+    function renderNode(obj) {
       // TODO: добавить параметры для шаблона
       const template = `
-                        <input name="address__locality" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
+                        <input value="${obj.value}" name="address__locality" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
                         <label class="__select__label" for="locality_${obj.id}">${obj.name}</label>
                        `
 
@@ -250,7 +250,7 @@ $(document).ready(function() {
       parentNode.setAttribute('data-state', '')
 
       // добавляем новые ноды
-      list.forEach((obj, i) => renderNode(obj, i))
+      list.forEach(obj => renderNode(obj))
       parentNode.setAttribute('data-state', 'active')
 
       // вешаем прослушку по строкам для изменения значения
@@ -279,7 +279,7 @@ $(document).ready(function() {
   function initLookups(node) {
     const lookup = node.querySelector('.address__locality')
     if (lookup) return initLookup(lookup)
-    return console.log('Лукапы не найдены')
+    return
   }
   initLookups(document)
 
