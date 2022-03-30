@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.changeSliderHeight = changeSliderHeight;
+
 // изменение высоты слайдера
 function changeSliderHeight(action, value) {
   setTimeout(function () {
@@ -57,8 +62,6 @@ $(document).ready(function () {
   if (document.querySelector('.checkbox')) initCheckboxLabels(document); // псевдо-селект
 
   function initPseudoSelect(select) {
-    var _this = this;
-
     var selectTitle = select.querySelector('.__select__title');
     var selectLabels = select.querySelectorAll('.__select__label');
     selectTitle.addEventListener('click', function () {
@@ -75,7 +78,7 @@ $(document).ready(function () {
         selectTitle.value = e.target.textContent;
         select.setAttribute('data-state', ''); // вызов пересчета адреса в случае, если модуль активен
 
-        var addressNode = _this.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode;
         var thisAddressConcatination = addressNode.querySelector('.address__concated');
         if (thisAddressConcatination) addressConcatination(addressNode);
       });
@@ -469,6 +472,7 @@ $(document).ready(function () {
     $('.queue_btn').click(function (e) {
       e.preventDefault();
       queue_count++;
+      document.querySelector('[name="statementtc_queuecount"]').value = queue_count;
       var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" name=").concat('TechCondObj_QueueName_' + queue_count, " placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
       queue_tbody.append(new_row);
       createAndRenderNewNode();
@@ -484,6 +488,8 @@ $(document).ready(function () {
     $('.queue_btn_remove').click(function (e) {
       e.preventDefault();
       if (queue_count < 1) return;
+      queue_count -= 1;
+      document.querySelector('[name="statementtc_queuecount"]').value = queue_count;
       queue_count--;
       queue_tbody.children().last().remove();
       deleteLastNode();
@@ -735,8 +741,6 @@ $(document).ready(function () {
     if (isConnectionToDrainageDisabled) return;
     connectionToDrainageLabel.addEventListener('click', function () {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
-      var blockHeight = 750;
-      if (simpleSendRequest) blockHeight = 225;
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden');
@@ -774,7 +778,7 @@ $(document).ready(function () {
 
           switch (attr) {
             case "SPAN":
-              if ($this.find('input:checked').length == 0) err.push("Не выбрано ни одно значение поля " + getTitle($this));
+              if ($this.find('input:checked').length == 0 && $this.is(':visible')) err.push("Не выбрано ни одно значение поля " + getTitle($this));
               break;
 
             case "INPUT":
@@ -790,9 +794,42 @@ $(document).ready(function () {
               break;
           }
         });
+        var elems_req_group = $('.form__field:not(.hidden) [class*=req_group_]');
+        var group_names = []; // получаем существующие названия групп
+
+        elems_req_group.each(function () {
+          var $this = $(this);
+          var el_id = $this[0].id;
+          if (!group_names.includes(el_id)) group_names.push(el_id);
+        });
+        group_names.forEach(function (e) {
+          // для каждой группы получаем ее элементы
+          var group = elems_req_group.filter('#' + e);
+          var isAtt = false;
+          group.each(function () {
+            var $this = $(this);
+
+            if ($this.find(".attachment").length != 0) {
+              isAtt = true;
+              return false;
+            }
+          });
+
+          if (!isAtt) {
+            // если в группе не оказалось прикрепленных файлов, то выдаем обшибку
+            if (group.length === 1) err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + group[0].previousElementSibling.innerText + '</p>');else {
+              var text = "<h6>Требуется прикрепить один из документов: \n</h6>";
+              group.each(function () {
+                var $this = $(this);
+                text = text + '<p>' + $this[0].previousElementSibling.innerText + ';</p>';
+              });
+              err.push(text);
+            }
+          }
+        });
 
         if (err.length) {
-          $('.modal.modal_alert.autopopup.hidden .modal__text').text(err[0]);
+          $('.modal.modal_alert.autopopup.hidden .modal__text').html(err[0]);
           $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
           return;
         }
@@ -810,7 +847,7 @@ $(document).ready(function () {
   $.ajax({
     url: "./getSimpleJson/",
     success: function success(data) {
-      // let is_simple = JSON.parse(data);
+      //let is_simple = JSON.parse(data);
       var is_simple = false;
 
       if (is_simple) {
@@ -870,11 +907,11 @@ $(document).ready(function () {
 
       if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01') {
         document.querySelector('[name="connectloadparamdata_value1"].md').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1"].md').value = '1';
+        if (document.querySelector('[name="connectloadparamdata_value1"].md').value == "") document.querySelector('[name="connectloadparamdata_value1"].md').value = '1';
         document.querySelector('[name="connectloadparamdata_value1_2"].md').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
+        if (document.querySelector('[name="connectloadparamdata_value1_2"].md').value == "") document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
         document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения';
-        document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(document.querySelector('[name="show_name"]').textContent);
+        if (document.querySelector('[name="statementtc_connectobjname"]').value == "") document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(document.querySelector('[name="show_name"]').textContent);
         document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
         document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
         document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
@@ -931,7 +968,7 @@ $(document).ready(function () {
     // let elemName = elem.getAttribute('name');
     // let number = elemName.indexOf("_", elemName.indexOf("_") + 1);
     // let streetName = $('.address__street').val();
-    // let townCode = $('.__select input[name="Town_code"]:checked').val();
+    // let townCode = $('.__select input[name="town_code"]:checked').val();
     // let selectList = $('.address__street').next('.__select__content');
     // if(streetName != '' && townCode != undefined)
     // {
@@ -939,13 +976,13 @@ $(document).ready(function () {
     //     url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
     //     success: function(data){
     //       let streets = JSON.parse(JSON.parse(data));
-    //       select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //       select_list.html('<input id="street_0" class="__select__input" type="radio" name="street_code" selected="" checked="" />'+
     //       let streets = JSON.parse(JSON.parse(data));
-    //       selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //       selectList.html('<input id="street_0" class="__select__input" type="radio" name="street_code" selected="" checked="" />'+
     //       '<label for="street_0" class="__select__label">Выберите улицу</label>');
     //       streets.forEach(street =>
     //         select_list.html(select_list.html() +
-    //         '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //         '<input id="street_' + street.id + '" class="__select__input" type="radio" name="street_code" selected="" checked="" />'+
     //         '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
     //         )
     //       )

@@ -1,17 +1,6 @@
 "use strict";
 
-// пересчет высоты слайдера
-// action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-function changeSliderHeight(action, value) {
-  var slickList = document.querySelector('.slick-list');
-  var slickListHeight = Number.parseInt(slickList.style.height);
-
-  if (action === 'increase') {
-    return slickList.style.height = slickListHeight + value + 'px';
-  }
-
-  return slickList.style.height = slickListHeight - value + 'px';
-}
+var _lk_send_request = require("./lk_send_request.js");
 
 function parseLimit(size) {
   if (!size) return Number.MAX_VALUE;
@@ -53,7 +42,7 @@ function bindAttachment(div, input, size) {
     totalSize -= size;
     input.remove();
     div.remove();
-    changeSliderHeight('decrease', 37);
+    (0, _lk_send_request.changeSliderHeight)('decrease', 37);
   });
 }
 
@@ -69,11 +58,9 @@ function bindFileInput(el) {
     $(this.files).each(function (i, f) {
       names.push(f.name);
       size += f.size;
-      $("<div class=\"attachment__item\" />") //
-      .text(f.name + " (" + formatSize(f.size) + ")") //
-      .appendTo(div);
+      $("<div class=\"attachment__item\" />").text(f.name + " (" + formatSize(f.size) + ")").appendTo(div);
       $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div);
-      changeSliderHeight('increase', 37);
+      (0, _lk_send_request.changeSliderHeight)('increase', 37);
     });
 
     if (names.length) {
@@ -130,14 +117,14 @@ $(function () {
     $("label[for='" + uuid + "']").hide();
     $(".attachment__item_" + uuid).remove();
     $(".modaldelfileclose").trigger('click');
-    changeSliderHeight('decrease', 37);
+    (0, _lk_send_request.changeSliderHeight)('decrease', 37);
   });
   $("[id^='attachment__decldel_']").click(function () {
     var uuid = $(this).attr("id").replace("attachment__decldel_", "");
     $("input#" + uuid).prop("checked", false);
     $("label[for='" + uuid + "']").hide();
     $(".attachment__item_" + uuid).remove();
-    changeSliderHeight('decrease', 35);
+    (0, _lk_send_request.changeSliderHeight)('decrease', 35);
   });
 }); // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения"
 
