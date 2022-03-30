@@ -57,8 +57,6 @@ $(document).ready(function () {
   if (document.querySelector('.checkbox')) initCheckboxLabels(document); // псевдо-селект
 
   function initPseudoSelect(select) {
-    var _this = this;
-
     var selectTitle = select.querySelector('.__select__title');
     var selectLabels = select.querySelectorAll('.__select__label');
     selectTitle.addEventListener('click', function () {
@@ -75,7 +73,7 @@ $(document).ready(function () {
         selectTitle.value = e.target.textContent;
         select.setAttribute('data-state', ''); // вызов пересчета адреса в случае, если модуль активен
 
-        var addressNode = _this.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode;
         var thisAddressConcatination = addressNode.querySelector('.address__concated');
         if (thisAddressConcatination) addressConcatination(addressNode);
       });
@@ -735,8 +733,6 @@ $(document).ready(function () {
     if (isConnectionToDrainageDisabled) return;
     connectionToDrainageLabel.addEventListener('click', function () {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked;
-      var blockHeight = 750;
-      if (simpleSendRequest) blockHeight = 225;
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden');

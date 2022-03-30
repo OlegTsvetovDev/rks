@@ -77,7 +77,7 @@ $(document).ready(function() {
     })
 
     for (let i = 0; i < selectLabels.length; i++) {
-      selectLabels[i].addEventListener('click', e => {
+      selectLabels[i].addEventListener('click', function (e) {
         selectTitle.textContent = e.target.textContent
         selectTitle.value = e.target.textContent
         select.setAttribute('data-state', '')
@@ -790,8 +790,6 @@ $(document).ready(function() {
 
     connectionToDrainageLabel.addEventListener('click', () => {
       isConnectionToDrainageChecked = !isConnectionToDrainageChecked
-      let blockHeight = 750
-      if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden')
