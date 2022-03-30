@@ -1,3 +1,15 @@
+// изменение высоты слайдера
+export function changeSliderHeight(action, value) {
+  setTimeout(() => {
+    const slickList = document.querySelector('.slick-list')
+    const slickCurrent = slickList.querySelector('.slick-current')
+    const slickCurrentHeight = getComputedStyle(slickCurrent).height
+
+    slickList.style.height = slickCurrentHeight
+  }, 0)
+}
+
+
 $(document).ready(function() {
   const body = $('body')
   // упрощенная подача заявления
@@ -12,47 +24,43 @@ $(document).ready(function() {
       dots: true,
       infinite: false,
       draggable: false,
-      adaptiveHeight: true
+      adaptiveHeight: true,
+      initialSlide: 3
     })
   }
 
 
   // переключение радио по клику на лейбл
-  $('.radio').parent().click(function () {
-    const $this = $(this)
-    const $radio = $this.children('.radio')
-    const $radioIsDisabled = $radio.is(':disabled')
+  function initRadioLabels() {
+    $('.radio').parent().click(function () {
+      const $this = $(this)
+      const $radio = $this.children('.radio')
+      const $radioIsDisabled = $radio.is(':disabled')
 
-    if ($radioIsDisabled) return
-    $radio.prop('checked', true)
-  })
+      if ($radioIsDisabled) return
+      $radio.prop('checked', true)
+    })
+  }
+  if (document.querySelector('.radio')) initRadioLabels()
 
 
   // переключение чекбокса по клику на лейбл
-  // TODO: ломается на новых очередях в слайдере 4
-  function initCheckboxLabels() {
-    const $checkboxes = $('.checkbox')
-    const $labels = $checkboxes.parent()
+  function initCheckboxLabels(node) {
+    const checkboxes = node.querySelectorAll('.checkbox')
 
-    $checkboxes.click(function () {
-      const $checkbox = $(this)
-      const $checkboxIsChecked = $checkbox.is(':checked')
-      const $checkboxIsDisabled = $checkbox.is(':disabled')
+    checkboxes.forEach(checkbox => {
+      const label = checkbox.parentNode
+      const isDisabled = checkbox.disabled
 
-      if ($checkboxIsDisabled) return
-      $checkbox.prop('checked', !$checkboxIsChecked)
-    })
+      if (isDisabled) return
 
-    $labels.click(function () {
-      const $checkbox = $(this).children()
-      const $checkboxIsChecked = $checkbox.is(':checked')
-      const $checkboxIsDisabled = $checkbox.is(':disabled')
-
-      if ($checkboxIsDisabled) return
-      $checkbox.prop('checked', !$checkboxIsChecked)
+      label.addEventListener('click', function () {
+        const checkbox = label.querySelector('.checkbox')
+        checkbox.checked = !checkbox.checked
+      })
     })
   }
-  if (document.querySelector('.checkbox')) initCheckboxLabels()
+  if (document.querySelector('.checkbox')) initCheckboxLabels(document)
 
 
   // псевдо-селект
@@ -69,7 +77,7 @@ $(document).ready(function() {
     })
 
     for (let i = 0; i < selectLabels.length; i++) {
-      selectLabels[i].addEventListener('click', function (e) {
+      selectLabels[i].addEventListener('click', e => {
         selectTitle.textContent = e.target.textContent
         selectTitle.value = e.target.textContent
         select.setAttribute('data-state', '')
@@ -113,7 +121,6 @@ $(document).ready(function() {
     const house = baseNode.querySelector('.address__house')
 
     setTimeout(() => {
-      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
       const resultdDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
       const resultMicrodistrict = `${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}`
@@ -122,7 +129,7 @@ $(document).ready(function() {
       const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
       let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
-      if (resultAddress[0] === '.') resultAddress = resultAddress.slice(1)
+      if (resultAddress[0] === '.') resultAddress = ''
 
       concated.value = resultAddress
 
@@ -132,6 +139,7 @@ $(document).ready(function() {
     }, 100)
   }
 
+  // инит модуля пересчета адреса
   function initAddressConcatination(baseNode) {
     const concated = baseNode.querySelector('.address__concated')
     const locality = baseNode.querySelector('.address__locality')
@@ -153,6 +161,162 @@ $(document).ready(function() {
   if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
 
 
+  // лукап
+  // node - это input в лукапе
+  // type = 'locality' / 'street' / 'district' / 'microdistrict'
+  function initLookup(type, node) {
+    const parentNode = node.parentNode
+    const contentNode = parentNode.querySelector('.__select__content')
+
+    // получить города с бэка
+    // TODO: нужно написать функцию запроса к пост сервису
+    // функция должна возвращать массив из объектов
+    const getData = () => {
+      if (type === 'locality') return getLocality()
+      if (type === 'street') return getStreets()
+      if (type === 'district') return getDistricts()
+      if (type === 'microdistrict') return getMicrodistricts()
+      return console.log('Неверный тип лукапа')
+    }
+
+    const getLocality = () => {
+      const initialLocalities = [
+        { id: 1, code: 1, name: 'Пермь' },
+        { id: 2, code: 2, name: 'Москва' },
+        { id: 3, code: 3, name: 'Санкт-Петербург' },
+        { id: 4, code: 4, name: 'Новосибирск' }
+      ]
+
+      return initialLocalities
+    }
+
+    // получить улицы с бэка
+    const getStreets = () => {
+      const initialStreets = [
+        { id: 1, code: 1, name: '1905 года' },
+        { id: 2, code: 2, name: 'Ленина' },
+        { id: 3, code: 3, name: 'Комсомольский проспект' }
+      ]
+
+      return initialStreets
+    }
+
+    // получить районы с бэка
+    const getDistricts = () => {
+      const initialDistricts = [
+        { id: 1, code: 1, name: 'Дзержинский' },
+        { id: 2, code: 2, name: 'Индустриальный' },
+        { id: 3, code: 3, name: 'Кировский' }
+      ]
+
+      return initialDistricts
+    }
+
+    // получить микрорайоны с бэка
+    const getMicrodistricts = () => {
+      const initialMicrodistricts = [
+        { id: 1, code: 1, name: 'Закамск' },
+        { id: 2, code: 2, name: 'Садовый' },
+        { id: 3, code: 3, name: 'Голованово' }
+      ]
+
+      return initialMicrodistricts
+    }
+
+    // поиск по объекту
+    const searchInArray = (query, arr) => {
+      let result = []
+      query = query.toLowerCase()
+
+      arr.forEach(obj => {
+        if (obj.name.toLowerCase().includes(query)) result.push(obj)
+      })
+
+      return result
+    }
+
+    // рендер ноды в лукап
+    const renderNode = (obj) => {
+      const template = `
+                        <input value="${obj.value}" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
+                        <label class="__select__label" for="locality_${obj.id}">${obj.name}</label>
+                       `
+
+      contentNode.insertAdjacentHTML('beforeend', template)
+    }
+
+    // возвращаем строки в начальное состояние
+    function removePreviousList(contentNode) {
+      contentNode.innerHTML = `
+                               <input type="radio" class="__select__input" id="" tabindex="0">
+                               <label class="__select__label" for="">Выберите значение</label>
+                              `
+    }
+
+    function initEventListeners(node) {
+      const labels = node.querySelectorAll('label')
+      const inputs = node.querySelectorAll('input')
+
+      const handleLabelClick = (label, i) => {
+        const queryInput = node.parentNode.querySelector('input')
+        queryInput.value = label.innerText
+      }
+
+      labels.forEach((label, i) => label.addEventListener('click', () => handleLabelClick(label, i)))
+
+    }
+
+    // рендер всех найденных нод
+    function renderList(list) {
+      const contentNode = parentNode.querySelector('.__select__content')
+      // удаляем предыдущие ноды
+      removePreviousList(contentNode)
+      parentNode.setAttribute('data-state', '')
+
+      // добавляем новые ноды
+      list.forEach(obj => renderNode(obj))
+      parentNode.setAttribute('data-state', 'active')
+
+      // вешаем прослушку по строкам для изменения значения
+      initEventListeners(contentNode)
+    }
+
+
+
+    // логика работы лукапа
+    let data = getData()
+    const handleNodeKeyUp = e => {
+      // TODO: заблокировать enter -> добавляет новые очереди
+      const query = e.target.value
+      setTimeout(() => {
+        const searchResult = searchInArray(query, data)
+        renderList(searchResult)
+      }, 10)
+    }
+
+    node.addEventListener('keyup', handleNodeKeyUp)
+
+  }
+
+  // инит лукапов в ноде
+  function initLookups(node) {
+    const localityNodes = node.querySelectorAll('.address__locality')
+    const streetNodes = node.querySelectorAll('.address__street')
+    const districtNodes = node.querySelectorAll('.address__district')
+    const microdistrictNodes = node.querySelectorAll('.address__microdistrict')
+
+    if (localityNodes) localityNodes.forEach(node => initLookup('locality', node))
+    if (streetNodes) streetNodes.forEach(node => initLookup('street', node))
+    if (districtNodes) districtNodes.forEach(node => initLookup('district', node))
+    if (microdistrictNodes) microdistrictNodes.forEach(node => initLookup('microdistrict', node))
+  }
+  // базовый инит всех лукапов
+  initLookups(document)
+
+
+
+
+
   // переключение блоков в "Запуск по очередям", слайдер 1
   function initQueueLaunch() {
     const queueLaunchInput = $('input[name="queue_launch"]')
@@ -164,7 +328,7 @@ $(document).ready(function() {
     queueLaunchLabel.click(function () {
       const target = $('.queue_launch_' + $(this).children().val())
 
-      $('.queue_launch').not(target).hide(0)
+      $('.queue_launch').not(target ).hide(0)
       target.fadeIn(300)
     })
 
@@ -197,20 +361,6 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
-  // изменение высоты слайдера
-  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-  function changeSliderHeight(action, value) {
-    const slickList = document.querySelector('.slick-list')
-    const slickListHeight = Number.parseInt(slickList.style.height)
-
-    if (action === 'increase') {
-      return slickList.style.height = slickListHeight + value + 'px'
-    }
-    return slickList.style.height = slickListHeight - value + 'px'
-  }
-
-
-
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -226,17 +376,6 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    // если количество очередей >=1, то "Запуск по очередям" в "Да"
-    // добавление высоты слайду 1, если количество очередей >=1
-    function initCurrentQueueState() {
-      if (queue_count < 1) return
-
-      // 73px в "Нет"
-      // 32px + 81px + X*41px в "Да"
-      changeSliderHeight('increase', 113 + queue_count * 41)
-    }
-    initCurrentQueueState()
-
     // инит слайдера в слайд 4
     function initQueueSlider() {
       $('.queue_slider').slick({
@@ -244,7 +383,7 @@ $(document).ready(function() {
         arrows: false
       })
     }
-    // initQueueSlider()
+    initQueueSlider()
 
     // добавление блоков очередей, 4 сладер
     // создание новой ноды
@@ -312,6 +451,8 @@ $(document).ready(function() {
       pasteNameSuffixes(newNode)
       renderNewNode(newNode)
       initPseudoSelects(newNode.querySelector('.__select'))
+      initRadioLabels(newNode)
+      initCheckboxLabels(newNode)
       initMasks(newNode)
       initColdWaterSupply(newNode)
       initDrainage(newNode)
@@ -339,7 +480,7 @@ $(document).ready(function() {
 
       queue_tbody.append(new_row)
       createAndRenderNewNode()
-      changeSliderHeight('increase', 39)
+      changeSliderHeight()
 
       // инициализация дейтпикера на последней добавленной строке
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
@@ -354,9 +495,10 @@ $(document).ready(function() {
 
       queue_count -= 1
       document.querySelector('[name="statementtc_queuecount"]').value = queue_count;
+      queue_count--
       queue_tbody.children().last().remove()
       deleteLastNode()
-      changeSliderHeight('decrease', 39)
+      changeSliderHeight()
       // removeLastSlide()
 
     })
@@ -441,6 +583,7 @@ $(document).ready(function() {
           queueLaunchYes.classList.add('hidden')
           queueLaunchNo.classList.remove('hidden')
           modalPopupConfirm.remove()
+          // TODO: overflow: hidden для body
           body.addClass('')
           clearAllQueues()
         }
@@ -461,20 +604,9 @@ $(document).ready(function() {
         btnAgree.addEventListener('click', handleProceedModal)
       }
 
-      function calcTableYesHeight() {
-        return 156
-      }
-
-      function calcTableNoHeight() {
-        return 103
-      }
-
       // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
-      function handleNoClick() {
-        const tableHeight = calcTableYesHeight()
-        const initialHeight = calcTableNoHeight()
-        changeSliderHeight('decrease', tableHeight)
-        changeSliderHeight('increase', initialHeight)
+      const handleNoClick = () => {
+        changeSliderHeight()
 
         // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
         if (queue_count < 1) return
@@ -482,15 +614,10 @@ $(document).ready(function() {
         addListenersToModal()
       }
 
-      function handleYesClick() {
-        const tableHeight = calcTableYesHeight()
-        const initialHeight = calcTableNoHeight()
-        changeSliderHeight('decrease', initialHeight)
-        changeSliderHeight('increase', tableHeight)
-      }
+      const handleYesClick = () => changeSliderHeight()
 
-      queueLaunchNoBtn.parentNode.addEventListener('click', () => handleNoClick())
-      queueLaunchYesBtn.parentNode.addEventListener('click', () => handleYesClick())
+      queueLaunchNoBtn.parentNode.addEventListener('click', handleNoClick)
+      queueLaunchYesBtn.parentNode.addEventListener('click', handleYesClick)
 
     }
     initClearAllQueues()
@@ -522,7 +649,7 @@ $(document).ready(function() {
 
     water_source_tbody.append(new_row)
     water_source_count++
-    changeSliderHeight('increase', 39)
+    changeSliderHeight()
   })
 
   // удаление новых строк в таблице с иными источниками, слайдер 4
@@ -532,7 +659,7 @@ $(document).ready(function() {
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove()
       water_source_count--
-      changeSliderHeight('decrease', 39)
+      changeSliderHeight()
     }
   })
 
@@ -556,7 +683,7 @@ $(document).ready(function() {
 
     land_coverage_tbody.append(new_row)
     land_coverage_count++
-    changeSliderHeight('increase', 39)
+    changeSliderHeight()
   })
   // удаление новых строк в таблице с характеристиками земельных участков, слайдер 4
   $('.add_coverage_btn_remove').click(function(event) {
@@ -565,7 +692,7 @@ $(document).ready(function() {
 
     land_coverage_tbody.children().last().remove()
     land_coverage_count--
-    changeSliderHeight('decrease', 39)
+    changeSliderHeight()
   })
 
   // datepicker
@@ -635,15 +762,13 @@ $(document).ready(function() {
 
     connectionToColdWaterLabel.addEventListener('click', () => {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked
-      let blockHeight = 1000
-      if (simpleSendRequest) blockHeight = 225
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden')
-        changeSliderHeight('increase', blockHeight)
+        changeSliderHeight()
       } else {
         coldWaterToggle.classList.add('hidden')
-        changeSliderHeight('decrease', blockHeight)
+        changeSliderHeight()
       }
 
     })
@@ -672,10 +797,10 @@ $(document).ready(function() {
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden')
-        changeSliderHeight('increase', blockHeight)
+        changeSliderHeight()
       } else {
         drainageToggle.classList.add('hidden')
-        changeSliderHeight('decrease', blockHeight)
+        changeSliderHeight()
       }
     })
   }
@@ -725,8 +850,41 @@ $(document).ready(function() {
               break;
           }
         });
+
+        let elems_req_group = $('.form__field:not(.hidden) [class*=req_group_]');
+        var group_names = [];   // получаем существующие названия групп
+        elems_req_group.each(function () {
+          var $this = $(this);
+          var el_id = $this[0].id;
+          if (!group_names.includes(el_id))
+            group_names.push(el_id);
+        });
+        group_names.forEach(function (e) {    // для каждой группы получаем ее элементы
+          let group = elems_req_group.filter('#' + e);
+          let isAtt = false;
+          group.each(function () {
+            var $this = $(this);
+            if ($this.find(".attachment").length != 0) {
+              isAtt = true;
+              return false;
+              }
+          });
+          if (!isAtt) {   // если в группе не оказалось прикрепленных файлов, то выдаем обшибку
+            if (group.length === 1 ) err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + group[0].previousElementSibling.innerText + '</p>');
+            else {
+              let text = "<h6>Требуется прикрепить один из документов: \n</h6>";
+              group.each(function () {
+                var $this = $(this);
+                text = text + '<p>' + $this[0].previousElementSibling.innerText + ';</p>';
+              })
+              err.push(text);
+            }
+          }
+        })
+
+
         if (err.length) {
-          $('.modal.modal_alert.autopopup.hidden .modal__text').text(err[0]);
+          $('.modal.modal_alert.autopopup.hidden .modal__text').html(err[0]);
           $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
           return;
         }
@@ -916,3 +1074,5 @@ $(document).ready(function() {
   }
   //#endregion
 })
+
+// export changeSliderHeight

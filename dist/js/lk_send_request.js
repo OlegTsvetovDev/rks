@@ -1,5 +1,15 @@
 "use strict";
 
+// изменение высоты слайдера
+function changeSliderHeight(action, value) {
+  setTimeout(function () {
+    var slickList = document.querySelector('.slick-list');
+    var slickCurrent = slickList.querySelector('.slick-current');
+    var slickCurrentHeight = getComputedStyle(slickCurrent).height;
+    slickList.style.height = slickCurrentHeight;
+  }, 0);
+}
+
 $(document).ready(function () {
   var body = $('body'); // упрощенная подача заявления
 
@@ -13,42 +23,42 @@ $(document).ready(function () {
       dots: true,
       infinite: false,
       draggable: false,
-      adaptiveHeight: true
+      adaptiveHeight: true,
+      initialSlide: 3
     });
   } // переключение радио по клику на лейбл
 
 
-  $('.radio').parent().click(function () {
-    var $this = $(this);
-    var $radio = $this.children('.radio');
-    var $radioIsDisabled = $radio.is(':disabled');
-    if ($radioIsDisabled) return;
-    $radio.prop('checked', true);
-  }); // переключение чекбокса по клику на лейбл
-  // TODO: ломается на новых очередях в слайдере 4
-
-  function initCheckboxLabels() {
-    var $checkboxes = $('.checkbox');
-    var $labels = $checkboxes.parent();
-    $checkboxes.click(function () {
-      var $checkbox = $(this);
-      var $checkboxIsChecked = $checkbox.is(':checked');
-      var $checkboxIsDisabled = $checkbox.is(':disabled');
-      if ($checkboxIsDisabled) return;
-      $checkbox.prop('checked', !$checkboxIsChecked);
-    });
-    $labels.click(function () {
-      var $checkbox = $(this).children();
-      var $checkboxIsChecked = $checkbox.is(':checked');
-      var $checkboxIsDisabled = $checkbox.is(':disabled');
-      if ($checkboxIsDisabled) return;
-      $checkbox.prop('checked', !$checkboxIsChecked);
+  function initRadioLabels() {
+    $('.radio').parent().click(function () {
+      var $this = $(this);
+      var $radio = $this.children('.radio');
+      var $radioIsDisabled = $radio.is(':disabled');
+      if ($radioIsDisabled) return;
+      $radio.prop('checked', true);
     });
   }
 
-  if (document.querySelector('.checkbox')) initCheckboxLabels(); // псевдо-селект
+  if (document.querySelector('.radio')) initRadioLabels(); // переключение чекбокса по клику на лейбл
+
+  function initCheckboxLabels(node) {
+    var checkboxes = node.querySelectorAll('.checkbox');
+    checkboxes.forEach(function (checkbox) {
+      var label = checkbox.parentNode;
+      var isDisabled = checkbox.disabled;
+      if (isDisabled) return;
+      label.addEventListener('click', function () {
+        var checkbox = label.querySelector('.checkbox');
+        checkbox.checked = !checkbox.checked;
+      });
+    });
+  }
+
+  if (document.querySelector('.checkbox')) initCheckboxLabels(document); // псевдо-селект
 
   function initPseudoSelect(select) {
+    var _this = this;
+
     var selectTitle = select.querySelector('.__select__title');
     var selectLabels = select.querySelectorAll('.__select__label');
     selectTitle.addEventListener('click', function () {
@@ -65,7 +75,7 @@ $(document).ready(function () {
         selectTitle.value = e.target.textContent;
         select.setAttribute('data-state', ''); // вызов пересчета адреса в случае, если модуль активен
 
-        var addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var addressNode = _this.parentNode.parentNode.parentNode.parentNode.parentNode;
         var thisAddressConcatination = addressNode.querySelector('.address__concated');
         if (thisAddressConcatination) addressConcatination(addressNode);
       });
@@ -99,7 +109,6 @@ $(document).ready(function () {
     var housing = baseNode.querySelector('.address__housing');
     var house = baseNode.querySelector('.address__house');
     setTimeout(function () {
-      // TODO: остается точка с пустой строкой в итоговом адресе после enter
       var resultLocality = "".concat(locality.value ? 'г. ' + locality.value : '');
       var resultdDistrict = "".concat(district.value ? ', ' + district.value + ' район' : '');
       var resultMicrodistrict = "".concat(microdistrict.value ? ', микрорайон ' + microdistrict.value : '');
@@ -108,9 +117,12 @@ $(document).ready(function () {
       var resultHouse = "".concat(house.value ? ', дом ' + house.value : '');
       var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
-      concated.value = resultAddress; // concated.textContent = resultAddress
+      if (resultAddress[0] === '.') resultAddress = '';
+      concated.value = resultAddress;
+      if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01') document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(resultAddress); // concated.textContent = resultAddress
     }, 100);
-  }
+  } // инит модуля пересчета адреса
+
 
   function initAddressConcatination(baseNode) {
     var concated = baseNode.querySelector('.address__concated');
@@ -143,7 +155,188 @@ $(document).ready(function () {
   var addressBlocks = document.querySelectorAll('.address__concated');
   if (addressBlocks) addressBlocks.forEach(function (addressBlock) {
     return initAddressConcatination(addressBlock.parentNode.parentNode.parentNode);
-  }); // переключение блоков в "Запуск по очередям", слайдер 1
+  }); // лукап
+  // node - это input в лукапе
+  // type = 'locality' / 'street' / 'district' / 'microdistrict'
+
+  function initLookup(type, node) {
+    var parentNode = node.parentNode;
+    var contentNode = parentNode.querySelector('.__select__content'); // получить города с бэка
+    // TODO: нужно написать функцию запроса к пост сервису
+    // функция должна возвращать массив из объектов
+
+    var getData = function getData() {
+      if (type === 'locality') return getLocality();
+      if (type === 'street') return getStreets();
+      if (type === 'district') return getDistricts();
+      if (type === 'microdistrict') return getMicrodistricts();
+      return console.log('Неверный тип лукапа');
+    };
+
+    var getLocality = function getLocality() {
+      var initialLocalities = [{
+        id: 1,
+        code: 1,
+        name: 'Пермь'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Москва'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Санкт-Петербург'
+      }, {
+        id: 4,
+        code: 4,
+        name: 'Новосибирск'
+      }];
+      return initialLocalities;
+    }; // получить улицы с бэка
+
+
+    var getStreets = function getStreets() {
+      var initialStreets = [{
+        id: 1,
+        code: 1,
+        name: '1905 года'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Ленина'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Комсомольский проспект'
+      }];
+      return initialStreets;
+    }; // получить районы с бэка
+
+
+    var getDistricts = function getDistricts() {
+      var initialDistricts = [{
+        id: 1,
+        code: 1,
+        name: 'Дзержинский'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Индустриальный'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Кировский'
+      }];
+      return initialDistricts;
+    }; // получить микрорайоны с бэка
+
+
+    var getMicrodistricts = function getMicrodistricts() {
+      var initialMicrodistricts = [{
+        id: 1,
+        code: 1,
+        name: 'Закамск'
+      }, {
+        id: 2,
+        code: 2,
+        name: 'Садовый'
+      }, {
+        id: 3,
+        code: 3,
+        name: 'Голованово'
+      }];
+      return initialMicrodistricts;
+    }; // поиск по объекту
+
+
+    var searchInArray = function searchInArray(query, arr) {
+      var result = [];
+      query = query.toLowerCase();
+      arr.forEach(function (obj) {
+        if (obj.name.toLowerCase().includes(query)) result.push(obj);
+      });
+      return result;
+    }; // рендер ноды в лукап
+
+
+    var renderNode = function renderNode(obj) {
+      var template = "\n                        <input value=\"".concat(obj.value, "\" type=\"radio\" class=\"__select__input\" id=\"locality_").concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
+      contentNode.insertAdjacentHTML('beforeend', template);
+    }; // возвращаем строки в начальное состояние
+
+
+    function removePreviousList(contentNode) {
+      contentNode.innerHTML = "\n                               <input type=\"radio\" class=\"__select__input\" id=\"\" tabindex=\"0\">\n                               <label class=\"__select__label\" for=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                              ";
+    }
+
+    function initEventListeners(node) {
+      var labels = node.querySelectorAll('label');
+      var inputs = node.querySelectorAll('input');
+
+      var handleLabelClick = function handleLabelClick(label, i) {
+        var queryInput = node.parentNode.querySelector('input');
+        queryInput.value = label.innerText;
+      };
+
+      labels.forEach(function (label, i) {
+        return label.addEventListener('click', function () {
+          return handleLabelClick(label, i);
+        });
+      });
+    } // рендер всех найденных нод
+
+
+    function renderList(list) {
+      var contentNode = parentNode.querySelector('.__select__content'); // удаляем предыдущие ноды
+
+      removePreviousList(contentNode);
+      parentNode.setAttribute('data-state', ''); // добавляем новые ноды
+
+      list.forEach(function (obj) {
+        return renderNode(obj);
+      });
+      parentNode.setAttribute('data-state', 'active'); // вешаем прослушку по строкам для изменения значения
+
+      initEventListeners(contentNode);
+    } // логика работы лукапа
+
+
+    var data = getData();
+
+    var handleNodeKeyUp = function handleNodeKeyUp(e) {
+      // TODO: заблокировать enter -> добавляет новые очереди
+      var query = e.target.value;
+      setTimeout(function () {
+        var searchResult = searchInArray(query, data);
+        renderList(searchResult);
+      }, 10);
+    };
+
+    node.addEventListener('keyup', handleNodeKeyUp);
+  } // инит лукапов в ноде
+
+
+  function initLookups(node) {
+    var localityNodes = node.querySelectorAll('.address__locality');
+    var streetNodes = node.querySelectorAll('.address__street');
+    var districtNodes = node.querySelectorAll('.address__district');
+    var microdistrictNodes = node.querySelectorAll('.address__microdistrict');
+    if (localityNodes) localityNodes.forEach(function (node) {
+      return initLookup('locality', node);
+    });
+    if (streetNodes) streetNodes.forEach(function (node) {
+      return initLookup('street', node);
+    });
+    if (districtNodes) districtNodes.forEach(function (node) {
+      return initLookup('district', node);
+    });
+    if (microdistrictNodes) microdistrictNodes.forEach(function (node) {
+      return initLookup('microdistrict', node);
+    });
+  } // базовый инит всех лукапов
+
+
+  initLookups(document); // переключение блоков в "Запуск по очередям", слайдер 1
 
   function initQueueLaunch() {
     var queueLaunchInput = $('input[name="queue_launch"]');
@@ -178,20 +371,7 @@ $(document).ready(function () {
     });
   }
 
-  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // изменение высоты слайдера
-  // action = 'increase' / 'decrease' (увеличить / уменьшить высоту), value = значение изменения
-
-  function changeSliderHeight(action, value) {
-    var slickList = document.querySelector('.slick-list');
-    var slickListHeight = Number.parseInt(slickList.style.height);
-
-    if (action === 'increase') {
-      return slickList.style.height = slickListHeight + value + 'px';
-    }
-
-    return slickList.style.height = slickListHeight - value + 'px';
-  } // логика блоков очередей (добавление, удаление), 1 и 4 сладер
-
+  if (document.querySelector('.instructions__btn')) initModalDownloadInstructions(); // логика блоков очередей (добавление, удаление), 1 и 4 сладер
 
   function initMultipleQueues() {
     // состояние количества очередей
@@ -206,27 +386,17 @@ $(document).ready(function () {
       });
     }
 
-    getCurrentQueueCount(); // если количество очередей >=1, то "Запуск по очередям" в "Да"
-    // добавление высоты слайду 1, если количество очередей >=1
-
-    function initCurrentQueueState() {
-      if (queue_count < 1) return; // 73px в "Нет"
-      // 32px + 81px + X*41px в "Да"
-
-      changeSliderHeight('increase', 113 + queue_count * 41);
-    }
-
-    initCurrentQueueState(); // инит слайдера в слайд 4
+    getCurrentQueueCount(); // инит слайдера в слайд 4
 
     function initQueueSlider() {
       $('.queue_slider').slick({
         dots: true,
         arrows: false
       });
-    } // initQueueSlider()
-    // добавление блоков очередей, 4 сладер
-    // создание новой ноды
+    }
 
+    initQueueSlider(); // добавление блоков очередей, 4 сладер
+    // создание новой ноды
 
     function createNewNode() {
       var baseNode = document.querySelector('.queue_block');
@@ -286,6 +456,8 @@ $(document).ready(function () {
       pasteNameSuffixes(newNode);
       renderNewNode(newNode);
       initPseudoSelects(newNode.querySelector('.__select'));
+      initRadioLabels(newNode);
+      initCheckboxLabels(newNode);
       initMasks(newNode);
       initColdWaterSupply(newNode);
       initDrainage(newNode);
@@ -300,7 +472,7 @@ $(document).ready(function () {
       var new_row = "\n                      <tr class=\"table__row\">\n                        <td class=\"table__cell\">\u041E\u0447\u0435\u0440\u0435\u0434\u044C \u2116".concat(queue_count, "</td>\n                        <td class=\"table__cell\">\n                          <input type=\"text\" class=\"field__input datepicker_input\" name=").concat('TechCondObj_QueueName_' + queue_count, " placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                        </td>\n                      </tr>\n                     ");
       queue_tbody.append(new_row);
       createAndRenderNewNode();
-      changeSliderHeight('increase', 39); // инициализация дейтпикера на последней добавленной строке
+      changeSliderHeight(); // инициализация дейтпикера на последней добавленной строке
 
       var lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input');
       lastChildDatepicker.datepicker($.datepicker.regional['ru']);
@@ -312,10 +484,10 @@ $(document).ready(function () {
     $('.queue_btn_remove').click(function (e) {
       e.preventDefault();
       if (queue_count < 1) return;
-      queue_count -= 1;
+      queue_count--;
       queue_tbody.children().last().remove();
       deleteLastNode();
-      changeSliderHeight('decrease', 39); // removeLastSlide()
+      changeSliderHeight(); // removeLastSlide()
     }); // очистка всех очередей в таблице при переключении "Запуск по очередям" в "Нет", слайд 1
 
     function clearTableQueues(queueTable) {
@@ -375,7 +547,8 @@ $(document).ready(function () {
           queueLaunchNo.removeAttribute('style');
           queueLaunchYes.classList.add('hidden');
           queueLaunchNo.classList.remove('hidden');
-          modalPopupConfirm.remove();
+          modalPopupConfirm.remove(); // TODO: overflow: hidden для body
+
           body.addClass('');
           clearAllQueues();
         }; // хэндлер отказа от удаления очередей
@@ -394,41 +567,23 @@ $(document).ready(function () {
         closeModal.addEventListener('click', handleCloseModal);
         abortModal.addEventListener('click', handleCloseModal);
         btnAgree.addEventListener('click', handleProceedModal);
-      }
-
-      function calcTableYesHeight() {
-        return 156;
-      }
-
-      function calcTableNoHeight() {
-        return 103;
       } // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
 
 
-      function handleNoClick() {
-        var tableHeight = calcTableYesHeight();
-        var initialHeight = calcTableNoHeight();
-        changeSliderHeight('decrease', tableHeight);
-        changeSliderHeight('increase', initialHeight); // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
+      var handleNoClick = function handleNoClick() {
+        changeSliderHeight(); // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
 
         if (queue_count < 1) return;
         createModal();
         addListenersToModal();
-      }
+      };
 
-      function handleYesClick() {
-        var tableHeight = calcTableYesHeight();
-        var initialHeight = calcTableNoHeight();
-        changeSliderHeight('decrease', initialHeight);
-        changeSliderHeight('increase', tableHeight);
-      }
+      var handleYesClick = function handleYesClick() {
+        return changeSliderHeight();
+      };
 
-      queueLaunchNoBtn.parentNode.addEventListener('click', function () {
-        return handleNoClick();
-      });
-      queueLaunchYesBtn.parentNode.addEventListener('click', function () {
-        return handleYesClick();
-      });
+      queueLaunchNoBtn.parentNode.addEventListener('click', handleNoClick);
+      queueLaunchYesBtn.parentNode.addEventListener('click', handleYesClick);
     }
 
     initClearAllQueues();
@@ -443,7 +598,7 @@ $(document).ready(function () {
     e.preventDefault();
     water_source_tbody.append(new_row);
     water_source_count++;
-    changeSliderHeight('increase', 39);
+    changeSliderHeight();
   }); // удаление новых строк в таблице с иными источниками, слайдер 4
 
   $('.add_source_btn_remove').click(function (e) {
@@ -452,7 +607,7 @@ $(document).ready(function () {
     if (water_source_count > 2) {
       water_source_tbody.children().last().remove();
       water_source_count--;
-      changeSliderHeight('decrease', 39);
+      changeSliderHeight();
     }
   }); // добавление новых строк в таблицу с характеристиками земельных участков, слайдер 4
 
@@ -463,7 +618,7 @@ $(document).ready(function () {
     var new_row = "\n                    <tr class=\"table__row\">\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                      <td class=\"table__cell\">\n                        <input type=\"text\" class=\"field__input\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435\" />\n                      </td>\n                    </tr>\n                   ";
     land_coverage_tbody.append(new_row);
     land_coverage_count++;
-    changeSliderHeight('increase', 39);
+    changeSliderHeight();
   }); // удаление новых строк в таблице с характеристиками земельных участков, слайдер 4
 
   $('.add_coverage_btn_remove').click(function (event) {
@@ -471,7 +626,7 @@ $(document).ready(function () {
     if (land_coverage_count <= 1) return;
     land_coverage_tbody.children().last().remove();
     land_coverage_count--;
-    changeSliderHeight('decrease', 39);
+    changeSliderHeight();
   }); // datepicker
 
   function initDatepickers() {
@@ -552,15 +707,13 @@ $(document).ready(function () {
     if (isConnectionToColdWaterDisabled) return;
     connectionToColdWaterLabel.addEventListener('click', function () {
       isConnectionToColdWaterChecked = !isConnectionToColdWaterChecked;
-      var blockHeight = 1000;
-      if (simpleSendRequest) blockHeight = 225;
 
       if (isConnectionToColdWaterChecked) {
         coldWaterToggle.classList.remove('hidden');
-        changeSliderHeight('increase', blockHeight);
+        changeSliderHeight();
       } else {
         coldWaterToggle.classList.add('hidden');
-        changeSliderHeight('decrease', blockHeight);
+        changeSliderHeight();
       }
     });
   }
@@ -587,10 +740,10 @@ $(document).ready(function () {
 
       if (isConnectionToDrainageChecked) {
         drainageToggle.classList.remove('hidden');
-        changeSliderHeight('increase', blockHeight);
+        changeSliderHeight();
       } else {
         drainageToggle.classList.add('hidden');
-        changeSliderHeight('decrease', blockHeight);
+        changeSliderHeight();
       }
     });
   }
@@ -661,60 +814,110 @@ $(document).ready(function () {
       var is_simple = false;
 
       if (is_simple) {
-        var list_hidden_elem = document.querySelectorAll("[name='infmaxparam3']" + ",[name='infmaxparam4']" + ",[name='techcondobj_note']" + ",[name='connectloadparamdata_value2']" + ",[name='addconnectloadparamdata_value_05']" + ",[name='connectloadparamdata_value2_2']" + ",[name='addconnectloadparamdata_value_06']");
+        // отрабатывает при загрузке заявления упрощенного вида
+        var list_hidden_elem = document.querySelectorAll("[name='infmaxparam3']" + ",[name='infmaxparam4']" + ",[name='techcondobj_note']" + ",[name='connectloadparamdata_value2']" + ",[name='addconnectloadparamdata_value_05']" + ",[name='connectloadparamdata_value2_2']" + ",[name='addconnectloadparamdata_value_06']" + ",[name='addconnectloadparamdata_value_08'].mh" + ",[name='addconnectloadparamdata_value_08'].md" + ",[name='addconnectloadparamdata_value_02'].mh" + ",[name='addconnectloadparamdata_value_02'].md" + ",[name='addconnectloadparamdata_value_07'].mh" + ",[name='addconnectloadparamdata_value_07'].md");
         list_hidden_elem.forEach(function (x) {
           return x.parentElement.classList.add('hidden');
         });
+        if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03') document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden'); // события, которые должны отрабатывать в упрощенном виде заявления
+
         document.querySelectorAll('[name="connectobjkind"]').forEach(function (x) {
           return x.parentElement.addEventListener('click', function () {
             switch (this.getAttribute('for')) {
               case 'connectobjkind_01':
                 document.querySelector('[name="room_number"]').parentElement.classList.add('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
                 break;
 
               case 'connectobjkind_02':
                 document.querySelector('[name="room_number"]').parentElement.classList.add('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
+                document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden');
+                document.querySelector('[name="infmaxparam1"]').parentElement.classList.remove('hidden');
+                document.querySelector('[name="infmaxparam2"]').parentElement.classList.remove('hidden');
+                document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.remove('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden');
+                document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden');
                 break;
 
               case 'connectobjkind_03':
                 document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
                 document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+                document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+                document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
                 break;
             }
           });
         });
-      }
+      } // отрабатывает при загрузке заявления любого вида
 
-      if (document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_01') {
-        document.querySelector('[name="connectloadparamdata_value1"]').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1"]').value = '1';
-        document.querySelector('[name="connectloadparamdata_value1_2"]').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1_2"]').value = '1';
+
+      if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01') {
+        document.querySelector('[name="connectloadparamdata_value1"].md').setAttribute('title', 'Не более 1 м3/сут');
+        document.querySelector('[name="connectloadparamdata_value1"].md').value = '1';
+        document.querySelector('[name="connectloadparamdata_value1_2"].md').setAttribute('title', 'Не более 1 м3/сут');
+        document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
+        document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения';
+        document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(document.querySelector('[name="show_name"]').textContent);
         document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
-      }
-
-      if (document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_02') {
-        document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.remove('hidden');
-      }
-
-      if (document.querySelector('[name="connectobjkind"]').id == 'connectobjkind_03') {
+        document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+        document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1"].mh').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
+      } else if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_02') {
+        document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)';
+      } else if (document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03') {
+        document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)';
         document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
-      }
+        document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
+        document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="infmaxparam2"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1"].mh').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value3"]').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden');
+        document.querySelector('[name="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden');
+      } // события, которые должны отрабатывать в любом виде заявления
+
 
       document.querySelectorAll('[name="connectobjkind"]').forEach(function (x) {
         return x.parentElement.addEventListener('click', function () {
           if (this.getAttribute('for') == 'connectobjkind_01') {
             document.querySelector('[name="connectloadparamdata_value1"]').setAttribute('title', 'Не более 1 м3/сут');
             document.querySelector('[name="connectloadparamdata_value1"]').value = '1';
-            document.querySelector('[name="connectloadparamdata_value1_2"]').setAttribute('title', 'Не более 1 м3/сут');
-            document.querySelector('[name="connectloadparamdata_value1_2"]').value = '1';
+            document.querySelector('[name="connectloadparamdata_value1_2"].md').setAttribute('title', 'Не более 1 м3/сут');
+            document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
+            document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения';
+            document.querySelector('[name="statementtc_connectobjname"]').value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(document.querySelector('[name="show_name"]').value);
           } else {
             document.querySelector('[name="connectloadparamdata_value1"]').removeAttribute('title');
             document.querySelector('[name="connectloadparamdata_value1"]').value = '';
-            document.querySelector('[name="connectloadparamdata_value1_2"]').removeAttribute('title');
-            document.querySelector('[name="connectloadparamdata_value1_2"]').value = '';
+            document.querySelector('[name="connectloadparamdata_value1_2"].md').removeAttribute('title');
+            document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '';
+            document.querySelector('[name="statementtc_connectobjname"]').value = '';
+            if (this.getAttribute('for') == 'connectobjkind_02') document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)';else document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)';
           }
         });
       });
@@ -754,4 +957,4 @@ $(document).ready(function () {
     // }
   } //#endregion
 
-});
+}); // export changeSliderHeight
