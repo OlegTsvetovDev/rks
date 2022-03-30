@@ -326,6 +326,7 @@ $(document).ready(function() {
     $('.queue_btn').click(function(e) {
       e.preventDefault()
       queue_count++
+      document.querySelector('[name="statementtc_queuecount"]').value = queue_count;
 
       const new_row = `
                       <tr class="table__row">
@@ -344,7 +345,6 @@ $(document).ready(function() {
       const lastChildDatepicker = queue_tbody.children().last().find('.datepicker_input')
       lastChildDatepicker.datepicker($.datepicker.regional['ru'])
       lastChildDatepicker.mask("99.99.9999", { autoclear: false })
-
     })
 
     // удаление новых строк в таблицу с очередями, слайдер 1
@@ -353,6 +353,7 @@ $(document).ready(function() {
       if (queue_count < 1) return
 
       queue_count -= 1
+      document.querySelector('[name="statementtc_queuecount"]').value = queue_count;
       queue_tbody.children().last().remove()
       deleteLastNode()
       changeSliderHeight('decrease', 39)
@@ -703,7 +704,7 @@ $(document).ready(function() {
           let attr = $this.prop("tagName");
           switch (attr) {
             case "SPAN":
-              if ($this.find('input:checked').length == 0)
+              if ($this.find('input:checked').length == 0 && $this.is(':visible'))
                 err.push("Не выбрано ни одно значение поля " + getTitle($this));
               break;
             case "INPUT":
@@ -744,7 +745,7 @@ $(document).ready(function() {
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
-      // let is_simple = JSON.parse(data);
+      //let is_simple = JSON.parse(data);
       const is_simple = false
       if(is_simple)
       {
@@ -816,11 +817,14 @@ $(document).ready(function() {
       if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
       {
         document.querySelector('[name="connectloadparamdata_value1"].md').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1"].md').value = '1';
+        if(document.querySelector('[name="connectloadparamdata_value1"].md').value == "")
+          document.querySelector('[name="connectloadparamdata_value1"].md').value = '1';
         document.querySelector('[name="connectloadparamdata_value1_2"].md').setAttribute('title', 'Не более 1 м3/сут');
-        document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
+        if(document.querySelector('[name="connectloadparamdata_value1_2"].md').value == "")
+          document.querySelector('[name="connectloadparamdata_value1_2"].md').value = '1';
         document.querySelector('[name="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения';
-        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`;
+        if(document.querySelector('[name="statementtc_connectobjname"]').value == "")
+          document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`;
         document.querySelector('[name="resourcekindreq"]').closest('.field__label').classList.add('hidden');
         document.querySelector('[name="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden');
         document.querySelector('[name="infmaxparam1"]').parentElement.classList.add('hidden');
@@ -885,7 +889,7 @@ $(document).ready(function() {
     // let elemName = elem.getAttribute('name');
     // let number = elemName.indexOf("_", elemName.indexOf("_") + 1);
     // let streetName = $('.address__street').val();
-    // let townCode = $('.__select input[name="Town_code"]:checked').val();
+    // let townCode = $('.__select input[name="town_code"]:checked').val();
     // let selectList = $('.address__street').next('.__select__content');
     // if(streetName != '' && townCode != undefined)
     // {
@@ -893,13 +897,13 @@ $(document).ready(function() {
     //     url: "./getStreetsJson/?townCode=" + town_code + "&street_name=" + street_name,
     //     success: function(data){
     //       let streets = JSON.parse(JSON.parse(data));
-    //       select_list.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //       select_list.html('<input id="street_0" class="__select__input" type="radio" name="street_code" selected="" checked="" />'+
     //       let streets = JSON.parse(JSON.parse(data));
-    //       selectList.html('<input id="street_0" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //       selectList.html('<input id="street_0" class="__select__input" type="radio" name="street_code" selected="" checked="" />'+
     //       '<label for="street_0" class="__select__label">Выберите улицу</label>');
     //       streets.forEach(street =>
     //         select_list.html(select_list.html() +
-    //         '<input id="street_' + street.id + '" class="__select__input" type="radio" name="Street_code" selected="" checked="" />'+
+    //         '<input id="street_' + street.id + '" class="__select__input" type="radio" name="street_code" selected="" checked="" />'+
     //         '<label for="street_' + street.id + '" class="__select__label">' + street.name + '</label>'
     //         )
     //       )
