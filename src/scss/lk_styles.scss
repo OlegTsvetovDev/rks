@@ -349,6 +349,9 @@ input[type=number]::-webkit-outer-spin-button {
       --s: .5;
     }
   }
+  .checkbox, .radio {
+    z-index: -1;
+  }
 }
 
 // Селекты
