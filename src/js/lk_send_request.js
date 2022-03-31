@@ -133,7 +133,16 @@ $(document).ready(function() {
 
       concated.value = resultAddress
 
-      // перепиши кусок, тоже ошибку выбрасывает теперь
+      // тоже ошибку выбрасывает теперь
+      const connectobjkind = document.querySelector('[name="connectobjkind"]')
+      const statementtc = document.querySelector('[name="statementtc_connectobjname"]')
+      if (connectobjkind) {
+        const checked = connectobjkind.checked
+        const trigger = connectobjkind.id === 'connectobjkind_01'
+
+        if (checked && trigger) statementtc.value = `Частный дом по адресу: ${resultAddress}`
+      }
+
       // if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
       //   document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
       // concated.textContent = resultAddress

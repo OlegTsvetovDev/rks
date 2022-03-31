@@ -116,10 +116,19 @@ $(document).ready(function () {
       var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
       if (resultAddress[0] === '.') resultAddress = '';
-      concated.value = resultAddress; // перепиши кусок, тоже ошибку выбрасывает теперь
-      // if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
+      concated.value = resultAddress; // тоже ошибку выбрасывает теперь
+
+      var connectobjkind = document.querySelector('[name="connectobjkind"]');
+      var statementtc = document.querySelector('[name="statementtc_connectobjname"]');
+
+      if (connectobjkind) {
+        var checked = connectobjkind.checked;
+        var trigger = connectobjkind.id === 'connectobjkind_01';
+        if (checked && trigger) statementtc.value = "\u0427\u0430\u0441\u0442\u043D\u044B\u0439 \u0434\u043E\u043C \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443: ".concat(resultAddress);
+      } // if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
       //   document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
       // concated.textContent = resultAddress
+
     }, 100);
   } // инит модуля пересчета адреса
 
