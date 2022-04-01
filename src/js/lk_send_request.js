@@ -133,6 +133,8 @@ $(document).ready(function() {
 
       concated.value = resultAddress
 
+      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
+        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
       // concated.textContent = resultAddress
     }, 100)
   }
@@ -154,13 +156,6 @@ $(document).ready(function() {
     if (street) street.addEventListener('change', () => addressConcatination(baseNode))
     if (housing) housing.addEventListener('change', () => addressConcatination(baseNode))
     if (house) house.addEventListener('change', () => addressConcatination(baseNode))
-
-    
-    // добавляем прослушку на изменение input'ов
-    document.querySelector('.address__concated').addEventListener('keyup', function(){
-      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
-   })
   }
   const addressBlocks = document.querySelectorAll('.address__concated')
   if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
@@ -674,15 +669,15 @@ $(document).ready(function() {
     const disableQueue = () => {
       radioYesNode.disabled = true
       radioNoNode.disabled = true
-      queueLaunchYesNode.querySelector('input').disabled = true
-      queueLaunchYesNode.querySelector('button').disabled = true
+      /*queueLaunchYesNode.querySelector('input').disabled = true
+      queueLaunchYesNode.querySelector('button').disabled = true*/
     }
 
     const enableQueue = () => {
       radioYesNode.disabled = false
       radioNoNode.disabled = false
-      queueLaunchYesNode.querySelector('input').disabled = false
-      queueLaunchYesNode.querySelector('button').disabled = false
+      /*queueLaunchYesNode.querySelector('input').disabled = false
+      queueLaunchYesNode.querySelector('button').disabled = false*/
 
     }
 
