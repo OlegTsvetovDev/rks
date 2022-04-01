@@ -1,20 +1,26 @@
-"use strict";
+$(document).ready(function() {
 
-$(document).ready(function () {
   // .lk_menu стили для пункта меню
   function setActiveMenuItem() {
-    var menuItems = $('.lk_menu__list_item a');
-    var pathname = window.location.pathname.split('/');
-    menuItems.each(function (e) {
-      var menuItem = $(this);
-      var menuItemHref = menuItem.attr('href');
-      var parentItem = menuItem.parent();
-      var pathnameLastItem = pathname[pathname.length - 1];
-      menuItemHref == pathnameLastItem ? parentItem.addClass('active') : parentItem.removeClass('active');
-    });
-  }
+    const menuItems = $('.lk_menu__list_item a')
+    const pathname = window.location.pathname.split('/')
 
-  setActiveMenuItem(); // показ меню
+    menuItems.each(function(e) {
+      const menuItem = $(this)
+      const menuItemHref = menuItem.attr('href')
+      const parentItem = menuItem.parent()
+      const pathnameLastItem = pathname[pathname.length - 1];
+
+      (menuItemHref == pathnameLastItem) ?
+        parentItem.addClass('active') :
+        parentItem.removeClass('active')
+    })
+
+  }
+  setActiveMenuItem()
+
+
+  // показ меню
   // function toggleMenu() {
   //   const lkMenuBurger = $('.lk_menu__burger'),
   //         lkMenuList = $('.lk_menu__list'),
@@ -29,52 +35,65 @@ $(document).ready(function () {
   //   });
   // };
   // toggleMenu();
+
+
   // показ блока таблиц
-
   function showTablesBlock() {
-    var itemShowMore = $('.item__show_more');
-    itemShowMore.click(function () {
-      $(this).toggleClass('active');
-      $(this).parent().next().toggleClass('hidden');
-    });
+    const itemShowMore = $('.item__show_more')
+
+    itemShowMore.click(function() {
+      $(this).toggleClass('active')
+      $(this).parent().next().toggleClass('hidden')
+    })
   }
+  showTablesBlock()
 
-  showTablesBlock(); // Модалка "Удалить"
 
-  var body = $('body');
+  // Модалка "Удалить"
+  const body = $('body')
 
   function initModalDeleteRequest() {
-    var deleteRequest = $('.control_btns__link.delete_icon'),
-        deleteRequestModal = $('.modal_delete_request'),
-        deleteRequestModalContent = $('.modal_delete_request__content'),
-        deleteRequestModalClose = $('.modal_delete_request .close'),
-        deleteRequestModalCancel = $('.modal_delete_request .cancel'),
-        deleteRequestModalSubmit = $('.modal_delete_request .submit');
-    deleteRequest.click(function (e) {
+    const deleteRequest = $('.control_btns__link.delete_icon'),
+          deleteRequestModal = $('.modal_delete_request'),
+          deleteRequestModalContent = $('.modal_delete_request__content'),
+          deleteRequestModalClose = $('.modal_delete_request .close'),
+          deleteRequestModalCancel = $('.modal_delete_request .cancel'),
+          deleteRequestModalSubmit = $('.modal_delete_request .submit');
+
+    deleteRequest.click(function(e) {
       e.preventDefault();
       body.css('overflow', 'hidden');
       deleteRequestModalContent.css('overflow-y', 'auto');
       deleteRequestModalContent.css('overflow-x', 'hidden');
       deleteRequestModal.removeClass('hidden');
-    });
-    deleteRequestModalClose.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      deleteRequestModal.addClass('hidden');
-    });
-    deleteRequestModalCancel.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      deleteRequestModal.addClass('hidden');
-    });
-    deleteRequestModalSubmit.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      deleteRequestModal.addClass('hidden'); // обработчик удаления запроса/заявки
-    });
-  }
+    })
 
-  initModalDeleteRequest(); // Модалка "Аннулировать"
+    deleteRequestModalClose.click(function(e) {
+      e.preventDefault();
+      body.css('overflow', 'auto');
+      deleteRequestModal.addClass('hidden');
+    })
+
+    deleteRequestModalCancel.click(function(e) {
+      e.preventDefault();
+      body.css('overflow', 'auto');
+      deleteRequestModal.addClass('hidden');
+    })
+
+    deleteRequestModalSubmit.click(function(e) {
+      e.preventDefault();
+      body.css('overflow', 'auto');
+      deleteRequestModal.addClass('hidden');
+
+      // обработчик удаления запроса/заявки
+
+    })
+
+  }
+  initModalDeleteRequest()
+
+
+  // Модалка "Аннулировать"
   // function initModalAnnulRequest() {
   //   const annulRequest = $('.control_btns__link.annul_icon'),
   //         annulRequestModal = $('.modal_annul_request'),
@@ -114,6 +133,8 @@ $(document).ready(function () {
   //
   // }
   // initModalAnnulRequest()
+
+
   // Модалка "Добавить ответ"
   // function initModalAddAnswer() {
   //   const addAnswer = $('.add_answer__button'),
@@ -154,60 +175,71 @@ $(document).ready(function () {
   //
   // }
   // initModalAddAnswer()
+
+
   // Модалка "Скачать инструкцию"
-
   function initModalDownloadInstructions() {
-    var instructionsBtn = $('.instructions__btn');
-    var instructionsModal = $('.modal_instructions');
-    var instructionsModalContent = $('.modal_instructions__content');
-    var instructionsModalClose = $('.modal_instructions .close');
+    const instructionsBtn = $('.instructions__btn')
+    const instructionsModal = $('.modal_instructions')
+    const instructionsModalContent = $('.modal_instructions__content')
+    const instructionsModalClose = $('.modal_instructions .close')
+
     instructionsBtn.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'hidden');
-      instructionsModalContent.css('overflow-y', 'auto');
-      instructionsModalContent.css('overflow-x', 'hidden');
-      instructionsModal.removeClass('hidden');
-    });
+      e.preventDefault()
+      body.css('overflow', 'hidden')
+      instructionsModalContent.css('overflow-y', 'auto')
+      instructionsModalContent.css('overflow-x', 'hidden')
+      instructionsModal.removeClass('hidden')
+    })
+
     instructionsModalClose.click(function (e) {
-      e.preventDefault();
-      body.css('overflow', 'auto');
-      instructionsModal.addClass('hidden');
-    });
+      e.preventDefault()
+      body.css('overflow', 'auto')
+      instructionsModal.addClass('hidden')
+    })
+
   }
+  initModalDownloadInstructions()
 
-  initModalDownloadInstructions(); // тогл фильтра в Реестре
 
+ // тогл фильтра в Реестре
   function initFilter() {
-    var filterBtn = $('.filter__btn');
-    var filterInput = $('.filter__input');
+    const filterBtn = $('.filter__btn')
+    const filterInput = $('.filter__input')
+
     filterBtn.click(function (e) {
-      e.preventDefault();
+      e.preventDefault()
       setTimeout(function () {
-        filterInput.toggleClass('hidden');
-        filterBtn.toggleClass('active');
-      }, 200);
-    });
+        filterInput.toggleClass('hidden')
+        filterBtn.toggleClass('active')
+      }, 200)
+    })
   }
+  initFilter()
 
-  initFilter(); // тогл сортировки в Реестре
+  // тогл сортировки в Реестре
+   function initSort() {
+     const sortBtn = $('.sort__btn')
+     const sortContent = $('.sort__content')
+     const radioBtn = $('.radio')
 
-  function initSort() {
-    var sortBtn = $('.sort__btn');
-    var sortContent = $('.sort__content');
-    var radioBtn = $('.radio');
-    sortBtn.click(function (e) {
-      e.preventDefault();
-      sortContent.toggleClass('hidden');
-      sortBtn.toggleClass('active');
-    });
-    radioBtn.click(function (e) {
-      // функция обработки сортировки
-      setTimeout(function () {
-        sortContent.toggleClass('hidden');
-        sortBtn.toggleClass('active');
-      }, 200);
-    });
-  }
+     sortBtn.click(function (e) {
+       e.preventDefault()
+       sortContent.toggleClass('hidden')
+       sortBtn.toggleClass('active')
+     })
 
-  initSort();
-});
+     radioBtn.click(function (e) {
+
+       // функция обработки сортировки
+
+       setTimeout(() => {
+         sortContent.toggleClass('hidden')
+         sortBtn.toggleClass('active')
+       }, 200)
+     })
+
+   }
+   initSort()
+
+})

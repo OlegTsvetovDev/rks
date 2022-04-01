@@ -1633,6 +1633,14 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: text;
 }
 
+.main__content .requests_form .request__form .form__field.queue_launch__trigger.hidden {
+  display: none;
+}
+
+.main__content .requests_form .request__form .form__field.queue_launch.hidden {
+  display: none;
+}
+
 .main__content .requests_form .request__form .form__field.queue_launch.queue_launch_yes {
   margin-bottom: 30px;
 }

@@ -177,11 +177,11 @@ function js() {
                  .pipe(dest(projectFolder.js))
 
   let fullFiles = src(srcFolder.js)
-                  .pipe(jsBabel({
-                    presets: ['@babel/preset-env']
-                  }))
+                  // .pipe(jsBabel({
+                  //   presets: ['@babel/preset-env']
+                  // }))
                   .pipe(dest(projectFolder.js))
-                  .pipe(jsMinify())
+                  // .pipe(jsMinify())
                   .pipe(fileRename({
                     extname: '.min.js'
                   }))
