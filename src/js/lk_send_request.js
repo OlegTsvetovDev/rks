@@ -179,15 +179,23 @@ $(document).ready(function() {
       return console.log('Неверный тип лукапа')
     }
 
-    const getLocality = () => {
-      const initialLocalities = [
+    const getLocality = (query) => {
+      /*const initialLocalities = [
         { id: 1, code: 1, name: 'Пермь' },
         { id: 2, code: 2, name: 'Москва' },
         { id: 3, code: 3, name: 'Санкт-Петербург' },
         { id: 4, code: 4, name: 'Новосибирск' }
-      ]
+        ${document.querySelector('.address__locality').value}
+      ]*/
 
-      return initialLocalities
+      let initialLocalities
+      fetch(`./getTownsJson?townName=${query}`)
+        .then(response => response.json())
+        .then(data => initialLocalities = JSON.parse(data))
+        .then(list => renderList(list))
+        .catch(e => console.log(e))
+
+      //sreturn initialLocalities
     }
 
     // получить улицы с бэка
@@ -284,10 +292,10 @@ $(document).ready(function() {
 
 
     // логика работы лукапа
-    let data = getData()
     const handleNodeKeyUp = e => {
       // TODO: заблокировать enter -> добавляет новые очереди
       const query = e.target.value
+      let data = getData(query)
       setTimeout(() => {
         const searchResult = searchInArray(query, data)
         renderList(searchResult)
@@ -1052,6 +1060,8 @@ $(document).ready(function() {
         list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
         if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
           document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
+
+        document.querySelector('.requests_form').classList.add('simple');
       }
     
       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', HideElemsSimple));
