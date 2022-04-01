@@ -133,7 +133,8 @@ $(document).ready(function() {
 
       concated.value = resultAddress
 
-      // тоже ошибку выбрасывает теперь
+
+      // перенсти в отдельную функцию дополнения value у input'ов
       const connectobjkind = document.querySelector('[name="connectobjkind"]')
       const statementtc = document.querySelector('[name="statementtc_connectobjname"]')
       if (connectobjkind) {
@@ -212,22 +213,22 @@ $(document).ready(function() {
 
     // const isDev = false
     const getLocality = (query) => {
-      let initialLocalities = [
-        { id: 1, code: 1, name: 'Пермь' },
-        { id: 2, code: 2, name: 'Москва' },
-        { id: 3, code: 3, name: 'Санкт-Петербург' },
-        { id: 4, code: 4, name: 'Новосибирск' }
-      ]
+      // let initialLocalities = [
+      //   { id: 1, code: 1, name: 'Пермь' },
+      //   { id: 2, code: 2, name: 'Москва' },
+      //   { id: 3, code: 3, name: 'Санкт-Петербург' },
+      //   { id: 4, code: 4, name: 'Новосибирск' }
+      // ]
 
       // if (isDev) return initialLocalities
 
-      // fetch('http://10.15.4.5/lktp/getTownsJson?townName=')
+      // fetch(`http://10.15.4.5/lktp/getTownsJson?townName=${query}`)
       //   .then(response => response.json())
       //   .then(data => JSON.parse(data))
       //   .then(list => renderList(list))
       //   .catch(e => console.log(e))
 
-      return initialLocalities
+      // return initialLocalities
     }
     getLocality()
 
@@ -279,7 +280,7 @@ $(document).ready(function() {
     // рендер ноды в лукап
     const renderNode = (obj) => {
       const template = `
-                        <input value="${obj.value}" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
+                        <input code="${obj.code}" value="${obj.value}" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
                         <label class="__select__label" for="locality_${obj.id}">${obj.name}</label>
                        `
 
@@ -352,10 +353,6 @@ $(document).ready(function() {
   }
   // базовый инит всех лукапов
   initLookups(document)
-
-
-
-
 
 
   // Модалка "Скачать инструкцию"
@@ -636,7 +633,7 @@ $(document).ready(function() {
         // хэндлер отказа от удаления очередей
         const handleCloseModal = () => {
           queueLaunchYesBtn.checked = true
-          // ебучий jQuery прописывает инлайн стили
+          // jQuery прописывает инлайн стили
           queueLaunchYes.removeAttribute('style')
           queueLaunchNo.removeAttribute('style')
           queueLaunchYes.classList.remove('hidden')
@@ -717,7 +714,7 @@ $(document).ready(function() {
     objectsNode.parentNode.addEventListener('click', e => handleClick(e))
     reconstructionNode.parentNode.addEventListener('click', e => handleClick(e))
   }
-  if (document.querySelector('.queue_launch_yes')) isQueueEnabled(document)
+  // if (document.querySelector('.queue_launch_yes')) isQueueEnabled(document)
 
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
@@ -1188,4 +1185,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export changeSliderHeight
+// export { changeSliderHeight }

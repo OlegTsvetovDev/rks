@@ -116,7 +116,7 @@ $(document).ready(function () {
       var resultAddress = "".concat(resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.');
       if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1);
       if (resultAddress[0] === '.') resultAddress = '';
-      concated.value = resultAddress; // тоже ошибку выбрасывает теперь
+      concated.value = resultAddress; // перенсти в отдельную функцию дополнения value у input'ов
 
       var connectobjkind = document.querySelector('[name="connectobjkind"]');
       var statementtc = document.querySelector('[name="statementtc_connectobjname"]');
@@ -201,31 +201,19 @@ $(document).ready(function () {
     }; // const isDev = false
 
 
-    var getLocality = function getLocality(query) {
-      var initialLocalities = [{
-        id: 1,
-        code: 1,
-        name: 'Пермь'
-      }, {
-        id: 2,
-        code: 2,
-        name: 'Москва'
-      }, {
-        id: 3,
-        code: 3,
-        name: 'Санкт-Петербург'
-      }, {
-        id: 4,
-        code: 4,
-        name: 'Новосибирск'
-      }]; // if (isDev) return initialLocalities
-      // fetch('http://10.15.4.5/lktp/getTownsJson?townName=')
+    var getLocality = function getLocality(query) {// let initialLocalities = [
+      //   { id: 1, code: 1, name: 'Пермь' },
+      //   { id: 2, code: 2, name: 'Москва' },
+      //   { id: 3, code: 3, name: 'Санкт-Петербург' },
+      //   { id: 4, code: 4, name: 'Новосибирск' }
+      // ]
+      // if (isDev) return initialLocalities
+      // fetch(`http://10.15.4.5/lktp/getTownsJson?townName=${query}`)
       //   .then(response => response.json())
       //   .then(data => JSON.parse(data))
       //   .then(list => renderList(list))
       //   .catch(e => console.log(e))
-
-      return initialLocalities;
+      // return initialLocalities
     };
 
     getLocality(); // получить улицы с бэка
@@ -295,7 +283,7 @@ $(document).ready(function () {
 
 
     var renderNode = function renderNode(obj) {
-      var template = "\n                        <input value=\"".concat(obj.value, "\" type=\"radio\" class=\"__select__input\" id=\"locality_").concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
+      var template = "\n                        <input code=\"".concat(obj.code, "\" value=\"").concat(obj.value, "\" type=\"radio\" class=\"__select__input\" id=\"locality_").concat(obj.id, "\" tabindex=\"0\">\n                        <label class=\"__select__label\" for=\"locality_").concat(obj.id, "\">").concat(obj.name, "</label>\n                       ");
       contentNode.insertAdjacentHTML('beforeend', template);
     }; // возвращаем строки в начальное состояние
 
@@ -595,7 +583,7 @@ $(document).ready(function () {
 
 
         var handleCloseModal = function handleCloseModal() {
-          queueLaunchYesBtn.checked = true; // ебучий jQuery прописывает инлайн стили
+          queueLaunchYesBtn.checked = true; // jQuery прописывает инлайн стили
 
           queueLaunchYes.removeAttribute('style');
           queueLaunchNo.removeAttribute('style');
@@ -677,9 +665,9 @@ $(document).ready(function () {
     reconstructionNode.parentNode.addEventListener('click', function (e) {
       return handleClick(e);
     });
-  };
+  }; // if (document.querySelector('.queue_launch_yes')) isQueueEnabled(document)
+  // добавление новых строк в таблицу с иными источниками, слайдер 4
 
-  if (document.querySelector('.queue_launch_yes')) isQueueEnabled(document); // добавление новых строк в таблицу с иными источниками, слайдер 4
 
   var water_source_tbody = $('.other_water_sources tbody');
   var water_source_count = 2;
@@ -1122,4 +1110,4 @@ $(document).ready(function () {
     // }
   } //#endregion
 
-}); // export changeSliderHeight
+}); // export { changeSliderHeight }
