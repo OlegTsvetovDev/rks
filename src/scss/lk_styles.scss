@@ -1345,7 +1345,15 @@ input[type=number]::-webkit-outer-spin-button {
               cursor: text;
             }
           }
+          &.queue_launch__trigger {
+            &.hidden {
+              display: none;
+            }
+          }
           &.queue_launch {
+            &.hidden {
+              display: none;
+            }
             &.queue_launch_yes {
               margin-bottom: 30px;
             }
