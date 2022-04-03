@@ -352,22 +352,32 @@ $(document).ready(function() {
     getCurrentQueueCount()
 
     // переключение блоков в "Запуск по очередям", слайдер 1
-    function initQueueLaunch() {
-      // const queueLaunchInput = $('input[name="queue_launch"]')
-      // const isDisabled = queueLaunchInput.is(':disabled')
-      // const queueLaunchLabel = queueLaunchInput.parent()
-      //
-      // if (isDisabled) return
-      //
-      // queueLaunchLabel.click(function () {
-      //   const target = $('.queue_launch_' + $(this).children().val())
-      //
-      //   $('.queue_launch').not(target).hide(0)
-      //   target.fadeIn(300)
-      // })
-
+    function initQueueLaunch(node) {
+      const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
+      const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
+      const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
+      const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
+      const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
+      const queueLaunchNoNode = node.querySelector('.queue_launch_no')
+  
+      if (isDisabled) return
+  
+      // if (!(queueLaunchYes && queueLaunchNo)) return
+  
+      const handleYesClick = () => {
+        queueLaunchYesNode.classList.remove('hidden')
+        queueLaunchNoNode.classList.add('hidden')
+      }
+  
+      const handleNoClick = () => {
+        queueLaunchYesNode.classList.add('hidden')
+        queueLaunchNoNode.classList.remove('hidden')
+      }
+  
+      queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
+      queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
     }
-    if (document.querySelector('input[name="queue_launch"]')) initQueueLaunch()
+    if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
 
     // инит слайдера в слайд 4
     function initQueueSlider() {
@@ -635,21 +645,45 @@ $(document).ready(function() {
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
     const radioYesNode = node.querySelector('input[type="radio"][value="yes"]')
     const radioNoNode = node.querySelector('input[type="radio"][value="no"]')
+    const queueLaunchNode = node.querySelector('.queue_launch')
+    const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
 
+    const hideQueueLaunch = () => {
+      queueLaunchTriggerNode.classList.add('hidden')
+      queueLaunchNode.classList.add('hidden')
+    }
+
+    const showQueueLaunch = () => {
+      queueLaunchTriggerNode.classList.remove('hidden')
+      queueLaunchNode.classList.remove('hidden')
+      console.log(1);
+      initQueueLaunch(document)
+    }
+
     const disableQueue = () => {
+      // disabled для всех активных полей
       radioYesNode.disabled = true
       radioNoNode.disabled = true
-      /*queueLaunchYesNode.querySelector('input').disabled = true
-      queueLaunchYesNode.querySelector('button').disabled = true*/
+      queueLaunchYesNode.querySelector('input').disabled = true
+      queueLaunchYesNode.querySelector('button').disabled = true
+
+      // TODO: скрыть показ блока "Плановая дата"
+      // вызвать пока блока "Показ по очередям"
+
+      // "Запуск по очередям" скрываем - добавить класс .queue_launch__trigger
+      radioNoNode.checked = true
+      hideQueueLaunch()
     }
 
     const enableQueue = () => {
+      // enable для всех активных полей
       radioYesNode.disabled = false
       radioNoNode.disabled = false
-      /*queueLaunchYesNode.querySelector('input').disabled = false
-      queueLaunchYesNode.querySelector('button').disabled = false*/
+      queueLaunchYesNode.querySelector('input').disabled = false
+      queueLaunchYesNode.querySelector('button').disabled = false
 
+      showQueueLaunch()
     }
 
     // начальная проверка на отметку
@@ -658,13 +692,11 @@ $(document).ready(function() {
 
     // хэндлер включения/выключения блокировки очередей
     const handleClick = e => {
-      if(document.querySelectorAll('input[')){
-        const currInput = e.target/*.querySelector('input')*/
-        const currInputValue = currInput.value
+      const currInput = e.target.querySelector('input')
+      const currInputValue = currInput.value
 
-        if (currInputValue === '02') return enableQueue()
-        return disableQueue()
-      }
+      if (currInputValue === '02') return enableQueue()
+      return disableQueue()
     }
 
     // добавляем прослушку на клики по радио
@@ -672,7 +704,7 @@ $(document).ready(function() {
     objectsNode.parentNode.addEventListener('click', e => handleClick(e))
     reconstructionNode.parentNode.addEventListener('click', e => handleClick(e))
   }
-  if (document.querySelector('.queue_launch_yes')) isQueueEnabled(document)
+  if (document.querySelector('.queue_launch__trigger')) isQueueEnabled(document)
 
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
