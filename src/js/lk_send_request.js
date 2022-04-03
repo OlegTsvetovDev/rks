@@ -265,11 +265,6 @@ $(document).ready(function() {
       labels.forEach((label, i) => label.addEventListener('click', () => handleLabelClick(label, i)))
     }
 
-    // обновление выпадающих списков с улицами, районами, микрорайонами из смены города
-    function UpdateStreetDistrSubdistr(){
-      //тут доработать надо
-    }
-
     // рендер всех найденных нод
     // list - массив
     function renderList(list) {
