@@ -333,8 +333,7 @@ $(document).ready(function() {
   }
 
   // базовый инит всех лукапов
-  // initLookups(document)
-  // ^^^^^^^^^^^^^^^^^^^^^ РАСКОММЕНТИТЬ ДЛЯ ДЕВА
+   initLookups(document)
 
 
   // Модалка "Скачать инструкцию"
@@ -1029,7 +1028,7 @@ $(document).ready(function() {
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden'); // Подключаемая нагрузка (м3/час)
         break;
         case 'connectobjkind_02':
-          document.querySelector('[name^room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1170,4 +1169,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export {changeSliderHeight}
+export {changeSliderHeight}

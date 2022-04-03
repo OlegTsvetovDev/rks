@@ -133,19 +133,8 @@ $(document).ready(function() {
 
       concated.value = resultAddress
 
-
-      // перенсти в отдельную функцию дополнения value у input'ов
-      // const connectobjkind = document.querySelector('[name="connectobjkind"]')
-      // const statementtc = document.querySelector('[name="statementtc_connectobjname"]')
-      // if (connectobjkind) {
-      //   const checked = connectobjkind.checked
-      //   const trigger = connectobjkind.id === 'connectobjkind_01'
-      //
-      //   if (checked && trigger) statementtc.value = `Частный дом по адресу: ${resultAddress}`
-      // }
-
-      // if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-      //   document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
+      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
+        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
       // concated.textContent = resultAddress
     }, 100)
   }
@@ -167,13 +156,6 @@ $(document).ready(function() {
     if (street) street.addEventListener('change', () => addressConcatination(baseNode))
     if (housing) housing.addEventListener('change', () => addressConcatination(baseNode))
     if (house) house.addEventListener('change', () => addressConcatination(baseNode))
-
-
-    // добавляем прослушку на изменение input'ов
-    document.querySelector('.address__concated').addEventListener('keyup', function(){
-      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
-   })
   }
   const addressBlocks = document.querySelectorAll('.address__concated')
   if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
@@ -185,6 +167,25 @@ $(document).ready(function() {
   function initLookup(type, node) {
     const parentNode = node.parentNode
     const contentNode = parentNode.querySelector('.__select__content')
+    // true, если с локалхоста будут запросы
+    // в результате будет возвращать статичные данные
+
+
+    // const getSettings = {
+    //   url: {
+    //     base: 'http://10.15.4.5/lktp/',
+    //     locality: getSettings.url.base + 'getTownsJson',
+    //     streets: getSettings.url.base + '',
+    //     districts: getSettings.url.base + '',
+    //     microdistricts: getSettings.url.base + ''
+    //   },
+    //   query: {
+    //     locality: `?${param1}&${param2}`,
+    //     streets: ``,
+    //     districts: ``,
+    //     microdistricts: ``
+    //   }
+    // }
 
     // получить города с бэка
     // TODO: нужно написать функцию запроса к гет сервису
@@ -331,10 +332,12 @@ $(document).ready(function() {
     if (districtNodes) districtNodes.forEach(node => initLookup('district', node))
     if (microdistrictNodes) microdistrictNodes.forEach(node => initLookup('microdistrict', node))
   }
-
   // базовый инит всех лукапов
-  // initLookups(document)
-  // ^^^^^^^^^^^^^^^^^^^^^ РАСКОММЕНТИТЬ ДЛЯ ДЕВА
+  initLookups(document)
+
+
+
+
 
 
   // Модалка "Скачать инструкцию"
@@ -362,34 +365,6 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
-  // переключение блоков в "Запуск по очередям", слайдер 1
-  function initQueueLaunch(node) {
-    const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
-    const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
-    const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
-    const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
-    const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
-    const queueLaunchNoNode = node.querySelector('.queue_launch_no')
-
-    if (isDisabled) return
-
-    // if (!(queueLaunchYes && queueLaunchNo)) return
-
-    const handleYesClick = () => {
-      queueLaunchYesNode.classList.remove('hidden')
-      queueLaunchNoNode.classList.add('hidden')
-    }
-
-    const handleNoClick = () => {
-      queueLaunchYesNode.classList.add('hidden')
-      queueLaunchNoNode.classList.remove('hidden')
-    }
-
-    queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
-    queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
-  }
-  if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
-
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -404,6 +379,24 @@ $(document).ready(function() {
       nodes.forEach(node => queue_count += 1)
     }
     getCurrentQueueCount()
+
+    // переключение блоков в "Запуск по очередям", слайдер 1
+    function initQueueLaunch() {
+      // const queueLaunchInput = $('input[name="queue_launch"]')
+      // const isDisabled = queueLaunchInput.is(':disabled')
+      // const queueLaunchLabel = queueLaunchInput.parent()
+      //
+      // if (isDisabled) return
+      //
+      // queueLaunchLabel.click(function () {
+      //   const target = $('.queue_launch_' + $(this).children().val())
+      //
+      //   $('.queue_launch').not(target).hide(0)
+      //   target.fadeIn(300)
+      // })
+
+    }
+    if (document.querySelector('input[name="queue_launch"]')) initQueueLaunch()
 
     // инит слайдера в слайд 4
     function initQueueSlider() {
@@ -625,7 +618,7 @@ $(document).ready(function() {
         // хэндлер отказа от удаления очередей
         const handleCloseModal = () => {
           queueLaunchYesBtn.checked = true
-          // jQuery прописывает инлайн стили
+          // ебучий jQuery прописывает инлайн стили
           queueLaunchYes.removeAttribute('style')
           queueLaunchNo.removeAttribute('style')
           queueLaunchYes.classList.remove('hidden')
@@ -671,45 +664,21 @@ $(document).ready(function() {
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
     const radioYesNode = node.querySelector('input[type="radio"][value="yes"]')
     const radioNoNode = node.querySelector('input[type="radio"][value="no"]')
-    const queueLaunchNode = node.querySelector('.queue_launch')
-    const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
 
-    const hideQueueLaunch = () => {
-      queueLaunchTriggerNode.classList.add('hidden')
-      queueLaunchNode.classList.add('hidden')
-    }
-
-    const showQueueLaunch = () => {
-      queueLaunchTriggerNode.classList.remove('hidden')
-      queueLaunchNode.classList.remove('hidden')
-      console.log(1);
-      initQueueLaunch(document)
-    }
-
     const disableQueue = () => {
-      // disabled для всех активных полей
       radioYesNode.disabled = true
       radioNoNode.disabled = true
-      queueLaunchYesNode.querySelector('input').disabled = true
-      queueLaunchYesNode.querySelector('button').disabled = true
-
-      // TODO: скрыть показ блока "Плановая дата"
-      // вызвать пока блока "Показ по очередям"
-
-      // "Запуск по очередям" скрываем - добавить класс .queue_launch__trigger
-      radioNoNode.checked = true
-      hideQueueLaunch()
+      /*queueLaunchYesNode.querySelector('input').disabled = true
+      queueLaunchYesNode.querySelector('button').disabled = true*/
     }
 
     const enableQueue = () => {
-      // enable для всех активных полей
       radioYesNode.disabled = false
       radioNoNode.disabled = false
       /*queueLaunchYesNode.querySelector('input').disabled = false
       queueLaunchYesNode.querySelector('button').disabled = false*/
 
-      showQueueLaunch()
     }
 
     // начальная проверка на отметку
@@ -718,11 +687,13 @@ $(document).ready(function() {
 
     // хэндлер включения/выключения блокировки очередей
     const handleClick = e => {
-      const currInput = e.target.querySelector('input')
-      const currInputValue = currInput.value
+      if(document.querySelectorAll('input[')){
+        const currInput = e.target/*.querySelector('input')*/
+        const currInputValue = currInput.value
 
-      if (currInputValue === '02') return enableQueue()
-      return disableQueue()
+        if (currInputValue === '02') return enableQueue()
+        return disableQueue()
+      }
     }
 
     // добавляем прослушку на клики по радио
@@ -730,7 +701,7 @@ $(document).ready(function() {
     objectsNode.parentNode.addEventListener('click', e => handleClick(e))
     reconstructionNode.parentNode.addEventListener('click', e => handleClick(e))
   }
-  if (document.querySelector('.queue_launch__trigger')) isQueueEnabled(document)
+  if (document.querySelector('.queue_launch_yes')) isQueueEnabled(document)
 
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
@@ -1009,7 +980,7 @@ $(document).ready(function() {
       switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения 
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden'); // Информация о предельных параметрах разрешенного строительства
@@ -1029,7 +1000,7 @@ $(document).ready(function() {
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden'); // Подключаемая нагрузка (м3/час)
         break;
         case 'connectobjkind_02':
-          document.querySelector('[name^room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1071,7 +1042,7 @@ $(document).ready(function() {
       switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения 
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
@@ -1108,7 +1079,7 @@ $(document).ready(function() {
           document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
-
+          
         break;
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
@@ -1132,13 +1103,13 @@ $(document).ready(function() {
       }
       changeSliderHeight();
   }
-
+  
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
       is_simple = data === "true" ? true : false;
       //is_simple = false
-
+      
       if(is_simple){
         let list_hidden_elem = document.querySelectorAll(
           "[name='infmaxparam3']" + // Протяжность сети
@@ -1161,7 +1132,7 @@ $(document).ready(function() {
 
         document.querySelector('.requests_form').classList.add('simple');
       }
-
+    
       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', HideElemsSimple));
 
       HideElemsSimple();
@@ -1170,4 +1141,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export {changeSliderHeight}
+ export {changeSliderHeight}
