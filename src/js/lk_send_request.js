@@ -167,25 +167,6 @@ $(document).ready(function() {
   function initLookup(type, node) {
     const parentNode = node.parentNode
     const contentNode = parentNode.querySelector('.__select__content')
-    // true, если с локалхоста будут запросы
-    // в результате будет возвращать статичные данные
-
-
-    // const getSettings = {
-    //   url: {
-    //     base: 'http://10.15.4.5/lktp/',
-    //     locality: getSettings.url.base + 'getTownsJson',
-    //     streets: getSettings.url.base + '',
-    //     districts: getSettings.url.base + '',
-    //     microdistricts: getSettings.url.base + ''
-    //   },
-    //   query: {
-    //     locality: `?${param1}&${param2}`,
-    //     streets: ``,
-    //     districts: ``,
-    //     microdistricts: ``
-    //   }
-    // }
 
     // получить города с бэка
     // TODO: нужно написать функцию запроса к гет сервису
@@ -201,19 +182,19 @@ $(document).ready(function() {
     const setLocality = (query) => {
       fetch(`./getTownsJson?townName=${query}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(query,JSON.parse(data))))
+        .then(data => renderList(searchInArray(query,JSON.parse(data)), 'town_code', 'locality'))
         .catch(e => console.log(e))
     }
-    setLocality(document.querySelector('.address__locality').value)
 
     // получить улицы с бэка
     const setStreets = (query) => {
       let townInput = document.querySelector('input[id^="locality_"]:checked');
-      if(townInput)
+      if(townInput){
         fetch(`./getStreetsJson?streetName=${query}&townCode=${townInput.value}`)
           .then(response => response.json())
-          .then(data => renderList(searchInArray(query,JSON.parse(data))))
+          .then(data => renderList(searchInArray(query,JSON.parse(data)), 'street_code', 'street'))
           .catch(e => console.log(e))
+      }
         else
         renderList('');
     }
@@ -224,7 +205,7 @@ $(document).ready(function() {
       if(townInput)
         fetch(`./getDistrictsJson?districtName=${query}&townCode=${townInput.value}`)
           .then(response => response.json())
-          .then(data => renderList(searchInArray(query,JSON.parse(data))))
+          .then(data => renderList(searchInArray(query,JSON.parse(data)), 'district_code', 'district'))
           .catch(e => console.log(e))
         else
         renderList('');
@@ -236,7 +217,7 @@ $(document).ready(function() {
       if(townInput)
         fetch(`./getSubdistrictsJson?subdistrictName=${query}&townCode=${townInput.value}`)
           .then(response => response.json())
-          .then(data => renderList(searchInArray(query,JSON.parse(data))))
+          .then(data => renderList(searchInArray(query,JSON.parse(data)), 'subdistrict_code', 'subdistrict'))
           .catch(e => console.log(e))
         else
         renderList('');
@@ -255,10 +236,10 @@ $(document).ready(function() {
     }
 
     // рендер ноды в лукап
-    const renderNode = (obj) => {
+    const renderNode = (obj, name, nameId) => {
       const template = `
-                        <input value="${obj.code}" type="radio" class="__select__input" id="locality_${obj.id}" tabindex="0">
-                        <label class="__select__label" for="locality_${obj.id}">${obj.name}</label>
+                        <input value="${obj.code}" type="radio" class="__select__input" id="${nameId}_${obj.id}" tabindex="0" name=${name}>
+                        <label class="__select__label" for="${nameId}_${obj.id}">${obj.name}</label>
                        `
 
       contentNode.insertAdjacentHTML('beforeend', template)
@@ -334,11 +315,6 @@ $(document).ready(function() {
   }
   // базовый инит всех лукапов
   initLookups(document)
-
-
-
-
-
 
   // Модалка "Скачать инструкцию"
   function initModalDownloadInstructions() {
@@ -981,7 +957,7 @@ $(document).ready(function() {
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения 
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden'); // Информация о предельных параметрах разрешенного строительства
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.add('hidden'); // Количество надземных этажей
@@ -1002,7 +978,7 @@ $(document).ready(function() {
         case 'connectobjkind_02':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
@@ -1021,7 +997,7 @@ $(document).ready(function() {
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.remove('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden'); // Информация о предельных параметрах разрешенного строительства
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.add('hidden'); // Количество надземных этажей
@@ -1043,7 +1019,7 @@ $(document).ready(function() {
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения 
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
@@ -1064,7 +1040,7 @@ $(document).ready(function() {
         case 'connectobjkind_02':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
@@ -1084,7 +1060,7 @@ $(document).ready(function() {
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').textContent}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
