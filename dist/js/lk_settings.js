@@ -154,8 +154,8 @@ $(document).ready(function () {
 
 
    // Смена выбора документа
-   // $('input[type=radio][name=docname]').change(function() {
-   //   $('input[id=if_docname_selected]').attr('name', '');
-   // });
+    $('input[type=radio][name=docname]').change(function() {
+      $('input[id=if_docname_selected]').attr('name', '');
+    });
 
 });

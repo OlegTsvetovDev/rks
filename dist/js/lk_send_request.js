@@ -25,7 +25,7 @@ $(document).ready(function() {
       infinite: false,
       draggable: false,
       adaptiveHeight: true,
-      initialSlide: 0
+      initialSlide: 3
     })
   }
 
