@@ -642,8 +642,8 @@ $(document).ready(function() {
     const objectsNode = node.querySelector('input[name="connectobjkind"][value="02"]')
     const objectChecked = objectsNode.checked
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
-    const radioYesNode = node.querySelector('input[type="radio"][value="yes"]')
-    const radioNoNode = node.querySelector('input[type="radio"][value="no"]')
+    const radioYesNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="yes"]')
+    const radioNoNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="no"]')
     const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
     const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
@@ -986,7 +986,7 @@ $(document).ready(function() {
             document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
           if(document.querySelector('[name^="usage_type"]'))
             document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
-          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения 
+          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden'); // Информация о предельных параметрах разрешенного строительства
@@ -1064,7 +1064,7 @@ $(document).ready(function() {
             document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
           if(document.querySelector('[name^="usage_type"]'))
             document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
-          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения 
+          document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
           document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
@@ -1175,4 +1175,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-export { changeSliderHeight }
+// export { changeSliderHeight }
