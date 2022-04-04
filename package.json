@@ -16,7 +16,9 @@
     "gulp-babel": "^8.0.0",
     "gulp-connect-php": "^1.0.3",
     "gulp-if-else": "^1.0.3",
-    "merge-stream": "^2.0.0"
+    "merge-stream": "^2.0.0",
+    "webpack": "^5.71.0",
+    "webpack-stream": "^7.0.0"
   },
   "devDependencies": {
     "browser-sync": "^2.26.7",

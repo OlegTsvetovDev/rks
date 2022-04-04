@@ -187,9 +187,9 @@ $(document).ready(function() {
     const contentNode = parentNode.querySelector('.__select__content')
 
     // получить города с бэка
-    // TODO: нужно написать функцию запроса к гет сервису
-    // функция должна возвращать массив из объектов
-    // и вызывать renderList() для мутации списка городов в псевдоселекте
+    // Функцию запроса к гет сервису
+    // функция возвращает массив из объектов
+    // и вызывает renderList() для мутации списка городов в псевдоселекте
     const setData = (query) => {
       if (type === 'locality') setLocality(query)
       if (type === 'street') setStreets(query)
@@ -275,12 +275,12 @@ $(document).ready(function() {
       const labels = node.querySelectorAll('label')
       const inputs = node.querySelectorAll('input')
 
-      const handleLabelClick = (label, i) => {
+      const handleLabelClick = (label) => {
         const queryInput = node.parentNode.querySelector('input')
         queryInput.value = label.innerText
       }
 
-      labels.forEach((label, i) => label.addEventListener('click', () => handleLabelClick(label, i)))
+      labels.forEach(label => label.addEventListener('click', () => handleLabelClick(label)))
     }
 
     // обновление выпадающих списков с улицами, районами, микрорайонами из смены города
@@ -683,7 +683,6 @@ $(document).ready(function() {
     const showQueueLaunch = () => {
       queueLaunchTriggerNode.classList.remove('hidden')
       queueLaunchNode.classList.remove('hidden')
-      console.log(1);
       initQueueLaunch(document)
     }
 
@@ -694,8 +693,7 @@ $(document).ready(function() {
       queueLaunchYesNode.querySelector('input').disabled = true
       queueLaunchYesNode.querySelector('button').disabled = true
 
-      // TODO: скрыть показ блока "Плановая дата"
-      // вызвать пока блока "Показ по очередям"
+      // TODO: добавить модалку подтверждения удаления всех очередей
 
       // "Запуск по очередям" скрываем - добавить класс .queue_launch__trigger
       radioNoNode.checked = true
@@ -1170,4 +1168,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export {changeSliderHeight}
+// export { changeSliderHeight }
