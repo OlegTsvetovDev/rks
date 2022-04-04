@@ -967,13 +967,14 @@ $(document).ready(function() {
         }
         form = $(this).closest('form');
         form.append("<input type='hidden' name='ecp' value='true' />");
+        document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
         form.submit();
         break;
       case "save_button":
         $('input[name="redirect"]').val('newrequesttp')
         break;
     }
-
+    document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
   });
 
   let is_simple;
@@ -1175,4 +1176,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export { changeSliderHeight }
+export { changeSliderHeight }

@@ -1175,4 +1175,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export { changeSliderHeight }
+export { changeSliderHeight }
