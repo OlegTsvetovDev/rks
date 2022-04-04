@@ -25,7 +25,7 @@ $(document).ready(function() {
       infinite: false,
       draggable: false,
       adaptiveHeight: true,
-      initialSlide: 3
+      initialSlide: 0
     })
   }
 
@@ -336,6 +336,31 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
+  // переключение блоков в "Запуск по очередям", слайдер 1
+  function initQueueLaunch(node) {
+    const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
+    const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
+    const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
+    const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
+    const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
+    const queueLaunchNoNode = node.querySelector('.queue_launch_no')
+
+    if (isDisabled) return
+
+    const handleYesClick = () => {
+      queueLaunchYesNode.classList.remove('hidden')
+      queueLaunchNoNode.classList.add('hidden')
+    }
+
+    const handleNoClick = () => {
+      queueLaunchYesNode.classList.add('hidden')
+      queueLaunchNoNode.classList.remove('hidden')
+    }
+
+    queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
+    queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
+  }
+
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -351,32 +376,6 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    // переключение блоков в "Запуск по очередям", слайдер 1
-    function initQueueLaunch(node) {
-      const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
-      const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
-      const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
-      const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
-      const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
-      const queueLaunchNoNode = node.querySelector('.queue_launch_no')
-
-      if (isDisabled) return
-
-      // if (!(queueLaunchYes && queueLaunchNo)) return
-
-      const handleYesClick = () => {
-        queueLaunchYesNode.classList.remove('hidden')
-        queueLaunchNoNode.classList.add('hidden')
-      }
-
-      const handleNoClick = () => {
-        queueLaunchYesNode.classList.add('hidden')
-        queueLaunchNoNode.classList.remove('hidden')
-      }
-
-      queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
-      queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
-    }
     if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
 
     // инит слайдера в слайд 4
@@ -645,19 +644,22 @@ $(document).ready(function() {
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
     const radioYesNode = node.querySelector('input[type="radio"][value="yes"]')
     const radioNoNode = node.querySelector('input[type="radio"][value="no"]')
-    const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
+    const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
+    const queueLaunchNoNode = node.querySelector('.queue_launch_yes')
 
     const hideQueueLaunch = () => {
       queueLaunchTriggerNode.classList.add('hidden')
-      queueLaunchNode.classList.add('hidden')
+      queueLaunchYesNode.classList.add('hidden')
+      queueLaunchNoNode.classList.remove('hidden')
     }
 
     const showQueueLaunch = () => {
       queueLaunchTriggerNode.classList.remove('hidden')
-      queueLaunchNode.classList.remove('hidden')
-      initQueueLaunch(document)
+      queueLaunchYesNode.classList.remove('hidden')
+      queueLaunchNoNode.classList.add('hidden')
+      // initQueueLaunch(document)
     }
 
     const disableQueue = () => {
@@ -690,6 +692,8 @@ $(document).ready(function() {
 
     // хэндлер включения/выключения блокировки очередей
     const handleClick = e => {
+      // TODO: исправить двойной клик по лейблу и инпуту
+      console.log(e.target)
       const currInput = e.target.querySelector('input')
       const currInputValue = currInput.value
 
