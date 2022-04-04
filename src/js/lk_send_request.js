@@ -25,7 +25,7 @@ $(document).ready(function() {
       infinite: false,
       draggable: false,
       adaptiveHeight: true,
-      initialSlide: 0
+      initialSlide: 3
     })
   }
 
@@ -169,9 +169,9 @@ $(document).ready(function() {
     const contentNode = parentNode.querySelector('.__select__content')
 
     // получить города с бэка
-    // TODO: нужно написать функцию запроса к гет сервису
-    // функция должна возвращать массив из объектов
-    // и вызывать renderList() для мутации списка городов в псевдоселекте
+    // Функцию запроса к гет сервису
+    // функция возвращает массив из объектов
+    // и вызывает renderList() для мутации списка городов в псевдоселекте
     const setData = (query) => {
       if (type === 'locality') setLocality(query)
       if (type === 'street') setStreets(query)
@@ -257,12 +257,12 @@ $(document).ready(function() {
       const labels = node.querySelectorAll('label')
       const inputs = node.querySelectorAll('input')
 
-      const handleLabelClick = (label, i) => {
+      const handleLabelClick = (label) => {
         const queryInput = node.parentNode.querySelector('input')
         queryInput.value = label.innerText
       }
 
-      labels.forEach((label, i) => label.addEventListener('click', () => handleLabelClick(label, i)))
+      labels.forEach(label => label.addEventListener('click', () => handleLabelClick(label)))
     }
 
     // рендер всех найденных нод
@@ -359,21 +359,21 @@ $(document).ready(function() {
       const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
       const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
       const queueLaunchNoNode = node.querySelector('.queue_launch_no')
-  
+
       if (isDisabled) return
-  
+
       // if (!(queueLaunchYes && queueLaunchNo)) return
-  
+
       const handleYesClick = () => {
         queueLaunchYesNode.classList.remove('hidden')
         queueLaunchNoNode.classList.add('hidden')
       }
-  
+
       const handleNoClick = () => {
         queueLaunchYesNode.classList.add('hidden')
         queueLaunchNoNode.classList.remove('hidden')
       }
-  
+
       queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
       queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
     }
@@ -657,7 +657,6 @@ $(document).ready(function() {
     const showQueueLaunch = () => {
       queueLaunchTriggerNode.classList.remove('hidden')
       queueLaunchNode.classList.remove('hidden')
-      console.log(1);
       initQueueLaunch(document)
     }
 
@@ -668,8 +667,7 @@ $(document).ready(function() {
       queueLaunchYesNode.querySelector('input').disabled = true
       queueLaunchYesNode.querySelector('button').disabled = true
 
-      // TODO: скрыть показ блока "Плановая дата"
-      // вызвать пока блока "Показ по очередям"
+      // TODO: добавить модалку подтверждения удаления всех очередей
 
       // "Запуск по очередям" скрываем - добавить класс .queue_launch__trigger
       radioNoNode.checked = true
@@ -1095,7 +1093,7 @@ $(document).ready(function() {
           if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
             document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
-          
+
         break;
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
@@ -1123,13 +1121,13 @@ $(document).ready(function() {
       }
       changeSliderHeight();
   }
-  
+
   $.ajax({
     url: "./getSimpleJson/",
     success: function(data){
       is_simple = data === "true" ? true : false;
       //is_simple = false
-      
+
       if(is_simple){
         let list_hidden_elem = document.querySelectorAll(
           "[name='infmaxparam3']" + // Протяжность сети
@@ -1152,7 +1150,7 @@ $(document).ready(function() {
 
         document.querySelector('.requests_form').classList.add('simple');
       }
-    
+
       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', HideElemsSimple));
 
       HideElemsSimple();
@@ -1161,4 +1159,4 @@ $(document).ready(function() {
   //#endregion
 })
 
- export {changeSliderHeight}
+// export { changeSliderHeight }

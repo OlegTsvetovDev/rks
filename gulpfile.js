@@ -17,6 +17,9 @@ const includeFiles = require('gulp-file-include') // file includes via @@
 const ifElse = require('gulp-if-else') // if cond for pipes
 const browserSync = require('browser-sync') // livereload in browser
 const phpConnect = require('gulp-connect-php') // php server connection
+const webpack = require('webpack-stream')
+const compiler = require('webpack')
+
 
 const preOptimize = {
         self:   '_preOptimize/',
@@ -177,16 +180,17 @@ function js() {
                  .pipe(dest(projectFolder.js))
 
   let fullFiles = src(srcFolder.js)
-                  // .pipe(jsBabel({
-                  //   presets: ['@babel/preset-env']
-                  // }))
-                  .pipe(dest(projectFolder.js))
-                  // .pipe(jsMinify())
-                  .pipe(fileRename({
-                    extname: '.min.js'
-                  }))
-                  .pipe(dest(projectFolder.js))
-                  .pipe(browserSync.stream())
+                    // .pipe(webpack(), null, function(e) {console.log(e)})
+                    // .pipe(jsBabel({
+                    //   presets: ['@babel/preset-env']
+                    // }))
+                    .pipe(dest(projectFolder.js))
+                    // .pipe(jsMinify())
+                    .pipe(fileRename({
+                      extname: '.min.js'
+                    }))
+                    .pipe(dest(projectFolder.js))
+                    .pipe(browserSync.stream())
 
   return mergeStream(minFiles, fullFiles)
 }

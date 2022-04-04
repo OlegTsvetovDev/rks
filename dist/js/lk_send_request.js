@@ -25,7 +25,7 @@ $(document).ready(function() {
       infinite: false,
       draggable: false,
       adaptiveHeight: true,
-      initialSlide: 0
+      initialSlide: 3
     })
   }
 
@@ -133,19 +133,8 @@ $(document).ready(function() {
 
       concated.value = resultAddress
 
-
-      // перенсти в отдельную функцию дополнения value у input'ов
-      // const connectobjkind = document.querySelector('[name="connectobjkind"]')
-      // const statementtc = document.querySelector('[name="statementtc_connectobjname"]')
-      // if (connectobjkind) {
-      //   const checked = connectobjkind.checked
-      //   const trigger = connectobjkind.id === 'connectobjkind_01'
-      //
-      //   if (checked && trigger) statementtc.value = `Частный дом по адресу: ${resultAddress}`
-      // }
-
-       if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-         document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
+      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
+        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
       // concated.textContent = resultAddress
     }, 100)
   }
@@ -160,26 +149,13 @@ $(document).ready(function() {
     const housing = baseNode.querySelector('.address__housing')
     const house = baseNode.querySelector('.address__house')
 
-    
+
     if (locality) locality.addEventListener('change', () => addressConcatination(baseNode))
     if (district) district.addEventListener('change', () => addressConcatination(baseNode))
     if (microdistrict) microdistrict.addEventListener('change', () => addressConcatination(baseNode))
     if (street) street.addEventListener('change', () => addressConcatination(baseNode))
     if (housing) housing.addEventListener('change', () => addressConcatination(baseNode))
     if (house) house.addEventListener('change', () => addressConcatination(baseNode))
-
-
-    // добавляем прослушку на изменение input'ов
-    /*document.querySelector('.address__concated').addEventListener('keyup', function(){
-      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
-   })*/
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      НЕ РАБОТАЕТ      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
   }
   const addressBlocks = document.querySelectorAll('.address__concated')
   if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
@@ -193,9 +169,9 @@ $(document).ready(function() {
     const contentNode = parentNode.querySelector('.__select__content')
 
     // получить города с бэка
-    // TODO: нужно написать функцию запроса к гет сервису
-    // функция должна возвращать массив из объектов
-    // и вызывать renderList() для мутации списка городов в псевдоселекте
+    // Функцию запроса к гет сервису
+    // функция возвращает массив из объектов
+    // и вызывает renderList() для мутации списка городов в псевдоселекте
     const setData = (query) => {
       if (type === 'locality') setLocality(query)
       if (type === 'street') setStreets(query)
@@ -281,17 +257,17 @@ $(document).ready(function() {
       const labels = node.querySelectorAll('label')
       const inputs = node.querySelectorAll('input')
 
-      const handleLabelClick = (label, i) => {
+      const handleLabelClick = (label) => {
         const queryInput = node.parentNode.querySelector('input')
         queryInput.value = label.innerText
       }
 
-      labels.forEach((label, i) => label.addEventListener('click', () => handleLabelClick(label, i)))
+      labels.forEach(label => label.addEventListener('click', () => handleLabelClick(label)))
     }
 
     // рендер всех найденных нод
     // list - массив
-    function renderList(list, name, nameId) {
+    function renderList(list) {
       const contentNode = parentNode.querySelector('.__select__content')
       // удаляем предыдущие ноды
       removePreviousList(contentNode)
@@ -300,7 +276,7 @@ $(document).ready(function() {
       // добавляем новые ноды
       if(list !== '')
       {
-        list.forEach(obj => renderNode(obj, name, nameId))
+        list.forEach(obj => renderNode(obj))
         parentNode.setAttribute('data-state', 'active')
       }
 
@@ -332,9 +308,8 @@ $(document).ready(function() {
     if (districtNodes) districtNodes.forEach(node => initLookup('district', node))
     if (microdistrictNodes) microdistrictNodes.forEach(node => initLookup('microdistrict', node))
   }
-
   // базовый инит всех лукапов
-   initLookups(document)
+  initLookups(document)
 
   // Модалка "Скачать инструкцию"
   function initModalDownloadInstructions() {
@@ -361,34 +336,6 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
-  // переключение блоков в "Запуск по очередям", слайдер 1
-  function initQueueLaunch(node) {
-    const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
-    const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
-    const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
-    const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
-    const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
-    const queueLaunchNoNode = node.querySelector('.queue_launch_no')
-
-    if (isDisabled) return
-
-    // if (!(queueLaunchYes && queueLaunchNo)) return
-
-    const handleYesClick = () => {
-      queueLaunchYesNode.classList.remove('hidden')
-      queueLaunchNoNode.classList.add('hidden')
-    }
-
-    const handleNoClick = () => {
-      queueLaunchYesNode.classList.add('hidden')
-      queueLaunchNoNode.classList.remove('hidden')
-    }
-
-    queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
-    queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
-  }
-  if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
-
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -403,6 +350,34 @@ $(document).ready(function() {
       nodes.forEach(node => queue_count += 1)
     }
     getCurrentQueueCount()
+
+    // переключение блоков в "Запуск по очередям", слайдер 1
+    function initQueueLaunch(node) {
+      const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
+      const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
+      const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
+      const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
+      const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
+      const queueLaunchNoNode = node.querySelector('.queue_launch_no')
+
+      if (isDisabled) return
+
+      // if (!(queueLaunchYes && queueLaunchNo)) return
+
+      const handleYesClick = () => {
+        queueLaunchYesNode.classList.remove('hidden')
+        queueLaunchNoNode.classList.add('hidden')
+      }
+
+      const handleNoClick = () => {
+        queueLaunchYesNode.classList.add('hidden')
+        queueLaunchNoNode.classList.remove('hidden')
+      }
+
+      queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
+      queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
+    }
+    if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
 
     // инит слайдера в слайд 4
     function initQueueSlider() {
@@ -624,7 +599,7 @@ $(document).ready(function() {
         // хэндлер отказа от удаления очередей
         const handleCloseModal = () => {
           queueLaunchYesBtn.checked = true
-          // jQuery прописывает инлайн стили
+          // ебучий jQuery прописывает инлайн стили
           queueLaunchYes.removeAttribute('style')
           queueLaunchNo.removeAttribute('style')
           queueLaunchYes.classList.remove('hidden')
@@ -682,7 +657,6 @@ $(document).ready(function() {
     const showQueueLaunch = () => {
       queueLaunchTriggerNode.classList.remove('hidden')
       queueLaunchNode.classList.remove('hidden')
-      console.log(1);
       initQueueLaunch(document)
     }
 
@@ -693,8 +667,7 @@ $(document).ready(function() {
       queueLaunchYesNode.querySelector('input').disabled = true
       queueLaunchYesNode.querySelector('button').disabled = true
 
-      // TODO: скрыть показ блока "Плановая дата"
-      // вызвать пока блока "Показ по очередям"
+      // TODO: добавить модалку подтверждения удаления всех очередей
 
       // "Запуск по очередям" скрываем - добавить класс .queue_launch__trigger
       radioNoNode.checked = true
@@ -739,9 +712,6 @@ $(document).ready(function() {
   $('.add_source_btn').click(function(e) {
     const new_row = `
                     <tr class="table__row">
-                      <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
-                      </td>
                       <td class="table__cell">
                         <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
@@ -1189,4 +1159,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-export {changeSliderHeight}
+// export { changeSliderHeight }
