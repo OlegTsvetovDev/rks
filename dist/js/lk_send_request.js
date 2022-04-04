@@ -745,9 +745,6 @@ $(document).ready(function() {
                       <td class="table__cell">
                         <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
-                      <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
-                      </td>
                     </tr>
                    `
     e.preventDefault()
