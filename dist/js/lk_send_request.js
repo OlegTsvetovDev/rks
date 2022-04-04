@@ -978,8 +978,10 @@ $(document).ready(function() {
       switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
-          document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
@@ -1001,8 +1003,10 @@ $(document).ready(function() {
         break;
         case 'connectobjkind_02':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
-          document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1024,8 +1028,10 @@ $(document).ready(function() {
         break;
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.remove('hidden'); // Номер квартиры
-          document.querySelector('[name^="landplot_area"]').parentElement.classList.add('hidden'); // Площадь земельного участка
-          document.querySelector('[name^="usage_type"]').parentElement.classList.add('hidden'); // Вид разрешенного использования
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.add('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.add('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
@@ -1050,8 +1056,10 @@ $(document).ready(function() {
       switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
-          document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1073,8 +1081,10 @@ $(document).ready(function() {
         break;
         case 'connectobjkind_02':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
-          document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1097,8 +1107,10 @@ $(document).ready(function() {
         break;
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
-          document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
-          document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1159,4 +1171,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export { changeSliderHeight }
+export { changeSliderHeight }
