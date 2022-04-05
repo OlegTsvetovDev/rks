@@ -25,7 +25,7 @@ $(document).ready(function() {
       infinite: false,
       draggable: false,
       adaptiveHeight: true,
-      initialSlide: 3
+      initialSlide: 0
     })
   }
 
@@ -336,6 +336,31 @@ $(document).ready(function() {
   if (document.querySelector('.instructions__btn')) initModalDownloadInstructions()
 
 
+  // переключение блоков в "Запуск по очередям", слайдер 1
+  function initQueueLaunch(node) {
+    const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
+    const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
+    const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
+    const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
+    const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
+    const queueLaunchNoNode = node.querySelector('.queue_launch_no')
+
+    if (isDisabled) return
+
+    const handleYesClick = () => {
+      queueLaunchYesNode.classList.remove('hidden')
+      queueLaunchNoNode.classList.add('hidden')
+    }
+
+    const handleNoClick = () => {
+      queueLaunchYesNode.classList.add('hidden')
+      queueLaunchNoNode.classList.remove('hidden')
+    }
+
+    queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
+    queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
+  }
+
   // логика блоков очередей (добавление, удаление), 1 и 4 сладер
   function initMultipleQueues() {
     // состояние количества очередей
@@ -351,32 +376,6 @@ $(document).ready(function() {
     }
     getCurrentQueueCount()
 
-    // переключение блоков в "Запуск по очередям", слайдер 1
-    function initQueueLaunch(node) {
-      const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
-      const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
-      const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
-      const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
-      const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
-      const queueLaunchNoNode = node.querySelector('.queue_launch_no')
-
-      if (isDisabled) return
-
-      // if (!(queueLaunchYes && queueLaunchNo)) return
-
-      const handleYesClick = () => {
-        queueLaunchYesNode.classList.remove('hidden')
-        queueLaunchNoNode.classList.add('hidden')
-      }
-
-      const handleNoClick = () => {
-        queueLaunchYesNode.classList.add('hidden')
-        queueLaunchNoNode.classList.remove('hidden')
-      }
-
-      queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
-      queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
-    }
     if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
 
     // инит слайдера в слайд 4
@@ -643,21 +642,24 @@ $(document).ready(function() {
     const objectsNode = node.querySelector('input[name="connectobjkind"][value="02"]')
     const objectChecked = objectsNode.checked
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
-    const radioYesNode = node.querySelector('input[type="radio"][value="yes"]')
-    const radioNoNode = node.querySelector('input[type="radio"][value="no"]')
-    const queueLaunchNode = node.querySelector('.queue_launch')
+    const radioYesNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="yes"]')
+    const radioNoNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="no"]')
     const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
+    const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
+    const queueLaunchNoNode = node.querySelector('.queue_launch_yes')
 
     const hideQueueLaunch = () => {
       queueLaunchTriggerNode.classList.add('hidden')
-      queueLaunchNode.classList.add('hidden')
+      queueLaunchYesNode.classList.add('hidden')
+      queueLaunchNoNode.classList.remove('hidden')
     }
 
     const showQueueLaunch = () => {
       queueLaunchTriggerNode.classList.remove('hidden')
-      queueLaunchNode.classList.remove('hidden')
-      initQueueLaunch(document)
+      queueLaunchYesNode.classList.remove('hidden')
+      queueLaunchNoNode.classList.add('hidden')
+      // initQueueLaunch(document)
     }
 
     const disableQueue = () => {
@@ -690,6 +692,8 @@ $(document).ready(function() {
 
     // хэндлер включения/выключения блокировки очередей
     const handleClick = e => {
+      // TODO: исправить двойной клик по лейблу и инпуту
+      console.log(e.target)
       const currInput = e.target.querySelector('input')
       const currInputValue = currInput.value
 
@@ -966,13 +970,14 @@ $(document).ready(function() {
         }
         form = $(this).closest('form');
         form.append("<input type='hidden' name='ecp' value='true' />");
+        document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
         form.submit();
         break;
       case "save_button":
         $('input[name="redirect"]').val('newrequesttp')
         break;
     }
-
+    document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
   });
 
   let is_simple;
@@ -981,6 +986,10 @@ $(document).ready(function() {
       switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
@@ -1002,6 +1011,10 @@ $(document).ready(function() {
         break;
         case 'connectobjkind_02':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1009,18 +1022,24 @@ $(document).ready(function() {
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
           document.querySelector('[name^="infmaxparam2"]').parentElement.classList.remove('hidden'); // Этажность
           document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
           document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.remove('hidden'); // Кол-во пожарных кранов, шт
           document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden'); // Расход на наружное пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden'); // Расход на внутреннее пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden'); // Расход на автоматическое пожаротушение, л/с
           document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
         break;
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.remove('hidden'); // Номер квартиры
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.add('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.add('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
@@ -1028,14 +1047,16 @@ $(document).ready(function() {
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.add('hidden'); // Количество надземных этажей
           document.querySelector('[name^="infmaxparam2"]').parentElement.classList.add('hidden'); // Этажность
           document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.add('hidden'); // Подключаемая нагрузка (м3/час)
           document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.add('hidden'); // Кол-во пожарных кранов, шт
           document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden'); // Расход на наружное пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden'); // Расход на внутреннее пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden'); // Расход на автоматическое пожаротушение, л/с
           document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden'); // Подключаемая нагрузка (м3/час)
         break;
       }
@@ -1043,6 +1064,10 @@ $(document).ready(function() {
       switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
         case 'connectobjkind_01':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1064,6 +1089,10 @@ $(document).ready(function() {
         break;
         case 'connectobjkind_02':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1071,19 +1100,25 @@ $(document).ready(function() {
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
           document.querySelector('[name^="infmaxparam2"]').parentElement.classList.remove('hidden'); // Этажность
           document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
           document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.remove('hidden'); // Кол-во пожарных кранов, шт
           document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden'); // Расход на наружное пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden'); // Расход на внутреннее пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden'); // Расход на автоматическое пожаротушение, л/с
           document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
 
         break;
         case 'connectobjkind_03':
           document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
+          if(document.querySelector('[name^="landplot_area"]'))
+            document.querySelector('[name^="landplot_area"]').parentElement.classList.remove('hidden'); // Площадь земельного участка
+          if(document.querySelector('[name^="usage_type"]'))
+            document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
           document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
           document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
           document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
@@ -1091,14 +1126,16 @@ $(document).ready(function() {
           document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
           document.querySelector('[name^="infmaxparam2"]').parentElement.classList.remove('hidden'); // Этажность
           document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
           document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.remove('hidden'); // Кол-во пожарных кранов, шт
           document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden'); // Расход на наружное пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden'); // Расход на внутреннее пожаротушение, л/с
           document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden'); // Расход на автоматическое пожаротушение, л/с
           document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
+          if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
+            document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
           document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
         break;
       }
@@ -1142,4 +1179,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export { changeSliderHeight }
+export { changeSliderHeight }
