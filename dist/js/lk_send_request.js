@@ -642,9 +642,9 @@ $(document).ready(function() {
     const objectsNode = node.querySelector('input[name="connectobjkind"][value="02"]')
     const objectChecked = objectsNode.checked
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
+    const radioYesNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="yes"]')
+    const radioNoNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="no"]')
     const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
-    const radioYesNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="yes"]')
-    const radioNoNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="no"]')
     const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
     const queueLaunchNoNode = node.querySelector('.queue_launch_yes')
@@ -711,18 +711,16 @@ $(document).ready(function() {
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
   const water_source_tbody = $('.other_water_sources tbody')
-  let water_source_count = 1
-  const water_sources_count = document.querySelector('[name="other_water_sources_count"]');
-
+  let water_source_count = 2
 
   $('.add_source_btn').click(function(e) {
     const new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_name_' + water_source_count} placeholder="Введите данные" />
+                        <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
+                        <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
@@ -730,7 +728,6 @@ $(document).ready(function() {
 
     water_source_tbody.append(new_row)
     water_source_count++
-    if (water_sources_count) water_sources_count.value = water_source_count;
     changeSliderHeight()
   })
 
@@ -758,7 +755,7 @@ $(document).ready(function() {
                         <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
+                        <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
@@ -970,14 +967,13 @@ $(document).ready(function() {
         }
         form = $(this).closest('form');
         form.append("<input type='hidden' name='ecp' value='true' />");
-        document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
         form.submit();
         break;
       case "save_button":
         $('input[name="redirect"]').val('newrequesttp')
         break;
     }
-    document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
+
   });
 
   let is_simple;
