@@ -707,16 +707,18 @@ $(document).ready(function() {
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
   const water_source_tbody = $('.other_water_sources tbody')
-  let water_source_count = 2
+  let water_source_count = 1
+  const water_sources_count = document.querySelector('[name="other_water_sources_count"]');
+
 
   $('.add_source_btn').click(function(e) {
     const new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
+                        <input type="text" class="field__input" name=${'other_water_sources_name_' + water_source_count} placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
+                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
@@ -724,6 +726,7 @@ $(document).ready(function() {
 
     water_source_tbody.append(new_row)
     water_source_count++
+    if (water_sources_count) water_sources_count.value = water_source_count;
     changeSliderHeight()
   })
 
@@ -751,7 +754,7 @@ $(document).ready(function() {
                         <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
+                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
