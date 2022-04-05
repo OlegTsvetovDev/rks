@@ -642,9 +642,9 @@ $(document).ready(function() {
     const objectsNode = node.querySelector('input[name="connectobjkind"][value="02"]')
     const objectChecked = objectsNode.checked
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
-    const radioYesNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="yes"]')
-    const radioNoNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="no"]')
     const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
+    const radioYesNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="yes"]')
+    const radioNoNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="no"]')
     const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
     const queueLaunchNoNode = node.querySelector('.queue_launch_yes')
@@ -1175,4 +1175,4 @@ $(document).ready(function() {
   //#endregion
 })
 
-// export { changeSliderHeight }
+export { changeSliderHeight }
