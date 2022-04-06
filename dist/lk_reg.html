@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/lk_styles.min.css?_v=20220406205023">
+  <title>Авторизация | РКС</title>
+</head>
+<body>
+  <header class="header">
+  <div class="header__content">
+    <div class="header__top">
+      <div class="header__logo">
+        <!-- <a href="https://www.roscomsys.ru/" class="logo__img"></a> -->
+        <a href="/" class="logo__img"></a>
+      </div>
+      <div class="header__contacts">
+        <div class="contacts__content">
+          <p class="contacts__description">Телефон диспетчерской службы</p>
+          <p class="contacts__phone">+7 (342) 2100-680</p>
+        </div>
+        <div class="contacts__content">
+          <p class="contacts__description">Телефон контактного центра для физических лиц</p>
+          <p class="contacts__phone">+7 (342) 201-95-30</p>
+        </div>
+      </div>
+      <div class="header__instructions">
+        <a href="" class="instructions__btn">
+          Скачать инструкцию пользователя ЛК
+        </a>
+      </div>
+    </div>
+    <div class="header__bottom">
+      <div class="bottom__left_side">
+        <h5 class="left_side__header"></h5>
+      </div>
+      <div class="bottom__right_side">
+        <h5 class="right_side__header"></h5>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="modal modal_instructions hidden">
+  <div class="modal__content modal_instructions__content">
+    <div class="close"></div>
+    <h6 class="modal__header">Выберите инструкцию пользователя</h6>
+    <div class="modal__text">
+      <a href="" class="instructions__link">
+        Инструкция пользователя ЛК физ.лиц
+      </a>
+      <a href="" class="instructions__link">
+        Инструкция пользователя ЛК ЮЛ
+      </a>
+      <a href="" class="instructions__link">
+        Инструкция пользователя ЛК ИП
+      </a>
+      <a href="" class="instructions__link">
+        Инструкция пользователя для органов власти
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="main">
+    <div class="main__content">
+      <form class="main__form" action="/lk_reg_completed.html">
+        <div class="form__left_side">
+          <h1 class="form__header">Регистрация</h1>
+        </div>
+        <div class="form__right_side">
+          <div class="__select" data-state="">
+            <div class="__select__title" data-default="Option 0">Выберите тип профиля</div>
+            <div class="__select__content">
+              <input id="__select_none" class="__select__input" type="radio" name="profile_type" selected checked />
+              <label for="__select_none" class="__select__label">Выберите тип профиля</label>
+              <input id="__select_fl" class="__select__input" type="radio" name="profile_type" />
+              <label for="__select_fl" class="__select__label">Физическое лицо</label>
+              <input id="__select_ul" class="__select__input" type="radio" name="profile_type" />
+              <label for="__select_ul" class="__select__label">Юридическое лицо</label>
+              <input id="__select_e" class="__select__input" type="radio" name="profile_type"/>
+              <label for="__select_e" class="__select__label">Индивидуальный предприниматель</label>
+              <input id="__select_ogv" class="__select__input" type="radio" name="profile_type"/>
+              <label for="__select_ogv" class="__select__label">Орган государственной власти</label>
+            </div>
+          </div>
+          <input class="form__input" type="text" name="" placeholder="Адрес электронной почты" required />
+          <input class="form__input" type="password" name="" placeholder="Пароль" required />
+          <input class="form__input" type="password" name="" placeholder="Повторите пароль" required />
+          <div class="form__row personal_agreement">
+            <label class="personal_agreement__label">
+              <input class="personal_agreement__checkbox checkbox" id="personal_agreement__checkbox" type="checkbox" checked="checked" />
+              <span>Даю <a href="" class="agreement__href personal_data">Согласие на обработку персональных данных</a>. Нажимая на кнопку «Зарегистрироваться», Вы подтверждаете согласие с <a href="#" class="agreement__href rules">Правилами пользования интерактивным сервисом</a></span>
+            </label>
+          </div>
+          <div class="form__row captcha">
+            <div class="g-recaptcha" data-sitekey="6Lc7QCgUAAAAAO3NAI0jUXSsL9wc-6QPMIVstgp8">
+              <div style="width: 304px; height: 78px;">
+                <div>
+                  <iframe title="reCAPTCHA"
+                    src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lc7QCgUAAAAAO3NAI0jUXSsL9wc-6QPMIVstgp8&amp;co=aHR0cDovLzEwLjE1LjQuNTo4MA..&amp;hl=ru&amp;v=_7Co1fh8iT2hcjvquYJ_3zSP&amp;size=normal&amp;cb=mr0mvfk9nbhf" width="304" height="78"
+                    role="presentation" name="a-s9hsbbgfjd5m" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
+                  </div>
+                  <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+              </div>
+              <iframe style="display: none;"></iframe>
+            </div>
+          </div>
+          <input class="form__button btn" type="submit" value="Регистрация" />
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="footer__content">
+    <div class="footer__hrefs">
+      <p class="footer__p footer__copyrights">© 2007-2022 НОВОГОР-Прикамье</p>
+    </div>
+    <div class="footer__gelicon">
+      <p class="footer__p gelicon_copyrights">Сайт разработан: <a class="gelicon_link" href="http://www.gelicon.biz/" target="_blank">ООО "Геликон Консалтинг", 2022</a>.</p>
+    </div>
+  </div>
+</footer>
+
+
+  <section class="modal modal_personal_data hidden">
+  <div class="modal__content modal_personal_data__content">
+    <div class="close"></div>
+    <h6 class="modal__header">Согласие на обработку персональных данных</h6>
+    <div class="modal__text">
+      <p>Настоящим я, далее – «Субъект Персональных Данных», во исполнение требований Федерального закона от 27.07.2006 г. № 152-ФЗ «О персональных данных» (с изменениями и дополнениями) свободно, своей волей и в своем интересе даю свое согласие Информационной системе «Личный кабинет технологического присоединения МУП «Производственное объединение водоснабжения и водоотведения» г. Челябинска». (далее – ИС ЛК ТП, адрес: (юридический адрес)) на обработку своих персональных данных, указанных при регистрации путем заполнения веб-формы на сайте ИС ЛК ТП (url) (далее – Сайт), направляемой (заполненной) с использованием Сайта.</p>
+
+      <p>Под персональными данными я понимаю любую информацию, относящуюся ко мне как к Субъекту Персональных Данных, в том числе мои фамилию, имя, отчество, адрес, образование, профессию, контактные данные (телефон, факс, электронная почта, почтовый адрес), фотографии, иную другую информацию. Под обработкой персональных данных я понимаю сбор, систематизацию, накопление, уточнение, обновление, изменение, использование, распространение, передачу, в том числе трансграничную, обезличивание, блокирование, уничтожение, бессрочное хранение), и любые другие действия (операции) с персональными данными.</p>
+
+      <p>Обработка персональных данных Субъекта Персональных Данных осуществляется исключительно в целях регистрации Субъекта Персональных Данных в базе данных Интернет-магазина с последующим направлением Субъекту Персональных Данных почтовых сообщений и смс-уведомлений, в том числе рекламного содержания,
+      от Интернет-магазина, его аффилированных лиц и/или субподрядчиков, информационных и новостных рассылок,  приглашений на мероприятия Интернет-магазина и другой информации рекламно-новостного содержания,
+      а также с целью подтверждения личности Субъекта Персональных Данных при посещении мероприятий Интернет-магазина.</p>
+
+      <p>Датой выдачи согласия на обработку персональных данных Субъекта Персональных Данных является дата отправки регистрационной веб-формы с Сайта Интернет-магазина.</p>
+
+      <p>Обработка персональных данных Субъекта Персональных Данных может осуществляться с помощью средств автоматизации и/или без использования средств автоматизации в соответствии с действующим законодательством РФ и внутренними положениями Интернет-магазина.</p>
+
+      <p>Интернет-магазин принимает необходимые правовые, организационные и технические меры или обеспечивает их принятие для защиты персональных данных от неправомерного или случайного доступа к ним, уничтожения, изменения, блокирования, копирования, предоставления, распространения персональных данных, а также от иных неправомерных действий в отношении персональных данных, а также принимает на себя обязательство сохранения конфиденциальности персональных данных Субъекта Персональных Данных. Интернет-магазин вправе привлекать для обработки персональных данных Субъекта Персональных Данных субподрядчиков, а также вправе передавать персональные данные для обработки своим аффилированным лицам, обеспечивая при этом принятие такими субподрядчиками и аффилированными лицами соответствующих обязательств в части конфиденциальности персональных данных.</p>
+
+      <p>Я ознакомлен(а), что:</p>
+
+      <p>настоящее согласие на обработку моих персональных данных, указанных при регистрации на Сайте Интернет-магазина, направляемых (заполненных) с использованием Cайта, действует в течение 20 (двадцати) лет
+      с момента регистрации на Cайте ИС ЛК ТП;
+      согласие может быть отозвано мною на основании письменного заявления в произвольной форме;
+      предоставление персональных данных третьих лиц без их согласия влечет ответственность в соответствии
+      с действующим законодательством Российской Федерации.</p>
+  </div>
+  </div>
+</section>
+
+  <section class="modal modal_rules hidden">
+  <div class="modal__content modal_rules__content">
+    <div class="close"></div>
+    <h6 class="modal__header">Правила пользования интерактивным сервисом</h6>
+    <div class="modal__text">
+      <p>ПП-644 п.90</p>
+
+      <p>90(1). Заявление и документы, предусмотренные пунктом 90 настоящих Правил, представляются на бумажном носителе или в форме электронного документа. Заявление и документы, представленные в форме электронного документа, подписываются лицами, уполномоченными на их подписание в соответствии с законодательством Российской Федерации, с использованием усиленной квалифицированной электронной подписи (для юридических лиц и индивидуальных предпринимателей) или простой электронной подписи (для физических лиц), предусмотренных Федеральным законом "Об электронной подписи".</p>
+
+      <p>Возможность представления заявления и документов в форме электронного документа обеспечивается организацией водопроводно-канализационного хозяйства.</p>
+
+      <p>Представление заявления и документов в форме электронного документа осуществляется заявителем с использованием идентификатора и пароля, выданных посредством официального сайта организации водопроводно-канализационного хозяйства в информационно-телекоммуникационной сети "Интернет" в порядке, установленном организацией водопроводно-канализационного хозяйства. Информация о порядке выдачи и использования идентификатора и пароля размещается на указанном сайте организации водопроводно-канализационного хозяйства.</p>
+
+      <p>При этом организация водопроводно-канализационного хозяйства обязана обеспечить принятие в форме электронного документа заявления и документов заявителей, в том числе возможность бесплатного получения заявителями идентификатора и пароля, и возможность получения заявителями сведений об основных этапах обработки заявлений в режиме реального времени без использования программного обеспечения, установка которого на технические средства заявителя требует заключения лицензионного или иного соглашения с правообладателем программного обеспечения, предусматривающего взимание с заявителя платы, и без использования специальных аппаратных средств.</p>
+
+      <p>Заявитель несет ответственность за достоверность и полноту прилагаемых к заявлению документов в форме электронного документа в соответствии с законодательством Российской Федерации.</p>
+
+      <p>(п. 90(1) введен Постановлением Правительства РФ от 29.06.2017 N 778)</p>
+
+    </div>
+  </div>
+</section>
+
+  <script src="js/jquery-3.5.1.min.js?_v=20220406205023"></script>
+  <script src="js/lk_reg.min.js?_v=20220406205023"></script>
+</body>
+</html>

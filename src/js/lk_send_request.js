@@ -1,13 +1,7 @@
-// изменение высоты слайдера
-function changeSliderHeight(action, value) {
-  setTimeout(() => {
-    const slickList = document.querySelector('.slick-list')
-    const slickCurrent = slickList.querySelector('.slick-current')
-    const slickCurrentHeight = getComputedStyle(slickCurrent).height
-
-    slickList.style.height = slickCurrentHeight
-  }, 0)
-}
+import initSlider from './modules/slider/initSlider.js'
+import changeSliderHeight from './modules/slider/changeSliderHeight.js'
+import initRadioLabels from './modules/initRadioLabels.js'
+import initCheckboxLabels from './modules/initCheckboxLabels.js'
 
 
 $(document).ready(function() {
@@ -16,50 +10,13 @@ $(document).ready(function() {
   let simpleSendRequest = false
   if (document.querySelector('.requests_form.simple')) simpleSendRequest = true
 
-  // инициализация слайдера
-  if (document.querySelector('.slider')) {
-    $('.slider').slick({
-      nextArrow: '<button type="button" class="slick-arrow slick-next btn dark_btn">Далее</button>',
-      prevArrow: '<button type="button" class="slick-arrow slick-prev btn">Назад</button>',
-      dots: true,
-      infinite: false,
-      draggable: false,
-      adaptiveHeight: true,
-      initialSlide: 0
-    })
-  }
-
+  // инит базового слайдера при заявлении
+  if (document.querySelector('.slider')) initSlider()
 
   // переключение радио по клику на лейбл
-  function initRadioLabels() {
-    $('.radio').parent().click(function () {
-      const $this = $(this)
-      const $radio = $this.children('.radio')
-      const $radioIsDisabled = $radio.is(':disabled')
-
-      if ($radioIsDisabled) return
-      $radio.prop('checked', true)
-    })
-  }
   if (document.querySelector('.radio')) initRadioLabels()
 
-
   // переключение чекбокса по клику на лейбл
-  function initCheckboxLabels(node) {
-    const checkboxes = node.querySelectorAll('.checkbox')
-
-    checkboxes.forEach(checkbox => {
-      const label = checkbox.parentNode
-      const isDisabled = checkbox.disabled
-
-      if (isDisabled) return
-
-      label.addEventListener('click', function () {
-        const checkbox = label.querySelector('.checkbox')
-        checkbox.checked = !checkbox.checked
-      })
-    })
-  }
   if (document.querySelector('.checkbox')) initCheckboxLabels(document)
 
 
