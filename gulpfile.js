@@ -11,8 +11,10 @@ import { ttf, otfToTtf, ttfToWoff, fonts } from './gulp/tasks/fonts.js'
 import files from './gulp/tasks/files.js'
 
 
-// глобальные переменные (а реально нужны?)
+// глобальные переменные
 global.app = {
+  isBuild: process.argv.includes('--build'),
+  isDev: !process.argv.includes('--build'),
   paths: paths,
   gulp: gulp,
   plugins: plugins
@@ -39,5 +41,8 @@ function watcher() {
 
 // сценарии
 const dev = gulp.series(cleanDist, mainTasks, gulp.parallel(server, watcher))
+const build = gulp.series(cleanDist, mainTasks)
 
 gulp.task('default', dev)
+
+export { dev, build }

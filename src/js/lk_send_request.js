@@ -1,7 +1,10 @@
 import initSlider from './modules/slider/initSlider.js'
 import changeSliderHeight from './modules/slider/changeSliderHeight.js'
-import initRadioLabels from './modules/initRadioLabels.js'
-import initCheckboxLabels from './modules/initCheckboxLabels.js'
+import initRadioLabels from './modules/controls/initRadioLabels.js'
+import initCheckboxLabels from './modules/controls/initCheckboxLabels.js'
+import initPseudoSelect from './modules/controls/initPseudoSelect.js'
+import addressConcatination from './modules/address/addressConcatination.js'
+import initAddressConcatination from './modules/address/initAddressConcatination.js'
 
 
 $(document).ready(function() {
@@ -19,46 +22,6 @@ $(document).ready(function() {
   // переключение чекбокса по клику на лейбл
   if (document.querySelector('.checkbox')) initCheckboxLabels(document)
 
-
-  // псевдо-селект
-  function initPseudoSelect(select) {
-    const selectTitle = select.querySelector('.__select__title')
-    const selectLabels = select.querySelectorAll('.__select__label')
-
-    selectTitle.addEventListener('click', function () {
-      if ('active' === select.getAttribute('data-state')) {
-        select.setAttribute('data-state', '')
-      } else {
-        select.setAttribute('data-state', 'active')
-      }
-    })
-
-    for (let i = 0; i < selectLabels.length; i++) {
-      selectLabels[i].addEventListener('click', function (e) {
-        selectTitle.textContent = e.target.textContent
-        selectTitle.value = e.target.textContent
-        select.setAttribute('data-state', '')
-
-        // вызов пересчета адреса в случае, если модуль активен
-        const addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode
-        const thisAddressConcatination = addressNode.querySelector('.address__concated')
-        if (thisAddressConcatination) addressConcatination(addressNode)
-      })
-    }
-
-    // скрытие при клике по body кроме .__select
-    const body = document.querySelector('body')
-    body.addEventListener('click', e => {
-      const eClassList = e.target.classList
-      const trigger = (eClassList[0] !== '__select__title')
-                      && (eClassList[0] !== '__select__content')
-                      && (eClassList[0] !== '__select__input')
-
-      if (trigger) select.setAttribute('data-state', '')
-    })
-  }
-
-
   // стартовый инит псевдо-селектов
   function initPseudoSelects(baseNode) {
     const selects = document.querySelectorAll('.__select')
@@ -67,53 +30,7 @@ $(document).ready(function() {
   if (document.querySelector('.__select')) initPseudoSelects(document)
 
 
-  // Пересчет итогового адреса
-  function addressConcatination(baseNode) {
-    const concated = baseNode.querySelector('.address__concated')
-    const locality = baseNode.querySelector('.address__locality')
-    const district = baseNode.querySelector('.address__district')
-    const microdistrict = baseNode.querySelector('.address__microdistrict')
-    const street = baseNode.querySelector('.address__street')
-    const housing = baseNode.querySelector('.address__housing')
-    const house = baseNode.querySelector('.address__house')
-
-    setTimeout(() => {
-      const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
-      const resultdDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
-      const resultMicrodistrict = `${microdistrict.value ? ', микрорайон ' + microdistrict.value : ''}`
-      const resultStreet = `${street.value ? ', ул. ' + street.value : ''}`
-      const resultHousing = `${housing.value ? ', корпус ' + housing.value : ''}`
-      const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
-      let resultAddress = `${resultLocality + resultdDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
-      if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
-      if (resultAddress[0] === '.') resultAddress = ''
-
-      concated.value = resultAddress
-
-      if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-        document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
-      // concated.textContent = resultAddress
-    }, 100)
-  }
-
-  // инит модуля пересчета адреса
-  function initAddressConcatination(baseNode) {
-    const concated = baseNode.querySelector('.address__concated')
-    const locality = baseNode.querySelector('.address__locality')
-    const district = baseNode.querySelector('.address__district')
-    const microdistrict = baseNode.querySelector('.address__microdistrict')
-    const street = baseNode.querySelector('.address__street')
-    const housing = baseNode.querySelector('.address__housing')
-    const house = baseNode.querySelector('.address__house')
-
-
-    if (locality) locality.addEventListener('change', () => addressConcatination(baseNode))
-    if (district) district.addEventListener('change', () => addressConcatination(baseNode))
-    if (microdistrict) microdistrict.addEventListener('change', () => addressConcatination(baseNode))
-    if (street) street.addEventListener('change', () => addressConcatination(baseNode))
-    if (housing) housing.addEventListener('change', () => addressConcatination(baseNode))
-    if (house) house.addEventListener('change', () => addressConcatination(baseNode))
-  }
+  // стартовый инит конкатенации адресов
   const addressBlocks = document.querySelectorAll('.address__concated')
   if (addressBlocks) addressBlocks.forEach(addressBlock => initAddressConcatination(addressBlock.parentNode.parentNode.parentNode))
 
