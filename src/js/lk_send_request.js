@@ -267,7 +267,7 @@ $(document).ready(function() {
 
     // рендер всех найденных нод
     // list - массив
-    function renderList(list) {
+    function renderList(list,name, nameId) {
       const contentNode = parentNode.querySelector('.__select__content')
       // удаляем предыдущие ноды
       removePreviousList(contentNode)
@@ -276,7 +276,7 @@ $(document).ready(function() {
       // добавляем новые ноды
       if(list !== '')
       {
-        list.forEach(obj => renderNode(obj))
+        list.forEach(obj => renderNode(obj, name, nameId))
         parentNode.setAttribute('data-state', 'active')
       }
 
@@ -614,6 +614,7 @@ $(document).ready(function() {
       // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"
       const handleNoClick = () => {
         changeSliderHeight()
+        document.querySelector('[name="statementtc_queuecount"').value = 0;
 
         // при клике по радио "Нет", если нет заполненных очередей, то завершаем вызов модалки
         if (queue_count < 1) return
@@ -621,7 +622,10 @@ $(document).ready(function() {
         addListenersToModal()
       }
 
-      const handleYesClick = () => changeSliderHeight()
+      const handleYesClick = () => {
+        changeSliderHeight()
+        document.querySelector('[name="statementtc_queuecount"').value = queue_count;
+      }
 
       queueLaunchNoBtn.parentNode.addEventListener('click', handleNoClick)
       queueLaunchYesBtn.parentNode.addEventListener('click', handleYesClick)
