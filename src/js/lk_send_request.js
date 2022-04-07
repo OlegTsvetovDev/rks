@@ -436,7 +436,7 @@ $(document).ready(function() {
                       <tr class="table__row">
                         <td class="table__cell">Очередь №${queue_count}</td>
                         <td class="table__cell">
-                          <input type="text" class="field__input datepicker_input" name=${'TechCondObj_QueueName_' + queue_count} placeholder="Введите данные" />
+                          <input type="text" class="field__input datepicker_input" name=${'statementtc_dateplan_' + queue_count} placeholder="Введите данные" />
                         </td>
                       </tr>
                      `
@@ -608,7 +608,7 @@ $(document).ready(function() {
     const radioNoNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="no"]')
     const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
-    const queueLaunchNoNode = node.querySelector('.queue_launch_yes')
+    const queueLaunchNoNode = node.querySelector('.queue_launch_no')
 
     const hideQueueLaunch = () => {
       queueLaunchTriggerNode.classList.add('hidden')
@@ -618,8 +618,10 @@ $(document).ready(function() {
 
     const showQueueLaunch = () => {
       queueLaunchTriggerNode.classList.remove('hidden')
-      queueLaunchYesNode.classList.remove('hidden')
-      queueLaunchNoNode.classList.add('hidden')
+      if(radioYesNode.checked){
+        queueLaunchYesNode.classList.remove('hidden')
+        queueLaunchNoNode.classList.add('hidden')
+      }
       // initQueueLaunch(document)
     }
 
@@ -648,8 +650,8 @@ $(document).ready(function() {
     }
 
     // начальная проверка на отметку
-    if (objectChecked) enableQueue()
-    if (!objectChecked) disableQueue()
+    //if (objectChecked) enableQueue()
+    //if (!objectChecked) disableQueue()
 
     // хэндлер включения/выключения блокировки очередей
     const handleClick = e => {
