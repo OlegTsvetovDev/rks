@@ -1,13 +1,7 @@
-// изменение высоты слайдера
-function changeSliderHeight(action, value) {
-  setTimeout(() => {
-    const slickList = document.querySelector('.slick-list')
-    const slickCurrent = slickList.querySelector('.slick-current')
-    const slickCurrentHeight = getComputedStyle(slickCurrent).height
-
-    slickList.style.height = slickCurrentHeight
-  }, 0)
-}
+import initSlider from './modules/slider/initSlider.js'
+import changeSliderHeight from './modules/slider/changeSliderHeight.js'
+import initRadioLabels from './modules/initRadioLabels.js'
+import initCheckboxLabels from './modules/initCheckboxLabels.js'
 
 
 $(document).ready(function() {
@@ -16,50 +10,13 @@ $(document).ready(function() {
   let simpleSendRequest = false
   if (document.querySelector('.requests_form.simple')) simpleSendRequest = true
 
-  // инициализация слайдера
-  if (document.querySelector('.slider')) {
-    $('.slider').slick({
-      nextArrow: '<button type="button" class="slick-arrow slick-next btn dark_btn">Далее</button>',
-      prevArrow: '<button type="button" class="slick-arrow slick-prev btn">Назад</button>',
-      dots: true,
-      infinite: false,
-      draggable: false,
-      adaptiveHeight: true,
-      initialSlide: 0
-    })
-  }
-
+  // инит базового слайдера при заявлении
+  if (document.querySelector('.slider')) initSlider()
 
   // переключение радио по клику на лейбл
-  function initRadioLabels() {
-    $('.radio').parent().click(function () {
-      const $this = $(this)
-      const $radio = $this.children('.radio')
-      const $radioIsDisabled = $radio.is(':disabled')
-
-      if ($radioIsDisabled) return
-      $radio.prop('checked', true)
-    })
-  }
   if (document.querySelector('.radio')) initRadioLabels()
 
-
   // переключение чекбокса по клику на лейбл
-  function initCheckboxLabels(node) {
-    const checkboxes = node.querySelectorAll('.checkbox')
-
-    checkboxes.forEach(checkbox => {
-      const label = checkbox.parentNode
-      const isDisabled = checkbox.disabled
-
-      if (isDisabled) return
-
-      label.addEventListener('click', function () {
-        const checkbox = label.querySelector('.checkbox')
-        checkbox.checked = !checkbox.checked
-      })
-    })
-  }
   if (document.querySelector('.checkbox')) initCheckboxLabels(document)
 
 
@@ -646,9 +603,9 @@ $(document).ready(function() {
     const objectsNode = node.querySelector('input[name="connectobjkind"][value="02"]')
     const objectChecked = objectsNode.checked
     const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
-    const radioYesNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="yes"]')
-    const radioNoNode = node.querySelector('.queue_launch__trigger input[type="radio"][value="no"]')
     const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
+    const radioYesNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="yes"]')
+    const radioNoNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="no"]')
     const queueLaunchNode = node.querySelector('.queue_launch')
     const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
     const queueLaunchNoNode = node.querySelector('.queue_launch_yes')
@@ -715,16 +672,18 @@ $(document).ready(function() {
 
   // добавление новых строк в таблицу с иными источниками, слайдер 4
   const water_source_tbody = $('.other_water_sources tbody')
-  let water_source_count = 2
+  let water_source_count = 1
+  const water_sources_count = document.querySelector('[name="other_water_sources_count"]');
+
 
   $('.add_source_btn').click(function(e) {
     const new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
+                        <input type="text" class="field__input" name=${'other_water_sources_name_' + water_source_count} placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
+                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
@@ -732,6 +691,7 @@ $(document).ready(function() {
 
     water_source_tbody.append(new_row)
     water_source_count++
+    if (water_sources_count) water_sources_count.value = water_source_count;
     changeSliderHeight()
   })
 
@@ -759,7 +719,7 @@ $(document).ready(function() {
                         <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" placeholder="Введите данные" />
+                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
