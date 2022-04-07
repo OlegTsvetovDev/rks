@@ -26,25 +26,7 @@
             <p class="form__number">Номер: 123321</p>
             <p class="form__date">Дата и время регистрации: 01.01.2022</p>
           </div>
-          <div class="form__field width_max">
-            <label class="field__label" for="">
-              <span class="field__description required">Вид объекта подключения</span>
-              <span class="label__block">
-                <label for="">
-                  <input name="connectobjkind_0" value="01" class="radio 01" type="radio" checked="true" tabindex="0">
-                  Частные домовладения
-                </label>
-                <label for="">
-                  <input name="connectobjkind_0" value="02" class="radio 02" type="radio" tabindex="0">
-                  Объекты капитального строительства
-                </label>
-                <label for="">
-                  <input name="connectobjkind_0" value="03" class="radio 03" type="radio" tabindex="0">
-                  Реконструкция встроенных помещений
-                </label>
-              </span>
-            </label>
-          </div>
+          @@include('templates/_connectobjkind.html')
           <div class="form__field width_max">
             <label for="" class="field__label">
               <span class="field__description required">Являюсь представителем</span>
@@ -72,48 +54,9 @@
               <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
-          <div class="form__field queue_launch__trigger width_max">
-            <label for="" class="field__label">
-              <span class="field__description">Запуск по очередям</span>
-              <span class="label__block">
-                <label for="">
-                  <input type="radio" name="queue_launch" class="radio" value="yes" />
-                  Да
-                </label>
-                <label for="">
-                  <input type="radio" name="queue_launch" class="radio" value="no" checked />
-                  Нет
-                </label>
-              </span>
-            </label>
-          </div>
-          <div class="form__field queue_launch queue_launch_no">
-            <label for="" class="field__label">
-              <span class="field__description">Плановая дата ввода в эксплуатацию для объекта</span>
-              <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
-            </label>
-          </div>
-          <div class="form__field queue_launch queue_launch_yes width_max hidden">
-            <h6 class="table__description">Список очередей</h6>
-            <table class="field__table">
-              <thead class="table__head">
-                <tr class="table__row">
-                  <th class="table__header">Номер очереди</th>
-                  <th class="table__header">Дата ввода в эксплуатацию</th>
-                </tr>
-              </thead>
-              <tbody class="table__body">
-                <tr class="table__row queue_row">
-                  <td class="table__cell">Сводная очередь</td>
-                  <td class="table__cell">
-                    <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <button class="btn dark_btn queue_btn">Добавить очередь</button>
-            <button class="btn queue_btn_remove">Удалить очередь</button>
-          </div>
+          @@include('templates/_connectobjkind.html')
+          @@include('templates/_queue_launch__trigger.html')
+
           <div class="form__field width_max">
             <label for="" class="field__label">
               <span class="field__description required">Лицо для основания на выдачу ТУ</span>
@@ -1031,6 +974,6 @@
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/datepicker-ru.min.js"></script>
   <script src="js/jquery.maskedinput.min.js"></script>
-  <script src="js/lk_send_request.min.js"></script>
+  <script src="js/lk_send_request.js"></script>
 </body>
 </html>

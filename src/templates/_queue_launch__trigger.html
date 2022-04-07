@@ -1,0 +1,42 @@
+<div class="form__field queue_launch__trigger width_max">
+  <label for="" class="field__label">
+    <span class="field__description">Запуск по очередям</span>
+    <span class="label__block">
+      <label for="">
+        <input type="radio" name="queue_launch" class="radio" value="yes" />
+        Да
+      </label>
+      <label for="">
+        <input type="radio" name="queue_launch" class="radio" value="no" checked />
+        Нет
+      </label>
+    </span>
+  </label>
+</div>
+<div class="form__field queue_launch queue_launch_no">
+  <label for="" class="field__label">
+    <span class="field__description">Плановая дата ввода в эксплуатацию для объекта</span>
+    <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
+  </label>
+</div>
+<div class="form__field queue_launch queue_launch_yes width_max hidden">
+  <h6 class="table__description">Список очередей</h6>
+  <table class="field__table">
+    <thead class="table__head">
+      <tr class="table__row">
+        <th class="table__header">Номер очереди</th>
+        <th class="table__header">Дата ввода в эксплуатацию</th>
+      </tr>
+    </thead>
+    <tbody class="table__body">
+      <tr class="table__row queue_row">
+        <td class="table__cell">Сводная очередь</td>
+        <td class="table__cell">
+          <input type="text" class="field__input datepicker_input" name="TechCondObj_QueueName" placeholder="Введите данные" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn dark_btn queue_btn">Добавить очередь</button>
+  <button class="btn queue_btn_remove">Удалить очередь</button>
+</div>
