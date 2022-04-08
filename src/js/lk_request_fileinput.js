@@ -1,4 +1,5 @@
-import {changeSliderHeight} from './lk_send_request.js';
+import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
+
 
     function parseLimit(size) {
       if (!size) return Number.MAX_VALUE;
@@ -210,5 +211,3 @@ import {changeSliderHeight} from './lk_send_request.js';
     if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
     if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
     if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
-
-

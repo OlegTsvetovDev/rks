@@ -3,23 +3,19 @@ import initPseudoSelects from '../controls/select/initPseudoSelects.js'
 import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
 import initRadioLabels from '../controls/initRadioLabels.js'
 import initCheckboxLabels from '../controls/initCheckboxLabels.js'
+import initMasks from '../masks/initMasks.js'
+import createNewNode from './createNewNode.js'
+import getCurrentQueueCount from './getCurrentQueueCount.js'
+
 
 // логика блоков очередей (добавление, удаление), 1 и 4 сладер
 function initMultipleQueues() {
   // состояние количества очередей
-  let queue_count = -1
+  let queue_count = getCurrentQueueCount(document, -1)
 
-  // пересчет текущего количества очередей, отраженных на странице
-  function getCurrentQueueCount() {
-    const nodes = document.querySelectorAll('.queue_launch_yes .field__table .table__body .table__row')
-    const nodesLength = nodes.length
-
-    if (!nodesLength) return
-    nodes.forEach(node => queue_count += 1)
-  }
-  getCurrentQueueCount()
-
-  if (document.querySelector('.queue_launch__trigger')) initQueueLaunch(document)
+  //
+  if (document.querySelector('.queue_launch__trigger'))
+    initQueueLaunch(document)
 
   // инит слайдера в слайд 4
   function initQueueSlider() {
@@ -30,12 +26,7 @@ function initMultipleQueues() {
   }
   initQueueSlider()
 
-  // добавление блоков очередей, 4 сладер
-  // создание новой ноды
-  function createNewNode() {
-    const baseNode = document.querySelector('.queue_block')
-    return baseNode.cloneNode(true)
-  }
+
 
   // замена суффиксов в аттрибутах name в зависимости от номера очереди
   // добавляет "_<номер очереди>" ко всем name очереди

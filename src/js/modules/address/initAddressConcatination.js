@@ -1,3 +1,6 @@
+import addressConcatination from './addressConcatination.js'
+
+
 // инит модуля пересчета адреса
 function initAddressConcatination(baseNode) {
   const concated = baseNode.querySelector('.address__concated')
