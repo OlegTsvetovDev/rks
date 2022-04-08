@@ -31,9 +31,9 @@ function getSimpleJson(is_simple) {
         document.querySelector('.requests_form').classList.add('simple');
       }
 
-      document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', HideElemsSimple));
+      document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', hideElemsSimple));
 
-      HideElemsSimple(is_simple);
+      hideElemsSimple(is_simple);
     }
   });
 }
