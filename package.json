@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.27.9",
+    "cwebp-bin": "^7.0.1",
     "del": "^6.0.0",
     "fonter": "^0.0.1",
     "gulp": "^4.0.2",
@@ -34,7 +35,7 @@
     "gulp-webpcss": "^1.1.1",
     "jquery": "^3.6.0",
     "sass": "^1.49.11",
-    "webp-converter": "^2.2.3",
+    "webp-converter": "2.2.3",
     "webpack": "^5.71.0",
     "webpack-stream": "^7.0.0"
   },

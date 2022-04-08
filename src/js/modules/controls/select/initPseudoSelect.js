@@ -1,3 +1,6 @@
+import addressConcatination from '../../address/addressConcatination.js'
+
+
 // псевдо-селект
 function initPseudoSelect(select) {
   const selectTitle = select.querySelector('.__select__title')
