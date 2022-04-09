@@ -42,7 +42,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
         totalSize -= size;
         input.remove();
         div.remove();
-	      changeSliderHeight('decrease', 37)
+	      changeSliderHeight()
       });
     }
 
@@ -66,7 +66,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
             .text(f.name + " (" + formatSize(f.size) + ")")
             .appendTo(div);
           $("<a href=\"#\" class=\"delete_file_btn\" />").appendTo(div);
-		      changeSliderHeight('increase', 37)
+		      changeSliderHeight()
         });
 
 
@@ -142,7 +142,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
              $("label[for='" + uuid + "']").hide();
              $(".attachment__item_" + uuid).remove();
              $(".modaldelfileclose").trigger('click');
-	           changeSliderHeight('decrease', 37);
+	           changeSliderHeight();
          });
 
          $("[id^='attachment__decldel_']").click(function() {
@@ -150,7 +150,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
              $("input#" + uuid).prop("checked", false);
              $("label[for='" + uuid + "']").hide();
              $(".attachment__item_" + uuid).remove();
-	         changeSliderHeight('decrease', 35);
+	         changeSliderHeight();
          });
 
 
