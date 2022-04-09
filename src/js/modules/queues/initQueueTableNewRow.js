@@ -9,13 +9,11 @@ import deleteLastNode from './deleteLastNode.js'
 // добавление новых строк в таблицу с очередями, слайд 1
 function initQueueTableNewRow() {
   const queueTbody = $('.queue_launch_yes tbody')
-  // let queueCount = getCurrentQueueCount(document, -1)
 
   // добавление новых строк в таблицу очередей, слайд 1
   $('.queue_btn').click(function(e) {
     e.preventDefault()
     const queueCount = getCurrentQueueCount(document, 0)
-    // queueCount++
 
     const statementtc = document.querySelector('[name="statementtc_queuecount"]')
     if (statementtc) statementtc.value = queueCount;
@@ -36,7 +34,7 @@ function initQueueTableNewRow() {
     // инициализация дейтпикера на последней добавленной строке
     const lastChildDatepicker = queueTbody.children().last().find('.datepicker_input')
     lastChildDatepicker.datepicker($.datepicker.regional['ru'])
-    lastChildDatepicker.mask("99.99.9999", { autoclear: false })
+    lastChildDatepicker.mask("99.99.9999", { autodelete: false })
   })
 
   // удаление новых строк в таблицу с очередями, слайдер 1
@@ -46,7 +44,6 @@ function initQueueTableNewRow() {
 
     if (queueCount < 1) return
 
-    // queueCount--
     const statementtc = document.querySelector('[name="statementtc_queuecount"]')
     if (statementtc) statementtc.value = queueCount
 

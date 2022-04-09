@@ -15,7 +15,7 @@ function createAndRenderNewNode(queueCount) {
   const newNode = createNewNode()
   pasteNameSuffixes(newNode, queueCount)
   renderNewNode(newNode, document.querySelector('.step_5 .queue_slider'))
-  initPseudoSelects(newNode.querySelector('.__select'))
+  initPseudoSelects(newNode)
   initRadioLabels(newNode)
   initCheckboxLabels(newNode)
   initMasks(newNode)

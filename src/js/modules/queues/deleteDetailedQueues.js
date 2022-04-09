@@ -1,5 +1,5 @@
 // очистка всех развернутых очередей при переключении "Запуск по очередям" в "Нет", слайд 4
-function clearDetailedQueues(queueSlider) {
+function deleteDetailedQueues(queueSlider) {
   const queueBlocks = queueSlider.querySelectorAll('.queue_block')
 
   queueBlocks.forEach((queueBlock, i) => {
@@ -9,4 +9,4 @@ function clearDetailedQueues(queueSlider) {
 }
 
 
-export default clearDetailedQueues
+export default deleteDetailedQueues

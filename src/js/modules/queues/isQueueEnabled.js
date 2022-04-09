@@ -1,3 +1,4 @@
+// deprecated
 // проверка очередей на disabled
 // Характеристика объека подключения = "Объекты капитального строительства"
 // Тогда очередь разблокирована, иначе заблокирована
@@ -7,8 +8,8 @@ const isQueueEnabled = (node) => {
   const objectChecked = objectsNode.checked
   const reconstructionNode = node.querySelector('input[name="connectobjkind"][value="03"]')
   const queueLaunchTriggerNode = node.querySelector('.queue_launch__trigger')
-  const radioYesNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="yes"]')
-  const radioNoNode = queueLaunchTriggerNode.querySelector('input[type="radio"][value="no"]')
+  const radioYes = queueLaunchTriggerNode.querySelector('input[type="radio"][value="yes"]')
+  const radioNo = queueLaunchTriggerNode.querySelector('input[type="radio"][value="no"]')
   const queueLaunchNode = node.querySelector('.queue_launch')
   const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
   const queueLaunchNoNode = node.querySelector('.queue_launch_no')
@@ -21,7 +22,7 @@ const isQueueEnabled = (node) => {
 
   const showQueueLaunch = () => {
     queueLaunchTriggerNode.classList.remove('hidden')
-    if(radioYesNode.checked){
+    if(radioYes.checked){
       queueLaunchYesNode.classList.remove('hidden')
       queueLaunchNoNode.classList.add('hidden')
     }
@@ -30,22 +31,22 @@ const isQueueEnabled = (node) => {
 
   const disableQueue = () => {
     // disabled для всех активных полей
-    radioYesNode.disabled = true
-    radioNoNode.disabled = true
+    radioYes.disabled = true
+    radioNo.disabled = true
     queueLaunchYesNode.querySelector('input').disabled = true
     queueLaunchYesNode.querySelector('button').disabled = true
 
     // TODO: добавить модалку подтверждения удаления всех очередей
 
     // "Запуск по очередям" скрываем - добавить класс .queue_launch__trigger
-    radioNoNode.checked = true
+    radioNo.checked = true
     hideQueueLaunch()
   }
 
   const enableQueue = () => {
     // enable для всех активных полей
-    radioYesNode.disabled = false
-    radioNoNode.disabled = false
+    radioYes.disabled = false
+    radioNo.disabled = false
     queueLaunchYesNode.querySelector('input').disabled = false
     queueLaunchYesNode.querySelector('button').disabled = false
 

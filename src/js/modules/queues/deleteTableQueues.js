@@ -2,7 +2,7 @@ import getCurrentQueueCount from './getCurrentQueueCount.js'
 
 
 // очистка всех очередей в таблице при переключении "Запуск по очередям" в "Нет", слайд 1
-function clearTableQueues(queueTable) {
+function deleteTableQueues(queueTable) {
   let queueCount = getCurrentQueueCount(document, -1)
   const queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row')
 
@@ -15,4 +15,4 @@ function clearTableQueues(queueTable) {
 }
 
 
-export default clearTableQueues
+export default deleteTableQueues
