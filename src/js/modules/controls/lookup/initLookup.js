@@ -17,7 +17,7 @@ function initLookup(type, node) {
   }
 
   const setLocality = (query) => {
-    fetch(`./getTownsJson?townName=${query}`)
+    fetch(`./getTownsJson?townName=${query.querySelector('input[name^="town_code"]:checked').value}`)
       .then(response => response.json())
       .then(data => renderList(searchInArray(query,JSON.parse(data)), 'town_code', 'locality'))
       .catch(e => console.log(e))
@@ -25,11 +25,12 @@ function initLookup(type, node) {
 
   // получить улицы с бэка
   const setStreets = (query) => {
-    let townInput = document.querySelector('input[id^="locality_"]:checked');
+    let townInput = query.querySelector('input[name^="town_code"]:checked');
+    let street_name = query.querySelector('input.address__street').value;
     if(townInput){
-      fetch(`./getStreetsJson?streetName=${query}&townCode=${townInput.value}`)
+      fetch(`./getStreetsJson?streetName=${street_name}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(query,JSON.parse(data)), 'street_code', 'street'))
+        .then(data => renderList(searchInArray(street_name,JSON.parse(data)), 'street_code', 'street'))
         .catch(e => console.log(e))
     }
       else
@@ -38,11 +39,12 @@ function initLookup(type, node) {
 
   // получить районы с бэка
   const setDistricts = (query) => {
-    let townInput = document.querySelector('input[id^="locality_"]:checked');
+    let townInput = query.querySelector('input[name^="town_code"]:checked');
+    let district_name = query.querySelector('input.address__district').value;
     if(townInput)
-      fetch(`./getDistrictsJson?districtName=${query}&townCode=${townInput.value}`)
+      fetch(`./getDistrictsJson?districtName=${district_name}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(query,JSON.parse(data)), 'district_code', 'district'))
+        .then(data => renderList(searchInArray(district_name,JSON.parse(data)), 'district_code', 'district'))
         .catch(e => console.log(e))
       else
       renderList('');
@@ -50,11 +52,12 @@ function initLookup(type, node) {
 
   // получить микрорайоны с бэка
   const setMicrodistricts = (query) => {
-    let townInput = document.querySelector('input[id^="locality_"]:checked');
+    let townInput = query.querySelector('input[name^="town_code"]:checked');
+    let subdistrict_name = query.querySelector('input.address__microdistrict').value;
     if(townInput)
-      fetch(`./getSubdistrictsJson?subdistrictName=${query}&townCode=${townInput.value}`)
+      fetch(`./getSubdistrictsJson?subdistrictName=${subdistrict_name}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(query,JSON.parse(data)), 'subdistrict_code', 'subdistrict'))
+        .then(data => renderList(searchInArray(subdistrict_name,JSON.parse(data)), 'subdistrict_code', 'subdistrict'))
         .catch(e => console.log(e))
       else
       renderList('');
@@ -125,7 +128,7 @@ function initLookup(type, node) {
 
   // логика работы лукапа
   const handleNodeKeyUp = e => {
-    const query = e.target.value
+    const query = e.target.closest('.queue_block')
     setData(query)
   }
 
