@@ -59,7 +59,7 @@ const isQueueEnabled = (node) => {
   // хэндлер включения/выключения блокировки очередей
   const handleClick = e => {
     // TODO: исправить двойной клик по лейблу и инпуту
-    console.log(e.target)
+    // console.log(e.target)
     const currInput = e.target.querySelector('input')
     const currInputValue = currInput.value
 

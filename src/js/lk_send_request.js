@@ -99,12 +99,10 @@ $(document).ready(function() {
     queueBlocks.forEach(queueBlock =>
       initColdWaterSupply(queueBlock))
 
-
   // инит блоков водоотведения
   if (queueBlocks)
     queueBlocks.forEach(queueBlock =>
       initDrainage(queueBlock))
-
 
   // import сверху, проверь что работает и назови нормально
   // вообще не представляю что этот кусок делает

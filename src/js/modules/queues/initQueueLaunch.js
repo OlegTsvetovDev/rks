@@ -1,26 +1,26 @@
 // переключение блоков в "Запуск по очередям", слайдер 1
 function initQueueLaunch(node) {
-  const queueLaunchTrigger = node.querySelector('.queue_launch__trigger')
-  const queueLaunchYes = queueLaunchTrigger.querySelector('input[type="radio"][value="yes"]')
-  const queueLaunchNo = queueLaunchTrigger.querySelector('input[type="radio"][value="no"]')
-  const isDisabled = queueLaunchYes.disabled || queueLaunchNo.disabled
-  const queueLaunchYesNode = node.querySelector('.queue_launch_yes')
-  const queueLaunchNoNode = node.querySelector('.queue_launch_no')
+  const trigger = node.querySelector('.queue_launch__trigger')
+  const yes = trigger.querySelector('input[type="radio"][value="yes"]')
+  const no = trigger.querySelector('input[type="radio"][value="no"]')
+  const isDisabled = yes.disabled || no.disabled
+  const yesNode = node.querySelector('.queue_launch_yes')
+  const noNode = node.querySelector('.queue_launch_no')
 
   if (isDisabled) return
 
   const handleYesClick = () => {
-    queueLaunchYesNode.classList.remove('hidden')
-    queueLaunchNoNode.classList.add('hidden')
+    yesNode.classList.remove('hidden')
+    noNode.classList.add('hidden')
   }
 
   const handleNoClick = () => {
-    queueLaunchYesNode.classList.add('hidden')
-    queueLaunchNoNode.classList.remove('hidden')
+    yesNode.classList.add('hidden')
+    noNode.classList.remove('hidden')
   }
 
-  queueLaunchYes.parentNode.addEventListener('click', handleYesClick)
-  queueLaunchNo.parentNode.addEventListener('click', handleNoClick)
+  yes.parentNode.addEventListener('click', handleYesClick)
+  no.parentNode.addEventListener('click', handleNoClick)
 }
 
 
