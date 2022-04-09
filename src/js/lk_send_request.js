@@ -112,4 +112,3 @@ $(document).ready(function() {
   getSimpleJson(is_simple)
 
 })
-export{changeSliderHeight}
