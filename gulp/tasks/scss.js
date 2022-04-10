@@ -24,6 +24,7 @@ const scss = () => {
           .pipe(sass({
             outputStyle: 'expanded'
           }))
+          .pipe(app.gulp.dest(app.paths.build.css))
           .pipe(app.plugins.if(app.isBuild, groupCssMediaQueries()))
           .pipe(app.plugins.if(app.isBuild, webpCss({
                 webpClass: '.webp',
@@ -38,9 +39,9 @@ const scss = () => {
             )
           .pipe(app.plugins.if(app.isBuild, app.gulp.dest(app.paths.build.css)))
           .pipe(app.plugins.if(app.isBuild, cleanCss()))
-          .pipe(app.plugins.if(app.isBuild, rename({
+          .pipe(rename({
                 extname: '.min.css'
-              }))
+              })
             )
           .pipe(app.gulp.dest(app.paths.build.css))
           .pipe(app.plugins.browserSync.stream())
