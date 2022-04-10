@@ -31,7 +31,7 @@ function initAllQueuesDeletion() {
     // Если нужно значение queueCount в рамках скриптов, то бери ее значение из getCurrentQueueCount(document)
     // и не здесь, а в момент, когда используешь значение
     if (document.querySelector('[name="statementtc_queuecount"'))
-      document.querySelector('[name="statementtc_queuecount"').value = queueCount;
+      document.querySelector('[name="statementtc_queuecount"').value = getCurrentQueueCount(document, -1);
   }
 
   // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"

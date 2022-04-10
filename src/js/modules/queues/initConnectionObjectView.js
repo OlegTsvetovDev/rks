@@ -8,7 +8,6 @@ const initConnectionObjectView = node => {
 
   // Проверяем "Запуск по очередям" и показываем соответствующие блоки
   const checkSequenceNode = sequenceNode => {
-    console.log('checkSequenceNode')
     const yesRadio = sequenceNode.querySelector('input[name="queue_launch"][value="yes"]')
     const noRadio = sequenceNode.querySelector('input[name="queue_launch"][value="no"]')
 
