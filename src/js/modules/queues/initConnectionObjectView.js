@@ -11,9 +11,12 @@ const initConnectionObjectView = node => {
     const yesRadio = sequenceNode.querySelector('input[name="queue_launch"][value="yes"]')
     const noRadio = sequenceNode.querySelector('input[name="queue_launch"][value="no"]')
 
+    // если "Запуск по очередям" в "Да"
     if (yesRadio.checked)
-      return yesNode.classList.remove('hidden') && noNode.classList.add('hidden')
-    return yesNode.classList.add('hidden') && noNode.classList.remove('hidden')
+      return noNode.classList.add('hidden') && yesNode.classList.remove('hidden')
+
+    // если "Запуск по очередям" в "Нет"
+    return noNode.classList.remove('hidden') && yesNode.classList.add('hidden')
   }
 
   // доступен "Запуск по очередям"
@@ -25,15 +28,18 @@ const initConnectionObjectView = node => {
   // недоступен "Запуск по очередям"
   const disableMultipleQueues = e => {
     sequenceNode.classList.add('hidden')
-    checkSequenceNode(sequenceNode)
+    yesNode.classList.add('hidden')
+    noNode.classList.add('hidden')
   }
 
   // проверка на начальную отметку objectsNode
   const checkInitialStatus = () => {
     if (objectsNode.checked)
       return enableMultipleQueues()
+
     if (housekeepingNode.checked)
       return disableMultipleQueues()
+
     if (reconstructionNode.checked)
       return disableMultipleQueues()
   }

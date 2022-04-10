@@ -41,7 +41,7 @@ function initAllQueuesDeletion() {
 
     changeSliderHeight()
 
-    // Если нужно значение queueCount в рамках скриптов, то бери ее значение из getCurrentQueueCount(document)
+    // Если нужно значение queueCount в рамках скриптов, то бери ее значение из getCurrentQueueCount(document, -1)
     // и не здесь, а в момент, когда используешь значение
     if (document.querySelector('[name="statementtc_queuecount"'))
       document.querySelector('[name="statementtc_queuecount"').value = 0;

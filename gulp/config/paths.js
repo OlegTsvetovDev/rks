@@ -19,7 +19,7 @@ const paths = {
     scss: `${srcFolder}/scss/*.scss`,
     css: `${srcFolder}/scss/*.css`,
     files: `${srcFolder}/files/**/*.*`,
-    img: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
+    img: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp,ico}`,
     svg: `${srcFolder}/img/**/*.svg`,
     fonts: `${srcFolder}/fonts/**/*.{otf,ttf,woff,woff2}`,
     ttf: `${srcFolder}/fonts/**/*.ttf`,
@@ -31,7 +31,7 @@ const paths = {
     scss: `${srcFolder}/scss/*.{scss,css}`,
     css: `${srcFolder}/scss/*.css`,
     files: `${srcFolder}/files/**/*.*`,
-    img: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp,svg}`
+    img: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp,svg,ico}`
   },
   clean: buildFolder,
   buildFolder: buildFolder,

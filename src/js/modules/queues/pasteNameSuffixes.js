@@ -10,7 +10,7 @@ function pasteNameSuffixes(node, queueCount) {
     if (!input.name) return
 
     let newName = input.name
-    newName += `_${queueCount}`
+    newName += `__${queueCount}`
     // newName = newName.slice(0, -2) + `_${queue_count}`
     input.name = newName
   })
