@@ -22,7 +22,7 @@ function initQueueTableNewRow() {
                     <tr class="table__row">
                       <td class="table__cell">Очередь №${queueCount}</td>
                       <td class="table__cell">
-                        <input type="text" class="field__input datepicker_input" name=${'statementtc_dateplan_' + queueCount} placeholder="Введите данные" />
+                        <input type="text" class="field__input datepicker_input" name=${'statementtc_dateplan__' + queueCount} placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
