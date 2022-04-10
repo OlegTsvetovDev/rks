@@ -363,6 +363,9 @@ input[type=number]::-webkit-outer-spin-button {
   width: 100%;
   // margin-bottom: 30px;
   color: $mainColor;
+  &.disabled {
+    cursor: not-allowed;
+  }
   &[data-state="active"] {
     .__select__title {
       &::before {
