@@ -38,9 +38,9 @@ const scss = () => {
             )
           .pipe(app.plugins.if(app.isBuild, app.gulp.dest(app.paths.build.css)))
           .pipe(app.plugins.if(app.isBuild, cleanCss()))
-          .pipe(rename({
+          .pipe(app.plugins.if(app.isBuild, rename({
                 extname: '.min.css'
-              })
+              }))
             )
           .pipe(app.gulp.dest(app.paths.build.css))
           .pipe(app.plugins.browserSync.stream())
