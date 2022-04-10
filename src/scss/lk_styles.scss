@@ -1383,6 +1383,7 @@ input[type=number]::-webkit-outer-spin-button {
               .table__body {
                 .table__row {
                   .table__cell {
+                    margin: 0;
                     padding: 0 12px;
                     border: 1px solid $mainColorTransparent;
                     .field__input {
@@ -1392,6 +1393,12 @@ input[type=number]::-webkit-outer-spin-button {
                       border: none;
                       &.datepicker_input {
                         background: url('../img/calendar.svg') no-repeat 97.5% 50%;
+                      }
+                    }
+                    &.disabled {
+                      padding: 0;
+                      .field__input {
+                        padding: 11px 12px;
                       }
                     }
                   }
