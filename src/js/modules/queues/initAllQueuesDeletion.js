@@ -21,11 +21,6 @@ function initAllQueuesDeletion() {
   const handleRadioYesClick = () => {
     // enable все очереди
     enableAllQueues(queueLaunchYes)
-
-    // TODO: добавить дизейбл
-    // disableAllQueues(queueLaunchYes)
-    // deleteAllQueues(document)
-
     changeSliderHeight()
 
     // Если нужно значение queueCount в рамках скриптов, то бери ее значение из getCurrentQueueCount(document)
