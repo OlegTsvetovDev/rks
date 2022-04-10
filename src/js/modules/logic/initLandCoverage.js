@@ -15,7 +15,7 @@ function initLandCoverage(node) {
                         <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
+                        <input type="text" class="field__input" placeholder="Введите данные" />
                       </td>
                     </tr>
                    `

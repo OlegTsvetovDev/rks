@@ -31,7 +31,7 @@ function initLookup(type, node) {
     if(townInput){
       fetch(`./getStreetsJson?streetName=${streetName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(streetName,JSON.parse(data)), queueNumberInput ? `street_code_${queueNumberInput.value}` : 'street_code', queueNumberInput ? `street_${queueNumberInput.value}` : 'street'))
+        .then(data => renderList(searchInArray(streetName,JSON.parse(data)), queueNumberInput ? `street_code__${queueNumberInput.value}` : 'street_code', queueNumberInput ? `street__${queueNumberInput.value}` : 'street'))
         .catch(e => console.log(e))
     }
       else
@@ -46,7 +46,7 @@ function initLookup(type, node) {
     if(townInput)
       fetch(`./getDistrictsJson?districtName=${districtName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(districtName,JSON.parse(data)), queueNumberInput ? `district_code_${queueNumberInput.value}` : 'district_code', queueNumberInput ? `district_${queueNumberInput.value}` : 'district'))
+        .then(data => renderList(searchInArray(districtName,JSON.parse(data)), queueNumberInput ? `district_code__${queueNumberInput.value}` : 'district_code', queueNumberInput ? `district__${queueNumberInput.value}` : 'district'))
         .catch(e => console.log(e))
       else
       renderList('');
@@ -60,7 +60,7 @@ function initLookup(type, node) {
     if(townInput)
       fetch(`./getSubdistrictsJson?subdistrictName=${subdistrictName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(subdistrictName,JSON.parse(data)), queueNumberInput ? `subdistrict_code_${queueNumberInput.value}` : 'subdistrict_code', queueNumberInput ? `subdistrict_${queueNumberInput.value}` : 'subdistrict'))
+        .then(data => renderList(searchInArray(subdistrictName,JSON.parse(data)), queueNumberInput ? `subdistrict_code__${queueNumberInput.value}` : 'subdistrict_code', queueNumberInput ? `subdistrict__${queueNumberInput.value}` : 'subdistrict'))
         .catch(e => console.log(e))
       else
       renderList('');
