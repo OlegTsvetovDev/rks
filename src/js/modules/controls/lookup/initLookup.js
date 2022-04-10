@@ -26,11 +26,12 @@ function initLookup(type, node) {
   // получить улицы с бэка
   const setStreets = (query) => {
     let townInput = query.querySelector('input[name^="town_code"]:checked');
-    let street_name = query.querySelector('input.address__street').value;
+    let streetName = query.querySelector('input.address__street').value;
+    let queueNumberInput = query.querySelector('#number_queue');
     if(townInput){
-      fetch(`./getStreetsJson?streetName=${street_name}&townCode=${townInput.value}`)
+      fetch(`./getStreetsJson?streetName=${streetName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(street_name,JSON.parse(data)), 'street_code', 'street'))
+        .then(data => renderList(searchInArray(streetName,JSON.parse(data)), queueNumberInput ? `street_code_${queueNumberInput.value}` : 'street_code', queueNumberInput ? `street_${queueNumberInput.value}` : 'street'))
         .catch(e => console.log(e))
     }
       else
@@ -40,11 +41,12 @@ function initLookup(type, node) {
   // получить районы с бэка
   const setDistricts = (query) => {
     let townInput = query.querySelector('input[name^="town_code"]:checked');
-    let district_name = query.querySelector('input.address__district').value;
+    let districtName = query.querySelector('input.address__district').value;
+    let queueNumberInput = query.querySelector('#number_queue');
     if(townInput)
-      fetch(`./getDistrictsJson?districtName=${district_name}&townCode=${townInput.value}`)
+      fetch(`./getDistrictsJson?districtName=${districtName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(district_name,JSON.parse(data)), 'district_code', 'district'))
+        .then(data => renderList(searchInArray(districtName,JSON.parse(data)), queueNumberInput ? `district_code_${queueNumberInput.value}` : 'district_code', queueNumberInput ? `district_${queueNumberInput.value}` : 'district'))
         .catch(e => console.log(e))
       else
       renderList('');
@@ -53,11 +55,12 @@ function initLookup(type, node) {
   // получить микрорайоны с бэка
   const setMicrodistricts = (query) => {
     let townInput = query.querySelector('input[name^="town_code"]:checked');
-    let subdistrict_name = query.querySelector('input.address__microdistrict').value;
+    let subdistrictName = query.querySelector('input.address__microdistrict').value;
+    let queueNumberInput = query.querySelector('#number_queue');
     if(townInput)
-      fetch(`./getSubdistrictsJson?subdistrictName=${subdistrict_name}&townCode=${townInput.value}`)
+      fetch(`./getSubdistrictsJson?subdistrictName=${subdistrictName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(subdistrict_name,JSON.parse(data)), 'subdistrict_code', 'subdistrict'))
+        .then(data => renderList(searchInArray(subdistrictName,JSON.parse(data)), queueNumberInput ? `subdistrict_code_${queueNumberInput.value}` : 'subdistrict_code', queueNumberInput ? `subdistrict_${queueNumberInput.value}` : 'subdistrict'))
         .catch(e => console.log(e))
       else
       renderList('');
