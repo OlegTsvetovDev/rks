@@ -19,14 +19,12 @@ const initConnectionObjectView = node => {
 
   // доступен "Запуск по очередям"
   const enableMultipleQueues = e => {
-    console.log('enabled')
     sequenceNode.classList.remove('hidden')
     checkSequenceNode(sequenceNode)
   }
 
   // недоступен "Запуск по очередям"
   const disableMultipleQueues = e => {
-    console.log('disabled')
     sequenceNode.classList.add('hidden')
     checkSequenceNode(sequenceNode)
   }
