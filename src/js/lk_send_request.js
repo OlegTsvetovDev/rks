@@ -7,7 +7,7 @@ import initLookups from './modules/controls/lookup/initLookups.js'
 import addressConcatination from './modules/address/addressConcatination.js'
 import initAddressConcatination from './modules/address/initAddressConcatination.js'
 import initQueueLaunch from './modules/queues/initQueueLaunch.js'
-// import isQueueEnabled from './modules/queues/isQueueEnabled.js'
+import initConnectionObjectView from './modules/queues/initConnectionObjectView.js'
 import initMultipleQueues from './modules/queues/initMultipleQueues.js'
 import initMasks from './modules/masks/initMasks.js'
 import initDrainage from './modules/logic/initDrainage.js'
@@ -69,8 +69,8 @@ $(document).ready(function() {
     initMultipleQueues()
 
   // доступность блока "Запуск по очередям"
-  // if (document.querySelector('.queue_launch__trigger'))
-  //   isQueueEnabled(document)
+  if (document.querySelector('input[name="connectobjkind"]'))
+    initConnectionObjectView(document)
 
   // инит раздела "Иные источники"
   // TODO: ДОБАВИТЬ В ВЕРСТКУ (НЕТ ЭТОГО РАЗДЕЛА)
