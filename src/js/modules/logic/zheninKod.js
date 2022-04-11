@@ -1,4 +1,4 @@
-//#region женин код
+//#region женин код [чуть-чуть ингин тоже]
 function zheninKod() {
   if($('input[name="requesttype_id"]').val() == '10002')
     $('input[name="personbasis"][value="05"]').parent().attr( 'style', 'display:none;' );
@@ -38,7 +38,13 @@ function zheninKod() {
                 err.push("Не указано значение поля " + getTitle($this));
               break;
             case "TABLE":
-              // тут надо проверить обязательную таблицу на заполненность в Заявлении на подключение
+              var t_fields = $this.find('tbody tr td input');
+              var t_name = getTitle($this)
+              t_fields.each( function () {
+                    if(!$(this).val())
+                      err.push("Не указано значение поля в таблице " + getTitle($this));
+                  }
+              )
               break;
           }
         });

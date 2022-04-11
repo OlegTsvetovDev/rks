@@ -2,10 +2,10 @@ import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
 
 
 // добавление новых строк в таблицу с иными источниками, слайдер 4
-function initWaterSource() {
+function initWaterSource(node) {
   const water_source_tbody = $('.other_water_sources tbody')
   let water_source_count = 1
-  const water_sources_count = document.querySelector('[name="other_water_sources_count"]');
+  const water_sources_count = node.querySelector('[name^="other_water_sources_count"]');
 
 
   $('.add_source_btn').click(function(e) {
