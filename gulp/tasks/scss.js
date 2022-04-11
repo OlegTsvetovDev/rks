@@ -24,6 +24,7 @@ const scss = () => {
           .pipe(sass({
             outputStyle: 'expanded'
           }))
+          .pipe(app.gulp.dest(app.paths.build.css))
           .pipe(app.plugins.if(app.isBuild, groupCssMediaQueries()))
           .pipe(app.plugins.if(app.isBuild, webpCss({
                 webpClass: '.webp',
