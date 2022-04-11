@@ -37,7 +37,7 @@ $(document).ready(function() {
   // переключение радио по клику на лейбл
   // TODO: дописать вызов на ноде
   if (document.querySelector('.radio'))
-    initRadioLabels()
+    initRadioLabels(document)
 
   // переключение чекбокса по клику на лейбл
   if (document.querySelector('.checkbox'))

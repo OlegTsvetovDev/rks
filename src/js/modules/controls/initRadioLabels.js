@@ -9,5 +9,20 @@ function initRadioLabels() {
   })
 }
 
+// function initRadioLabels(node) {
+//   const radios = node.querySelectorAll('.radio')
+//
+//   radios.forEach(radio => {
+//     const disabled = radio.disabled
+//     if (disabled) return
+//
+//     radio.parentNode.addEventListener('click', function () {
+//       const input = this.querySelector('input')
+//       return input.checked = !input.checked
+//     })
+//   })
+//
+// }
+
 
 export default initRadioLabels

@@ -41,7 +41,6 @@ function initQueueTableNewRow() {
   $('.queue_btn_remove').click(function(e) {
     e.preventDefault()
     const queueCount = getCurrentQueueCount(document, -1)
-    console.log(queueCount)
 
     if (queueCount < 1) return
 
