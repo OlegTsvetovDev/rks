@@ -3,10 +3,11 @@ import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
 
 // добавление новых строк в таблицу с иными источниками, слайдер 4
 function initWaterSource(node) {
-  const water_source_tbody = $('.other_water_sources tbody')
+  const water_source_tbody = node.querySelector('div[class*="other_water_sources"] tbody')
   let water_source_count = 1
   const water_sources_count = node.querySelector('[name^="other_water_sources_count"]');
-
+  if (water_sources_count && water_sources_count.value != "0")
+    water_source_count = parseInt(water_sources_count.value)
 
   $('.add_source_btn').click(function(e) {
     const new_row = `
@@ -21,7 +22,7 @@ function initWaterSource(node) {
                    `
     e.preventDefault()
 
-    water_source_tbody.append(new_row)
+    water_source_tbody.innerHTML += new_row
     water_source_count++
     if (water_sources_count) water_sources_count.value = water_source_count;
     changeSliderHeight()
@@ -32,8 +33,9 @@ function initWaterSource(node) {
     e.preventDefault()
 
     if (water_source_count > 2) {
-      water_source_tbody.children().last().remove()
+      water_source_tbody.lastElementChild.remove()
       water_source_count--
+      if (water_sources_count) water_sources_count.value = water_source_count;
       changeSliderHeight()
     }
   })

@@ -8,6 +8,7 @@ import initMasks from '../masks/initMasks.js'
 import initColdWaterSupply from '../logic/initColdWaterSupply.js'
 import initDrainage from '../logic/initDrainage.js'
 import initAddressConcatination from '../address/initAddressConcatination.js'
+import initWaterSource from '../logic/initWaterSource.js'
 
 
 // создание и рендер новой ноды, 4 слайдер
@@ -22,6 +23,7 @@ function createAndRenderNewNode(queueCount) {
   initColdWaterSupply(newNode)
   initDrainage(newNode)
   initAddressConcatination(newNode)
+  initWaterSource(newNode)
 
   // addNewSlide(newNode)
 }
