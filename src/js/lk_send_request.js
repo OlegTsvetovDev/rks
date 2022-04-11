@@ -72,12 +72,6 @@ $(document).ready(function() {
   if (document.querySelector('input[name="connectobjkind"]'))
     initConnectionObjectView(document)
 
-  // инит раздела "Иные источники"
-  // TODO: ДОБАВИТЬ В ВЕРСТКУ (НЕТ ЭТОГО РАЗДЕЛА)
-  // TODO: дописать вызов на ноде
-  if (document.querySelector('.other_water_sources'))
-    initWaterSource()
-
   // инит раздела "Характеристики земельного участка"
   if (document.querySelector('.land_coverage_characteristics'))
     initLandCoverage(document)
@@ -98,6 +92,14 @@ $(document).ready(function() {
   if (queueBlocks)
     queueBlocks.forEach(queueBlock =>
       initColdWaterSupply(queueBlock))
+
+  // инит раздела "Иные источники"
+  // TODO: ДОБАВИТЬ В ВЕРСТКУ (НЕТ ЭТОГО РАЗДЕЛА)
+  // TODO: дописать вызов на ноде
+  if (document.querySelector('.other_water_sources'))
+    if (queueBlocks)
+      queueBlocks.forEach(queueBlock =>
+          initWaterSource(queueBlock))
 
   // инит блоков водоотведения
   if (queueBlocks)

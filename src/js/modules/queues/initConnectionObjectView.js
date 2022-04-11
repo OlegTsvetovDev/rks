@@ -12,14 +12,16 @@ const initConnectionObjectView = node => {
     const noRadio = sequenceNode.querySelector('input[name="queue_launch"][value="no"]')
 
     // если "Запуск по очередям" в "Да"
-    if (yesRadio.checked) {
+    if (yesRadio.checked)
+    {
+      noNode.classList.add('hidden')
       yesNode.classList.remove('hidden')
-      return noNode.classList.add('hidden')
+      return
     }
 
     // если "Запуск по очередям" в "Нет"
+    noNode.classList.remove('hidden')
     yesNode.classList.add('hidden')
-    return noNode.classList.remove('hidden')
   }
 
   // доступен "Запуск по очередям"
@@ -32,7 +34,7 @@ const initConnectionObjectView = node => {
   const disableMultipleQueues = e => {
     sequenceNode.classList.add('hidden')
     yesNode.classList.add('hidden')
-    noNode.classList.add('hidden')
+    noNode.classList.remove('hidden')
   }
 
   // проверка на начальную отметку objectsNode
