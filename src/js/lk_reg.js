@@ -21,6 +21,7 @@ $(document).ready(function () {
         selectSingle_title.textContent = e.target.textContent
         selectSingle_title.value = e.target.textContent
         selectSingle.setAttribute('data-state', '')
+        $('input[name=clienttype_id]').val($(e.target).next('input').val());
       })
     }
 
