@@ -40,7 +40,8 @@ function initQueueTableNewRow() {
   // удаление новых строк в таблицу с очередями, слайдер 1
   $('.queue_btn_remove').click(function(e) {
     e.preventDefault()
-    const queueCount = getCurrentQueueCount(document, 0)
+    const queueCount = getCurrentQueueCount(document, -1)
+    console.log(queueCount)
 
     if (queueCount < 1) return
 
