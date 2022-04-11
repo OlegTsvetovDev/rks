@@ -1,6 +1,8 @@
 // создание и рендер модалки
 function createModal(node) {
+  // блокировка вызова второй модалки
   if (document.querySelector('.modal_popup_confirm')) return
+
   const modalPopupConfirm = `
                       <section class="modal modal_popup_confirm">
                         <div class="modal__content modal_popup_confirm__content">

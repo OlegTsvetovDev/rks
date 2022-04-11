@@ -2,11 +2,8 @@ import initRadioLabels from './modules/controls/initRadioLabels.js'
 import initCheckboxLabels from './modules/controls/initCheckboxLabels.js'
 import initPseudoSelects from './modules/controls/select/initPseudoSelects.js'
 import initSlider from './modules/controls/slider/initSlider.js'
-import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
 import initLookups from './modules/controls/lookup/initLookups.js'
-import addressConcatination from './modules/address/addressConcatination.js'
 import initAddressConcatination from './modules/address/initAddressConcatination.js'
-import initQueueLaunch from './modules/queues/initQueueLaunch.js'
 import initConnectionObjectView from './modules/queues/initConnectionObjectView.js'
 import initMultipleQueues from './modules/queues/initMultipleQueues.js'
 import initMasks from './modules/masks/initMasks.js'
@@ -16,6 +13,8 @@ import initDatepickers from './modules/controls/initDatepickers.js'
 import initCheckRepresentative from './modules/logic/initCheckRepresentative.js'
 import initColdWaterSupply from './modules/logic/initColdWaterSupply.js'
 import zheninKod from './modules/logic/zheninKod.js'
+
+import disableFormEnter from './modules/logic/disableFormEnter.js'
 
 import initModalDownloadInstructions from './modules/modals/initModalDownloadInstructions.js'
 
@@ -105,6 +104,10 @@ $(document).ready(function() {
   if (queueBlocks)
     queueBlocks.forEach(queueBlock =>
       initDrainage(queueBlock))
+
+  // блокировка enter'а на форме
+  // добавляются очереди при отключении
+  disableFormEnter()
 
   // import сверху, проверь что работает и назови нормально
   // вообще не представляю что этот кусок делает
