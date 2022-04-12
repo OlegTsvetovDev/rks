@@ -1,3 +1,8 @@
+import getCurrentQueueCount from './getCurrentQueueCount.js'
+import createModal from '../modals/createModal.js'
+import addListenersToModal from '../modals/addListenersToModal.js'
+import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
+
 const initConnectionObjectView = node => {
   const housekeepingNode = node.querySelector('input[name="connectobjkind"][value="01"]')
   const objectsNode = node.querySelector('input[name="connectobjkind"][value="02"]')
@@ -32,9 +37,25 @@ const initConnectionObjectView = node => {
 
   // недоступен "Запуск по очередям"
   const disableMultipleQueues = e => {
-    sequenceNode.classList.add('hidden')
-    yesNode.classList.add('hidden')
-    noNode.classList.remove('hidden')
+    const step2 = document.querySelector('.step_2')
+    const queueLaunchYes = step2.querySelector('.queue_launch_yes')
+    const queueLaunchNo = step2.querySelector('.queue_launch_no')
+    const radioYes = step2.querySelector('input[name="queue_launch"][value="yes"]')
+    const radioNo = step2.querySelector('input[name="queue_launch"][value="no"]')
+    const queueCount = getCurrentQueueCount(document, -1)
+    // если есть очереди помимо базовой
+    if (queueCount > 0) {
+
+    // вызываем модалку на подтверждение
+    createModal(document)
+    addListenersToModal(document, queueLaunchYes, queueLaunchNo)
+
+    changeSliderHeight()
+    } else {
+      sequenceNode.classList.add('hidden')
+      yesNode.classList.add('hidden')
+      noNode.classList.remove('hidden')
+    }
   }
 
   // проверка на начальную отметку objectsNode

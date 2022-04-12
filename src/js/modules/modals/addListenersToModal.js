@@ -10,10 +10,16 @@ function addListenersToModal(node, queueLaunchYes, queueLaunchNo) {
   const abortModal = modalPopupConfirm.querySelector('.btn_abort')
   const btnAgree = modalPopupConfirm.querySelector('.btn_agree')
   const radioYes = node.querySelector('input[name="queue_launch"][value="yes"]')
+  const radioNo = node.querySelector('input[name="queue_launch"][value="no"]')
 
 
   // хэндлер подтверждения удаления очередей
   const handleProceedModal = () => {
+    if(radioYes.checked){
+      document.querySelector('.queue_launch__trigger').classList.add('hidden')
+      radioNo.checked = true
+    }
+    document.querySelector('[name="statementtc_queuecount"').value = 0;
     // удаление jQuery инлайн стилей
     queueLaunchYes.removeAttribute('style')
     queueLaunchNo.removeAttribute('style')
@@ -30,6 +36,7 @@ function addListenersToModal(node, queueLaunchYes, queueLaunchNo) {
   // хэндлер отказа от удаления очередей
   const handleCloseModal = () => {
     radioYes.checked = true
+    document.querySelector("#connectobjkind_02").checked = true
     // удаление jQuery инлайн стилей
     queueLaunchYes.removeAttribute('style')
     queueLaunchNo.removeAttribute('style')
