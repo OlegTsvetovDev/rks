@@ -6,10 +6,10 @@ function initWaterSource(node) {
   const water_source_tbody = node.querySelector('div[class*="other_water_sources"] tbody')
   let water_source_count = 1
   const water_sources_count = node.querySelector('[name^="other_water_sources_count"]');
-  if (water_sources_count && water_sources_count.value != "0")
+  if (water_sources_count && water_sources_count.value !== "0")
     water_source_count = parseInt(water_sources_count.value)
 
-  $('.add_source_btn').click(function(e) {
+  $('.add_source_btn', node).click(function(e) {
     const new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
@@ -29,7 +29,7 @@ function initWaterSource(node) {
   })
 
   // удаление новых строк в таблице с иными источниками, слайдер 4
-  $('.add_source_btn_remove').click(function(e) {
+  $('.add_source_btn_remove', node).click(function(e) {
     e.preventDefault()
 
     if (water_source_count > 2) {
