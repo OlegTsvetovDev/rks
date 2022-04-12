@@ -973,6 +973,7 @@ input[type=number]::-webkit-outer-spin-button {
               column-gap: 10px;
               .personal_agreement__checkbox {
                 width: 65px;
+                z-index: 1;
               }
 
               & > span {

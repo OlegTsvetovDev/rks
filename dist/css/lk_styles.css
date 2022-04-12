@@ -834,6 +834,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .main__content .main__form .form__right_side .form__row.personal_agreement .personal_agreement__label .personal_agreement__checkbox {
   width: 65px;
+  z-index: 1;
 }
 .main__content .main__form .form__right_side .form__row.captcha {
   justify-content: center;
@@ -1261,12 +1262,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__body .table__row .table__cell .field__input.datepicker_input {
   background: url("../img/calendar.svg") no-repeat 97.5% 50%;
-}
-.main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__body .table__row .table__cell.disabled {
-  padding: 0;
-}
-.main__content .requests_form .request__form .form__field.other_water_sources .field__table .table__body .table__row .table__cell.disabled .field__input {
-  padding: 11px 12px;
 }
 .main__content .requests_form .request__form .form__field.other_water_sources .btn {
   font-size: 14px;
