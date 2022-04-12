@@ -1,5 +1,5 @@
 // замена суффиксов в аттрибутах name в зависимости от номера очереди
-// добавляет "_<номер очереди>" ко всем name очереди
+// добавляет "__<номер очереди>" ко всем name очереди
 function pasteNameSuffixes(node, queueCount) {
   const subheader = node.querySelector('.form__subheader')
   subheader.innerText = `Очередь №${queueCount}`
