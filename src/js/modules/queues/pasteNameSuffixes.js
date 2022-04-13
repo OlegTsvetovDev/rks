@@ -7,14 +7,34 @@ function pasteNameSuffixes(node, queueCount) {
   // все инпуты, слайд 4
   const inputs = node.querySelectorAll('input')
   inputs.forEach(input => {
-    if (!input.name) return
-
-    let newName = input.name
-    newName += `__${queueCount}`
-    // newName = newName.slice(0, -2) + `_${queue_count}`
-    input.name = newName
+    if (input.name){
+      let newName = input.name
+      newName += `__${queueCount}`
+      // newName = newName.slice(0, -2) + `_${queue_count}`
+      input.name = newName
+    }
+    if(input.id){
+      let newId = input.id
+      newId += `__${queueCount}`
+      // newId = newId.slice(0, -2) + `_${queue_count}`
+      input.id = newId
+    }
   })
 
+  // все лейблы, слайд 4
+  const labels = node.querySelectorAll('label')
+  labels.forEach(label => {
+    if (label.getAttribute('for')){
+      let newFor = label.getAttribute('for')
+      newFor += `__${queueCount}`
+      // newFor = newFor.slice(0, -2) + `_${queue_count}`
+      label.setAttribute('for', newFor)
+    }
+  })
+
+  // это не суффиксы, но тоже надо
+  // обновляем input, в котором находится номер очереди
+  node.querySelector('.number_queue').value = queueCount;
   // дивы с name = "show_name", слайд 4
   // const divs = node.querySelectorAll('div#show_name')
   // divs.forEach(div => {

@@ -9,81 +9,90 @@ function initLookup(type, node) {
   // Функцию запроса к гет сервису
   // функция возвращает массив из объектов
   // и вызывает renderList() для мутации списка городов в псевдоселекте
-  const setData = (query) => {
-    if (type === 'locality') setLocality(query)
-    if (type === 'street') setStreets(query)
-    if (type === 'district') setDistricts(query)
-    if (type === 'microdistrict') setMicrodistricts(query)
+  const setData = (node) => {
+    if (type === 'locality') setLocality(node)
+    if (type === 'street') setStreets(node)
+    if (type === 'district') setDistricts(node)
+    if (type === 'microdistrict') setMicrodistricts(node)
   }
 
-  const setLocality = (query) => {
-    fetch(`./getTownsJson?townName=${query.querySelector('input[name^="town_code"]:checked').value}`)
+  const setLocality = (node) => {
+    let localityName = node.querySelector('input.address__locality').value;
+    let queueNumber = node.querySelector('.number_queue').value;
+    fetch(`./getTownsJson?townName=${localityName}`)
       .then(response => response.json())
-      .then(data => renderList(searchInArray(query,JSON.parse(data)), 'town_code', 'locality'))
+      .then(data => renderList(JSON.parse(data), 'town', queueNumber))
       .catch(e => console.log(e))
   }
 
   // получить улицы с бэка
-  const setStreets = (query) => {
-    let townInput = query.querySelector('input[name^="town_code"]:checked');
-    let streetName = query.querySelector('input.address__street').value;
-    let queueNumberInput = query.querySelector('#number_queue');
+  const setStreets = (node) => {
+    let townInput = node.querySelector('input[name^="town_code"]:checked');
+    let streetName = node.querySelector('input.address__street').value;
+    let queueNumber = node.querySelector('.number_queue').value;
     if(townInput){
       fetch(`./getStreetsJson?streetName=${streetName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(streetName,JSON.parse(data)), queueNumberInput ? `street_code__${queueNumberInput.value}` : 'street_code', queueNumberInput ? `street__${queueNumberInput.value}` : 'street'))
+        .then(data => renderList(JSON.parse(data), 'street', queueNumber))
         .catch(e => console.log(e))
     }
       else
-      renderList('');
+      renderList();
   }
 
   // получить районы с бэка
-  const setDistricts = (query) => {
-    let townInput = query.querySelector('input[name^="town_code"]:checked');
-    let districtName = query.querySelector('input.address__district').value;
-    let queueNumberInput = query.querySelector('#number_queue');
+  const setDistricts = (node) => {
+    let townInput = node.querySelector('input[name^="town_code"]:checked');
+    let districtName = node.querySelector('input.address__district').value;
+    let queueNumber = node.querySelector('.number_queue').value;
     if(townInput)
       fetch(`./getDistrictsJson?districtName=${districtName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(districtName,JSON.parse(data)), queueNumberInput ? `district_code__${queueNumberInput.value}` : 'district_code', queueNumberInput ? `district__${queueNumberInput.value}` : 'district'))
+        .then(data => renderList(JSON.parse(data), 'district', queueNumber))
         .catch(e => console.log(e))
       else
-      renderList('');
+      renderList();
   }
 
   // получить микрорайоны с бэка
-  const setMicrodistricts = (query) => {
-    let townInput = query.querySelector('input[name^="town_code"]:checked');
-    let subdistrictName = query.querySelector('input.address__microdistrict').value;
-    let queueNumberInput = query.querySelector('#number_queue');
+  const setMicrodistricts = (node) => {
+    let townInput = node.querySelector('input[name^="town_code"]:checked');
+    let subdistrictName = node.querySelector('input.address__microdistrict').value;
+    let queueNumber = node.querySelector('.number_queue').value;
     if(townInput)
       fetch(`./getSubdistrictsJson?subdistrictName=${subdistrictName}&townCode=${townInput.value}`)
         .then(response => response.json())
-        .then(data => renderList(searchInArray(subdistrictName,JSON.parse(data)), queueNumberInput ? `subdistrict_code__${queueNumberInput.value}` : 'subdistrict_code', queueNumberInput ? `subdistrict__${queueNumberInput.value}` : 'subdistrict'))
+        .then(data => renderList(JSON.parse(data), 'subdistrict', queueNumber))
         .catch(e => console.log(e))
       else
-      renderList('');
+      renderList();
   }
 
   // поиск по объекту
-  const searchInArray = (query, arr) => {
+  const searchInArray = (name, arr) => {
     let result = []
-    query = query.toLowerCase()
+    name = name.toLowerCase()
 
     arr.forEach(obj => {
-      if (obj.name.toLowerCase().includes(query)) result.push(obj)
+      if (obj.name.toLowerCase().includes(name)) result.push(obj)
     })
 
     return result
   }
 
   // рендер ноды в лукап
-  const renderNode = (obj, name, nameId) => {
-    const template = `
-                      <input value="${obj.code}" type="radio" class="__select__input" id="${nameId}_${obj.id}" tabindex="0" name=${name}>
-                      <label class="__select__label" for="${nameId}_${obj.id}">${obj.name}</label>
-                     `
+  const renderNode = (obj, name, number) => {
+    let template
+    if(number == 0)
+      template = `
+                  <input value="${obj.code}" type="radio" class="__select__input" id="${name}_${obj.id}" tabindex="0" name="${name}_code">
+                  <label class="__select__label" for="${name}_${obj.id}">${obj.name}</label>
+                  `
+    else
+      template = `
+                  <input value="${obj.code}" type="radio" class="__select__input" id="${name}_${obj.id}__${number}" tabindex="0" name="${name}_code__${number}">
+                  <label class="__select__label" for="${name}_${obj.id}__${number}">${obj.name}</label>
+                  `
 
     contentNode.insertAdjacentHTML('beforeend', template)
   }
@@ -110,7 +119,7 @@ function initLookup(type, node) {
 
   // рендер всех найденных нод
   // list - массив
-  function renderList(list,name, nameId) {
+  function renderList(list, name, nameId) {
     const contentNode = parentNode.querySelector('.__select__content')
     // удаляем предыдущие ноды
     removePreviousList(contentNode)
@@ -131,12 +140,25 @@ function initLookup(type, node) {
 
   // логика работы лукапа
   const handleNodeKeyUp = e => {
-    const query = e.target.closest('.queue_block')
-    setData(query)
+    const node = e.target.closest('.queue_block')
+    setData(node)
   }
 
   node.addEventListener('keyup', handleNodeKeyUp)
 
+  //!!!!!! НЕ УДАЛЯТЬ !!!!!!!! КОД РАБОЧИЙ, РАСКОММЕНТИРОВАТЬ ПОСЛЕ ПОКАЗА !!!!!!!!!
+  // очищаем инпуты с улицами, районами, подрайонами, если сменили город
+  /*if(type === "locality") 
+  {
+    const lookups = node.closest('.queue_block').querySelectorAll('.address__street, .address__district, .address__microdistrict')
+    node.nextElementSibling.querySelectorAll('label').forEach(label => label.addEventListener('click', () => {
+        // удаляем предыдущие ноды
+        lookups.forEach(lookup => {
+          lookup.value = ''
+          removePreviousList(lookup.nextElementSibling)
+        })
+    }))
+  }*/
 }
 
 

@@ -22,7 +22,7 @@ function addressConcatination(baseNode) {
     concated.value = resultAddress
 
     if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
-      document.querySelector('[name="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
+      baseNode.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
     // concated.textContent = resultAddress
   }, 100)
 }
