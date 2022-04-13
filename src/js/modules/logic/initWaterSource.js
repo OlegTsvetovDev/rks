@@ -12,7 +12,6 @@ function initWaterSource(node) {
   let new_row = ``
 
   $('.add_source_btn', node).click(function(e) {
-
     if (queue_number === "0") {
       new_row = `
                     <tr class="table__row">
@@ -40,7 +39,7 @@ function initWaterSource(node) {
 
     e.preventDefault()
 
-    water_source_tbody.innerHTML += new_row
+    $(water_source_tbody).append(new_row)
     water_source_count++
     if (water_sources_count) water_sources_count.value = water_source_count;
     changeSliderHeight()
