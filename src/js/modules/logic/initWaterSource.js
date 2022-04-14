@@ -49,7 +49,7 @@ function initWaterSource(node) {
   $('.add_source_btn_remove', node).click(function(e) {
     e.preventDefault()
 
-    if (water_source_count > 2) {
+    if (water_source_count > 1) {
       water_source_tbody.lastElementChild.remove()
       water_source_count--
       if (water_sources_count) water_sources_count.value = water_source_count;
