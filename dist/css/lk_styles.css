@@ -1787,6 +1787,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.sort .sort__block .sort__content .sort__column .column__row .radio {
   margin-right: 8px;
+  z-index: auto;
 }
 .main__content .lk_requests__content .lk_requests__controls .controls__control_btns .control_btn.cancel {
   background: url("../img/control_btns/cancel.svg") no-repeat center center;

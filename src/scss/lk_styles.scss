@@ -354,6 +354,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+
 // Селекты
 .__select {
   display: -webkit-flex;
@@ -2037,6 +2038,7 @@ input[type=number]::-webkit-outer-spin-button {
                         margin-bottom: 8px;
                         .radio {
                           margin-right: 8px;
+                          z-index: auto;
                         }
                       }
                     }
