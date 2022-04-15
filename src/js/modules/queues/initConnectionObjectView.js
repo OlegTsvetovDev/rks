@@ -75,6 +75,17 @@ const initConnectionObjectView = node => {
   housekeepingNode.parentNode.addEventListener('click', disableMultipleQueues)
   objectsNode.parentNode.addEventListener('click', enableMultipleQueues)
   reconstructionNode.parentNode.addEventListener('click', disableMultipleQueues)
+  reconstructionNode.parentNode.addEventListener('click', function () {
+    const connectobjchar = document.querySelectorAll('input[name*="connectobjchar"][value="002"]')
+    const connectobjtype = document.querySelectorAll('input[name*="connectobjtype"][value="002"]')
+    const techcondobj_floors = document.querySelectorAll('input[name*="techcondobj_floors"]')
+
+    connectobjchar.forEach(item => item.click())
+    connectobjtype.forEach(item => item.click())
+    techcondobj_floors.forEach(item => item.value = '1')
+
+  })
+
 }
 
 
