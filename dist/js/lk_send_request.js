@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
   \********************************************************/
 /***/ (() => {
 
-eval("throw new Error(\"Module parse failed: Unexpected token (20:106)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n|     let resultDistrict\\n|     if (district.value === 'БЕЗ РАЙОНА') resultDistrict = 'БЕЗ РАЙОНА'\\n>     if (district.value !== 'БЕЗ РАЙОНА') resultDistrict = `${district.value ?  ', ' + district.value + `${}` + ' район' : ''}`\\n| \\n|     let resultAddress = `${resultLocality + resultDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`\");\n\n//# sourceURL=webpack://rks/./src/js/modules/address/addressConcatination.js?");
+eval("throw new Error(\"Module parse failed: Unexpected token (23:106)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n|     let resultDistrict\\n|     if (district.value === 'БЕЗ РАЙОНА') resultDistrict = ''\\n>     if (district.value !== 'БЕЗ РАЙОНА') resultDistrict = `${district.value ?  ', ' + district.value + `${}` + ' район' : ''}`\\n| \\n|     let resultAddress = `${resultLocality + resultDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`\");\n\n//# sourceURL=webpack://rks/./src/js/modules/address/addressConcatination.js?");
 
 /***/ }),
 
