@@ -20,7 +20,7 @@ function addressConcatination(baseNode) {
 
     let resultDistrict
     if (district.value === 'БЕЗ РАЙОНА') resultDistrict = ''
-    if (district.value !== 'БЕЗ РАЙОНА') resultDistrict = `${district.value ?  ', ' + district.value + `${}` + ' район' : ''}`
+    if (district.value !== 'БЕЗ РАЙОНА') resultDistrict = `${district.value ?  ', ' + district.value + ' район' : ''}`
 
     let resultAddress = `${resultLocality + resultDistrict + resultMicrodistrict + resultStreet + resultHousing + resultHouse + '.'}`
     if (resultAddress[0] === ',') resultAddress = resultAddress.slice(1)
