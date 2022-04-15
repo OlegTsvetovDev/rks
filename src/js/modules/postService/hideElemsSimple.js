@@ -42,16 +42,12 @@ function hideElemsSimple(is_simple){
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
         document.querySelector('[name^="infmaxparam2"]').parentElement.classList.remove('hidden'); // Этажность
         document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
         document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.remove('hidden'); // Кол-во пожарных кранов, шт
         document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden'); // Расход на наружное пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden'); // Расход на внутреннее пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden'); // Расход на автоматическое пожаротушение, л/с
         document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
       break;
       case 'connectobjkind_03':
@@ -67,16 +63,12 @@ function hideElemsSimple(is_simple){
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.add('hidden'); // Количество надземных этажей
         document.querySelector('[name^="infmaxparam2"]').parentElement.classList.add('hidden'); // Этажность
         document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.add('hidden'); // Подключаемая нагрузка (м3/час)
         document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.add('hidden'); // Кол-во пожарных кранов, шт
         document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.add('hidden'); // Расход на наружное пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.add('hidden'); // Расход на внутреннее пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.add('hidden'); // Расход на автоматическое пожаротушение, л/с
         document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.add('hidden'); // Подключаемая нагрузка (м3/час)
       break;
     }
@@ -120,16 +112,12 @@ function hideElemsSimple(is_simple){
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
         document.querySelector('[name^="infmaxparam2"]').parentElement.classList.remove('hidden'); // Этажность
         document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
         document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.remove('hidden'); // Кол-во пожарных кранов, шт
         document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden'); // Расход на наружное пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden'); // Расход на внутреннее пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden'); // Расход на автоматическое пожаротушение, л/с
         document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
 
       break;
@@ -146,16 +134,12 @@ function hideElemsSimple(is_simple){
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
         document.querySelector('[name^="infmaxparam2"]').parentElement.classList.remove('hidden'); // Этажность
         document.querySelector('[name^="connectloadparamdata_value1"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
         document.querySelector('[name^="connectloadparamdata_value3"]').parentElement.classList.remove('hidden'); // Кол-во пожарных кранов, шт
         document.querySelector('[name^="addconnectloadparamdata_value_08"].ls').parentElement.classList.remove('hidden'); // Расход на наружное пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_02"].ls').parentElement.classList.remove('hidden'); // Расход на внутреннее пожаротушение, л/с
         document.querySelector('[name^="addconnectloadparamdata_value_07"].ls').parentElement.classList.remove('hidden'); // Расход на автоматическое пожаротушение, л/с
         document.querySelector('[name^="connectloadparamdata_value1_2"].md').setAttribute('title', ''); // Подключаемая нагрузка (м3/сут.)
-        if(document.querySelector('[name^="connectloadparamdata_value1_2"].md').value == "1") // Подключаемая нагрузка (м3/сут.)
-          document.querySelector('[name^="connectloadparamdata_value1_2"].md').value = ''; // Подключаемая нагрузка (м3/сут.)
         document.querySelector('[name^="connectloadparamdata_value1_2"].mh').parentElement.classList.remove('hidden'); // Подключаемая нагрузка (м3/час)
       break;
     }
