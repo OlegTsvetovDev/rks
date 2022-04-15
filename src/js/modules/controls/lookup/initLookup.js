@@ -1,3 +1,5 @@
+import addressConcatination from "../../address/addressConcatination.js"
+
 // лукап
 // node - это input в лукапе
 // type = 'locality' / 'street' / 'district' / 'microdistrict'
@@ -37,7 +39,7 @@ function initLookup(type, node) {
         .catch(e => console.log(e))
     }
       else
-      renderList();
+      renderList('');
   }
 
   // получить районы с бэка
@@ -51,7 +53,7 @@ function initLookup(type, node) {
         .then(data => renderList(JSON.parse(data), 'district', queueNumber))
         .catch(e => console.log(e))
       else
-      renderList();
+      renderList('');
   }
 
   // получить микрорайоны с бэка
@@ -65,7 +67,7 @@ function initLookup(type, node) {
         .then(data => renderList(JSON.parse(data), 'subdistrict', queueNumber))
         .catch(e => console.log(e))
       else
-      renderList();
+      renderList('');
   }
 
   // поиск по объекту
@@ -112,6 +114,7 @@ function initLookup(type, node) {
     const handleLabelClick = (label) => {
       const queryInput = node.parentNode.querySelector('input')
       queryInput.value = label.innerText
+      addressConcatination(label.closest('.queue_block'))
     }
 
     labels.forEach(label => label.addEventListener('click', () => handleLabelClick(label)))
@@ -134,6 +137,19 @@ function initLookup(type, node) {
 
     // вешаем прослушку по строкам для изменения значения
     initEventListeners(contentNode)
+
+    // вешаем прослушку для очистки инпутов с улицами, районами, микрорайонами, если сменили город
+    if(type === "locality") 
+    {
+      const lookups = node.closest('.queue_block').querySelectorAll('.address__street, .address__district, .address__microdistrict')
+      node.nextElementSibling.querySelectorAll('label').forEach(label => label.addEventListener('click', () => {
+          // удаляем предыдущие ноды
+          lookups.forEach(lookup => {
+            lookup.value = ''
+            removePreviousList(lookup.nextElementSibling)
+          })
+      }))
+    }
   }
 
 
@@ -145,19 +161,12 @@ function initLookup(type, node) {
   }
 
   node.addEventListener('keyup', handleNodeKeyUp)
-
-  // очищаем инпуты с улицами, районами, микрорайонами, если сменили город
-  if(type === "locality") 
-  {
-    const lookups = node.closest('.queue_block').querySelectorAll('.address__street, .address__district, .address__microdistrict')
-    node.nextElementSibling.querySelectorAll('label').forEach(label => label.addEventListener('click', () => {
-        // удаляем предыдущие ноды
-        lookups.forEach(lookup => {
-          lookup.value = ''
-          removePreviousList(lookup.nextElementSibling)
-        })
-    }))
-  }
+  node.addEventListener('click', (e) => {
+    if(node.value == '' && node.parentNode.getAttribute('data-state') === 'active')
+    {
+      handleNodeKeyUp(e) 
+    } 
+  })
 }
 
 

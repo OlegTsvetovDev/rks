@@ -354,6 +354,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+
 // Селекты
 .__select {
   display: -webkit-flex;
@@ -1317,7 +1318,8 @@ input[type=number]::-webkit-outer-spin-button {
             }
             .field_comment {
               width: 100%;
-              font-size: 0.8*$p;
+              font-size: 0.9*$p;
+              font-weight: bold;
               padding-left: 25px;
               margin-top: 10px;
               color: $mainColor;
@@ -2037,6 +2039,7 @@ input[type=number]::-webkit-outer-spin-button {
                         margin-bottom: 8px;
                         .radio {
                           margin-right: 8px;
+                          z-index: auto;
                         }
                       }
                     }

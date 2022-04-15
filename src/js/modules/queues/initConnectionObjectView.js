@@ -10,6 +10,11 @@ const initConnectionObjectView = node => {
   const sequenceNode = node.querySelector('.queue_launch__trigger')
   const yesNode = node.querySelector('.queue_launch_yes')
   const noNode = node.querySelector('.queue_launch_no')
+  const disabled = (housekeepingNode.disabled || objectsNode.disabled || reconstructionNode.disabled)
+
+  // блокировка при disabled
+  console.log(disabled)
+  if (disabled) return
 
   // Проверяем "Запуск по очередям" и показываем соответствующие блоки
   const checkSequenceNode = sequenceNode => {
