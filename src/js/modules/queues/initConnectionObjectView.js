@@ -13,7 +13,6 @@ const initConnectionObjectView = node => {
   const disabled = (housekeepingNode.disabled || objectsNode.disabled || reconstructionNode.disabled)
 
   // блокировка при disabled
-  console.log(disabled)
   if (disabled) return
 
   // Проверяем "Запуск по очередям" и показываем соответствующие блоки
