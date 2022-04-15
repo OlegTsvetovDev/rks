@@ -12,7 +12,7 @@ import initWaterSource from './modules/logic/initWaterSource.js'
 import initDatepickers from './modules/controls/initDatepickers.js'
 import initCheckRepresentative from './modules/logic/initCheckRepresentative.js'
 import initColdWaterSupply from './modules/logic/initColdWaterSupply.js'
-import zheninKod from './modules/logic/zheninKod.js'
+import checkRequiredField from './modules/logic/checkRequiredField.js'
 
 import disableFormEnter from './modules/logic/disableFormEnter.js'
 
@@ -111,7 +111,7 @@ $(document).ready(function() {
 
   // import сверху, проверь что работает и назови нормально
   // вообще не представляю что этот кусок делает
-  zheninKod()
+  checkRequiredField()
 
   let is_simple;
   getSimpleJson(is_simple)
