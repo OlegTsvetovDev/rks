@@ -10,9 +10,12 @@ function addressConcatination(baseNode) {
 
   setTimeout(() => {
     const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
-    const resultStreet = `${street.value ? ', ул. ' + street.value : ''}`
     const resultHousing = `${housing.value ? ', корпус ' + housing.value : ''}`
     const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
+
+    let resultStreet
+    if (street.value === 'БЕЗ УЛИЦЫ') resultStreet = ''
+    if (street.value !== 'БЕЗ УЛИЦЫ') resultStreet = `${street.value ? ', ул. ' + street.value : ''}`
 
     let resultMicrodistrict
     if (microdistrict.value === 'БЕЗ МИКРОРАЙОНА') resultMicrodistrict = ''
