@@ -146,9 +146,8 @@ function initLookup(type, node) {
 
   node.addEventListener('keyup', handleNodeKeyUp)
 
-  //!!!!!! НЕ УДАЛЯТЬ !!!!!!!! КОД РАБОЧИЙ, РАСКОММЕНТИРОВАТЬ ПОСЛЕ ПОКАЗА !!!!!!!!!
-  // очищаем инпуты с улицами, районами, подрайонами, если сменили город
-  /*if(type === "locality") 
+  // очищаем инпуты с улицами, районами, микрорайонами, если сменили город
+  if(type === "locality") 
   {
     const lookups = node.closest('.queue_block').querySelectorAll('.address__street, .address__district, .address__microdistrict')
     node.nextElementSibling.querySelectorAll('label').forEach(label => label.addEventListener('click', () => {
@@ -158,7 +157,7 @@ function initLookup(type, node) {
           removePreviousList(lookup.nextElementSibling)
         })
     }))
-  }*/
+  }
 }
 
 
