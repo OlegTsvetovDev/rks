@@ -31,7 +31,7 @@ function getSimpleJson(is_simple) {
         document.querySelector('.requests_form').classList.add('simple');
       }
 
-      document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', hideElemsSimple));
+      document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', () => {hideElemsSimple(is_simple)}));
 
       hideElemsSimple(is_simple);
     }

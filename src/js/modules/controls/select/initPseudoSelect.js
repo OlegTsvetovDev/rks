@@ -1,4 +1,5 @@
 import addressConcatination from '../../address/addressConcatination.js'
+import clearAddrDistSubdistr from '../../queues/clearAddrDistSubdistr.js'
 
 
 // псевдо-селект
@@ -19,6 +20,8 @@ function initPseudoSelect(select) {
       selectTitle.textContent = e.target.textContent
       selectTitle.value = e.target.textContent
       select.setAttribute('data-state', '')
+
+      clearAddrDistSubdistr(selectTitle)
 
       // вызов пересчета адреса в случае, если модуль активен
       const addressNode = this.parentNode.parentNode.parentNode.parentNode.parentNode

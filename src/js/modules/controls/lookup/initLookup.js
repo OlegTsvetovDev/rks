@@ -1,4 +1,5 @@
 import addressConcatination from "../../address/addressConcatination.js"
+import clearAddrDistSubdistr from "../../queues/clearAddrDistSubdistr.js"
 
 // лукап
 // node - это input в лукапе
@@ -115,6 +116,8 @@ function initLookup(type, node) {
       const queryInput = node.parentNode.querySelector('input')
       queryInput.value = label.innerText
       addressConcatination(label.closest('.queue_block'))
+      
+      clearAddrDistSubdistr(queryInput)
     }
 
     labels.forEach(label => label.addEventListener('click', () => handleLabelClick(label)))
@@ -137,22 +140,7 @@ function initLookup(type, node) {
 
     // вешаем прослушку по строкам для изменения значения
     initEventListeners(contentNode)
-
-    // вешаем прослушку для очистки инпутов с улицами, районами, микрорайонами, если сменили город
-    if(type === "locality") 
-    {
-      const lookups = node.closest('.queue_block').querySelectorAll('.address__street, .address__district, .address__microdistrict')
-      node.nextElementSibling.querySelectorAll('label').forEach(label => label.addEventListener('click', () => {
-          // удаляем предыдущие ноды
-          lookups.forEach(lookup => {
-            lookup.value = ''
-            removePreviousList(lookup.nextElementSibling)
-          })
-      }))
-    }
   }
-
-
 
   // логика работы лукапа
   const handleNodeKeyUp = e => {
@@ -162,12 +150,11 @@ function initLookup(type, node) {
 
   node.addEventListener('keyup', handleNodeKeyUp)
   node.addEventListener('click', (e) => {
-    if(node.value == '' && node.parentNode.getAttribute('data-state') === 'active')
+    if(node.value == '' && window.getComputedStyle(node.nextElementSibling, null).opacity === '0')
     {
       handleNodeKeyUp(e) 
     } 
   })
 }
-
 
 export default initLookup
