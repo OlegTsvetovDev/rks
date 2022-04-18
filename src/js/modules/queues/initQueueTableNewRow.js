@@ -45,7 +45,7 @@ function initQueueTableNewRow() {
     if (queueCount < 1) return
 
     const statementtc = document.querySelector('[name="statementtc_queuecount"]')
-    if (statementtc) statementtc.value = queueCount
+    if (statementtc) statementtc.value = queueCount - 1
 
     queueTbody.children().last().remove()
     deleteLastNode()
