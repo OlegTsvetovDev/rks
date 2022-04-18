@@ -1725,6 +1725,9 @@ input[type=number]::-webkit-outer-spin-button {
           display: flex;
           width: 48%;
           column-gap: 2%;
+          &.hidden {
+            display: none;
+          }
           .personal_data__block {
             display: -webkit-flex;
             display: -ms-flex;

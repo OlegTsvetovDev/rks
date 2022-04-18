@@ -49,12 +49,10 @@ const initConnectionObjectView = node => {
     const queueCount = getCurrentQueueCount(document, -1)
     // если есть очереди помимо базовой
     if (queueCount > 0) {
-
-    // вызываем модалку на подтверждение
-    createModal(document)
-    addListenersToModal(document, queueLaunchYes, queueLaunchNo)
-
-    changeSliderHeight()
+      // вызываем модалку на подтверждение
+      createModal(document)
+      addListenersToModal(document, queueLaunchYes, queueLaunchNo)
+      changeSliderHeight()
     } else {
       sequenceNode.classList.add('hidden')
       yesNode.classList.add('hidden')

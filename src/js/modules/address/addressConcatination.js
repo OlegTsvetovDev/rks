@@ -8,7 +8,7 @@ function addressConcatination(baseNode) {
   const housing = baseNode.querySelector('.address__housing')
   const house = baseNode.querySelector('.address__house')
 
-  setTimeout(() => {
+  // setTimeout(() => {
     const resultLocality = `${locality.value ? 'г. ' + locality.value : ''}`
     const resultHousing = `${housing.value ? ', корпус ' + housing.value : ''}`
     const resultHouse = `${house.value ? ', дом ' + house.value : ''}`
@@ -34,7 +34,7 @@ function addressConcatination(baseNode) {
     if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_01')
       baseNode.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${resultAddress}`;
     // concated.textContent = resultAddress
-  }, 100)
+  // }, 100)
 }
 
 
