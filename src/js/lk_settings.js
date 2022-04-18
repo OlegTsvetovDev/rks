@@ -1,3 +1,5 @@
+import getSimpleSettings from './modules/postService/getSimpleSettings.js'
+
 $(document).ready(function () {
   const body = $('body')
 
@@ -157,5 +159,11 @@ $(document).ready(function () {
     $('input[type=radio][name=docname]').change(function() {
       $('input[id=if_docname_selected]').attr('name', '');
     });
+
+  if(document.querySelector('[name="clienttype_id"]').value === "202") {
+    let is_simple;
+    getSimpleSettings(is_simple)
+  }
+
 
 });
