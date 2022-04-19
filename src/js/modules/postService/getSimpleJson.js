@@ -1,4 +1,5 @@
 import hideElemsSimple from './hideElemsSimple.js'
+import hideForUL from "./hideForUL.js";
 
 
 function getSimpleJson(is_simple) {
@@ -27,6 +28,12 @@ function getSimpleJson(is_simple) {
         list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
         if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
           document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
+
+        hideForUL("request");
+
+
+
+
 
         document.querySelector('.requests_form').classList.add('simple');
       }
