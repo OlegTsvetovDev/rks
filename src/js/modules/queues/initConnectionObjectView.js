@@ -79,7 +79,7 @@ const initConnectionObjectView = node => {
   const connectobjchar_new = document.querySelector('input[name*="connectobjchar"][value="001"]')
   const connectobjchar_reconstr = document.querySelector('input[name*="connectobjchar"][value="002"]')
   const connectobjchar_modern = document.querySelector('input[name*="connectobjchar"][value="003"]')
-
+  let connectobjkind_prev = 1;
 
   if (housekeepingNode.checked) {
     if (dateplan.value === '') dateplan.value = '31.12.2099'
@@ -98,12 +98,17 @@ const initConnectionObjectView = node => {
     connectobjchar_new.disabled = true
     connectobjchar_reconstr.disabled = true;
 
+    connectobjkind_prev = 1;
+
   })
 
   objectsNode.parentNode.addEventListener('click', enableMultipleQueues)
   objectsNode.parentNode.addEventListener('click', function () {
     connectobjchar_new.disabled = false
     connectobjchar_reconstr.disabled = false
+    if (connectobjkind_prev === 1) dateplan.value = ''
+
+    connectobjkind_prev = 2;
   })
 
   reconstructionNode.parentNode.addEventListener('click', disableMultipleQueues)
@@ -118,6 +123,9 @@ const initConnectionObjectView = node => {
     connectobjtype_not.click()
     techcondobj_floors.value = '1'
 
+    if (connectobjkind_prev === 1) dateplan.value = ''
+
+    connectobjkind_prev = 3;
   })
 
 }
