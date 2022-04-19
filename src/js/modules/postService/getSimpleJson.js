@@ -1,5 +1,5 @@
 import hideElemsSimple from './hideElemsSimple.js'
-import changeSliderHeight from "../controls/slider/changeSliderHeight.js";
+import hideForUL from "./hideForUL.js";
 
 
 function getSimpleJson(is_simple) {
@@ -29,16 +29,11 @@ function getSimpleJson(is_simple) {
         if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
           document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
 
-        if(document.querySelector('[name="statementtcjul_kpp"]')) {
-          document.querySelector('[name="statementtcjul_kpp"]').parentElement.parentElement.classList.add('hidden');
-          if(document.querySelector('[name="statementtcjul_ogrn"]'))
-            document.querySelector('[name="statementtcjul_ogrn"]').parentElement.parentElement.classList.add('fr');
-        }
-        if(document.querySelector('[name="statementtcjul_tel"]'))
-          document.querySelector('[name="statementtcjul_tel"]').parentElement.parentElement.classList.add('hidden');
-        if(document.querySelector('[name="statementtcjul_email"]'))
-          document.querySelector('[name="statementtcjul_email"]').parentElement.parentElement.classList.add('hidden');
-        changeSliderHeight()
+        hideForUL("request");
+
+
+
+
 
         document.querySelector('.requests_form').classList.add('simple');
       }
