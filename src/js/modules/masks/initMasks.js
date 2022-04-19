@@ -26,6 +26,8 @@ function initMasks(parentNode) {
       const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
                       && (e.which < 48 || e.which > 57)
 
+      if ($ffhc.val().charAt(0) !== 'Ф') $ffhc.val('Ф')
+
       if (trigger) e.preventDefault()
     })
   }
