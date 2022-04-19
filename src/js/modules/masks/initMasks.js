@@ -20,11 +20,13 @@ function initMasks(parentNode) {
   })
   if (parentNode.querySelector('.ffhc_input')) {
     const $ffhc = $('.ffhc_input')
-    $ffhc.val('Ф')
+    // $ffhc.val('Ф')
 
     $ffhc.keypress(function (e) {
       const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
                       && (e.which < 48 || e.which > 57)
+
+      if ($ffhc.val().charAt(0) !== 'Ф') $ffhc.val('Ф')
 
       if (trigger) e.preventDefault()
     })
