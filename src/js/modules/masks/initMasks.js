@@ -20,6 +20,8 @@ function initMasks(parentNode) {
   })
   if (parentNode.querySelector('.ffhc_input')) {
     const $ffhc = $('.ffhc_input')
+    if($ffhc.val() === '')
+      $ffhc.val('Ф')
 
     $ffhc.keypress(function (e) {
       if (this.value[0] !== 'Ф') this.value = 'Ф' + this.value
