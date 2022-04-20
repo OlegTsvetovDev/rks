@@ -325,6 +325,7 @@
           <div class="queue_slider">
             <div class="queue_block">
               <h5 class="form__subheader">Сводная очередь</h5>
+              <input value="0" class="number_queue" type="hidden" tabindex="0">
               <div class="form__field width_max">
 
                 <label class="field__label form__field" for="">
@@ -504,10 +505,34 @@
                     </span>
                   </label>
                 </div>
+                <div class="form__field width_max">
+                  <label class="field__label" for="">
+                    <span class="field__description required">Этажность объекта</span>
+                    <input value="" name="techcondobj_floors" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
+                  </label>
+                </div>
                 <div class="form__field">
                   <label class="field__label" for="">
-                    <span class="field__description">Этажность объекта</span>
-                    <input value="" name="techcondobj_floors" placeholder="" class="field__input ffhc_input" type="text" tabindex="0">
+                    <span class="field__description">Площадь жилая, м2</span>
+                    <input value="" name="livingSpace" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field fr">
+                  <label class="field__label" for="">
+                    <span class="field__description">Площадь нежилая, м2</span>
+                    <input value="" name="notLivingSpace" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field">
+                  <label class="field__label" for="">
+                    <span class="field__description">Объем общий, м3</span>
+                    <input value="" name="totalVolume" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field fr">
+                  <label class="field__label" for="">
+                    <span class="field__description">Класс функциональной пожарной опасности</span>
+                    <input value="" name="hazardClass" placeholder="Введите данные" class="field__input ffhc_input" type="text" tabindex="0">
                   </label>
                 </div>
                 <div class="form__field width_max">
