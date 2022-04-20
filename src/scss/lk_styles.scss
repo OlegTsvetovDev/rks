@@ -2433,6 +2433,9 @@ input[type=number]::-webkit-outer-spin-button {
           font-size: $h6;
           text-decoration: underline $mainColorTransparent;
           background: url('../img/control_btns/file.svg') no-repeat 0 0;
+          &.hidden {
+            display: none;
+          }
         }
       }
     }

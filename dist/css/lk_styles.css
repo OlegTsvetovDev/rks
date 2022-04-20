@@ -2103,6 +2103,9 @@ input[type=number]::-webkit-outer-spin-button {
   text-decoration: underline rgba(60, 84, 165, 0.3);
   background: url("../img/control_btns/file.svg") no-repeat 0 0;
 }
+.modal__content.modal_instructions__content .modal__text .instructions__link.hidden {
+  display: none;
+}
 .modal__content.modal_add_answer__content .modal__form {
   display: grid;
   grid-row-gap: 30px;
