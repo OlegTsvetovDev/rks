@@ -1,5 +1,6 @@
 // Модалка "Скачать инструкцию"
 function initModalDownloadInstructions() {
+  const body = $('body')
   const instructionsBtn = $('.instructions__btn')
   const instructionsModal = $('.modal_instructions')
   const instructionsModalContent = $('.modal_instructions__content')
