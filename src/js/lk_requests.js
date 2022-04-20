@@ -1,3 +1,5 @@
+import hideInstructions from "./modules/modals/hideInstructions.js";
+
 $(document).ready(function() {
 
   // .lk_menu стили для пункта меню
@@ -198,6 +200,7 @@ $(document).ready(function() {
       instructionsModal.addClass('hidden')
     })
 
+    hideInstructions()
   }
   initModalDownloadInstructions()
 

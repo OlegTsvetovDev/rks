@@ -1,4 +1,5 @@
 import getSimpleSettings from './modules/postService/getSimpleSettings.js'
+import hideInstructions from "./modules/modals/hideInstructions.js";
 
 $(document).ready(function () {
   const body = $('body')
@@ -76,8 +77,10 @@ $(document).ready(function () {
       instructionsModal.addClass('hidden')
     })
 
+    hideInstructions()
   }
   initModalDownloadInstructions()
+
 
   // datepicker
   function initDatepickers() {
@@ -160,10 +163,9 @@ $(document).ready(function () {
       $('input[id=if_docname_selected]').attr('name', '');
     });
 
-  if(document.querySelector('[name="clienttype_id"]').value === "202") {
-    let is_simple;
-    getSimpleSettings(is_simple)
-  }
-
+    if(document.querySelector('[name="clienttype_id"]').value === "202") {
+      let is_simple;
+      getSimpleSettings(is_simple)
+    }
 
 });

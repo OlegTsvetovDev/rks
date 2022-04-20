@@ -1,4 +1,6 @@
 // Модалка "Скачать инструкцию"
+import hideInstructions from "./hideInstructions.js";
+
 function initModalDownloadInstructions() {
   const body = $('body')
   const instructionsBtn = $('.instructions__btn')
@@ -19,6 +21,8 @@ function initModalDownloadInstructions() {
     body.css('overflow', 'auto')
     instructionsModal.addClass('hidden')
   })
+
+  hideInstructions()
 
 }
 
