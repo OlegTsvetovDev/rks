@@ -73,19 +73,59 @@ const initConnectionObjectView = node => {
   }
   checkInitialStatus()
 
+
+  // всякие условия для переключателей
+  const dateplan = document.querySelector('input[name*="statementtc_dateplan"]')
+  const connectobjchar_new = document.querySelector('input[name*="connectobjchar"][value="001"]')
+  const connectobjchar_reconstr = document.querySelector('input[name*="connectobjchar"][value="002"]')
+  const connectobjchar_modern = document.querySelector('input[name*="connectobjchar"][value="003"]')
+  let connectobjkind_prev = 1;
+
+  if (housekeepingNode.checked) {
+    if (dateplan.value === '') dateplan.value = '31.12.2099'
+    if (connectobjchar_modern) connectobjchar_modern.click()
+    connectobjchar_new.disabled = true
+    connectobjchar_reconstr.disabled = true
+  }
+
+
   // добавляем прослушку на клики по лейблам радио
   housekeepingNode.parentNode.addEventListener('click', disableMultipleQueues)
+  housekeepingNode.parentNode.addEventListener('click', function () {
+    if (dateplan) dateplan.value = '31.12.2099'
+    connectobjchar_modern.click()
+
+    connectobjchar_new.disabled = true
+    connectobjchar_reconstr.disabled = true;
+
+    connectobjkind_prev = 1;
+
+  })
+
   objectsNode.parentNode.addEventListener('click', enableMultipleQueues)
+  objectsNode.parentNode.addEventListener('click', function () {
+    connectobjchar_new.disabled = false
+    connectobjchar_reconstr.disabled = false
+    if (connectobjkind_prev === 1) dateplan.value = ''
+
+    connectobjkind_prev = 2;
+  })
+
   reconstructionNode.parentNode.addEventListener('click', disableMultipleQueues)
   reconstructionNode.parentNode.addEventListener('click', function () {
-    const connectobjchar = document.querySelectorAll('input[name*="connectobjchar"][value="002"]')
-    const connectobjtype = document.querySelectorAll('input[name*="connectobjtype"][value="002"]')
-    const techcondobj_floors = document.querySelectorAll('input[name*="techcondobj_floors"]')
+    connectobjchar_new.disabled = false
+    connectobjchar_reconstr.disabled = false
 
-    connectobjchar.forEach(item => item.click())
-    connectobjtype.forEach(item => item.click())
-    techcondobj_floors.forEach(item => item.value = '1')
+    const connectobjtype_not = document.querySelector('input[name*="connectobjtype"][value="002"]')
+    const techcondobj_floors = document.querySelector('input[name*="techcondobj_floors"]')
 
+    connectobjchar_reconstr.click()
+    connectobjtype_not.click()
+    techcondobj_floors.value = '1'
+
+    if (connectobjkind_prev === 1) dateplan.value = ''
+
+    connectobjkind_prev = 3;
   })
 
 }
