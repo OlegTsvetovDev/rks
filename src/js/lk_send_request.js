@@ -19,6 +19,8 @@ import disableFormEnter from './modules/logic/disableFormEnter.js'
 import initModalDownloadInstructions from './modules/modals/initModalDownloadInstructions.js'
 
 import getSimpleJson from './modules/postService/getSimpleJson.js'
+import initConnectobjkind from './modules/queues/initConnectobjkind.js'
+import initPersonbasis from './modules/queues/initPersonbasis.js'
 
 
 
@@ -116,22 +118,9 @@ $(document).ready(function() {
   let is_simple;
   getSimpleJson(is_simple)
 
-  document.querySelectorAll('input[name="personbasis"]').forEach(input => input.parentElement.addEventListener('click', (e) => {
-    let input = e.target;
-    if(input.tagName === 'LABEL')
-      if(input.getAttribute('for') === 'personbasis_05')
-      {
-        document.querySelectorAll('input[name^="livingSpace"]').forEach(inp => inp.previousElementSibling.classList.add('required'))
-        document.querySelectorAll('input[name^="notLivingSpace"]').forEach(inp => inp.previousElementSibling.classList.add('required'))
-        document.querySelectorAll('input[name^="totalVolume"]').forEach(inp => inp.previousElementSibling.classList.add('required'))
-        document.querySelectorAll('input[name^="hazardClass"]').forEach(inp => inp.previousElementSibling.classList.add('required'))
-      }
-      else
-      {
-        document.querySelectorAll('input[name^="livingSpace"]').forEach(inp => inp.previousElementSibling.classList.remove('required'))
-        document.querySelectorAll('input[name^="notLivingSpace"]').forEach(inp => inp.previousElementSibling.classList.remove('required'))
-        document.querySelectorAll('input[name^="totalVolume"]').forEach(inp => inp.previousElementSibling.classList.remove('required'))
-        document.querySelectorAll('input[name^="hazardClass"]').forEach(inp => inp.previousElementSibling.classList.remove('required'))
-      }
-  }))
+  // инит радио кнопок Лицо для основания на выдачу ТУ
+  initPersonbasis()
+
+  // инит радио кнопок Вид объекта подключения
+  initConnectobjkind()
 })
