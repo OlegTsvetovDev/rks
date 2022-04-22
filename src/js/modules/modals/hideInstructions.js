@@ -1,9 +1,10 @@
 function hideInstructions() {
-    let clienttype = "unkown"
+    let clienttype = "unknown"
     const instr_links = document.querySelectorAll('.modal_instructions .instructions__link')
 
     $.ajax({
         url: "./getClienttypeJson/",
+        method: "get",
         success: function(data){
 
             clienttype = data.replaceAll('"', '')
@@ -11,6 +12,9 @@ function hideInstructions() {
             instr_links.forEach(l => {
                 if (!l.classList.contains(clienttype)) l.classList.add('hidden')
             })
+        },
+        error: function(){
+           console.log("Не удалось определить тип пользователя")
         }
     });
 }
