@@ -5,7 +5,7 @@ function initMasks(parentNode) {
   if (parentNode.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999", { autoclear: false })
   if (parentNode.querySelector('.passport_serial_input')) $('.passport_serial_input').mask("99 99", { autoclear: false })
   if (parentNode.querySelector('.passport_number_input')) $('.passport_number_input').mask("999999", { autoclear: false })
-  if (parentNode.querySelector('.phone_input')) $('.phone_input').mask("+7 (999) 999-9999", { autoclear: false })
+  if (parentNode.querySelector('.phone_input')) $('.phone_input').mask("+7 (999) 999-9999 ? доб. 99999", { autoclear: false })
   if (parentNode.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", { autoclear: false })
   if (parentNode.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", { autoclear: false })
   if (parentNode.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", { autoclear: false })

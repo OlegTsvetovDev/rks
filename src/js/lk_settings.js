@@ -90,24 +90,6 @@ $(document).ready(function () {
   if (document.querySelector('.datepicker_input')) initDatepickers()
 
   // маски
-  // if (document.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999", { autoclear: false })
-  // if (document.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99", { autoclear: false })
-  // if (document.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999", { autoclear: false })
-  // if (document.querySelector('.passport_serial_input')) $('.passport_serial_input').mask("99 99", { autoclear: false })
-  // if (document.querySelector('.passport_number_input')) $('.passport_number_input').mask("999999", { autoclear: false })
-  // if (document.querySelector('.phone_input')) $('.phone_input').mask("(999) 999-9999", { autoclear: false })
-  // if (document.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", { autoclear: false })
-  // if (document.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", { autoclear: false })
-  // if (document.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", { autoclear: false })
-  // if (document.querySelector('.integer_input')) $('.integer_input').on('input', function () {
-  //   $(this).val($(this).val().replace(/[^0-9]/g, ''))
-  // })
-  // if (document.querySelector('.float_input')) $('.float_input').keypress(function (e) {
-  //   const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
-  //                   && (e.which < 48 || e.which > 57)
-  //
-  //   if (trigger) e.preventDefault()
-  // })
   initMasks(document)
 
   // Модалка "Смена пароля"
