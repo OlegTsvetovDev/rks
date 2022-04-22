@@ -9,14 +9,14 @@ function pasteNameSuffixes(node, queueCount) {
   inputs.forEach(input => {
     if (input.name){
       let newName = input.name
-      newName += `__${queueCount}`
-      // newName = newName.slice(0, -2) + `_${queue_count}`
+      //newName += `__${queueCount}`
+      newName = newName.slice(0, -2) + `_${queueCount}`
       input.name = newName
     }
     if(input.id){
       let newId = input.id
-      newId += `__${queueCount}`
-      // newId = newId.slice(0, -2) + `_${queue_count}`
+      //newId += `__${queueCount}`
+      newId = newId.slice(0, -2) + `_${queueCount}`
       input.id = newId
     }
   })
@@ -26,8 +26,8 @@ function pasteNameSuffixes(node, queueCount) {
   labels.forEach(label => {
     if (label.getAttribute('for')){
       let newFor = label.getAttribute('for')
-      newFor += `__${queueCount}`
-      // newFor = newFor.slice(0, -2) + `_${queue_count}`
+      //newFor += `__${queueCount}`
+      newFor = newFor.slice(0, -2) + `_${queueCount}`
       label.setAttribute('for', newFor)
     }
   })
@@ -42,7 +42,7 @@ function pasteNameSuffixes(node, queueCount) {
   //   if (!div.id) return
   //
   //   let newName = div.id
-  //   newName += `_${queue_count}`
+  //   newName += `_${queueCount}`
   //   div.id = newName
   // })
 

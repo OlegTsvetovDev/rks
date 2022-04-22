@@ -86,15 +86,9 @@ function initLookup(type, node) {
   // рендер ноды в лукап
   const renderNode = (obj, name, number) => {
     let template
-    if(number == 0)
-      template = `
-                  <input value="${obj.code}" type="radio" class="__select__input" id="${name}_${obj.id}" tabindex="0" name="${name}_code">
-                  <label class="__select__label" for="${name}_${obj.id}">${obj.name}</label>
-                  `
-    else
-      template = `
-                  <input value="${obj.code}" type="radio" class="__select__input" id="${name}_${obj.id}__${number}" tabindex="0" name="${name}_code__${number}">
-                  <label class="__select__label" for="${name}_${obj.id}__${number}">${obj.name}</label>
+    template = `
+                <input value="${obj.code}" type="radio" class="__select__input" id="${name}_${obj.id}__${number}" tabindex="0" name="${name}_code__${number}">
+                <label class="__select__label" for="${name}_${obj.id}__${number}">${obj.name}</label>
                   `
 
     contentNode.insertAdjacentHTML('beforeend', template)
@@ -125,7 +119,7 @@ function initLookup(type, node) {
 
   // рендер всех найденных нод
   // list - массив
-  function renderList(list, name, nameId) {
+  function renderList(list, name, number) {
     const contentNode = parentNode.querySelector('.__select__content')
     // удаляем предыдущие ноды
     removePreviousList(contentNode)
@@ -134,7 +128,7 @@ function initLookup(type, node) {
     // добавляем новые ноды
     if(list !== '')
     {
-      list.forEach(obj => renderNode(obj, name, nameId))
+      list.forEach(obj => renderNode(obj, name, number))
       parentNode.setAttribute('data-state', 'active')
     }
 

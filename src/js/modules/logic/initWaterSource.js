@@ -12,30 +12,16 @@ function initWaterSource(node) {
   let new_row = ``
 
   $('.add_source_btn', node).click(function(e) {
-    if (queue_number === "0") {
-      new_row = `
-                    <tr class="table__row">
-                      <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_name_' + water_source_count} placeholder="Введите данные" />
-                      </td>
-                      <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count} placeholder="Введите данные" />
-                      </td>
-                    </tr>
-                   `
-    }
-    else {
       new_row = `
                     <tr class="table__row">
                       <td class="table__cell">
                         <input type="text" class="field__input" name=${'other_water_sources_name_' + water_source_count + '__' + queue_number} placeholder="Введите данные" />
                       </td>
                       <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_vol_' + water_source_count + '__' + queue_number} placeholder="Введите данные" />
+                        <input type="text" class="field__input float_input" name=${'other_water_sources_vol_' + water_source_count + '__' + queue_number} placeholder="Введите данные" />
                       </td>
                     </tr>
                    `
-    }
 
     e.preventDefault()
 

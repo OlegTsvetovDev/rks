@@ -1,6 +1,5 @@
 import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
 
-
 function hideElemsSimple(is_simple){
   if(is_simple)
     switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
@@ -12,7 +11,7 @@ function hideElemsSimple(is_simple){
           document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
         document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
         if(window.location.search.indexOf('requesttype_id') !=  -1)
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name^="show_name"]').value}`; // Наименование объекта подключения
         document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
         document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden'); // Информация о предельных параметрах разрешенного строительства
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.add('hidden'); // Количество надземных этажей
@@ -38,7 +37,7 @@ function hideElemsSimple(is_simple){
           document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
         document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
         if(window.location.search.indexOf('requesttype_id') !=  -1)
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name^="show_name"]').value}`; // Наименование объекта подключения
         document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
         document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
@@ -60,7 +59,7 @@ function hideElemsSimple(is_simple){
           document.querySelector('[name^="usage_type"]').parentElement.classList.add('hidden'); // Вид разрешенного использования
         document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
         if(window.location.search.indexOf('requesttype_id') !=  -1)
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name^="show_name"]').value}`; // Наименование объекта подключения
         document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.add('hidden'); // Необходимые виды ресурсов
         document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.add('hidden'); // Информация о предельных параметрах разрешенного строительства
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.add('hidden'); // Количество надземных этажей
@@ -85,7 +84,7 @@ function hideElemsSimple(is_simple){
           document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
         document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения'; // Наименование объекта подключения
         if(window.location.search.indexOf('requesttype_id') !=  -1)
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `Частный дом по адресу: ${document.querySelector('[name^="show_name"]').value}`; // Наименование объекта подключения
         document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
         document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
@@ -111,7 +110,7 @@ function hideElemsSimple(is_simple){
           document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
         document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (МКД, Магазин и т.д.)'; // Наименование объекта подключения
         if(window.location.search.indexOf('requesttype_id') !=  -1)
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name^="show_name"]').value}`; // Наименование объекта подключения
         document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
         document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
@@ -134,7 +133,7 @@ function hideElemsSimple(is_simple){
           document.querySelector('[name^="usage_type"]').parentElement.classList.remove('hidden'); // Вид разрешенного использования
         document.querySelector('[name^="statementtc_connectobjname"]').previousElementSibling.innerHTML = 'Наименование объекта подключения (Офис, магазин, аптека и т.д.)'; // Наименование объекта подключения
         if(window.location.search.indexOf('requesttype_id') !=  -1)
-          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name="show_name"]').value}`; // Наименование объекта подключения
+          document.querySelector('[name^="statementtc_connectobjname"]').value = `${document.querySelector('[name^="show_name"]').value}`; // Наименование объекта подключения
         document.querySelector('[name^="resourcekindreq"]').closest('.form__field').classList.remove('hidden'); // Необходимые виды ресурсов
         document.querySelector('[name^="infmaxparam1"]').closest('.form__field').previousElementSibling.classList.remove('hidden'); // Информация о предельных параметрах разрешенного строительства
         document.querySelector('[name^="infmaxparam1"]').parentElement.classList.remove('hidden'); // Количество надземных этажей
