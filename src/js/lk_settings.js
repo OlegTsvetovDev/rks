@@ -1,5 +1,6 @@
 import getSimpleSettings from './modules/postService/getSimpleSettings.js'
-import hideInstructions from "./modules/modals/hideInstructions.js";
+import hideInstructions from "./modules/modals/hideInstructions.js"
+import initMasks from './modules/masks/initMasks.js'
 
 $(document).ready(function () {
   const body = $('body')
