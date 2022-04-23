@@ -56,7 +56,7 @@ function initMasks(parentNode) {
 
   // маска для "Класса функциональной пожарной опасности"
   if (parentNode.querySelector('.ffhc_input'))
-    initFfhcMasks()
+    initFfhcMasks(parentNode)
 
 }
 
