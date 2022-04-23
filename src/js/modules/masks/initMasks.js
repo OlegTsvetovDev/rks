@@ -12,24 +12,48 @@ function initMasks(parentNode) {
   if (parentNode.querySelector('.integer_input')) $('.integer_input').on('input', function () {
     $(this).val($(this).val().replace(/[^0-9]/g, ''))
   })
+
   if (parentNode.querySelector('.float_input')) $('.float_input').keypress(function (e) {
     const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
                     && (e.which < 48 || e.which > 57)
 
     if (trigger) e.preventDefault()
   })
+
   if (parentNode.querySelector('.ffhc_input')) {
     const $ffhc = $('.ffhc_input')
+
     if($ffhc.val() === '')
       $ffhc.val('Ф')
 
+
+    // обработка нажатия delete и backspace
+    $ffhc.keydown(function (e) {
+      const key = e.key
+      const trigger = (key === 'Backspace' || key === 'Delete')
+
+      if (trigger && $(this).val().length <= 1)
+        e.preventDefault()
+
+    })
+
+    // TODO: обработка позиции каретки в инпуте
+    // если во время нажатия клавиши коретка стоит на 1-ой позиции,
+    // тогда передвинуть коретку в конец инпута
+    // присвоить значение нажатой клавиши
+    $ffhc.keydown(function (e) {
+      
+    })
+
+    // обработка нажатия цифр и точки
     $ffhc.keypress(function (e) {
-      if (this.value[0] !== 'Ф') this.value = 'Ф' + this.value
+      if ($(this).val()[0] !== 'Ф')
+        $(this).val('Ф' + $(this).val())
 
-      const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
-                      && (e.which < 48 || e.which > 57)
+      const floatTrigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
+                           && (e.which < 48 || e.which > 57)
 
-      if (trigger)
+      if (floatTrigger)
         e.preventDefault()
     })
   }
