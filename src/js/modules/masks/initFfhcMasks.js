@@ -2,7 +2,7 @@ import IMask from 'imask'
 
 
 const maskOptions = {
-  mask: '{Ф}0[000000000]`[.]`[00000]',
+  mask: '{Ф}0[000000000.00000]',
   lazy: false
 }
 

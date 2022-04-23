@@ -34,6 +34,7 @@ function pasteNameSuffixes(node, queueCount) {
 
   // это не суффиксы, но тоже надо
   // обновляем input, в котором находится номер очереди
+  // функция давно есть для получения количества очередей
   node.querySelector('.number_queue').value = queueCount;
 
   // дивы с name = "show_name", слайд 4
