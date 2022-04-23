@@ -200,13 +200,93 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/js/modules/masks/initDatepickerMasks.js":
+/*!*****************************************************!*\
+  !*** ./src/js/modules/masks/initDatepickerMasks.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initDatepickerMasks = () => {\r\n  $('.datepicker_input').mask(\"99.99.9999\", { autoclear: false })\r\n}\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initDatepickerMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initDatepickerMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initFfhcMasks.js":
+/*!***********************************************!*\
+  !*** ./src/js/modules/masks/initFfhcMasks.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initFfhcMasks = () => {\r\n  const $ffhc = $('.ffhc_input')\r\n\r\n  if($ffhc.val() === '')\r\n    $ffhc.val('Ф')\r\n\r\n\r\n  // обработка нажатия delete и backspace\r\n  $ffhc.keydown(function (e) {\r\n    const key = e.key\r\n    const trigger = (key === 'Backspace' || key === 'Delete')\r\n\r\n    if (trigger && $(this).val().length <= 1)\r\n      e.preventDefault()\r\n\r\n  })\r\n\r\n  // обработка позиции каретки в инпуте\r\n  // TODO:\r\n  $ffhc.keydown(function (e) {\r\n    const cursorPosition = $(this)[0].selectionStart\r\n    const len = $(this)[0].selectionEnd\r\n    const setCursorPosition = $(this)[0].setSelectionRange(cursorPosition, len)\r\n\r\n    console.log(cursorPosition)\r\n\r\n    if (cursorPosition === 0)\r\n      setCursorPosition\r\n  })\r\n\r\n  // обработка нажатия цифр и точки\r\n  $ffhc.keypress(function (e) {\r\n    if ($(this).val()[0] !== 'Ф')\r\n      $(this).val('Ф' + $(this).val())\r\n\r\n    const floatTrigger = (e.which != 46 || $(this).val().indexOf('.') != -1)\r\n                         && (e.which < 48 || e.which > 57)\r\n\r\n    if (floatTrigger)\r\n      e.preventDefault()\r\n  })\r\n}\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initFfhcMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initFfhcMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initFloatMasks.js":
+/*!************************************************!*\
+  !*** ./src/js/modules/masks/initFloatMasks.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initFloatMasks = () => {\r\n  $('.float_input').keypress(function (e) {\r\n    const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)\r\n                    && (e.which < 48 || e.which > 57)\r\n\r\n    if (trigger) e.preventDefault()\r\n  })\r\n}\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initFloatMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initFloatMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initIntegerMasks.js":
+/*!**************************************************!*\
+  !*** ./src/js/modules/masks/initIntegerMasks.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initIntegerMasks = () => {\r\n  $('.integer_input').on('input', function () {\r\n    $(this).val($(this).val().replace(/[^0-9]/g, ''))\r\n  })\r\n}\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initIntegerMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initIntegerMasks.js?");
+
+/***/ }),
+
 /***/ "./src/js/modules/masks/initMasks.js":
 /*!*******************************************!*\
   !*** ./src/js/modules/masks/initMasks.js ***!
   \*******************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// маски\r\nfunction initMasks(parentNode) {\r\n  if (parentNode.querySelector('.datepicker_input')) $('.datepicker_input').mask(\"99.99.9999\", { autoclear: false })\r\n  if (parentNode.querySelector('.snils_input')) $('.snils_input').mask(\"999-999-999 99\", { autoclear: false })\r\n  if (parentNode.querySelector('.passport_input')) $('.passport_input').mask(\"99 99 / 999999\", { autoclear: false })\r\n  if (parentNode.querySelector('.passport_serial_input')) $('.passport_serial_input').mask(\"99 99\", { autoclear: false })\r\n  if (parentNode.querySelector('.passport_number_input')) $('.passport_number_input').mask(\"999999\", { autoclear: false })\r\n  if (parentNode.querySelector('.phone_input')) $('.phone_input').mask(\"+7 (999) 999-9999 ? доб. 99999\", { autoclear: false })\r\n  if (parentNode.querySelector('.tin_ul_input')) $('.tin_ul_input').mask(\"9999999999\", { autoclear: false })\r\n  if (parentNode.querySelector('.tin_fl_input')) $('.tin_fl_input').mask(\"999999999999\", { autoclear: false })\r\n  if (parentNode.querySelector('.tin_e_input')) $('.tin_e_input').mask(\"999999999999\", { autoclear: false })\r\n  if (parentNode.querySelector('.integer_input')) $('.integer_input').on('input', function () {\r\n    $(this).val($(this).val().replace(/[^0-9]/g, ''))\r\n  })\r\n\r\n  if (parentNode.querySelector('.float_input')) $('.float_input').keypress(function (e) {\r\n    const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)\r\n                    && (e.which < 48 || e.which > 57)\r\n\r\n    if (trigger) e.preventDefault()\r\n  })\r\n\r\n  if (parentNode.querySelector('.ffhc_input')) {\r\n    const $ffhc = $('.ffhc_input')\r\n\r\n    if($ffhc.val() === '')\r\n      $ffhc.val('Ф')\r\n\r\n\r\n    // обработка нажатия delete и backspace\r\n    $ffhc.keydown(function (e) {\r\n      const key = e.key\r\n      const trigger = (key === 'Backspace' || key === 'Delete')\r\n\r\n      if (trigger && $(this).val().length <= 1)\r\n        e.preventDefault()\r\n\r\n    })\r\n\r\n    // TODO: обработка позиции каретки в инпуте\r\n    // если во время нажатия клавиши коретка стоит на 1-ой позиции,\r\n    // тогда передвинуть коретку в конец инпута\r\n    // присвоить значение нажатой клавиши\r\n    $ffhc.keydown(function (e) {\r\n      \r\n    })\r\n\r\n    // обработка нажатия цифр и точки\r\n    $ffhc.keypress(function (e) {\r\n      if ($(this).val()[0] !== 'Ф')\r\n        $(this).val('Ф' + $(this).val())\r\n\r\n      const floatTrigger = (e.which != 46 || $(this).val().indexOf('.') != -1)\r\n                           && (e.which < 48 || e.which > 57)\r\n\r\n      if (floatTrigger)\r\n        e.preventDefault()\r\n    })\r\n  }\r\n}\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initMasks.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _initFfhcMasks_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./initFfhcMasks.js */ \"./src/js/modules/masks/initFfhcMasks.js\");\n/* harmony import */ var _initFloatMasks_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./initFloatMasks.js */ \"./src/js/modules/masks/initFloatMasks.js\");\n/* harmony import */ var _initIntegerMasks_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./initIntegerMasks.js */ \"./src/js/modules/masks/initIntegerMasks.js\");\n/* harmony import */ var _initTinMasks_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initTinMasks.js */ \"./src/js/modules/masks/initTinMasks.js\");\n/* harmony import */ var _initPhoneMasks_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./initPhoneMasks.js */ \"./src/js/modules/masks/initPhoneMasks.js\");\n/* harmony import */ var _initPassportMasks_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./initPassportMasks.js */ \"./src/js/modules/masks/initPassportMasks.js\");\n/* harmony import */ var _initDatepickerMasks_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./initDatepickerMasks.js */ \"./src/js/modules/masks/initDatepickerMasks.js\");\n/* harmony import */ var _initSnilsMasks_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initSnilsMasks.js */ \"./src/js/modules/masks/initSnilsMasks.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n// инит масок\r\nfunction initMasks(parentNode) {\r\n  // маска на дейтпикер\r\n  if (parentNode.querySelector('.datepicker_input'))\r\n    (0,_initDatepickerMasks_js__WEBPACK_IMPORTED_MODULE_6__[\"default\"])()\r\n\r\n  // маска СНИЛС\r\n  if (parentNode.querySelector('.snils_input'))\r\n    (0,_initSnilsMasks_js__WEBPACK_IMPORTED_MODULE_7__[\"default\"])()\r\n\r\n  // маска паспорта серия + номер\r\n  if (parentNode.querySelector('.passport_input'))\r\n    (0,_initPassportMasks_js__WEBPACK_IMPORTED_MODULE_5__.initPassportMasks)()\r\n\r\n  // маска срии паспорта\r\n  if (parentNode.querySelector('.passport_serial_input'))\r\n    (0,_initPassportMasks_js__WEBPACK_IMPORTED_MODULE_5__.initPassportSerialMasks)()\r\n\r\n  // маска номера паспорта\r\n  if (parentNode.querySelector('.passport_number_input'))\r\n    (0,_initPassportMasks_js__WEBPACK_IMPORTED_MODULE_5__.initPassportNumberMasks)()\r\n\r\n  // маски номер телефонов\r\n  if (parentNode.querySelector('.phone_input'))\r\n    (0,_initPhoneMasks_js__WEBPACK_IMPORTED_MODULE_4__[\"default\"])()\r\n\r\n  // ИНН ЮЛ маски\r\n  if (parentNode.querySelector('.tin_ul_input'))\r\n    (0,_initTinMasks_js__WEBPACK_IMPORTED_MODULE_3__.initTinUlMasks)()\r\n\r\n  // ИНН ФЛ маски\r\n  if (parentNode.querySelector('.tin_fl_input'))\r\n    (0,_initTinMasks_js__WEBPACK_IMPORTED_MODULE_3__.initTinFlMasks)()\r\n\r\n  // ИНН ИП маски\r\n  if (parentNode.querySelector('.tin_e_input'))\r\n    (0,_initTinMasks_js__WEBPACK_IMPORTED_MODULE_3__.initTinEMasks)()\r\n\r\n  // маска для целых чисел\r\n  if (parentNode.querySelector('.integer_input'))\r\n    (0,_initIntegerMasks_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])()\r\n\r\n  // маска чисел с плавающей запятой\r\n  if (parentNode.querySelector('.float_input'))\r\n    (0,_initFloatMasks_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])()\r\n\r\n  // маска для \"Класса функциональной пожарной опасности\"\r\n  if (parentNode.querySelector('.ffhc_input'))\r\n    (0,_initFfhcMasks_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])()\r\n\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initPassportMasks.js":
+/*!***************************************************!*\
+  !*** ./src/js/modules/masks/initPassportMasks.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"initPassportMasks\": () => (/* binding */ initPassportMasks),\n/* harmony export */   \"initPassportNumberMasks\": () => (/* binding */ initPassportNumberMasks),\n/* harmony export */   \"initPassportSerialMasks\": () => (/* binding */ initPassportSerialMasks)\n/* harmony export */ });\nconst initPassportMasks = () => {\r\n  $('.passport_input').mask(\"99 99 / 999999\", { autoclear: false })\r\n}\r\n\r\nconst initPassportSerialMasks = () => {\r\n  $('.passport_serial_input').mask(\"99 99\", { autoclear: false })\r\n}\r\n\r\nconst initPassportNumberMasks = () => {\r\n  $('.passport_number_input').mask(\"999999\", { autoclear: false })\r\n}\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initPassportMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initPhoneMasks.js":
+/*!************************************************!*\
+  !*** ./src/js/modules/masks/initPhoneMasks.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initPhoneMasks = () => {\r\n  $('.phone_input').mask(\"+7 (999) 999-9999 ? доб. 99999\", { autoclear: false })\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initPhoneMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initPhoneMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initSnilsMasks.js":
+/*!************************************************!*\
+  !*** ./src/js/modules/masks/initSnilsMasks.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initSnilsMasks = () => {\r\n  $('.snils_input').mask(\"999-999-999 99\", { autoclear: false })\r\n}\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initSnilsMasks);\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initSnilsMasks.js?");
+
+/***/ }),
+
+/***/ "./src/js/modules/masks/initTinMasks.js":
+/*!**********************************************!*\
+  !*** ./src/js/modules/masks/initTinMasks.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"initTinEMasks\": () => (/* binding */ initTinEMasks),\n/* harmony export */   \"initTinFlMasks\": () => (/* binding */ initTinFlMasks),\n/* harmony export */   \"initTinUlMasks\": () => (/* binding */ initTinUlMasks)\n/* harmony export */ });\nconst initTinEMasks = () => {\r\n  $('.tin_e_input').mask(\"999999999999\", { autoclear: false })\r\n}\r\n\r\nconst initTinFlMasks = () => {\r\n  $('.tin_fl_input').mask(\"999999999999\", { autoclear: false })\r\n}\r\n\r\nconst initTinUlMasks = () => {\r\n  $('.tin_ul_input').mask(\"9999999999\", { autoclear: false })\r\n}\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://rks/./src/js/modules/masks/initTinMasks.js?");
 
 /***/ }),
 

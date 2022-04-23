@@ -1,63 +1,63 @@
-// маски
+import initFfhcMasks from './initFfhcMasks.js'
+import initFloatMasks from './initFloatMasks.js'
+import initIntegerMasks from './initIntegerMasks.js'
+import { initTinEMasks, initTinFlMasks, initTinUlMasks } from './initTinMasks.js'
+import initPhoneMasks from './initPhoneMasks.js'
+import { initPassportMasks, initPassportSerialMasks, initPassportNumberMasks } from './initPassportMasks.js'
+import initDatepickerMasks from './initDatepickerMasks.js'
+import initSnilsMasks from './initSnilsMasks.js'
+
+
+// инит масок
 function initMasks(parentNode) {
-  if (parentNode.querySelector('.datepicker_input')) $('.datepicker_input').mask("99.99.9999", { autoclear: false })
-  if (parentNode.querySelector('.snils_input')) $('.snils_input').mask("999-999-999 99", { autoclear: false })
-  if (parentNode.querySelector('.passport_input')) $('.passport_input').mask("99 99 / 999999", { autoclear: false })
-  if (parentNode.querySelector('.passport_serial_input')) $('.passport_serial_input').mask("99 99", { autoclear: false })
-  if (parentNode.querySelector('.passport_number_input')) $('.passport_number_input').mask("999999", { autoclear: false })
-  if (parentNode.querySelector('.phone_input')) $('.phone_input').mask("+7 (999) 999-9999 ? доб. 99999", { autoclear: false })
-  if (parentNode.querySelector('.tin_ul_input')) $('.tin_ul_input').mask("9999999999", { autoclear: false })
-  if (parentNode.querySelector('.tin_fl_input')) $('.tin_fl_input').mask("999999999999", { autoclear: false })
-  if (parentNode.querySelector('.tin_e_input')) $('.tin_e_input').mask("999999999999", { autoclear: false })
-  if (parentNode.querySelector('.integer_input')) $('.integer_input').on('input', function () {
-    $(this).val($(this).val().replace(/[^0-9]/g, ''))
-  })
+  // маска на дейтпикер
+  if (parentNode.querySelector('.datepicker_input'))
+    initDatepickerMasks()
 
-  if (parentNode.querySelector('.float_input')) $('.float_input').keypress(function (e) {
-    const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
-                    && (e.which < 48 || e.which > 57)
+  // маска СНИЛС
+  if (parentNode.querySelector('.snils_input'))
+    initSnilsMasks()
 
-    if (trigger) e.preventDefault()
-  })
+  // маска паспорта серия + номер
+  if (parentNode.querySelector('.passport_input'))
+    initPassportMasks()
 
-  if (parentNode.querySelector('.ffhc_input')) {
-    const $ffhc = $('.ffhc_input')
+  // маска срии паспорта
+  if (parentNode.querySelector('.passport_serial_input'))
+    initPassportSerialMasks()
 
-    if($ffhc.val() === '')
-      $ffhc.val('Ф')
+  // маска номера паспорта
+  if (parentNode.querySelector('.passport_number_input'))
+    initPassportNumberMasks()
 
+  // маски номер телефонов
+  if (parentNode.querySelector('.phone_input'))
+    initPhoneMasks()
 
-    // обработка нажатия delete и backspace
-    $ffhc.keydown(function (e) {
-      const key = e.key
-      const trigger = (key === 'Backspace' || key === 'Delete')
+  // ИНН ЮЛ маски
+  if (parentNode.querySelector('.tin_ul_input'))
+    initTinUlMasks()
 
-      if (trigger && $(this).val().length <= 1)
-        e.preventDefault()
+  // ИНН ФЛ маски
+  if (parentNode.querySelector('.tin_fl_input'))
+    initTinFlMasks()
 
-    })
+  // ИНН ИП маски
+  if (parentNode.querySelector('.tin_e_input'))
+    initTinEMasks()
 
-    // TODO: обработка позиции каретки в инпуте
-    // если во время нажатия клавиши коретка стоит на 1-ой позиции,
-    // тогда передвинуть коретку в конец инпута
-    // присвоить значение нажатой клавиши
-    $ffhc.keydown(function (e) {
-      
-    })
+  // маска для целых чисел
+  if (parentNode.querySelector('.integer_input'))
+    initIntegerMasks()
 
-    // обработка нажатия цифр и точки
-    $ffhc.keypress(function (e) {
-      if ($(this).val()[0] !== 'Ф')
-        $(this).val('Ф' + $(this).val())
+  // маска чисел с плавающей запятой
+  if (parentNode.querySelector('.float_input'))
+    initFloatMasks()
 
-      const floatTrigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
-                           && (e.which < 48 || e.which > 57)
+  // маска для "Класса функциональной пожарной опасности"
+  if (parentNode.querySelector('.ffhc_input'))
+    initFfhcMasks()
 
-      if (floatTrigger)
-        e.preventDefault()
-    })
-  }
 }
-
 
 export default initMasks
