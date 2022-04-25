@@ -1,8 +1,9 @@
 import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
 
 function hideElemsSimple(is_simple){
-  if(is_simple)
-    switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
+  const connectObjKind = document.querySelector('[name="connectobjkind"]:checked');
+  if(is_simple && connectObjKind)
+    switch(connectObjKind.getAttribute('id')){
       case 'connectobjkind_01':
         document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
         if(document.querySelector('[name^="landplot_area"]'))
@@ -75,7 +76,7 @@ function hideElemsSimple(is_simple){
       break;
     }
   else
-    switch(document.querySelector('[name="connectobjkind"]:checked').getAttribute('id')){
+    switch(connectObjKind.getAttribute('id')){
       case 'connectobjkind_01':
         document.querySelector('[name^="room_number"]').parentElement.classList.add('hidden'); // Номер квартиры
         if(document.querySelector('[name^="landplot_area"]'))
