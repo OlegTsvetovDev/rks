@@ -16,6 +16,7 @@ const webpackConfig = {
     'lk_request_fileinput': './src/js/lk_request_fileinput.js',
     'lk_settings_fileinput': './src/js/lk_settings_fileinput.js',
     'lk_settings': './src/js/lk_settings.js',
+    'imask': './src/js/imask.js',
     // '': './src/js/',
   },
   output: {
