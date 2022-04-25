@@ -15,9 +15,6 @@ const initFfhcMasks = node => {
 }
 
 
-export default initFfhcMasks
-export { initFfhcMask }
-
 // //старая версия
 // const initFfhcMasks = () => {
 //   const $ffhc = $('.ffhc_input')
@@ -61,3 +58,7 @@ export { initFfhcMask }
 //       e.preventDefault()
 //   })
 // }
+
+
+export default initFfhcMasks
+export { initFfhcMask }
