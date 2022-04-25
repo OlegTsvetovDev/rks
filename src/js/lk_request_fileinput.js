@@ -157,7 +157,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
 
      });
 
-    // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения"
+    // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения" - д/них сущ-ет привязка доков к БД
 
     function docblocksHide(doc_blocks, radio_name) {
 
@@ -168,7 +168,6 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                 var $this = $(this);
                 var doctype_vals = $this.val()
                 var docblock = $this.parent().parent();
-                //docblock = this.parentNode;
 
                 if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1))
                 {
@@ -178,36 +177,78 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                     docblock.removeClass(radio_name+'_hide');
                 }
 
-                if (docblock.hasClass('personbasis_hide') ||
-                    docblock.hasClass('owner_or_tenant_hide') ||
-                    docblock.hasClass('connectobjkind_hide')) {
-                    docblock.addClass('hidden');
-                    docblock.css("display", "none"); //временно
-                }
-                else if (!docblock.hasClass('personbasis_hide') &&
-                    !docblock.hasClass('owner_or_tenant_hide')  &&
-                    !docblock.hasClass('connectobjkind_hide')) {
-                    docblock.removeClass('hidden');
-                    docblock.css("display", "flex"); //временно
-                }
-
             }
         )
     }
 
-    function initCheckRadios(radio_name) {
-        const docblocks = $('[name^="doc_'+radio_name+'_"]'); // поменять на querySelectorAll
+function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
 
-        docblocksHide(docblocks, radio_name);
+    var checkedRadios = $('input[name*='+radio_name+']:checked')
 
-        const radios = document.querySelectorAll('input[name='+radio_name+']');
+    let hide = true;
 
-        for (let i = 0; i < radios.length; i++) {
-            const label = radios[i].parentNode;
-            label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
+    checkedRadios.each(function() {
+        var qqq = $(this).val();
+        if (!hide_if_values.includes($(this).val())) {
+            hide = false
+            return false
         }
+        else hide = true;
+    })
+
+    doc_blocks.forEach(docblock =>
+        {
+            if (hide)
+            {
+                docblock.classList.add(radio_name+'_hide');
+            }
+            else {
+                docblock.classList.remove(radio_name+'_hide');
+            }
+        }
+    )
+}
+
+    function initCheckRadios(radio_name) {
+
+        const radios = document.querySelectorAll('input[name*='+radio_name+']');
+
+        if (radio_name !== 'connectobjchar') {
+            const docblocks = $('[name^="doc_'+radio_name+'_"]'); // поменять на querySelectorAll
+            docblocksHide(docblocks, radio_name);
+
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].disabled) return;
+                const label = radios[i].parentNode;
+                label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
+            }
+        }
+        else
+        {
+            //в данный момент скрывать требуется только один документ
+            const docblocks = document.querySelectorAll('div.TC-URBANPLAN')
+            const hide_if_values  = ['002', '003']
+
+            docblocksHideQVals(docblocks, radio_name, radios, hide_if_values);
+
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].disabled) return;
+                const label = radios[i].parentNode;
+                label.addEventListener('click', () => docblocksHideQVals(docblocks, radio_name, radios, hide_if_values));
+            }
+
+
+        }
+
     }
 
     if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
     if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
     if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
+    if (document.querySelector('input[name=requesttype_id]') &&
+        document.querySelector('input[name=requesttype_id]').value === '10002' &&
+        document.querySelector('.connectobjchar'))
+        initCheckRadios('connectobjchar')
+
+
+export default initCheckRadios

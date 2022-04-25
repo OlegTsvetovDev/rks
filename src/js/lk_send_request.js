@@ -21,6 +21,7 @@ import initModalDownloadInstructions from './modules/modals/initModalDownloadIns
 import getSimpleJson from './modules/postService/getSimpleJson.js'
 import initConnectobjkind from './modules/queues/initConnectobjkind.js'
 import initPersonbasis from './modules/queues/initPersonbasis.js'
+import initCheckRadios from "./lk_request_fileinput.js";
 
 
 
@@ -101,6 +102,11 @@ $(document).ready(function() {
     if (queueBlocks)
       queueBlocks.forEach(queueBlock =>
           initWaterSource(queueBlock))
+
+  // инит Характеритика объекта подключения
+  /*if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
+      document.querySelector('.connectobjchar'))
+    initCheckRadios('connectobjchar')*/
 
   // инит блоков водоотведения
   if (queueBlocks)

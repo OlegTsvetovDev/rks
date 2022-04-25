@@ -10,6 +10,7 @@ import initDrainage from '../logic/initDrainage.js'
 import initAddressConcatination from '../address/initAddressConcatination.js'
 import initWaterSource from '../logic/initWaterSource.js'
 import initLookups from '../controls/lookup/initLookups.js'
+import initConnectobjchar from "../logic/initConnectobjchar.js";
 
 
 // создание и рендер новой ноды, 4 слайдер
@@ -26,6 +27,7 @@ function createAndRenderNewNode(queueCount) {
   initDrainage(newNode)
   initAddressConcatination(newNode)
   initWaterSource(newNode)
+  initConnectobjchar(newNode)
 
   // addNewSlide(newNode)
 }
