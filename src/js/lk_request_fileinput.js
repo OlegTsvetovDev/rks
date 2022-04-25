@@ -218,7 +218,7 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
             docblocksHide(docblocks, radio_name);
 
             for (let i = 0; i < radios.length; i++) {
-                if (radios[i].disabled) return;
+                //if (radios[i].disabled) return;
                 const label = radios[i].parentNode;
                 label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
             }
@@ -232,7 +232,7 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
             docblocksHideQVals(docblocks, radio_name, radios, hide_if_values);
 
             for (let i = 0; i < radios.length; i++) {
-                if (radios[i].disabled) return;
+                //if (radios[i].disabled) return;
                 const label = radios[i].parentNode;
                 label.addEventListener('click', () => docblocksHideQVals(docblocks, radio_name, radios, hide_if_values));
             }
