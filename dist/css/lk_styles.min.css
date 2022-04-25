@@ -1104,9 +1104,9 @@ input[type=number]::-webkit-outer-spin-button {
   align-content: center;
   flex-wrap: wrap;
   min-height: 46px;
+  width: 100%;
 }
 .main__content .requests_form .request__form .form__field .field__label .label__block label {
-  width: 100%;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
