@@ -7,7 +7,7 @@ function initSlider() {
             infinite: false,
             draggable: false,
             adaptiveHeight: true,
-            initialSlide: 3
+            initialSlide: 0
           })
 }
 
