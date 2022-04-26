@@ -49,7 +49,7 @@ function checkRequiredField() {
           }
         });
 
-        let elems_req_group = $('.form__field:not(.hidden) [class*=req_group_]');
+        let elems_req_group = $('.form__field:not([class*=_hide]) [class*=req_group_]');
         var group_names = [];   // получаем существующие названия групп
         elems_req_group.each(function () {
           var $this = $(this);
