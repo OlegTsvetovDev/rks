@@ -1172,10 +1172,6 @@ input[type=number]::-webkit-outer-spin-button {
           }
         }
         .queue_block {
-          // display: -webkit-flex;
-          // display: -ms-flex;
-          // display: flex;
-          // flex-direction: column;
           .form__field {
             &.hidden,
             .hidden {
@@ -1280,7 +1276,7 @@ input[type=number]::-webkit-outer-spin-button {
               min-height: 46px;
               width: 100%;
               label {
-                width: 49%;
+                // width: 49%;
                 display: -webkit-flex;
                 display: -ms-flex;
                 display: flex;
@@ -1293,7 +1289,16 @@ input[type=number]::-webkit-outer-spin-button {
                 cursor: pointer;
                 .radio,
                 .checkbox {
-                  margin-right: 5px;
+                  margin-right: 7px;
+                }
+              }
+              &.two_columns,
+              &.personbasis {
+                label {
+                  width: 49%;
+                  .radio {
+                    min-width: 20px;
+                  }
                 }
               }
             }
@@ -1531,12 +1536,17 @@ input[type=number]::-webkit-outer-spin-button {
             display: -webkit-flex;
             display: -ms-flex;
             display: flex;
-            // flex-direction: column;
             justify-content: space-between;
             padding: 25px 30px;
             border-top: 1px solid $mainColorTransparent;
             width: 100%;
             position: relative;
+            &.personbasis_hide,
+            &.owner_or_tenant_hide,
+            &.connectobjkind_hide,
+            &.connectobjchar_hide {
+              display: none;
+            }
             .attachment__doctype {
               visibility: hidden;
               height: 0;

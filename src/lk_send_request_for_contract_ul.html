@@ -56,20 +56,28 @@
           @@include('templates/_connectobjkind.html')
           @@include('templates/_queue_launch__trigger.html')
           <div class="form__field width_max">
-            <label for="" class="field__label">
+            <label class="field__label" for="">
               <span class="field__description required">Лицо для основания на выдачу ТУ</span>
-              <span class="label__block">
-                <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Иванов И.А.
+              <span class="label__block personbasis">
+                <label for="personbasis_01">
+                  <input id="personbasis_01" name="personbasis" value="01" class="radio 01" type="radio" checked="true" tabindex="0">
+                  Правообладатель земельного участка/объекта ТП (собственник/арендатор)
                 </label>
-                <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Иванов И.А.
+                <label for="personbasis_02">
+                  <input id="personbasis_02" name="personbasis" value="02" class="radio 02" type="radio" tabindex="0">
+                  Лицо с разрешением на использование земель
                 </label>
-                <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров В.В.
+                <label for="personbasis_03">
+                  <input id="personbasis_03" name="personbasis" value="03" class="radio 03" type="radio" tabindex="0">
+                  Лицо по договору о комплексном развитии территории
+                </label>
+                <label for="personbasis_04">
+                  <input id="personbasis_04" name="personbasis" value="04" class="radio 04" type="radio" tabindex="0">
+                  Органы государственной власти и местного самоуправления
+                </label>
+                <label for="personbasis_05">
+                  <input id="personbasis_05" name="personbasis" value="05" class="radio 05" type="radio" tabindex="0">
+                  Застройщик/иное лицо по договору подряда на ПСД
                 </label>
               </span>
             </label>
@@ -169,7 +177,7 @@
           <div class="form__field width_max">
             <label for="" class="field__label">
               <span class="field__description required">Желаемый способ получения</span>
-              <span class="label__block">
+              <span class="label__block two_columns">
                 <label for="">
                   <input type="radio" name="obtaining_method" class="radio" value="" />
                   Лично
@@ -430,7 +438,6 @@
                     </label>
                   </div>
                 </div>
-
 
                 <div class="drainage_toggle hidden">
                   <div class="form__field width_max">
@@ -802,7 +809,7 @@
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/datepicker-ru.min.js"></script>
   <script src="js/jquery.maskedinput.min.js"></script>
-  <script src="js/imask.js" ></script>
+  <script src="js/imask.js"></script>
   <script src="js/lk_send_request.js"></script>
   <script src="js/lk_request_fileinput.js"></script>
 </body>

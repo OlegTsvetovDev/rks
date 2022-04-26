@@ -1107,7 +1107,6 @@ input[type=number]::-webkit-outer-spin-button {
   width: 100%;
 }
 .main__content .requests_form .request__form .form__field .field__label .label__block label {
-  width: 49%;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -1121,7 +1120,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .main__content .requests_form .request__form .form__field .field__label .label__block label .radio,
 .main__content .requests_form .request__form .form__field .field__label .label__block label .checkbox {
-  margin-right: 5px;
+  margin-right: 7px;
+}
+.main__content .requests_form .request__form .form__field .field__label .label__block.two_columns label, .main__content .requests_form .request__form .form__field .field__label .label__block.personbasis label {
+  width: 49%;
+}
+.main__content .requests_form .request__form .form__field .field__label .label__block.two_columns label .radio, .main__content .requests_form .request__form .form__field .field__label .label__block.personbasis label .radio {
+  min-width: 20px;
 }
 .main__content .requests_form .request__form .form__field .field__label.street {
   width: 49%;
@@ -1333,6 +1338,9 @@ input[type=number]::-webkit-outer-spin-button {
   border-top: 1px solid rgba(60, 84, 165, 0.3);
   width: 100%;
   position: relative;
+}
+.main__content .requests_form .request__form .form__field.add_files.personbasis_hide, .main__content .requests_form .request__form .form__field.add_files.owner_or_tenant_hide, .main__content .requests_form .request__form .form__field.add_files.connectobjkind_hide, .main__content .requests_form .request__form .form__field.add_files.connectobjchar_hide {
+  display: none;
 }
 .main__content .requests_form .request__form .form__field.add_files .attachment__doctype {
   visibility: hidden;
