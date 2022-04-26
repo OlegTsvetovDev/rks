@@ -1126,7 +1126,7 @@ input[type=number]::-webkit-outer-spin-button {
   width: 49%;
 }
 .main__content .requests_form .request__form .form__field .field__label .label__block.two_columns label .radio, .main__content .requests_form .request__form .form__field .field__label .label__block.personbasis label .radio {
-  min-width: 20px;
+  min-width: 21px;
 }
 .main__content .requests_form .request__form .form__field .field__label.street {
   width: 49%;
