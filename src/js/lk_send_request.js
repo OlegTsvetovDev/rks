@@ -22,6 +22,7 @@ import getSimpleJson from './modules/postService/getSimpleJson.js'
 import initConnectobjkind from './modules/queues/initConnectobjkind.js'
 import initPersonbasis from './modules/queues/initPersonbasis.js'
 import initCheckRadios from "./lk_request_fileinput.js";
+import initConnectobjchar from "./modules/logic/initConnectobjchar.js";
 
 
 
@@ -103,10 +104,15 @@ $(document).ready(function() {
       queueBlocks.forEach(queueBlock =>
           initWaterSource(queueBlock))
 
-  // инит Характеритика объекта подключения
-  /*if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
-      document.querySelector('.connectobjchar'))
-    initCheckRadios('connectobjchar')*/
+  /*// инит Характеритика объекта подключения
+  if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
+      document.querySelector('.connectobjchar')) {
+    if (queueBlocks)
+      queueBlocks.forEach(queueBlock =>
+          initConnectobjchar(queueBlock))
+    else initCheckRadios('connectobjchar')
+  }*/
+
 
   // инит блоков водоотведения
   if (queueBlocks)
