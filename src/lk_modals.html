@@ -19,7 +19,7 @@
         <div class="form__right_side">
           <h1 class="form__header">Модальные окна:</h1>
           <a href="#" class="alert">Ошибка</a>
-          <a href="#" class="alert">Успешное событие</a>
+          <a href="#" class="success">Успешное событие</a>
         </div>
       </form>
     </div>
@@ -47,6 +47,20 @@
     </div>
   </section>
   <!-- Добить тень, не хочет отображаться -->
+
+  <section class="modal modal_alert hidden">
+    <div class="modal__content modal_alert__content">
+      <div class="close"></div>
+      <div class="modal__text">
+         Ошибка
+      </div>
+      <div class="form__field">
+        <button class="form__submit btn btn_close">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </section>
 
   <section class="modal modal_alert modal_success hidden">
     <div class="modal__content modal_alert__content">
