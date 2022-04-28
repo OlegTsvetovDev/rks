@@ -2589,12 +2589,18 @@ input[type=number]::-webkit-outer-spin-button {
       // max-width: $w612;
       .modal__header {
         margin-top: 108px;
+        margin-bottom: 24px;
         font-size: $h6;
         text-align: center;
       }
       .modal__text {
         padding-top: 0;
         background: none;
+      }
+      .form__field {
+        .btn {
+          margin-top: 24px;
+        }
       }
     }
   }
