@@ -2222,6 +2222,9 @@ input[type=number]::-webkit-outer-spin-button {
 .modal__content .form__field .form__submit.btn_close {
   margin-top: 50px;
 }
+.modal.modal_success .modal__content .modal__text {
+  background: url("../img/control_btns/success.svg") no-repeat center 0;
+}
 .modal__content {
   visibility: visible;
   opacity: 1;

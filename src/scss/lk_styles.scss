@@ -2583,6 +2583,13 @@ input[type=number]::-webkit-outer-spin-button {
       }
   	} // end of .form__field
 	}
+  &.modal_success {
+    .modal__content {
+      .modal__text {
+        background: url('../img/control_btns/success.svg') no-repeat center 0;
+      }
+    }
+  }
   &__content {
     visibility: visible;
     opacity: 1;
