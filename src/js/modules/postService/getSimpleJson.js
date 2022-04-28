@@ -27,7 +27,7 @@ function getSimpleJson(is_simple) {
         );
         list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
         if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
-          document.querySelector('[name="room_number"]').parentElement.classList.remove('hidden');
+          document.querySelector('[name^="room_number"]').parentElement.classList.remove('hidden');
 
         hideForUL("request");
 
