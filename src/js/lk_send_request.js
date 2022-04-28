@@ -19,6 +19,7 @@ import disableFormEnter from './modules/logic/disableFormEnter.js'
 import initModalDownloadInstructions from './modules/modals/initModalDownloadInstructions.js'
 
 import getSimpleJson from './modules/postService/getSimpleJson.js'
+import setSecurityMail from './modules/postService/setSecurityMail.js'
 import initConnectobjkind from './modules/queues/initConnectobjkind.js'
 import initPersonbasis from './modules/queues/initPersonbasis.js'
 import initCheckRadios from "./lk_request_fileinput.js";
@@ -135,4 +136,7 @@ $(document).ready(function() {
 
   // инит радио кнопок Вид объекта подключения
   initConnectobjkind()
+
+  // если открыта страница с успешной загрузкой
+  if(window.location.search.indexOf('successId')) setSecurityMail()
 })
