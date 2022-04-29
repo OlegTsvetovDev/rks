@@ -4,6 +4,7 @@ import createModal from '../modals/createModal.js'
 import addListenersToModal from '../modals/addListenersToModal.js'
 import deleteAllQueues from './deleteAllQueues.js'
 import enableAllQueues from './enableAllQueues.js'
+import checkQueueCount from './checkQueueCount.js'
 
 
 function initAllQueuesDeletion() {
@@ -25,8 +26,10 @@ function initAllQueuesDeletion() {
 
     // Если нужно значение queueCount в рамках скриптов, то бери ее значение из getCurrentQueueCount(document)
     // и не здесь, а в момент, когда используешь значение
-    if (document.querySelector('[name="statementtc_queuecount"'))
+    if (document.querySelector('[name="statementtc_queuecount"')){
       document.querySelector('[name="statementtc_queuecount"').value = getCurrentQueueCount(document, -1);
+      checkQueueCount();
+    }
   }
 
   // хэндлер обработки нажатия на "Нет" в "Запуск по очередям"

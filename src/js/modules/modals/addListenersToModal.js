@@ -1,6 +1,7 @@
 import deleteAllQueues from '../queues/deleteAllQueues.js'
 import disableAllQueues from '../queues/disableAllQueues.js'
 import enableAllQueues from '../queues/enableAllQueues.js'
+import checkQueueCount from '../queues/checkQueueCount.js'
 
 
 // добавление прослушки эвентов у модалки
@@ -20,6 +21,7 @@ function addListenersToModal(node, queueLaunchYes, queueLaunchNo) {
       radioNo.checked = true
     }
     document.querySelector('[name="statementtc_queuecount"').value = 0;
+    checkQueueCount();
     // удаление jQuery инлайн стилей
     queueLaunchYes.removeAttribute('style')
     queueLaunchNo.removeAttribute('style')
