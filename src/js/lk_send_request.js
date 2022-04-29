@@ -137,6 +137,6 @@ $(document).ready(function() {
   // инит радио кнопок Вид объекта подключения
   initConnectobjkind()
 
-  // если открыта страница с успешной загрузкой
+  // если открыта страница после успешной подачи заявления
   if(window.location.search.indexOf('successId')) setSecurityMail()
 })
