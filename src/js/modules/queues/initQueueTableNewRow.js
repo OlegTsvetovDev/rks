@@ -4,6 +4,7 @@ import changeSliderHeight from '../controls/slider/changeSliderHeight.js'
 import initDatepickers from '../controls/initDatepickers.js'
 import initMasks from '../masks/initMasks.js'
 import deleteLastNode from './deleteLastNode.js'
+import checkQueueCount from './checkQueueCount.js'
 
 
 // добавление новых строк в таблицу с очередями, слайд 1
@@ -16,7 +17,10 @@ function initQueueTableNewRow() {
     const queueCount = getCurrentQueueCount(document, 0)
 
     const statementtc = document.querySelector('[name="statementtc_queuecount"]')
-    if (statementtc) statementtc.value = queueCount;
+    if (statementtc){
+      statementtc.value = queueCount;
+      checkQueueCount();
+    }
 
     const new_row = `
                     <tr class="table__row">
@@ -45,7 +49,10 @@ function initQueueTableNewRow() {
     if (queueCount < 1) return
 
     const statementtc = document.querySelector('[name="statementtc_queuecount"]')
-    if (statementtc) statementtc.value = queueCount - 1
+    if (statementtc){
+      statementtc.value = queueCount - 1
+      checkQueueCount();
+    }
 
     queueTbody.children().last().remove()
     deleteLastNode()

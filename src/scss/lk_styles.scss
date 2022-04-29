@@ -2214,6 +2214,12 @@ input[type=number]::-webkit-outer-spin-button {
                     max-width: 420px;
                   }
                 }
+                &.answer {
+                  font-weight: 600;
+                  td.table__row_item {
+                    color: darkblue;
+                  }
+                }
               }
             }
             .tables__history {

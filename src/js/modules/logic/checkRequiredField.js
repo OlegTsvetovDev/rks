@@ -35,11 +35,13 @@ function checkRequiredField() {
                   ($this.find(".attachment").length == 0 &&
                     $this.hasClass("field__control_btns"))
                 ))
-                err.push("Не указано значение поля " + getTitle($this));
+                if ($this.parent().hasClass("add_files"))
+                  err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + getTitle($this) + '</p>');
+                else
+                  err.push("Не указано значение поля " + getTitle($this));
               break;
             case "TABLE":
               var t_fields = $this.find('tbody tr td input');
-              var t_name = getTitle($this)
               t_fields.each( function () {
                     if(!$(this).val())
                       err.push("Не указано значение поля в таблице " + getTitle($this));
@@ -82,13 +84,14 @@ function checkRequiredField() {
 
 
         if (err.length) {
-          $('.modal.modal_alert.autopopup.hidden .modal__text').html(err[0]);
-          $('.modal.modal_alert.autopopup.hidden').removeClass('hidden');
+          $('#errorOfRequirement .modal__text').html(err[0]);
+          $('#errorOfRequirement').removeClass('hidden');
           return;
         }
         form = $(this).closest('form');
         form.append("<input type='hidden' name='ecp' value='true' />");
         document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
+        $('input[name="redirect"]').val('pageSuccessSubmit')
         form.submit();
         break;
       case "save_button":
@@ -97,6 +100,41 @@ function checkRequiredField() {
     }
     document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
   });
+}
+
+// генерация заголовка для модалки
+function generateMessageHeader(){
+  let message = "Заявление с типом \"";
+  const requesttype_id = document.querySelector('input[name="requesttype_id"]').value;
+  const documentreal_number = document.querySelector('input[name="documentreal_number"]').value;
+  const request_date = document.querySelector('input[name="request_date"]').value;
+
+  if(requesttype_id === '10001')
+    message += 'Запрос о выдаче ТУ';
+  else
+    message += 'Заявление на подключение';
+  message += `\" (№${documentreal_number} от ${request_date}) успешно подано`;
+  return message;
+}
+
+// генерация сообщения для модалки
+function generateMessageText(){
+  let message = "Подробная информация о статусе заявления содержится в уведомлении, отправленном на указанный электронный адрес ";
+  const mail = document.querySelector('input[name="statementtc_applemail"]').value;
+
+  // маска для почты по примеру v**@g******.biz
+  const pos_a = mail.indexOf('@');
+  const pos_point = mail.lastIndexOf('.');
+  let new_mail = mail[0];
+  for(let i = 0; i < pos_a - 1; i++)
+    new_mail += '*';
+  new_mail += mail.substring(pos_a, pos_a + 2);
+  for(let i = 0; i < pos_point - (pos_a + 2); i++)
+    new_mail += '*';
+  new_mail += mail.substring(pos_point);
+
+  message += `${new_mail}.`;
+  return message;
 }
 
 

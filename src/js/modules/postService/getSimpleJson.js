@@ -10,6 +10,8 @@ function getSimpleJson(is_simple) {
       //is_simple = false
 
       if(is_simple){
+        const connectobjkind = document.querySelector('[name="connectobjkind"]:checked');
+        const request_form = document.querySelector('.requests_form');
         let list_hidden_elem = document.querySelectorAll(
           "[name^='infmaxparam3']" + // Протяжность сети
           ",[name^='infmaxparam4']" + // Диаметр сети
@@ -26,16 +28,13 @@ function getSimpleJson(is_simple) {
           ",[name^='addconnectloadparamdata_value_07'].md"
         );
         list_hidden_elem.forEach(x => x.parentElement.classList.add('hidden'));
-        if(document.querySelector('[name="connectobjkind"]:checked').id == 'connectobjkind_03')
-          document.querySelector('[name^="room_number"]').parentElement.classList.remove('hidden');
+        
+        if(connectobjkind && connectobjkind.id == 'connectobjkind_03')
+          document.querySelectorAll('[name^="room_number"]').forEach(x => x.parentElement.classList.remove('hidden'));
 
         hideForUL("request");
 
-
-
-
-
-        document.querySelector('.requests_form').classList.add('simple');
+        if(request_form) request_form.classList.add('simple');
       }
 
       document.querySelectorAll('[name="connectobjkind"]').forEach(x => x.parentElement.addEventListener('click', () => {hideElemsSimple(is_simple)}));
