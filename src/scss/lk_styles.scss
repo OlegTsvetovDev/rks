@@ -208,6 +208,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .required:after {
   content: ' *';
+  color: $red;
 }
 
 .clearfix {
@@ -1234,11 +1235,15 @@ input[type=number]::-webkit-outer-spin-button {
             float: right;
           }
           &.form__info_block {
-            margin-bottom: 36px;
+            margin-bottom: 12px;
             .form__status,
             .form__number,
-            .form__date {
+            .form__date,
+            .form__description {
               margin-bottom: 9px;
+              .red {
+                color: $red;
+              }
             }
           }
           &.passport__field {
