@@ -179,6 +179,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
 
             }
         )
+        docGroupsRequiredIfOne();
     }
 
 function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
@@ -207,7 +208,29 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
             }
         }
     )
+    docGroupsRequiredIfOne();
 }
+
+    // если в группе условно-обязательных документов только один документ, то показываем звездочку
+    function docGroupsRequiredIfOne() {
+        let elems_req_group = $('.form__field:not([class*=_hide]) [class*=req_group_]');
+        var group_names = [];   // получаем существующие названия групп
+        elems_req_group.each(function () {
+            var $this = $(this);
+            var el_id = $this[0].id;
+            if (!group_names.includes(el_id))
+                group_names.push(el_id);
+        });
+        group_names.forEach(function (e) {    // для каждой группы получаем ее элементы
+            let group = elems_req_group.filter('#' + e);
+            if (group.length === 1 ) group[0].previousElementSibling.classList.add("required_doc_group")
+            else group.each(function () {
+                var $this = $(this);
+                $this[0].previousElementSibling.classList.remove("required_doc_group")
+            })
+
+        })
+    }
 
     function initCheckRadios(radio_name) {
 
