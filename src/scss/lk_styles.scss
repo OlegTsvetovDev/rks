@@ -1190,10 +1190,34 @@ input[type=number]::-webkit-outer-spin-button {
           color: $black;
           margin-bottom: 30px;
         }
-        .form__subheader {
-          color: $black;
-          margin-bottom: 20px;
+        .form__subheader_block {
+          display: -webkit-flex;
+          display: -ms-flex;
+          display: flex;
+          justify-content: space-between;
+          .form__subheader {
+            color: $black;
+            margin-bottom: 20px;
+          }
+          .subheader_block__controls {
+            .controls__copy {
+              width: 24px;
+              height: 24px;
+              cursor: pointer;
+              border: none;
+              transition: all .2s ease-in-out;
+              background: url('../img/control_btns/copy_icon.svg') no-repeat center center;
+              &.hidden {
+                display: none;
+              }
+              &:hover {
+                transition: all .2s ease-in-out;
+                background: url('../img/control_btns/copy_icon_active.svg') no-repeat center center;
+              }
+            }
+          }
         }
+
         .cold_water_supply_toggle,
         .drainage_toggle {
           display: block;
