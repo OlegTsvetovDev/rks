@@ -24,7 +24,7 @@ import initConnectobjkind from './modules/queues/initConnectobjkind.js'
 import initPersonbasis from './modules/queues/initPersonbasis.js'
 import initCheckRadios from "./lk_request_fileinput.js";
 import initConnectobjchar from "./modules/logic/initConnectobjchar.js";
-
+import initCopyButtons from "./modules/queues/initCopyButtons.js"
 
 
 $(document).ready(function() {
@@ -139,4 +139,7 @@ $(document).ready(function() {
 
   // если открыта страница после успешной подачи заявления
   if(window.location.search.indexOf('successId')) setSecurityMail()
+
+  // инициализация кнопок копирования данных
+  initCopyButtons(document)
 })

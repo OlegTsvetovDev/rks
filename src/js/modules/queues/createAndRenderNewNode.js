@@ -1,6 +1,7 @@
 import createNewNode from './createNewNode.js'
 import pasteNameSuffixes from './pasteNameSuffixes.js'
 import renderNewNode from './renderNewNode.js'
+import initCopyButtons from './initCopyButtons.js'
 import initPseudoSelects from '../controls/select/initPseudoSelects.js'
 import initRadioLabels from '../controls/initRadioLabels.js'
 import initCheckboxLabels from '../controls/initCheckboxLabels.js'
@@ -28,6 +29,7 @@ function createAndRenderNewNode(queueCount) {
   initAddressConcatination(newNode)
   initWaterSource(newNode)
   initConnectobjchar(newNode)
+  initCopyButtons(newNode)
 
   // addNewSlide(newNode)
 }
