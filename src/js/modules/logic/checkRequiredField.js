@@ -35,11 +35,13 @@ function checkRequiredField() {
                   ($this.find(".attachment").length == 0 &&
                     $this.hasClass("field__control_btns"))
                 ))
-                err.push("Не указано значение поля " + getTitle($this));
+                if ($this.parent().hasClass("add_files"))
+                  err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + getTitle($this) + '</p>');
+                else
+                  err.push("Не указано значение поля " + getTitle($this));
               break;
             case "TABLE":
               var t_fields = $this.find('tbody tr td input');
-              var t_name = getTitle($this)
               t_fields.each( function () {
                     if(!$(this).val())
                       err.push("Не указано значение поля в таблице " + getTitle($this));

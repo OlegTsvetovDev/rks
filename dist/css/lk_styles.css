@@ -170,6 +170,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 .required:after {
   content: " *";
+  color: red;
+}
+
+.required_doc_group:after {
+  content: " *";
+  color: red;
 }
 
 .clearfix {
@@ -1006,9 +1012,30 @@ input[type=number]::-webkit-outer-spin-button {
   color: rgb(34, 34, 34);
   margin-bottom: 30px;
 }
-.main__content .requests_form .request__form .form__subheader {
+.main__content .requests_form .request__form .form__subheader_block {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+}
+.main__content .requests_form .request__form .form__subheader_block .form__subheader {
   color: rgb(34, 34, 34);
   margin-bottom: 20px;
+}
+.main__content .requests_form .request__form .form__subheader_block .subheader_block__controls .controls__copy {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  background: url("../img/control_btns/copy_icon.svg") no-repeat center center;
+}
+.main__content .requests_form .request__form .form__subheader_block .subheader_block__controls .controls__copy.hidden {
+  display: none;
+}
+.main__content .requests_form .request__form .form__subheader_block .subheader_block__controls .controls__copy:hover {
+  transition: all 0.2s ease-in-out;
+  background: url("../img/control_btns/copy_icon_active.svg") no-repeat center center;
 }
 .main__content .requests_form .request__form .cold_water_supply_toggle,
 .main__content .requests_form .request__form .drainage_toggle {
@@ -1063,12 +1090,19 @@ input[type=number]::-webkit-outer-spin-button {
   float: right;
 }
 .main__content .requests_form .request__form .form__field.form__info_block {
-  margin-bottom: 36px;
+  margin-bottom: 12px;
 }
 .main__content .requests_form .request__form .form__field.form__info_block .form__status,
 .main__content .requests_form .request__form .form__field.form__info_block .form__number,
-.main__content .requests_form .request__form .form__field.form__info_block .form__date {
+.main__content .requests_form .request__form .form__field.form__info_block .form__date,
+.main__content .requests_form .request__form .form__field.form__info_block .form__description {
   margin-bottom: 9px;
+}
+.main__content .requests_form .request__form .form__field.form__info_block .form__status .red,
+.main__content .requests_form .request__form .form__field.form__info_block .form__number .red,
+.main__content .requests_form .request__form .form__field.form__info_block .form__date .red,
+.main__content .requests_form .request__form .form__field.form__info_block .form__description .red {
+  color: red;
 }
 .main__content .requests_form .request__form .form__field.passport__field {
   display: -webkit-flex;
