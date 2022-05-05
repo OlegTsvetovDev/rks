@@ -347,51 +347,56 @@
         <!-- REQUEST STEP 5 с дева -->
         <div class="request__form step_5">
           <h3 class="form__header">Данные о подключаемом объекте</h3>
-          <div class="queue_slider">
-            <div class="queue_block">
-              <h5 class="form__subheader">Сводная очередь</h5>
-              <div class="form__field form__info_block width_max">
+          <div class="queue_slider"></div>
+          <div class="queue_block">
+            <div class="form__subheader_block">
+              <h5 class="form__subheader">Сводный объект</h5>
+              <div class="subheader_block__controls">
+                <button class="controls__copy" title="Скопировать из предыдущей оцереди">1</button>
+              </div>
+            </div>
+            <div class="form__field form__info_block width_max">
   <p class="form__description">
     <span class="red">*</span> - поля, обязательные для заполнения
   </p>
 </div>
 
-              <input value="0" class="number_queue" type="hidden" tabindex="0">
-              <div class="form__field width_max">
+            <input value="0" class="number_queue" type="hidden" tabindex="0">
+            <div class="form__field width_max">
 
-                <label class="field__label form__field width_max" for="">
-                  <span class="field__description required">Характеристика объекта подключения</span>
+              <label class="field__label form__field width_max" for="">
+                <span class="field__description required">Характеристика объекта подключения</span>
+                <span class="label__block">
+                  <label for="">
+                    <input name="connectobjchar" value="001" class="radio 001" type="radio" checked="true" tabindex="0">
+                    Новое строительство
+                  </label>
+                  <label for="">
+                    <input name="connectobjchar" value="002" class="radio 002" type="radio" tabindex="0">
+                    Реконструкция
+                  </label>
+                  <label for="">
+                    <input name="connectobjchar" value="003" class="radio 003" type="radio" tabindex="0">
+                    Модернизация
+                  </label>
+                </span>
+              </label>
+              <div class="form__field width_max">
+                <label class="field__label" for="">
+                  <span class="field__description required">Тип объекта подключения</span>
                   <span class="label__block">
                     <label for="">
-                      <input name="connectobjchar" value="001" class="radio 001" type="radio" checked="true" tabindex="0">
-                      Новое строительство
+                      <input name="connectobjtype" value="001" class="radio 001" type="radio" checked="true" tabindex="0">
+                      Жилой
                     </label>
                     <label for="">
-                      <input name="connectobjchar" value="002" class="radio 002" type="radio" tabindex="0">
-                      Реконструкция
-                    </label>
-                    <label for="">
-                      <input name="connectobjchar" value="003" class="radio 003" type="radio" tabindex="0">
-                      Модернизация
+                      <input name="connectobjtype" value="002" class="radio 002" type="radio" tabindex="0">
+                      Не жилой
                     </label>
                   </span>
                 </label>
-                <div class="form__field width_max">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Тип объекта подключения</span>
-                    <span class="label__block">
-                      <label for="">
-                        <input name="connectobjtype" value="001" class="radio 001" type="radio" checked="true" tabindex="0">
-                        Жилой
-                      </label>
-                      <label for="">
-                        <input name="connectobjtype" value="002" class="radio 002" type="radio" tabindex="0">
-                        Не жилой
-                      </label>
-                    </span>
-                  </label>
-                </div>
-                <div class="form__field">
+              </div>
+              <div class="form__field">
   <label class="field__label" for="">
     <span class="field__description required">Населенный пункт</span>
     <div data-state="" class="__select">
@@ -480,7 +485,7 @@
   </label>
 </div>
 
-                <div class="form__field">
+              <div class="form__field">
   <label class="field__label" for="">
     <span class="field__description">Кадастровый номер зем. участка/объекта</span>
     <input value="" name="techcondobj_cadnum" placeholder="Введите данные" class="field__input" type="text" tabindex="0">
@@ -505,257 +510,255 @@
   </label>
 </div>
 
-                <div class="form__field width_max">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Требуется подключение к централизованной системе</span>
-                    <span class="label__block">
-                      <label for="">
-                        <input value="1" class="checkbox connection_to_cold_water" name="systemtype" type="checkbox" tabindex="0">
-                        Холодное водоснабжение
-                      </label>
-                      <span class="field__description ">и/или</span>
-                      <label for="">
-                        <input value="2" class="checkbox connection_to_drainage" name="systemtype" type="checkbox" tabindex="0">
-                        Водоотведение
-                      </label>
-                    </span>
-                  </label>
-                </div>
-                <div class="form__field width_max">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Необходимые виды ресурсов или услуг, планируемых к получению через централизованную систему</span>
-                    <span class="label__block">
-                      <label for="">
-                        <input value="001" class="checkbox" name="resourcekindreq" type="checkbox" tabindex="0">
-                        Получение питьевой, технической или горячей воды
-                      </label>
-                      <label for="">
-                        <input value="002" class="checkbox" name="resourcekindreq" type="checkbox" tabindex="0">
-                        Сброс хозяйственно-бытовых, производственных или поверхностных сточных вод
-                      </label>
-                    </span>
-                  </label>
-                </div>
-                <div class="form__field width_max">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Этажность объекта</span>
-                    <input value="" name="techcondobj_floors" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field">
-                  <label class="field__label" for="">
-                    <span class="field__description">Площадь жилая, м2</span>
-                    <input value="" name="livingSpace" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field fr">
-                  <label class="field__label" for="">
-                    <span class="field__description">Площадь нежилая, м2</span>
-                    <input value="" name="notLivingSpace" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field">
-                  <label class="field__label" for="">
-                    <span class="field__description">Объем общий, м3</span>
-                    <input value="" name="totalVolume" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field fr">
-                  <label class="field__label" for="">
-                    <span class="field__description">Класс функциональной пожарной опасности</span>
-                    <input value="" name="hazardClass" placeholder="Введите данные" class="field__input ffhc_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field width_max">
-                  <label class="field__label" for="">
-                    <h6 class="form__subheader">Информация о предельных параметрах разрешенного строительства (реконструкции) подключаемых объектов, соответствующих указанному земельному участку:</h6>
-                  </label>
-                </div>
-                <div class="form__field">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Количество этажей</span>
-                    <input value="" name="infmaxparam1" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field fr">
-                  <label class="field__label" for="">
-                    <span title="Этажность включает в себя надземные этажи, количество этажей включает в себя подземные этажи" class="field__description required">Этажность</span>
-                    <input value="" name="infmaxparam2" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Протяженность сети</span>
-                    <input value="" name="infmaxparam3" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field fr">
-                  <label class="field__label" for="">
-                    <span class="field__description required">Диаметр сети</span>
-                    <input value="" name="infmaxparam4" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                  </label>
-                </div>
-                <div class="form__field width_max">
-                  <label class="field__label" for="">
-                    <span class="field__description">Примечание</span>
-                    <input value="" name="techcondobj_note" placeholder="Введите данные" class="field__input" type="text" tabindex="0">
-                  </label>
-                </div>
+              <div class="form__field width_max">
+                <label class="field__label" for="">
+                  <span class="field__description required">Требуется подключение к централизованной системе</span>
+                  <span class="label__block">
+                    <label for="">
+                      <input value="1" class="checkbox connection_to_cold_water" name="systemtype" type="checkbox" tabindex="0">
+                      Холодное водоснабжение
+                    </label>
+                    <span class="field__description ">и/или</span>
+                    <label for="">
+                      <input value="2" class="checkbox connection_to_drainage" name="systemtype" type="checkbox" tabindex="0">
+                      Водоотведение
+                    </label>
+                  </span>
+                </label>
+              </div>
+              <div class="form__field width_max">
+                <label class="field__label" for="">
+                  <span class="field__description required">Необходимые виды ресурсов или услуг, планируемых к получению через централизованную систему</span>
+                  <span class="label__block">
+                    <label for="">
+                      <input value="001" class="checkbox" name="resourcekindreq" type="checkbox" tabindex="0">
+                      Получение питьевой, технической или горячей воды
+                    </label>
+                    <label for="">
+                      <input value="002" class="checkbox" name="resourcekindreq" type="checkbox" tabindex="0">
+                      Сброс хозяйственно-бытовых, производственных или поверхностных сточных вод
+                    </label>
+                  </span>
+                </label>
+              </div>
+              <div class="form__field width_max">
+                <label class="field__label" for="">
+                  <span class="field__description required">Этажность объекта</span>
+                  <input value="" name="techcondobj_floors" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field">
+                <label class="field__label" for="">
+                  <span class="field__description">Площадь жилая, м2</span>
+                  <input value="" name="livingSpace" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field fr">
+                <label class="field__label" for="">
+                  <span class="field__description">Площадь нежилая, м2</span>
+                  <input value="" name="notLivingSpace" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field">
+                <label class="field__label" for="">
+                  <span class="field__description">Объем общий, м3</span>
+                  <input value="" name="totalVolume" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field fr">
+                <label class="field__label" for="">
+                  <span class="field__description">Класс функциональной пожарной опасности</span>
+                  <input value="" name="hazardClass" placeholder="Введите данные" class="field__input ffhc_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field width_max">
+                <label class="field__label" for="">
+                  <h6 class="form__subheader">Информация о предельных параметрах разрешенного строительства (реконструкции) подключаемых объектов, соответствующих указанному земельному участку:</h6>
+                </label>
+              </div>
+              <div class="form__field">
+                <label class="field__label" for="">
+                  <span class="field__description required">Количество этажей</span>
+                  <input value="" name="infmaxparam1" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field fr">
+                <label class="field__label" for="">
+                  <span title="Этажность включает в себя надземные этажи, количество этажей включает в себя подземные этажи" class="field__description required">Этажность</span>
+                  <input value="" name="infmaxparam2" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field">
+                <label class="field__label" for="">
+                  <span class="field__description required">Протяженность сети</span>
+                  <input value="" name="infmaxparam3" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field fr">
+                <label class="field__label" for="">
+                  <span class="field__description required">Диаметр сети</span>
+                  <input value="" name="infmaxparam4" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                </label>
+              </div>
+              <div class="form__field width_max">
+                <label class="field__label" for="">
+                  <span class="field__description">Примечание</span>
+                  <input value="" name="techcondobj_note" placeholder="Введите данные" class="field__input" type="text" tabindex="0">
+                </label>
+              </div>
 
 
-                <div class="cold_water_supply_toggle hidden">
-                  <div class="form__field width_max">
-                    <label class="field__label" for="">
-                      <h6 class="form__subheader">Данные о подключаемой нагрузке (Холодное водоснабжение)</h6>
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w50" for="">
-                      <span class="field__description required">Подключаемая нагрузка (м3/сут)</span>
-                      <input value="" name="connectloadparamdata_value1" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w50" for="">
-                      <span class="field__description required">Подключаемая нагрузка (м3/час)</span>
-                      <input value="" name="connectloadparamdata_value1" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/сут) с ___</span>
-                      <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/сут) по ___</span>
-                      <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/час) с ___ </span>
-                      <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w50" for="">
-                      <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/час) по ___</span>
-                      <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w50" for="">
-                      <span class="field__description">Кол-во пожарных кранов, шт</span>
-                      <input value="" name="connectloadparamdata_value3" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Максимальное водопотребление, м3/час</span>
-                      <input value="" name="addconnectloadparamdata_value_05" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Максимальное водопотребление, л/с</span>
-                      <input value="" name="addconnectloadparamdata_value_05" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Максимальное водопотребление, м3/сут</span>
-                      <input value="" name="addconnectloadparamdata_value_05" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на наружное пожаротушение, м3/час</span>
-                      <input value="" name="addconnectloadparamdata_value_08" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на наружное пожаротушение, л/с</span>
-                      <input value="" name="addconnectloadparamdata_value_08" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на наружное пожаротушение, м3/сут</span>
-                      <input value="" name="addconnectloadparamdata_value_08" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на внутреннее пожаротушение, м3/час</span>
-                      <input value="" name="addconnectloadparamdata_value_02" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на внутреннее пожаротушение, л/с</span>
-                      <input value="" name="addconnectloadparamdata_value_02" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на внутреннее пожаротушение, м3/сут</span>
-                      <input value="" name="addconnectloadparamdata_value_02" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на автоматическое пожаротушение, м3/час</span>
-                      <input value="" name="addconnectloadparamdata_value_07" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на автоматическое пожаротушение, л/с</span>
-                      <input value="" name="addconnectloadparamdata_value_07" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description">Расход на автоматическое пожаротушение, м3/сут</span>
-                      <input value="" name="addconnectloadparamdata_value_07" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
+              <div class="cold_water_supply_toggle hidden">
+                <div class="form__field width_max">
+                  <label class="field__label" for="">
+                    <h6 class="form__subheader">Данные о подключаемой нагрузке (Холодное водоснабжение)</h6>
+                  </label>
                 </div>
+                <div class="form__field width_max">
+                  <label class="field__label w50" for="">
+                    <span class="field__description required">Подключаемая нагрузка (м3/сут)</span>
+                    <input value="" name="connectloadparamdata_value1" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w50" for="">
+                    <span class="field__description required">Подключаемая нагрузка (м3/час)</span>
+                    <input value="" name="connectloadparamdata_value1" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/сут) с ___</span>
+                    <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/сут) по ___</span>
+                    <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/час) с ___ </span>
+                    <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w50" for="">
+                    <span class="field__description">Увеличение (уменьшение) водопотребления для реконструкции объекта (м3/час) по ___</span>
+                    <input value="" name="connectloadparamdata_value2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w50" for="">
+                    <span class="field__description">Кол-во пожарных кранов, шт</span>
+                    <input value="" name="connectloadparamdata_value3" placeholder="Введите данные" class="field__input integer_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Максимальное водопотребление, м3/час</span>
+                    <input value="" name="addconnectloadparamdata_value_05" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Максимальное водопотребление, л/с</span>
+                    <input value="" name="addconnectloadparamdata_value_05" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Максимальное водопотребление, м3/сут</span>
+                    <input value="" name="addconnectloadparamdata_value_05" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на наружное пожаротушение, м3/час</span>
+                    <input value="" name="addconnectloadparamdata_value_08" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на наружное пожаротушение, л/с</span>
+                    <input value="" name="addconnectloadparamdata_value_08" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на наружное пожаротушение, м3/сут</span>
+                    <input value="" name="addconnectloadparamdata_value_08" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на внутреннее пожаротушение, м3/час</span>
+                    <input value="" name="addconnectloadparamdata_value_02" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на внутреннее пожаротушение, л/с</span>
+                    <input value="" name="addconnectloadparamdata_value_02" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на внутреннее пожаротушение, м3/сут</span>
+                    <input value="" name="addconnectloadparamdata_value_02" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на автоматическое пожаротушение, м3/час</span>
+                    <input value="" name="addconnectloadparamdata_value_07" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на автоматическое пожаротушение, л/с</span>
+                    <input value="" name="addconnectloadparamdata_value_07" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description">Расход на автоматическое пожаротушение, м3/сут</span>
+                    <input value="" name="addconnectloadparamdata_value_07" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+              </div>
 
-                <div class="drainage_toggle hidden">
-                  <div class="form__field width_max">
-                    <label class="field__label" for="">
-                      <h6 class="form__subheader">Данные о подключаемой нагрузке (Водоотведение)</h6>
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w50" for="">
-                      <span class="field__description required">Подключаемая нагрузка (м3/сут)</span>
-                      <input value="" name="connectloadparamdata_value1_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w50" for="">
-                      <span class="field__description required">Подключаемая нагрузка (м3/час)</span>
-                      <input value="" name="connectloadparamdata_value1_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w50" for="">
-                      <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/сут) с ___</span>
-                      <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w50" for="">
-                      <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/сут) по ___</span>
-                      <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w50" for="">
-                      <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/час) с ___</span>
-                      <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w50" for="">
-                      <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/час) по ___</span>
-                      <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
-                  <div class="form__field width_max">
-                    <label class="field__label w33" for="">
-                      <span class="field__description required">Максимальное водоотведение, м3/час</span>
-                      <input value="" name="addconnectloadparamdata_value_06" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description required">Максимальное водоотведение, л/с</span>
-                      <input value="" name="addconnectloadparamdata_value_06" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                    <label class="field__label w33" for="">
-                      <span class="field__description required">Максимальное водоотведение, м3/сут</span>
-                      <input value="" name="addconnectloadparamdata_value_06" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
-                    </label>
-                  </div>
+              <div class="drainage_toggle hidden">
+                <div class="form__field width_max">
+                  <label class="field__label" for="">
+                    <h6 class="form__subheader">Данные о подключаемой нагрузке (Водоотведение)</h6>
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w50" for="">
+                    <span class="field__description required">Подключаемая нагрузка (м3/сут)</span>
+                    <input value="" name="connectloadparamdata_value1_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w50" for="">
+                    <span class="field__description required">Подключаемая нагрузка (м3/час)</span>
+                    <input value="" name="connectloadparamdata_value1_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w50" for="">
+                    <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/сут) с ___</span>
+                    <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w50" for="">
+                    <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/сут) по ___</span>
+                    <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w50" for="">
+                    <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/час) с ___</span>
+                    <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w50" for="">
+                    <span class="field__description">Увеличение (уменьшение) водоотведения для реконструкции объекта (м3/час) по ___</span>
+                    <input value="" name="connectloadparamdata_value2_2" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                </div>
+                <div class="form__field width_max">
+                  <label class="field__label w33" for="">
+                    <span class="field__description required">Максимальное водоотведение, м3/час</span>
+                    <input value="" name="addconnectloadparamdata_value_06" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description required">Максимальное водоотведение, л/с</span>
+                    <input value="" name="addconnectloadparamdata_value_06" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
+                  <label class="field__label w33" for="">
+                    <span class="field__description required">Максимальное водоотведение, м3/сут</span>
+                    <input value="" name="addconnectloadparamdata_value_06" placeholder="Введите данные" class="field__input float_input" type="text" tabindex="0">
+                  </label>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
         <!-- REQUEST STEP 6 -->
