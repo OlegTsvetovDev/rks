@@ -1017,6 +1017,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: -ms-flex;
   display: flex;
   justify-content: space-between;
+  column-gap: 18px;
 }
 .main__content .requests_form .request__form .form__subheader_block .form__subheader {
   color: rgb(34, 34, 34);
@@ -1036,6 +1037,33 @@ input[type=number]::-webkit-outer-spin-button {
 .main__content .requests_form .request__form .form__subheader_block .subheader_block__controls .controls__copy:hover {
   transition: all 0.2s ease-in-out;
   background: url("../img/control_btns/copy_icon_active.svg") no-repeat center center;
+}
+.main__content .requests_form .request__form .form__subheader_block.start {
+  justify-content: flex-start;
+}
+.main__content .requests_form .request__form .form__subheader_block.text {
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+}
+.main__content .requests_form .request__form .form__subheader_block.text .form__subheader {
+  margin: 20px 0;
+}
+.main__content .requests_form .request__form .form__subheader_block.text .controls__copy {
+  width: auto;
+  height: auto;
+  background: none;
+  border: 1px solid rgba(60, 84, 165, 0.3);
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  padding: 10.5px 14px;
+}
+.main__content .requests_form .request__form .form__subheader_block.text .controls__copy:hover {
+  background: rgb(60, 84, 165);
+  transition: all 0.2s ease-in-out;
+}
+.main__content .requests_form .request__form .form__subheader_block.text.space {
+  justify-content: space-between;
 }
 .main__content .requests_form .request__form .cold_water_supply_toggle,
 .main__content .requests_form .request__form .drainage_toggle {

@@ -1195,6 +1195,7 @@ input[type=number]::-webkit-outer-spin-button {
           display: -ms-flex;
           display: flex;
           justify-content: space-between;
+          column-gap: $h6;
           .form__subheader {
             color: $black;
             margin-bottom: 20px;
@@ -1210,10 +1211,42 @@ input[type=number]::-webkit-outer-spin-button {
               &.hidden {
                 display: none;
               }
+
               &:hover {
                 transition: all .2s ease-in-out;
                 background: url('../img/control_btns/copy_icon_active.svg') no-repeat center center;
               }
+            }
+
+          }
+          &.start {
+            justify-content: flex-start;
+            .controls__copy {
+
+            }
+          }
+          &.text {
+            align-items: center;
+            align-content: center;
+            justify-content: flex-start;
+            .form__subheader {
+              margin: 20px 0;
+            }
+            .controls__copy {
+              width: auto;
+              height: auto;
+              background: none;
+              border: 1px solid $mainColorTransparent;
+              font-size: $p;
+              transition: all .2s ease-in-out;
+              padding: calc(0.75*$p) $p;
+              &:hover {
+                background: $mainColor;
+                transition: all .2s ease-in-out;
+              }
+            }
+            &.space {
+              justify-content: space-between;
             }
           }
         }
