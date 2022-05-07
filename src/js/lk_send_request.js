@@ -138,7 +138,7 @@ $(document).ready(function() {
   initConnectobjkind()
 
   // если открыта страница после успешной подачи заявления
-  if(window.location.search.indexOf('successId')) setSecurityMail()
+  if(window.location.search.indexOf('successId') > -1) setSecurityMail()
 
   // инициализация кнопок копирования данных
   initCopyButtons(document)
