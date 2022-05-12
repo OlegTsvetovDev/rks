@@ -13,10 +13,6 @@ function setSecurityMail(){
     new_mail += '*';
   new_mail += mail.substring(pos_point);
   message.innerHTML += new_mail + '.'
-  /*if(inp_request_id)
-    fetch(`./getSecurityMailJson?requestId=${inp_request_id.value}`)
-    .then(response => response.json())
-    .then(data => message.innerHTML += data + '.')*/
 }
 
 export default(setSecurityMail)
