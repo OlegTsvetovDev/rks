@@ -17,6 +17,7 @@ import checkRequiredField from './modules/logic/checkRequiredField.js'
 import disableFormEnter from './modules/logic/disableFormEnter.js'
 
 import initModalDownloadInstructions from './modules/modals/initModalDownloadInstructions.js'
+import initModalForPrintButton from './modules/modals/initModalForPrintButton.js'
 
 import getSimpleJson from './modules/postService/getSimpleJson.js'
 import setSecurityMail from './modules/postService/setSecurityMail.js'
@@ -142,4 +143,7 @@ $(document).ready(function() {
 
   // инициализация кнопок копирования данных
   initCopyButtons(document)
+
+  // инициализация кнопки печати
+  initModalForPrintButton()
 })
