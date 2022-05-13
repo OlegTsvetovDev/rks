@@ -68,7 +68,7 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked')){
+    if(sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked').value !== 'on'){
         let inputValue = sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked').value
         let inputCopy = sourceLocality.nextElementSibling.querySelector('input:checked').cloneNode(true)
         let labelCopy = sourceLocality.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
@@ -84,7 +84,7 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked')){
+    if(sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked').value !== 'on'){
         inputValue = sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked').value
         inputCopy = sourceStreet.nextElementSibling.querySelector('input:checked').cloneNode(true)
         labelCopy = sourceStreet.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
@@ -100,7 +100,7 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked')){
+    if(sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked').value !== '001'){
         inputValue = sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked').value
         inputCopy = sourceDistrict.nextElementSibling.querySelector('input:checked').cloneNode(true)
         labelCopy = sourceDistrict.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
@@ -116,7 +116,7 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked')){
+    if(sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked').value !== '001'){
         inputValue = sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked').value
         inputCopy = sourceMicrodistrict.nextElementSibling.querySelector('input:checked').cloneNode(true)
         labelCopy = sourceMicrodistrict.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
