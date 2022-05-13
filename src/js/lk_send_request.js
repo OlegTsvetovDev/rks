@@ -26,6 +26,7 @@ import initPersonbasis from './modules/queues/initPersonbasis.js'
 import initCheckRadios from "./lk_request_fileinput.js";
 import initConnectobjchar from "./modules/logic/initConnectobjchar.js";
 import initCopyButtons from "./modules/queues/initCopyButtons.js"
+import callForPrint from "./modules/postService/callForPrint.js";
 
 
 $(document).ready(function() {
@@ -140,6 +141,9 @@ $(document).ready(function() {
 
   // если открыта страница после успешной подачи заявления
   if(window.location.search.indexOf('successId') > -1) setSecurityMail()
+
+  // если открыта страница после успешной подачи заявления
+  if(window.location.search.indexOf('printRequest') > -1) callForPrint()
 
   // инициализация кнопок копирования данных
   initCopyButtons(document)
