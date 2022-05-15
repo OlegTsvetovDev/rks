@@ -142,7 +142,7 @@ $(document).ready(function() {
   // если открыта страница после успешной подачи заявления
   if(window.location.search.indexOf('successId') > -1) setSecurityMail()
 
-  // если открыта страница после успешной подачи заявления
+  // если открыта страница после нажатия кнопки "Распечатать"
   if(window.location.search.indexOf('printRequest') > -1) callForPrint()
 
   // инициализация кнопок копирования данных
