@@ -10,11 +10,15 @@ function initQueueLaunch(node) {
   if (isDisabled) return
 
   const handleYesClick = () => {
+    yesNode.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'));
+    noNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
     yesNode.classList.remove('hidden')
     noNode.classList.add('hidden')
   }
 
   const handleNoClick = () => {
+    yesNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
+    noNode.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'));
     yesNode.classList.add('hidden')
     noNode.classList.remove('hidden')
   }
