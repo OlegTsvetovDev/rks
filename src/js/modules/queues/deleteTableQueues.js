@@ -6,12 +6,8 @@ function deleteTableQueues(queueTable) {
   let queueCount = getCurrentQueueCount(document, -1)
   const queueRows = queueTable.querySelector('tbody').querySelectorAll('.table__row')
 
-  queueRows.forEach((queueRow, i) => {
-    if (i === 0) return
-    queueRow.remove()
-  })
-
-  // queueCount = 0
+  for(let i = 0; i < queueCount; i++)
+    queueRows[i].remove()
 }
 
 

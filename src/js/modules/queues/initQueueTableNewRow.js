@@ -22,21 +22,15 @@ function initQueueTableNewRow() {
       checkQueueCount();
     }
 
-    const new_row = `
-                    <tr class="table__row">
-                      <td class="table__cell">Очередь №${queueCount}</td>
-                      <td class="table__cell">
-                        <input type="text" class="field__input datepicker_input" name=${'statementtc_dateplan__' + queueCount} placeholder="Введите данные" />
-                      </td>
-                    </tr>
-                   `
-
-    queueTbody.append(new_row)
+    const new_row = queueTbody[0].querySelector('[name=statementtc_dateplan__0]').closest('tr').cloneNode(true)
+    new_row.querySelectorAll('td')[0].innerHTML = 'Очередь №' + queueCount
+    new_row.querySelector('input').setAttribute('name', 'statementtc_dateplan__' + queueCount)
+    queueTbody[0].querySelector('[name=statementtc_dateplan__0]').closest('tr').before(new_row)
     createAndRenderNewNode(queueCount)
     changeSliderHeight()
 
     // инициализация дейтпикера на последней добавленной строке
-    const lastChildDatepicker = queueTbody.children().last().find('.datepicker_input')
+    const lastChildDatepicker = /*queueTbody.children().last().find('.datepicker_input')*/jQuery(new_row.querySelector('.datepicker_input'))
     lastChildDatepicker.datepicker($.datepicker.regional['ru'])
     lastChildDatepicker.mask("99.99.9999", { autodelete: false })
   })
@@ -46,7 +40,7 @@ function initQueueTableNewRow() {
     e.preventDefault()
     const queueCount = getCurrentQueueCount(document, -1)
 
-    if (queueCount < 1) return
+    if (queueCount < 3) return
 
     const statementtc = document.querySelector('[name="statementtc_queuecount"]')
     if (statementtc){
@@ -54,7 +48,7 @@ function initQueueTableNewRow() {
       checkQueueCount();
     }
 
-    queueTbody.children().last().remove()
+    queueTbody[0].querySelector('[name=statementtc_dateplan__0]').closest('tr').previousElementSibling.remove()
     deleteLastNode()
     changeSliderHeight()
     // removeLastSlide()

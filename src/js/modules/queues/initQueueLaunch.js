@@ -10,10 +10,23 @@ function initQueueLaunch(node) {
   if (isDisabled) return
 
   const handleYesClick = () => {
-    yesNode.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'));
-    noNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
-    yesNode.classList.remove('hidden')
-    noNode.classList.add('hidden')
+    if(document.querySelector('[name="statementtc_queuecount"]').value === '0'){
+      yesNode.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'));
+      noNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
+      const tBody = yesNode.querySelector('.table__body')
+      const row = tBody.querySelector('.table__row')
+      let rowClone = row.cloneNode(true)
+      rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №2'
+      rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__2')
+      tBody.prepend(rowClone)
+      rowClone = row.cloneNode(true)
+      rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №1'
+      rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__1')
+      tBody.prepend(rowClone)
+
+      yesNode.classList.remove('hidden')
+      noNode.classList.add('hidden')
+    }
   }
 
   const handleNoClick = () => {
