@@ -90,15 +90,18 @@ function checkRequiredField() {
         }
         form = $(this).closest('form');
         form.append("<input type='hidden' name='ecp' value='true' />");
-        document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
+        document.querySelectorAll('[name^="show_name__"]').forEach(inp => inp.removeAttribute("disabled"));
         $('input[name="redirect"]').val('pageSuccessSubmit')
         form.submit();
         break;
       case "save_button":
         $('input[name="redirect"]').val('newrequesttp')
         break;
+      case "saveprint_button":
+        $('input[name="redirect"]').val('newrequesttp_print')
+        break;
     }
-    document.querySelectorAll("form input[disabled='']").forEach(inp => inp.removeAttribute("disabled"));
+    document.querySelectorAll('[name^="show_name__"]').forEach(inp => inp.removeAttribute("disabled"));
   });
 }
 

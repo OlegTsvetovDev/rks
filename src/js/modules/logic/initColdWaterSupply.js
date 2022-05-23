@@ -10,8 +10,14 @@ function initColdWaterSupply(node) {
   const toggle = node.querySelector('.cold_water_supply_toggle')
 
   // проверка начального состояния чекбокса
-  if (isChecked) toggle.classList.remove('hidden')
-  if (!isChecked) toggle.classList.add('hidden')
+  if (isChecked){
+    toggle.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'))
+    toggle.classList.remove('hidden')
+  }
+  if (!isChecked) {
+    toggle.classList.add('hidden')
+    toggle.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''))
+  }
 
 
   if (isDisabled) return
@@ -20,10 +26,12 @@ function initColdWaterSupply(node) {
     isChecked = !isChecked
 
     if (isChecked) {
+      toggle.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'))
       toggle.classList.remove('hidden')
       changeSliderHeight()
     } else {
       toggle.classList.add('hidden')
+      toggle.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''))
       changeSliderHeight()
     }
 

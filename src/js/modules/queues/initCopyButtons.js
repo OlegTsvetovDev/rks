@@ -68,10 +68,10 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked')){
-        let inputValue = sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked').value
-        let inputCopy = sourceLocality.nextElementSibling.querySelector('input:checked').cloneNode(true)
-        let labelCopy = sourceLocality.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
+    if(sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked').value !== 'on'){
+        const inputValue = sourceBlock.querySelector('[name="town_code__' + (number - 1) + '"]:checked').value
+        const inputCopy = sourceLocality.nextElementSibling.querySelector('input:checked').cloneNode(true)
+        const labelCopy = sourceLocality.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
         inputCopy.setAttribute('name', 'town_code__' + number)
         inputCopy.setAttribute('id', 'locality_' + inputValue + '__' + number)
         labelCopy.setAttribute('for', 'locality_' + inputValue + '__' + number)
@@ -84,10 +84,10 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked')){
-        inputValue = sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked').value
-        inputCopy = sourceStreet.nextElementSibling.querySelector('input:checked').cloneNode(true)
-        labelCopy = sourceStreet.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
+    if(sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked').value !== 'on'){
+        const inputValue = sourceBlock.querySelector('[name="street_code__' + (number - 1) + '"]:checked').value
+        const inputCopy = sourceStreet.nextElementSibling.querySelector('input:checked').cloneNode(true)
+        const labelCopy = sourceStreet.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
         inputCopy.setAttribute('name', 'street_code__' + number)
         inputCopy.setAttribute('id', 'street_' + inputValue + '__' + number)
         labelCopy.setAttribute('for', 'street_' + inputValue + '__' + number)
@@ -100,10 +100,10 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked')){
-        inputValue = sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked').value
-        inputCopy = sourceDistrict.nextElementSibling.querySelector('input:checked').cloneNode(true)
-        labelCopy = sourceDistrict.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
+    if(sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked').value !== '001'){
+        const inputValue = sourceBlock.querySelector('[name="district_code__' + (number - 1) + '"]:checked').value
+        const inputCopy = sourceDistrict.nextElementSibling.querySelector('input:checked').cloneNode(true)
+        const labelCopy = sourceDistrict.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
         inputCopy.setAttribute('name', 'district_code__' + number)
         inputCopy.setAttribute('id', 'distrcict_' + inputValue + '__' + number)
         labelCopy.setAttribute('for', 'distrcict_' + inputValue + '__' + number)
@@ -116,10 +116,10 @@ function setAddressFields(number){
                                                     <input type="radio" class="__select__input" id="" tabindex="0">
                                                     <label class="__select__label" for="">Выберите значение</label>
                                                     `
-    if(sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked')){
-        inputValue = sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked').value
-        inputCopy = sourceMicrodistrict.nextElementSibling.querySelector('input:checked').cloneNode(true)
-        labelCopy = sourceMicrodistrict.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
+    if(sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked') && sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked').value !== '001'){
+        const inputValue = sourceBlock.querySelector('[name="subdistrict_code__' + (number - 1) + '"]:checked').value
+        const inputCopy = sourceMicrodistrict.nextElementSibling.querySelector('input:checked').cloneNode(true)
+        const labelCopy = sourceMicrodistrict.nextElementSibling.querySelector('input:checked').nextElementSibling.cloneNode(true)
         inputCopy.setAttribute('name', 'subdistrict_code__' + number)
         inputCopy.setAttribute('id', 'subdistrict_' + inputValue + '__' + number)
         labelCopy.setAttribute('for', 'subdistrict_' + inputValue + '__' + number)

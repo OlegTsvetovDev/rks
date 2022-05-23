@@ -18,7 +18,7 @@ import initConnectobjchar from "../logic/initConnectobjchar.js";
 function createAndRenderNewNode(queueCount) {
   const newNode = createNewNode()
   pasteNameSuffixes(newNode, queueCount)
-  renderNewNode(newNode, document.querySelector('.step_5 .queue_slider'))
+  renderNewNode(newNode)
   initLookups(newNode)
   initPseudoSelects(newNode)
   initRadioLabels(newNode)

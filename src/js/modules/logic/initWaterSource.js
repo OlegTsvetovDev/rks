@@ -9,23 +9,26 @@ function initWaterSource(node) {
   if (water_sources_count && water_sources_count.value !== "0")
     water_source_count = parseInt(water_sources_count.value)
   const queue_number = node.querySelector('.number_queue').value
-  let new_row = ``
 
   $('.add_source_btn', node).click(function(e) {
-      new_row = `
-                    <tr class="table__row">
-                      <td class="table__cell">
-                        <input type="text" class="field__input" name=${'other_water_sources_name_' + water_source_count + '__' + queue_number} placeholder="Введите данные" />
-                      </td>
-                      <td class="table__cell">
-                        <input type="text" class="field__input float_input" name=${'other_water_sources_vol_' + water_source_count + '__' + queue_number} placeholder="Введите данные" />
-                      </td>
-                    </tr>
-                   `
-
     e.preventDefault()
+    
+    const tr = document.createElement('tr')
+    tr.classList.add('table__row')
+    const td1 = water_source_tbody.querySelectorAll('td')[0].cloneNode(true)
+    td1.querySelector('input').setAttribute('name', `other_water_sources_name_${water_source_count}__${queue_number}`)
+    const td2 = water_source_tbody.querySelectorAll('td')[1].cloneNode(true)
+    td2.querySelector('input').setAttribute('name', `other_water_sources_vol_${water_source_count}__${queue_number}`)
+    td2.querySelector('input').addEventListener('keypress', function (e) {
+      const trigger = (e.which != 46 || $(this).val().indexOf('.') != -1)
+                      && (e.which < 48 || e.which > 57)
+  
+      if (trigger) e.preventDefault()
+    })
+    tr.appendChild(td1)
+    tr.appendChild(td2)
+    water_source_tbody.appendChild(tr)
 
-    $(water_source_tbody).append(new_row)
     water_source_count++
     if (water_sources_count) water_sources_count.value = water_source_count;
     changeSliderHeight()

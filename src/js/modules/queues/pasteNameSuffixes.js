@@ -37,10 +37,6 @@ function pasteNameSuffixes(node, queueCount) {
   // функция давно есть для получения количества очередей
   node.querySelector('.number_queue').value = queueCount;
 
-  // показываем кнопку для копирования данных из предыдущей очереди
-  const buttonCopyData = node.querySelector('.subheader_block__controls .controls__copy')
-  buttonCopyData.classList.remove('hidden')
-
   // дивы с name = "show_name", слайд 4
   // const divs = node.querySelectorAll('div#show_name')
   // divs.forEach(div => {

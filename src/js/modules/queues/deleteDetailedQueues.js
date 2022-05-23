@@ -2,8 +2,8 @@
 function deleteDetailedQueues(queueSlider) {
   const queueBlocks = queueSlider.querySelectorAll('.queue_block')
 
-  queueBlocks.forEach((queueBlock, i) => {
-    if (i === 0) return
+  queueBlocks.forEach(queueBlock => {
+    if (queueBlock.id === 'summary_queue') return
     queueBlock.remove()
   })
 }

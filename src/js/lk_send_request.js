@@ -17,6 +17,7 @@ import checkRequiredField from './modules/logic/checkRequiredField.js'
 import disableFormEnter from './modules/logic/disableFormEnter.js'
 
 import initModalDownloadInstructions from './modules/modals/initModalDownloadInstructions.js'
+import initModalForPrintButton from './modules/modals/initModalForPrintButton.js'
 
 import getSimpleJson from './modules/postService/getSimpleJson.js'
 import setSecurityMail from './modules/postService/setSecurityMail.js'
@@ -25,6 +26,7 @@ import initPersonbasis from './modules/queues/initPersonbasis.js'
 import initCheckRadios from "./lk_request_fileinput.js";
 import initConnectobjchar from "./modules/logic/initConnectobjchar.js";
 import initCopyButtons from "./modules/queues/initCopyButtons.js"
+import callForPrint from "./modules/postService/callForPrint.js";
 
 
 $(document).ready(function() {
@@ -140,6 +142,12 @@ $(document).ready(function() {
   // если открыта страница после успешной подачи заявления
   if(window.location.search.indexOf('successId') > -1) setSecurityMail()
 
+  // если открыта страница после нажатия кнопки "Распечатать"
+  if(window.location.search.indexOf('printRequest') > -1) callForPrint()
+
   // инициализация кнопок копирования данных
   initCopyButtons(document)
+
+  // инициализация кнопки печати
+  initModalForPrintButton()
 })

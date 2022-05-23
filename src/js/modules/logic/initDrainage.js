@@ -12,11 +12,13 @@ function initDrainage(node) {
 
   // проверка начального состояния чекбокса
   if (isChecked) {
+    toggle.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'))
     toggle.classList.remove('hidden')
     // if (water_sources_label) water_sources_label.classList.add('required')
   }
   if (!isChecked) {
     toggle.classList.add('hidden')
+    toggle.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''))
     // if (water_sources_label) water_sources_label.classList.remove('required')
   }
 
@@ -26,11 +28,13 @@ function initDrainage(node) {
     isChecked = !isChecked
 
     if (isChecked) {
+      toggle.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'))
       toggle.classList.remove('hidden')
       //if (water_sources_label) water_sources_label.classList.add('required')
       changeSliderHeight()
     } else {
       toggle.classList.add('hidden')
+      toggle.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''))
       //if (water_sources_label) water_sources_label.classList.remove('required')
       changeSliderHeight()
     }
