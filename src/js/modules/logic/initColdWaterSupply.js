@@ -11,7 +11,8 @@ function initColdWaterSupply(node) {
 
   // проверка начального состояния чекбокса
   if (isChecked){
-    toggle.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'))
+    if(window.location.search.indexOf('view') === -1)
+      toggle.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'))
     toggle.classList.remove('hidden')
   }
   if (!isChecked) {
