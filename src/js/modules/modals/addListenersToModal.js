@@ -26,6 +26,7 @@ function addListenersToModal(node, queueLaunchYes, queueLaunchNo) {
     queueLaunchYes.removeAttribute('style')
     queueLaunchNo.removeAttribute('style')
     queueLaunchYes.classList.add('hidden')
+    queueLaunchNo.querySelector('input').removeAttribute('disabled')
     queueLaunchNo.classList.remove('hidden')
     modalPopupConfirm.remove()
     // TODO: overflow: hidden для body

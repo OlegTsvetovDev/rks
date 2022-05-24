@@ -18,6 +18,7 @@ function initQueueLaunch(node) {
       let rowClone = row.cloneNode(true)
       rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №2'
       rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__2')
+      rowClone.querySelector('.table__cell input').value = ''
       let inpDatepicker = jQuery(rowClone.querySelector('.datepicker_input'))
       inpDatepicker.datepicker($.datepicker.regional['ru'])
       inpDatepicker.mask("99.99.9999", { autodelete: false })
@@ -25,6 +26,7 @@ function initQueueLaunch(node) {
       rowClone = row.cloneNode(true)
       rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №1'
       rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__1')
+      rowClone.querySelector('.table__cell input').value = ''
       inpDatepicker = jQuery(rowClone.querySelector('.datepicker_input'))
       inpDatepicker.datepicker($.datepicker.regional['ru'])
       inpDatepicker.mask("99.99.9999", { autodelete: false })
