@@ -18,17 +18,23 @@ function initQueueLaunch(node) {
       let rowClone = row.cloneNode(true)
       rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №2'
       rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__2')
+      let inpDatepicker = jQuery(rowClone.querySelector('.datepicker_input'))
+      inpDatepicker.datepicker($.datepicker.regional['ru'])
+      inpDatepicker.mask("99.99.9999", { autodelete: false })
       tBody.prepend(rowClone)
       rowClone = row.cloneNode(true)
       rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №1'
       rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__1')
+      inpDatepicker = jQuery(rowClone.querySelector('.datepicker_input'))
+      inpDatepicker.datepicker($.datepicker.regional['ru'])
+      inpDatepicker.mask("99.99.9999", { autodelete: false })
       tBody.prepend(rowClone)
 
       yesNode.classList.remove('hidden')
       noNode.classList.add('hidden')
     }
   }
-
+S
   const handleNoClick = () => {
     yesNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
     noNode.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'));
