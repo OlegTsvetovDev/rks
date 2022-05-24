@@ -34,7 +34,7 @@ function initQueueLaunch(node) {
       noNode.classList.add('hidden')
     }
   }
-S
+
   const handleNoClick = () => {
     yesNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
     noNode.querySelectorAll('input').forEach(inp => inp.removeAttribute('disabled'));
