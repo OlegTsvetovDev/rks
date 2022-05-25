@@ -26,12 +26,14 @@ function initQueueTableNewRow() {
     new_row.querySelectorAll('td')[0].innerHTML = 'Очередь №' + queueCount
     new_row.querySelector('input').setAttribute('name', 'statementtc_dateplan__' + queueCount)
     new_row.querySelector('input').value = ''
+    new_row.querySelector('input').removeAttribute('id')
     queueTbody[0].querySelector('[name=statementtc_dateplan__0]').closest('tr').before(new_row)
     createAndRenderNewNode(queueCount)
     changeSliderHeight()
 
     // инициализация дейтпикера на последней добавленной строке
     let lastChildDatepicker = $(new_row.querySelector('.datepicker_input'))
+    lastChildDatepicker.removeClass('hasDatepicker')
     lastChildDatepicker.datepicker($.datepicker.regional['ru'])
     lastChildDatepicker.mask("99.99.9999", { autodelete: false })
   })
