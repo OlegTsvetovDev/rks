@@ -108,6 +108,9 @@ const initConnectionObjectView = node => {
     connectobjchar_reconstr.disabled = false
     if (connectobjkind_prev === 1) dateplan.value = ''
 
+    document.querySelectorAll('input[id^="connectobjchar_001"]').forEach(inp => inp.checked = true)   // Выбор Нового строительства
+    document.querySelectorAll('input[id^="connectobjtype_001"]').forEach(inp => inp.checked = true)   // Выбор Жилой
+
     connectobjkind_prev = 2;
   })
 
