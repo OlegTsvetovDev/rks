@@ -31,8 +31,8 @@ function initQueueTableNewRow() {
     changeSliderHeight()
 
     // инициализация дейтпикера на последней добавленной строке
-    const lastChildDatepicker = $(new_row.querySelector('.datepicker_input'))
-    lastChildDatepicker.datepicker()
+    let lastChildDatepicker = $(new_row.querySelector('.datepicker_input'))
+    lastChildDatepicker.datepicker($.datepicker.regional['ru'])
     lastChildDatepicker.mask("99.99.9999", { autodelete: false })
   })
 
