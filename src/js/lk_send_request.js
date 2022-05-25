@@ -137,8 +137,8 @@ $(document).ready(function() {
   initPersonbasis()
 
   // инит радио кнопок Вид объекта подключения
-  const requesttype_id = document.querySelector('input[name=requesttype_id]').value
-  if(requesttype_id === '10001')
+  const inpRequesttype = document.querySelector('input[name=requesttype_id]')
+  if(inpRequesttype && inpRequesttype.value === '10001')
     initConnectobjkind()
 
   // если открыта страница после успешной подачи заявления
