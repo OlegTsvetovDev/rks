@@ -15,21 +15,27 @@ function initQueueLaunch(node) {
       noNode.querySelectorAll('input').forEach(inp => inp.setAttribute('disabled', ''));
       const tBody = yesNode.querySelector('.table__body')
       const row = tBody.querySelector('.table__row')
+
       let rowClone = row.cloneNode(true)
       rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №2'
-      rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__2')
-      rowClone.querySelector('.table__cell input').value = ''
-      let inpDatepicker = jQuery(rowClone.querySelector('.datepicker_input'))
-      inpDatepicker.datepicker($.datepicker.regional['ru'])
-      inpDatepicker.mask("99.99.9999", { autodelete: false })
+      let inpDatepicker = rowClone.querySelector('.datepicker_input')
+      inpDatepicker.setAttribute('name', 'statementtc_dateplan__2')
+      inpDatepicker.value = ''
+      inpDatepicker.classList.remove('hasDatepicker')
+      inpDatepicker.removeAttribute('id')
+      $(inpDatepicker).datepicker($.datepicker.regional['ru'])
+      $(inpDatepicker).mask("99.99.9999", { autodelete: false })
       tBody.prepend(rowClone)
+
       rowClone = row.cloneNode(true)
       rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №1'
-      rowClone.querySelector('.table__cell input').setAttribute('name', 'statementtc_dateplan__1')
-      rowClone.querySelector('.table__cell input').value = ''
-      inpDatepicker = jQuery(rowClone.querySelector('.datepicker_input'))
-      inpDatepicker.datepicker($.datepicker.regional['ru'])
-      inpDatepicker.mask("99.99.9999", { autodelete: false })
+      inpDatepicker = rowClone.querySelector('.datepicker_input')
+      inpDatepicker.setAttribute('name', 'statementtc_dateplan__1')
+      inpDatepicker.value = ''
+      inpDatepicker.classList.remove('hasDatepicker')
+      inpDatepicker.removeAttribute('id')
+      $(inpDatepicker).datepicker($.datepicker.regional['ru'])
+      $(inpDatepicker).mask("99.99.9999", { autodelete: false })
       tBody.prepend(rowClone)
 
       yesNode.classList.remove('hidden')

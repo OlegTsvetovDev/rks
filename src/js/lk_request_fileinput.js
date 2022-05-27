@@ -157,7 +157,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
 
      });
 
-    // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения" - д/них сущ-ет привязка доков к БД
+    // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения" - д/них сущ-ет привязка доков к БД + "Характеристика..."
 
     function docblocksHide(doc_blocks, radio_name) {
 
@@ -235,9 +235,8 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
     function initCheckRadios(radio_name) {
 
         const radios = document.querySelectorAll('input[name*='+radio_name+']');
-
-        if (radio_name !== 'connectobjchar') {
-            const docblocks = $('[name^="doc_'+radio_name+'_"]'); // поменять на querySelectorAll
+        if (radio_name.indexOf('_extra') === -1) {
+            const docblocks = $('[name^="doc_'+radio_name+'_"]');
             docblocksHide(docblocks, radio_name);
 
             for (let i = 0; i < radios.length; i++) {
@@ -246,32 +245,25 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
                 label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
             }
         }
-        else
-        {
-            //в данный момент скрывать требуется только один документ
-            const docblocks = document.querySelectorAll('div.TC-URBANPLAN')
-            const hide_if_values  = ['002', '003']
+        /*else //для документов, динамичность которых невозможно предусмотреть в БД
+       {   //в данный момент скрывать требуется только один документ, поэтому так
+           const docblocks = document.querySelectorAll('div.TC-URBANPLAN')
+           const hide_if_values  = ['002', '003']
 
-            docblocksHideQVals(docblocks, radio_name, radios, hide_if_values);
+           docblocksHideQVals(docblocks, radio_name, radios, hide_if_values);
 
-            for (let i = 0; i < radios.length; i++) {
-                if (radios[i].disabled) return;
-                const label = radios[i].parentNode;
-                label.addEventListener('click', () => docblocksHideQVals(docblocks, radio_name, radios, hide_if_values));
-            }
-
-
-        }
+           for (let i = 0; i < radios.length; i++) {
+               if (radios[i].disabled) return;
+               const label = radios[i].parentNode;
+               label.addEventListener('click', () => docblocksHideQVals(docblocks, radio_name, radios, hide_if_values));
+           } }*/
 
     }
 
     if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
     if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
     if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
-    if (document.querySelector('input[name=requesttype_id]') &&
-        document.querySelector('input[name=requesttype_id]').value === '10002' &&
-        document.querySelector('.connectobjchar'))
-        initCheckRadios('connectobjchar')
-
+    //if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
+     //   document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
 
 export default initCheckRadios

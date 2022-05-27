@@ -16,7 +16,7 @@
   \****************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_modals_initModal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals/initModal.js */ \"./src/js/modules/modals/initModal.js\");\n\n\n\n$(document).ready(function () {\n\n  // Модалка \"Ошибка\"\n  (0,_modules_modals_initModal_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])($('.alert'), $('.modal_alert').not('.modal_success'))\n  // Модалка \"Успешное событие\"\n  ;(0,_modules_modals_initModal_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])($('.success'), $('.modal_alert.modal_success'))\n\n})\n\n\n//# sourceURL=webpack://rks/./src/js/lk_alert.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_modals_initModal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals/initModal.js */ \"./src/js/modules/modals/initModal.js\");\n\r\n\r\n\r\n$(document).ready(function () {\r\n\r\n  // Модалка \"Ошибка\"\r\n  (0,_modules_modals_initModal_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])($('.alert'), $('.modal_alert').not('.modal_success'))\r\n  // Модалка \"Успешное событие\"\r\n  ;(0,_modules_modals_initModal_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])($('.success'), $('.modal_alert.modal_success'))\r\n\r\n})\r\n\n\n//# sourceURL=webpack://rks/./src/js/lk_alert.js?");
 
 /***/ }),
 

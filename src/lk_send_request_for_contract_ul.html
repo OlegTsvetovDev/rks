@@ -20,6 +20,7 @@
 
         <!-- REQUEST STEP 2 -->
         <div class="request__form step_2">
+          <input value="10002" name="requesttype_id" type="hidden" tabindex="0">
           <h3 class="form__header">Общие данные</h3>
           <div class="form__field form__info_block width_max">
             <p class="form__status">Статус: Черновик</p>
@@ -204,10 +205,14 @@
 
         <!-- REQUEST STEP 5 с дева -->
         <div class="request__form step_5">
+<<<<<<< HEAD
           <input name="statementtc_queuecount" type="hidden" value="2" tabindex="0">
+=======
+          <input name="statementtc_queuecount" type="hidden" value="0" tabindex="-1">
+>>>>>>> d4afcab3392d06daec30c4486d9a62024b56231a
           <h3 class="form__header">Данные о подключаемом объекте</h3>
-          <div class="queue_slider"></div>
-          <div class="queue_block">
+          <div class="queue_slider">
+          <div class="queue_block" id="summary_queue">
             <div class="form__subheader_block space">
               <h5 class="form__subheader">Сводный объект</h5>
               <div class="subheader_block__controls">
@@ -522,6 +527,7 @@
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
 
