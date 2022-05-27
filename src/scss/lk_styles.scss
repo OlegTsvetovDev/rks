@@ -1750,6 +1750,9 @@ input[type=number]::-webkit-outer-spin-button {
             background-color: $lightGrey !important;
           }
         } // end of .form__field
+        .error {
+          border: 1px solid $red;
+        }
       }
       &.simple {
         .request__form {
