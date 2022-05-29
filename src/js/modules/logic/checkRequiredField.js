@@ -1,8 +1,5 @@
 //#region женин код [чуть-чуть ингин тоже]
 function checkRequiredField() {
-  if($('input[name="requesttype_id"]').val() == '10002')
-    $('input[name="personbasis"][value="05"]').parent().attr( 'style', 'display:none;' );
-
   function getTitle(el) {
     return el.siblings(".required").text();
   }
