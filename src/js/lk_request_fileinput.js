@@ -182,30 +182,25 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
         docGroupsRequiredIfOne();
     }
 
-function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
+function docblocksHideQueueVals(doc_blocks, radio_name) {
 
     var checkedRadios = $('input[name*='+radio_name+']:checked')
 
-    let hide = true;
-
-    checkedRadios.each(function() {
-        var qqq = $(this).val();
-        if (!hide_if_values.includes($(this).val())) {
-            hide = false
-            return false
-        }
-        else hide = true;
-    })
-
-    doc_blocks.forEach(docblock =>
+    doc_blocks.forEach(docblock_radio =>
         {
-            if (hide)
-            {
-                docblock.classList.add(radio_name+'_hide');
-            }
-            else {
-                docblock.classList.remove(radio_name+'_hide');
-            }
+            var doctype_vals = $(docblock_radio).val()
+            var docblock = $(docblock_radio).parent().parent();
+
+            checkedRadios.each(function() {
+                var $cur_val = $(this).val()
+                if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1)) {
+                    docblock.addClass(radio_name+'_hide');
+                    return false;
+                }
+                else {
+                    docblock.removeClass(radio_name+'_hide');
+                }
+            })
         }
     )
     docGroupsRequiredIfOne();
@@ -234,8 +229,8 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
 
     function initCheckRadios(radio_name) {
 
-        const radios = document.querySelectorAll('input[name*='+radio_name+']');
-        if (radio_name.indexOf('_extra') === -1) {
+        const radios = document.querySelectorAll('input[name^='+radio_name+']');
+        if (radio_name !== 'connectobjchar') {
             const docblocks = $('[name^="doc_'+radio_name+'_"]');
             docblocksHide(docblocks, radio_name);
 
@@ -245,25 +240,21 @@ function docblocksHideQVals(doc_blocks, radio_name, radios, hide_if_values) {
                 label.addEventListener('click', () => docblocksHide(docblocks, radio_name));
             }
         }
-        /*else //для документов, динамичность которых невозможно предусмотреть в БД
-       {   //в данный момент скрывать требуется только один документ, поэтому так
-           const docblocks = document.querySelectorAll('div.TC-URBANPLAN')
-           const hide_if_values  = ['002', '003']
-
-           docblocksHideQVals(docblocks, radio_name, radios, hide_if_values);
-
-           for (let i = 0; i < radios.length; i++) {
-               if (radios[i].disabled) return;
-               const label = radios[i].parentNode;
-               label.addEventListener('click', () => docblocksHideQVals(docblocks, radio_name, radios, hide_if_values));
-           } }*/
-
+        else {
+            const docblocks = document.querySelectorAll('[name^=doc_'+radio_name+']');
+            docblocksHideQueueVals(docblocks, radio_name)
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].disabled) return;
+                const label = radios[i].parentNode;
+                label.addEventListener('click', () => docblocksHideQueueVals(docblocks, radio_name));
+            }
+        }
     }
 
     if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
     if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
     if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
-    //if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
-     //   document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
+    if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
+        document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
 
 export default initCheckRadios
