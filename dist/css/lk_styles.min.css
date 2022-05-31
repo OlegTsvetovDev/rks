@@ -1401,7 +1401,7 @@ input[type=number]::-webkit-outer-spin-button {
   width: 100%;
   position: relative;
 }
-.main__content .requests_form .request__form .form__field.add_files.personbasis_hide, .main__content .requests_form .request__form .form__field.add_files.owner_or_tenant_hide, .main__content .requests_form .request__form .form__field.add_files.connectobjkind_hide, .main__content .requests_form .request__form .form__field.add_files.connectobjchar_hide {
+.main__content .requests_form .request__form .form__field.add_files.personbasis_hide, .main__content .requests_form .request__form .form__field.add_files.owner_or_tenant_hide, .main__content .requests_form .request__form .form__field.add_files.connectobjkind_hide, .main__content .requests_form .request__form .form__field.add_files.connectobjchar_hide, .main__content .requests_form .request__form .form__field.add_files.doc_hide {
   display: none;
 }
 .main__content .requests_form .request__form .form__field.add_files .attachment__doctype {
