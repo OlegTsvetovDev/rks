@@ -439,7 +439,7 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
         });
     }
 
-    beforInitDocRestr()
+    if (document.querySelector('input[name=requesttype_id]')) beforInitDocRestr()
 
 
 export default initCheckRadios
