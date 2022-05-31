@@ -163,20 +163,9 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
         if (connectobjkind_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_connectobjkind_" value="`+ connectobjkind_vals +`" disabled="disabled"/>`)
         if (connectobjchar_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_connectobjchar_" value="`+ connectobjchar_vals +`" disabled="disabled"/>`)
     }
-    function initDocRestrictions () {
+    function initDocRestrictions (clienttype) {
         const docblocks = document.querySelectorAll('div[class*=add_files]');
         const requesttype = document.querySelector('input[name=requesttype_id]').value;
-        let  clienttype = ''
-        $.ajax({
-            url: "./getClienttypeJson/",
-            method: "get",
-            success: function(data){
-                clienttype = data.replaceAll('"', '')
-            },
-            error: function(){
-                console.log("Не удалось определить тип пользователя")
-            }
-        });
 
         docblocks.forEach(docblock => {
             let doc_id = docblock.id;
@@ -289,6 +278,11 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
             }
             }
         )
+
+        if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
+        if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
+        if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
+        if (document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
     }
 
     function specialRestrictionDocblocksHide (docblock){
@@ -429,11 +423,23 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
             }
         }
     }
-    initDocRestrictions()
 
-    if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
-    if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
-    if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
-    if (document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
+
+    function beforInitDocRestr (){
+        $.ajax({
+            url: "./getClienttypeJson/",
+            method: "get",
+            success: function(data){
+                let clienttype = data.replaceAll('"', '')
+                initDocRestrictions(clienttype)
+            },
+            error: function(){
+                console.log("Не удалось определить тип пользователя")
+            }
+        });
+    }
+
+    beforInitDocRestr()
+
 
 export default initCheckRadios
