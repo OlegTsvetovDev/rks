@@ -156,6 +156,173 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
 
 
      });
+    function addDocRestrictiveInputs(docblock, personbasis_vals, owner_or_tenant_vals, connectobjkind_vals, connectobjchar_vals) {
+        const doc_div = docblock.querySelector('div[class*=field__control_btns]')
+        if (personbasis_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_personbasis_" value="`+ personbasis_vals +`" disabled="disabled"/>`)
+        if (owner_or_tenant_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_owner_or_tenant_" value="`+ owner_or_tenant_vals +`" disabled="disabled"/>`)
+        if (connectobjkind_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_connectobjkind_" value="`+ connectobjkind_vals +`" disabled="disabled"/>`)
+        if (connectobjchar_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_connectobjchar_" value="`+ connectobjchar_vals +`" disabled="disabled"/>`)
+    }
+    function initDocRestrictions () {
+        const docblocks = document.querySelectorAll('div[class*=add_files]');
+        const requesttype = document.querySelector('input[name=requesttype_id]').value;
+        let  clienttype = ''
+        $.ajax({
+            url: "./getClienttypeJson/",
+            method: "get",
+            success: function(data){
+                clienttype = data.replaceAll('"', '')
+            },
+            error: function(){
+                console.log("Не удалось определить тип пользователя")
+            }
+        });
+
+        docblocks.forEach(docblock => {
+            let doc_id = docblock.id;
+            switch (doc_id) {
+                case "TC-CONTRTERR":
+                    addDocRestrictiveInputs(docblock, '03', '','','')
+                    break;
+                case "TC-PERMISSION":
+                    addDocRestrictiveInputs(docblock, '02', '','','')
+                    break;
+                case "TC-TOPMAP2":
+                    addDocRestrictiveInputs(docblock, '', '','01,02','')
+                    break;
+                case "TC-SCHEME":
+                    addDocRestrictiveInputs(docblock, '03', '','','')
+                    break;
+                case "TC-CALC":
+                    addDocRestrictiveInputs(docblock, '', '','02','')
+                    break;
+                case "TC-SITPLAN2":
+                    addDocRestrictiveInputs(docblock, '', '','02','')
+                    break;
+                case "TC-PROJECTPLAN":
+                    addDocRestrictiveInputs(docblock, '03', '','','')
+                    break;
+                case "TC-SCHEMEENG":
+                    addDocRestrictiveInputs(docblock, '03', '','','')
+                    break;
+                case "TC-CONTRDEAL":
+                    addDocRestrictiveInputs(docblock, '', '01','','')
+                    break;
+                case "TC-SCHEMEFLAT":
+                    addDocRestrictiveInputs(docblock, '', '01','03','')
+                    break;
+                case "TC-CONTRRENTFLAT":
+                    addDocRestrictiveInputs(docblock, '', '02,03','03','')
+                    break;
+                case "TC-CONTRRENT2":
+                    addDocRestrictiveInputs(docblock, '02', '01,02','','')
+                    break;
+                case "TC-CONTRRENT3":
+                    addDocRestrictiveInputs(docblock, '03', '01','','')
+                    break;
+                case "TC-CONTRRENT4":
+                    addDocRestrictiveInputs(docblock, '02,03', '03','','')
+                    break;
+                case "TC-EXTRTERR4":
+                    addDocRestrictiveInputs(docblock, '01', '03','','')
+                    break;
+                case "TC-EXTRTERR3":
+                    addDocRestrictiveInputs(docblock, '', '01','','')
+                    break;
+                case "TC-EXTRTERR":
+                    switch (requesttype) {
+                        case "10001":
+                            addDocRestrictiveInputs(docblock, '', '01','02','')
+                            break;
+                        case "10002":
+                            if (clienttype === "UL" || clienttype === "OGV")
+                                addDocRestrictiveInputs(docblock, '01', '','','')
+                            break
+                    }
+                    addDocRestrictiveInputs(docblock, '', '','','')
+                    break;
+                case "TC-CONTRRENT":
+                    switch (requesttype) {
+                        case "10001":
+                            addDocRestrictiveInputs(docblock, '', '02','01,02','')
+                            break;
+                        case "10002":
+                            addDocRestrictiveInputs(docblock, '', '02','','')
+                            break
+                    }
+                    break;
+                case "TC-URBANPLAN":
+                    switch (requesttype) {
+                        case "10001":
+                            addDocRestrictiveInputs(docblock, '', '','01,02','')
+                            break;
+                        case "10002":
+                            addDocRestrictiveInputs(docblock, '', '','','001')
+                            break
+                    }
+                    break;
+                case "TC-CONTRUSAGE":
+                    switch (requesttype) {
+                        case "10001":
+                            addDocRestrictiveInputs(docblock, '', '03','01,02','')
+                            break;
+                        case "10002":
+                            if (clienttype === "UL" || clienttype === "OGV")
+                                addDocRestrictiveInputs(docblock, '03', '03','','')
+                            else
+                                addDocRestrictiveInputs(docblock, '03', '','','')
+                            break
+                    }
+                    break;
+                case "TC-EXTRTERR2": // особый документ с обработкой в другом месте
+                    switch (requesttype) {
+                        case "10002":
+                            addDocRestrictiveInputs(docblock, '', '','','002,003')
+                            break;
+                        case "10001":
+                            addDocRestrictiveInputs(docblock, '', ',',',',',')
+                            break
+                    }
+                    break;
+                default:
+                    break;
+            }
+            }
+        )
+    }
+
+    function specialRestrictionDocblocksHide (docblock){
+        const requesttype = document.querySelector('input[name=requesttype_id]').value;
+
+        const personbasis_radio = $('input[name=personbasis]:checked').val();
+        const owner_or_tenant_radio = $('input[name=owner_or_tenant]:checked').val();
+        const connectobjkind_radio = $('input[name=connectobjkind]:checked').val();
+        const connectobjchar_radio = $('input[name*=connectobjchar]:checked')
+
+        const doc_id = docblock.id;
+        switch (doc_id) {
+            case 'TC-EXTRTERR2':
+                if (requesttype === '10001') {
+                    if (connectobjkind_radio === '01' && owner_or_tenant_radio === '01') {
+                        docblock.removeClass('doc_hide')
+                    }
+                    else if (connectobjkind_radio === '02') {
+                        let hide = true
+                        connectobjchar_radio.each(function () {
+                            let $cur_val = $(this).val()
+                            if ($cur_val === '002' || $cur_val === '003') {
+                                hide = false
+                                return false
+                            }
+                        })
+                        if (hide) docblock.addClass('doc_hide')
+                        else docblock.removeClass('doc_hide')
+                    }
+                    else docblock.addClass('doc_hide')
+                }
+                break;
+        }
+    }
 
     // Блоки "Лицо для основания на подключение", "Вид правообладания земельным участком", "Вид объекта подключения" - д/них сущ-ет привязка доков к БД + "Характеристика..."
 
@@ -169,13 +336,20 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                 var doctype_vals = $this.val()
                 var docblock = $this.parent().parent();
 
-                if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1))
+                if ((doctype_vals === ','))
                 {
-                    docblock.addClass(radio_name+'_hide');
+                    specialRestrictionDocblocksHide(docblock)
                 }
                 else {
-                    docblock.removeClass(radio_name+'_hide');
+                    if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1))
+                    {
+                        docblock.addClass(radio_name+'_hide');
+                    }
+                    else {
+                        docblock.removeClass(radio_name+'_hide');
+                    }
                 }
+
 
             }
         )
@@ -190,17 +364,22 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
         {
             var doctype_vals = $(docblock_radio).val()
             var docblock = $(docblock_radio).parent().parent();
-
-            checkedRadios.each(function() {
-                var $cur_val = $(this).val()
-                if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1)) {
-                    docblock.addClass(radio_name+'_hide');
-                    return false;
-                }
-                else {
-                    docblock.removeClass(radio_name+'_hide');
-                }
-            })
+            if ((doctype_vals === ','))
+            {
+                specialRestrictionDocblocksHide(docblock)
+            }
+            else {
+                checkedRadios.each(function() {
+                    var $cur_val = $(this).val()
+                    if ($cur_val === null || $cur_val === undefined || (doctype_vals.length !== 0 && doctype_vals.indexOf($cur_val) === -1)) {
+                        docblock.addClass(radio_name+'_hide');
+                        return false;
+                    }
+                    else {
+                        docblock.removeClass(radio_name+'_hide');
+                    }
+                })
+            }
         }
     )
     docGroupsRequiredIfOne();
@@ -250,11 +429,11 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
             }
         }
     }
+    initDocRestrictions()
 
     if (document.querySelector('.personbasis')) initCheckRadios('personbasis');
     if (document.querySelector('.owner_or_tenant')) initCheckRadios('owner_or_tenant');
     if (document.querySelector('.connectobjkind')) initCheckRadios('connectobjkind');
-    if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
-        document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
+    if (document.querySelector('.connectobjchar')) initCheckRadios('connectobjchar');
 
 export default initCheckRadios
