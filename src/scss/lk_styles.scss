@@ -1611,7 +1611,8 @@ input[type=number]::-webkit-outer-spin-button {
             &.personbasis_hide,
             &.owner_or_tenant_hide,
             &.connectobjkind_hide,
-            &.connectobjchar_hide {
+            &.connectobjchar_hide,
+            &.doc_hide {
               display: none;
             }
             .attachment__doctype {
@@ -2210,6 +2211,7 @@ input[type=number]::-webkit-outer-spin-button {
               .edit_icon { background: url('../img/control_btns/edit.svg') no-repeat 0 0; }
               .delete_icon { background: url('../img/control_btns/delete_icon.svg') no-repeat 0 0; }
               .annul_icon { background: url('../img/control_btns/annul_icon.svg') no-repeat 0 0; }
+              .controls__copy { background: url('../img/control_btns/copy_icon.svg') no-repeat 0 0; }
             } // end of .item__control_btns
             .item__show_more {
               height: 26px;
