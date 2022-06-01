@@ -156,6 +156,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
 
 
      });
+                                              // Лица для осн    //Тип правообл        // Вид объ. подкл.   // Характер-ка объ подкл
     function addDocRestrictiveInputs(docblock, personbasis_vals, owner_or_tenant_vals, connectobjkind_vals, connectobjchar_vals) {
         const doc_div = docblock.querySelector('div[class*=field__control_btns]')
         if (personbasis_vals !== '' ) $(doc_div).append(`<input class="attachment__doctype hidden" name="doc_personbasis_" value="`+ personbasis_vals +`" disabled="disabled"/>`)
@@ -198,25 +199,25 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                     addDocRestrictiveInputs(docblock, '', '01','','')
                     break;
                 case "TC-SCHEMEFLAT":
-                    addDocRestrictiveInputs(docblock, '', '01','03','')
+                    addDocRestrictiveInputs(docblock, '', '','03','')
                     break;
                 case "TC-CONTRRENTFLAT":
                     addDocRestrictiveInputs(docblock, '', '02,03','03','')
                     break;
                 case "TC-CONTRRENT2":
-                    addDocRestrictiveInputs(docblock, '02', '01,02','','')
+                    addDocRestrictiveInputs(docblock, '', '02','01,02','')
                     break;
                 case "TC-CONTRRENT3":
-                    addDocRestrictiveInputs(docblock, '03', '01','','')
+                    addDocRestrictiveInputs(docblock, '', '03','01','')
                     break;
                 case "TC-CONTRRENT4":
-                    addDocRestrictiveInputs(docblock, '02,03', '03','','')
+                    addDocRestrictiveInputs(docblock, '', '02,03','03','')
                     break;
                 case "TC-EXTRTERR4":
-                    addDocRestrictiveInputs(docblock, '01', '03','','')
+                    addDocRestrictiveInputs(docblock, '', '01','03','')
                     break;
                 case "TC-EXTRTERR3":
-                    addDocRestrictiveInputs(docblock, '', '01','','')
+                    addDocRestrictiveInputs(docblock, '', '','01','')
                     break;
                 case "TC-EXTRTERR":
                     switch (requesttype) {
@@ -228,7 +229,6 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                                 addDocRestrictiveInputs(docblock, '01', '','','')
                             break
                     }
-                    addDocRestrictiveInputs(docblock, '', '','','')
                     break;
                 case "TC-CONTRRENT":
                     switch (requesttype) {
@@ -257,19 +257,19 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                             break;
                         case "10002":
                             if (clienttype === "UL" || clienttype === "OGV")
-                                addDocRestrictiveInputs(docblock, '03', '03','','')
+                                addDocRestrictiveInputs(docblock, '01', '03','','')
                             else
-                                addDocRestrictiveInputs(docblock, '03', '','','')
+                                addDocRestrictiveInputs(docblock, '', '03','','')
                             break
                     }
                     break;
-                case "TC-EXTRTERR2": // особый документ с обработкой в другом месте
+                case "TC-EXTRTERR2":
                     switch (requesttype) {
                         case "10002":
                             addDocRestrictiveInputs(docblock, '', '','','002,003')
                             break;
                         case "10001":
-                            addDocRestrictiveInputs(docblock, '', ',',',',',')
+                            addDocRestrictiveInputs(docblock, '', ',',',',',') // документ с обработкой в другом месте
                             break
                     }
                     break;
