@@ -222,7 +222,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                 case "TC-EXTRTERR":
                     switch (requesttype) {
                         case "10001":
-                            addDocRestrictiveInputs(docblock, '', '01','02','')
+                            addDocRestrictiveInputs(docblock, '', '01','01,02','')
                             break;
                         case "10002":
                             if (clienttype === "UL" || clienttype === "OGV")
@@ -344,10 +344,17 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                     }
                 }
 
+                if (document.querySelector('input[name=requesttype_id]').value === '10001' && radio_name === 'connectobjkind' && docblock.attr('id') === 'TC-EXTRTERR') {
+                    if ($cur_val === '02')
+                        $this.parent().prev().addClass('required')
+                    else $this.parent().prev().removeClass('required')
+                }
+
+
 
             }
         )
-        docGroupsRequiredIfOne();
+        //docGroupsRequiredIfOne();
     }
 
 function docblocksHideQueueVals(doc_blocks, radio_name) {
@@ -376,7 +383,7 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
             }
         }
     )
-    docGroupsRequiredIfOne();
+    //docGroupsRequiredIfOne();
 }
 
     // если в группе условно-обязательных документов только один документ, то показываем звездочку
@@ -440,6 +447,9 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
     }
 
     if (document.querySelector('input[name=requesttype_id]')) beforInitDocRestr()
+
+
+
 
 
 export default initCheckRadios
