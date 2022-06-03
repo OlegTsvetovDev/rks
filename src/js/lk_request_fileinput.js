@@ -304,7 +304,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                         let hide = true
                         connectobjchar_radio.each(function () {
                             let $cur_val = $(this).val()
-                            if ($cur_val === '002' || $cur_val === '003') {
+                            if ($cur_val === '003') {
                                 hide = false
                                 return false
                             }
