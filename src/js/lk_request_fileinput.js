@@ -269,7 +269,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                             addDocRestrictiveInputs(docblock, '', '','','002,003')
                             break;
                         case "10001":
-                            addDocRestrictiveInputs(docblock, '', ',',',',',') // документ с обработкой в другом месте
+                            addDocRestrictiveInputs(docblock, '', ',',',',',') // документ с обработкой в другом месте т.к. сложная динамка условия
                             break
                     }
                     break;
@@ -293,7 +293,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
         const connectobjkind_radio = $('input[name=connectobjkind]:checked').val();
         const connectobjchar_radio = $('input[name*=connectobjchar]:checked')
 
-        const doc_id = docblock.id;
+        const doc_id = docblock.attr("id");
         switch (doc_id) {
             case 'TC-EXTRTERR2':
                 if (requesttype === '10001') {
