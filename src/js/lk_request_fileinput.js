@@ -222,7 +222,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                 case "TC-EXTRTERR":
                     switch (requesttype) {
                         case "10001":
-                            addDocRestrictiveInputs(docblock, '', '01','02','')
+                            addDocRestrictiveInputs(docblock, '', '01','01,02','')
                             break;
                         case "10002":
                             if (clienttype === "UL" || clienttype === "OGV")
@@ -269,7 +269,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                             addDocRestrictiveInputs(docblock, '', '','','002,003')
                             break;
                         case "10001":
-                            addDocRestrictiveInputs(docblock, '', ',',',',',') // документ с обработкой в другом месте
+                            addDocRestrictiveInputs(docblock, '', ',',',',',') // документ с обработкой в другом месте т.к. сложная динамка условия
                             break
                     }
                     break;
@@ -293,7 +293,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
         const connectobjkind_radio = $('input[name=connectobjkind]:checked').val();
         const connectobjchar_radio = $('input[name*=connectobjchar]:checked')
 
-        const doc_id = docblock.id;
+        const doc_id = docblock.attr("id");
         switch (doc_id) {
             case 'TC-EXTRTERR2':
                 if (requesttype === '10001') {
@@ -304,7 +304,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                         let hide = true
                         connectobjchar_radio.each(function () {
                             let $cur_val = $(this).val()
-                            if ($cur_val === '002' || $cur_val === '003') {
+                            if ($cur_val === '003') {
                                 hide = false
                                 return false
                             }
@@ -344,10 +344,17 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                     }
                 }
 
+                if (document.querySelector('input[name=requesttype_id]').value === '10001' && radio_name === 'connectobjkind' && docblock.attr('id') === 'TC-EXTRTERR') {
+                    if ($cur_val === '02')
+                        $this.parent().prev().addClass('required')
+                    else $this.parent().prev().removeClass('required')
+                }
+
+
 
             }
         )
-        docGroupsRequiredIfOne();
+        //docGroupsRequiredIfOne();
     }
 
 function docblocksHideQueueVals(doc_blocks, radio_name) {
@@ -376,7 +383,7 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
             }
         }
     )
-    docGroupsRequiredIfOne();
+    //docGroupsRequiredIfOne();
 }
 
     // если в группе условно-обязательных документов только один документ, то показываем звездочку
@@ -440,6 +447,9 @@ function docblocksHideQueueVals(doc_blocks, radio_name) {
     }
 
     if (document.querySelector('input[name=requesttype_id]')) beforInitDocRestr()
+
+
+
 
 
 export default initCheckRadios
