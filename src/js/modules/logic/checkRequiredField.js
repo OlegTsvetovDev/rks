@@ -19,11 +19,11 @@ function checkRequiredField() {
           switch (attr) {
             case "SPAN":
               if ($this.find('input:checked').length == 0 && $this.is(':visible'))
-                err.push($this);
+                err.push("Не выбрано ни одно значение поля " + getTitle($this));
               break;
             case "INPUT":
               if (!$this.val() && $this.is(':visible'))
-                err.push($this);
+                err.push("Не указано значение поля " + getTitle($this));
               break;
             case "DIV":
               if ($this.is(':visible') && (
@@ -33,22 +33,22 @@ function checkRequiredField() {
                     $this.hasClass("field__control_btns"))
                 ))
                 if ($this.parent().hasClass("add_files"))
-                  err.push($this);//err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + getTitle($this) + '</p>');
+                  err.push("<h6>Требуется прикрепить документ: </h6> \n <p>" + getTitle($this) + '</p>');
                 else
-                  err.push($this);
+                  err.push("Не указано значение поля " + getTitle($this));
               break;
             case "TABLE":
               var t_fields = $this.find('tbody tr td input');
               t_fields.each( function () {
                     if(!$(this).val())
-                      err.push(this);
+                      err.push("Не указано значение поля в таблице " + getTitle($this));
                   }
               )
               break;
           }
         });
 
-        /*let elems_req_group = $('.form__field:not([class*=_hide]) [class*=req_group_]');
+        let elems_req_group = $('.form__field:not([class*=_hide]) [class*=req_group_]');
         var group_names = [];   // получаем существующие названия групп
         elems_req_group.each(function () {
           var $this = $(this);
@@ -77,13 +77,12 @@ function checkRequiredField() {
               err.push(text);
             }
           }
-        })*/
+        })
 
 
         if (err.length) {
-          err.forEach(er => er.addClass('error'));
-          //const sliderNumber 
-          //$('.slider').slick('slickGoTo', sliderNumber - 1);
+          $('#errorOfRequirement .modal__text').html(err[0]);
+          $('#errorOfRequirement').removeClass('hidden');
           return;
         }
         form = $(this).closest('form');
