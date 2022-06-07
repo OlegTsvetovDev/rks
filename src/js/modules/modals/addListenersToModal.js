@@ -39,7 +39,7 @@ function addListenersToModal(node, queueLaunchYes, queueLaunchNo) {
   // хэндлер отказа от удаления очередей
   const handleCloseModal = () => {
     radioYes.checked = true
-    document.querySelector("#connectobjkind_02").checked = true
+    document.querySelector('[name="connectobjkind"][value="02"]').checked = true
     // удаление jQuery инлайн стилей
     queueLaunchYes.removeAttribute('style')
     queueLaunchNo.removeAttribute('style')
