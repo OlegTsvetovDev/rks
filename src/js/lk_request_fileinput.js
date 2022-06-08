@@ -217,7 +217,7 @@ import changeSliderHeight from './modules/controls/slider/changeSliderHeight.js'
                     addDocRestrictiveInputs(docblock, '', '01','03','')
                     break;
                 case "TC-EXTRTERR3":
-                    addDocRestrictiveInputs(docblock, '', '','01','')
+                    addDocRestrictiveInputs(docblock, '', '02','01','')
                     break;
                 case "TC-EXTRTERR":
                     switch (requesttype) {
