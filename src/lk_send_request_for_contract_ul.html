@@ -13,7 +13,17 @@
 <body>
   @@include('templates/_lk_header.html')
   @@include('templates/_lk_menu.html')
-
+  <div class="modal modal_YesNo hidden">
+    <div class="modal__content modal_YesNo__content">
+      <div class="close modal__close"></div>
+      <h4 class="modal__header modal__title">Будет потеряна вся информация из заявления. Продолжить?</h4>
+      <p class="modal__text">При нажатии на кнопку "Да" изменения не будут сохранены.</p>
+      <div class="form__field">
+        <a class="btn form__button button button_yes">Да</a>
+        <a class="btn form__button button button_no">Нет</a>
+      </div>
+    </div>
+  </div>
   <section class="main">
     <div class="main__content">
       <form class="requests_form slider" action="">

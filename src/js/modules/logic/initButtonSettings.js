@@ -1,11 +1,11 @@
 function initButtonSettings(){
-    const button = document.querySelector('a[href="profile"]')
+    const buttons = document.querySelectorAll('a.button_settings')
     const modal = document.querySelector('.modal_YesNo')
-    button.addEventListener('click', (e) => {
+    buttons.forEach(button => button.addEventListener('click', (e) => {
         e.preventDefault()
         e.stopPropagation()
         modal.classList.remove('hidden')
-    })
+    }))
     modal.querySelector('.modal__close').addEventListener('click', (e) => {
         modal.classList.add('hidden')
     })
