@@ -92,8 +92,8 @@ const initConnectionObjectView = node => {
   // добавляем прослушку на клики по лейблам радио
   housekeepingNode.parentNode.addEventListener('click', disableMultipleQueues)
   housekeepingNode.parentNode.addEventListener('click', function () {
-    if (dateplan) dateplan.value = '31.12.2099'
     connectobjchar_modern.click()
+    if (dateplan) dateplan.value = '31.12.2099'
 
     connectobjchar_new.disabled = true
     connectobjchar_reconstr.disabled = true;
