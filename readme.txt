@@ -5,6 +5,6 @@ npm i
 npm run dev
 
 Запуск в режиме продакшн:
-npm run build
+npm run build --build
 
 Для работы на деве с понятным кодом (не с билда), нужно скопировать папку src/js/
