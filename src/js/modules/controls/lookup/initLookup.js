@@ -19,17 +19,29 @@ function initLookup(type, node) {
     if (type === 'microdistrict') setMicrodistricts(node)
   }
 
-  const setLocality = (node) => {
+  // если локалхост то берем данные с теста
+  const default_url = window.location.hostname === 'localhost' ? "http://test-lktp.novogor.perm.ru" : window.location.hostname
+
+  async function setLocality (node) {
     let localityName = node.querySelector('input.address__locality').value;
     let queueNumber = node.querySelector('.number_queue').value;
-    fetch(`./getTownsJson?townName=${localityName}`)
-      .then(response => response.json())
-      .then(data => renderList(JSON.parse(data), 'town', queueNumber))
-      .catch(e => console.log(e))
+    //try{
+      const link = `${default_url}/getTownsJson?townName=${localityName}`
+      console.log(link)
+      const response = await fetch(link)
+      if(response.ok){
+        const data = await response.text()//.json()
+        console.log(data)
+        renderList(JSON.parse(data), 'town', queueNumber)
+      }
+    //}
+    //catch (e){
+    //  console.log('Ошибка: ' + e)
+    //}
   }
 
   // получить улицы с бэка
-  const setStreets = (node) => {
+  async function setStreets(node) {
     let townInput = node.querySelector('input[name^="town_code"]:checked');
     let streetName = node.querySelector('input.address__street').value;
     let queueNumber = node.querySelector('.number_queue').value;
@@ -44,7 +56,7 @@ function initLookup(type, node) {
   }
 
   // получить районы с бэка
-  const setDistricts = (node) => {
+  async function setDistricts(node) {
     let townInput = node.querySelector('input[name^="town_code"]:checked');
     let districtName = node.querySelector('input.address__district').value;
     let queueNumber = node.querySelector('.number_queue').value;
@@ -58,7 +70,7 @@ function initLookup(type, node) {
   }
 
   // получить микрорайоны с бэка
-  const setMicrodistricts = (node) => {
+  async function setMicrodistricts(node) {
     let townInput = node.querySelector('input[name^="town_code"]:checked');
     let subdistrictName = node.querySelector('input.address__microdistrict').value;
     let queueNumber = node.querySelector('.number_queue').value;
