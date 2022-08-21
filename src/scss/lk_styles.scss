@@ -1527,6 +1527,12 @@ input[type=number]::-webkit-outer-spin-button {
                         background: url('../img/calendar.svg') no-repeat 97.5% 50%;
                       }
                     }
+                    &.disabled {
+                      padding: 0;
+                      .field__input {
+                        padding: 11px 12px;
+                      }
+                    }
                   }
                 }
               }
@@ -2513,6 +2519,23 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: 64px;
       }
     }
+    &.modal_YesNo__content{
+      padding: 112px 107px 110px;
+      text-align: center;
+      @media (max-width: $w768) {
+        width: 100%;
+        padding: 61px 52px 50px;
+      }
+      @media (max-width: $w612) {
+        padding: 61px 52px 50px;
+      }
+      .modal__header {
+        margin-bottom: 24px;
+      }
+      .modal__text {
+        margin-bottom: 64px;
+      }
+    }
     &.modal_change_pswd__content {
       min-width: 612px;
     }
@@ -2584,6 +2607,16 @@ input[type=number]::-webkit-outer-spin-button {
         flex-direction: row !important;
         justify-content: start !important;
         .btn.cancel {
+          margin-left: 10px;
+        }
+      }
+    }
+    &.modal_YesNo__content {
+      .form__field {
+        flex-direction: row !important;
+        display: flex;
+        justify-content: center !important;
+        .btn.button_no {
           margin-left: 10px;
         }
       }

@@ -9,6 +9,7 @@ import initMultipleQueues from './modules/queues/initMultipleQueues.js'
 import initMasks from './modules/masks/initMasks.js'
 import initDrainage from './modules/logic/initDrainage.js'
 import initWaterSource from './modules/logic/initWaterSource.js'
+import initButtonSettings from './modules/logic/initButtonSettings.js'
 import initDatepickers from './modules/controls/initDatepickers.js'
 import initCheckRepresentative from './modules/logic/initCheckRepresentative.js'
 import initColdWaterSupply from './modules/logic/initColdWaterSupply.js'
@@ -23,8 +24,6 @@ import getSimpleJson from './modules/postService/getSimpleJson.js'
 import setSecurityMail from './modules/postService/setSecurityMail.js'
 import initConnectobjkind from './modules/queues/initConnectobjkind.js'
 import initPersonbasis from './modules/queues/initPersonbasis.js'
-import initCheckRadios from "./lk_request_fileinput.js";
-import initConnectobjchar from "./modules/logic/initConnectobjchar.js";
 import initCopyButtons from "./modules/queues/initCopyButtons.js"
 import callForPrint from "./modules/postService/callForPrint.js";
 
@@ -107,16 +106,6 @@ $(document).ready(function() {
       queueBlocks.forEach(queueBlock =>
           initWaterSource(queueBlock))
 
-  /*// инит Характеритика объекта подключения
-  if (document.querySelector('input[name=requesttype_id]').value === '10002' &&
-      document.querySelector('.connectobjchar')) {
-    if (queueBlocks)
-      queueBlocks.forEach(queueBlock =>
-          initConnectobjchar(queueBlock))
-    else initCheckRadios('connectobjchar')
-  }*/
-
-
   // инит блоков водоотведения
   if (queueBlocks)
     queueBlocks.forEach(queueBlock =>
@@ -152,4 +141,8 @@ $(document).ready(function() {
 
   // инициализация кнопки печати
   initModalForPrintButton()
+
+  // инициализация кнопки Настройки и модалки при переходе в настройки 
+  if(window.location.search.indexOf('update') !== -1 || window.location.search.indexOf('requesttype_id=') !== -1 || window.location.search.indexOf('copy=') !== -1)
+    initButtonSettings()
 })
