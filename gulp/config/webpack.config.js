@@ -7,9 +7,9 @@ const webpackConfig = {
     'jquery-ui.min': './src/js/jquery-ui.min.js',
     'datepicker-ru.min': './src/js/datepicker-ru.min.js',
     'jquery.maskedinput.min': './src/js/jquery.maskedinput.min.js',
-    'lk_send_request': `./src/js/lk_send_request.js`,
+    'lk_send_request': './src/js/lk_send_request.js',
     'lk_requests': `./src/js/lk_requests.js`,
-    'lk_reg': `./src/js/lk_reg.js`,
+    'lk_reg': './src/js/lk_reg.js',
     'lk_alert': './src/js/lk_alert.js',
     'lk_auth': './src/js/lk_auth.js',
     'lk_reg': './src/js/lk_reg.js',
@@ -22,18 +22,46 @@ const webpackConfig = {
   output: {
     filename: '[name].js'
   },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.m?js$/,
+  //       exclude: /node_modules/,
+  //       use: {
+  //         loader: 'babel-loader',
+  //         options: {
+  //           presets: ['es2015', '@babel/preset-env']
+  //         }
+  //       }
+  //     }
+  //   ]
+  // },
   module: {
     rules: [
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-            presets: ['es2015']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
         }
       }
     ]
-  },  
+  },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js?$/,
+  //       exclude: /node_modules/,
+  //       loader: 'babel',
+  //       options: {
+  //           presets: ['es2015']
+  //       }
+  //     }
+  //   ]
+  // },
 }
 
 

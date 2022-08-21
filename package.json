@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "babel-loader": "^8.2.5",
     "browser-sync": "^2.27.9",
     "cwebp-bin": "^7.0.1",
     "del": "^6.0.0",
@@ -37,7 +40,7 @@
     "jquery": "^3.6.0",
     "sass": "^1.49.11",
     "webp-converter": "2.2.3",
-    "webpack": "^5.71.0",
+    "webpack": "^5.74.0",
     "webpack-stream": "^7.0.0"
   },
   "repository": {
