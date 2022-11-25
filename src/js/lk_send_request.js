@@ -14,6 +14,7 @@ import initDatepickers from './modules/controls/initDatepickers.js'
 import initCheckRepresentative from './modules/logic/initCheckRepresentative.js'
 import initColdWaterSupply from './modules/logic/initColdWaterSupply.js'
 import checkRequiredField from './modules/logic/checkRequiredField.js'
+import initMethodobtain from './modules/logic/initMethodobtain.js'
 
 import disableFormEnter from './modules/logic/disableFormEnter.js'
 
@@ -82,7 +83,7 @@ $(document).ready(function() {
     initLandCoverage(document)
 
   // инит дейтпикеров
-  if (document.querySelector('.datepicker_input'))
+  if (document.querySelector('.datepicker_input') || document.querySelector('.datepickerMY_input'))
     initDatepickers()
 
   // инит масок
@@ -129,6 +130,9 @@ $(document).ready(function() {
   const inpRequesttype = document.querySelector('input[name=requesttype_id]')
   if(inpRequesttype && inpRequesttype.value === '10001')
     initConnectobjkind()
+
+  // инит способа уведомления, 3 слайд
+  initMethodobtain()
 
   // если открыта страница после успешной подачи заявления
   if(window.location.search.indexOf('successId') > -1) setSecurityMail()

@@ -2,7 +2,7 @@
 // добавляет "__<номер очереди>" ко всем name очереди
 function pasteNameSuffixes(node, queueCount) {
   const subheader = node.querySelector('.form__subheader')
-  subheader.innerText = `Очередь №${queueCount}`
+  subheader.innerText = `Номер №${queueCount}`
 
   // все инпуты, слайд 4
   const inputs = node.querySelectorAll('input')

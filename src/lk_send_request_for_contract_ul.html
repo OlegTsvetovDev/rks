@@ -40,15 +40,15 @@
           @@include('templates/_info_block_required.html')
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description required">Являюсь представителем</span>
+              <span class="field__description required">Подаю заявление</span>
               <span class="label__block representative">
                 <label for="">
-                  <input type="radio" name="is_representative" class="radio yes" value="" />
-                  Да
+                  <input id="representative_no" name="representative" value="no" class="radio no" type="radio" checked="true" tabindex="0">
+                  Лично
                 </label>
                 <label for="">
-                  <input type="radio" name="is_representative" class="radio no" value="" checked />
-                  Нет
+                  <input id="representative_yes" name="representative" value="yes" class="radio yes" type="radio" tabindex="0">
+                  По доверенности
                 </label>
               </span>
             </label>

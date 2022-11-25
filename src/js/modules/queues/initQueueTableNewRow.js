@@ -23,7 +23,7 @@ function initQueueTableNewRow() {
     }
 
     const new_row = queueTbody[0].querySelector('[name=statementtc_dateplan__0]').closest('tr').cloneNode(true)
-    new_row.querySelectorAll('td')[0].innerHTML = 'Очередь №' + queueCount
+    new_row.querySelectorAll('td')[0].innerHTML = 'Этап №' + queueCount
     new_row.querySelector('input').setAttribute('name', 'statementtc_dateplan__' + queueCount)
     new_row.querySelector('input').value = ''
     new_row.querySelector('input').removeAttribute('id')

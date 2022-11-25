@@ -1,3 +1,5 @@
+import initDatepickerMonthYear from '../controls/initDatepickerMonthYear.js'
+
 // переключение блоков в "Запуск по очередям", слайдер 1
 function initQueueLaunch(node) {
   const trigger = node.querySelector('.queue_launch__trigger')
@@ -17,25 +19,23 @@ function initQueueLaunch(node) {
       const row = tBody.querySelector('.table__row')
 
       let rowClone = row.cloneNode(true)
-      rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №2'
+      rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Этап №2'
       let inpDatepicker = rowClone.querySelector('.datepicker_input')
       inpDatepicker.setAttribute('name', 'statementtc_dateplan__2')
       inpDatepicker.value = ''
       inpDatepicker.classList.remove('hasDatepicker')
       inpDatepicker.removeAttribute('id')
-      $(inpDatepicker).datepicker($.datepicker.regional['ru'])
-      $(inpDatepicker).mask("99.99.9999", { autodelete: false })
+      initDatepickerMonthYear(inpDatepicker)
       tBody.prepend(rowClone)
 
       rowClone = row.cloneNode(true)
-      rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Очередь №1'
+      rowClone.querySelectorAll('.table__cell')[0].innerHTML = 'Этап №1'
       inpDatepicker = rowClone.querySelector('.datepicker_input')
       inpDatepicker.setAttribute('name', 'statementtc_dateplan__1')
       inpDatepicker.value = ''
       inpDatepicker.classList.remove('hasDatepicker')
       inpDatepicker.removeAttribute('id')
-      $(inpDatepicker).datepicker($.datepicker.regional['ru'])
-      $(inpDatepicker).mask("99.99.9999", { autodelete: false })
+      initDatepickerMonthYear(inpDatepicker)
       tBody.prepend(rowClone)
 
       yesNode.classList.remove('hidden')

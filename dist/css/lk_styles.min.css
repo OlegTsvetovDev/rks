@@ -428,47 +428,75 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: rgba(181, 194, 217, 0.29);
 }
 
-.ui-datepicker-header .ui-datepicker-prev {
+div.ui-datepicker {
+  width: inherit;
+}
+div.ui-datepicker .ui-datepicker-header {
+  background-color: white;
+  border: none;
+  padding: 7px 0px 7px 0px;
+  position: relative;
+}
+div.ui-datepicker .ui-datepicker-header .ui-datepicker-title select {
+  padding: 3px 0px 3px 3px;
+  border: 1px solid rgb(60, 84, 165);
+  border-radius: 0px;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+}
+div.ui-datepicker .ui-datepicker-header .ui-datepicker-title .ui-datepicker-month {
+  margin-right: 5px;
+}
+div.ui-datepicker .ui-datepicker-header .ui-corner-all {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 14px 0px;
+}
+div.ui-datepicker .ui-datepicker-header .ui-corner-all:hover {
+  position: absolute;
+  top: 50%;
+}
+div.ui-datepicker-header .ui-datepicker-prev {
   cursor: pointer;
   top: 3px;
   left: 3px;
 }
-.ui-datepicker-header .ui-datepicker-prev .ui-icon {
+div.ui-datepicker-header .ui-datepicker-prev .ui-icon {
   background: url("../img/control_btns/arrow_left.svg") no-repeat center;
 }
-.ui-datepicker-header .ui-datepicker-prev .ui-icon.ui-state-hover {
+div.ui-datepicker-header .ui-datepicker-prev .ui-icon.ui-state-hover {
   border: none !important;
 }
-.ui-datepicker-header .ui-datepicker-prev.ui-state-hover {
+div.ui-datepicker-header .ui-datepicker-prev.ui-state-hover {
   border: none !important;
   top: 3px;
   left: 3px;
 }
-.ui-datepicker-header .ui-datepicker-next {
+div.ui-datepicker-header .ui-datepicker-next {
   cursor: pointer;
   top: 3px;
   right: 3px;
 }
-.ui-datepicker-header .ui-datepicker-next .ui-icon {
+div.ui-datepicker-header .ui-datepicker-next .ui-icon {
   background: url("../img/control_btns/arrow_right.svg") no-repeat center;
 }
-.ui-datepicker-header .ui-datepicker-next .ui-icon.ui-state-hover {
+div.ui-datepicker-header .ui-datepicker-next .ui-icon.ui-state-hover {
   border: none !important;
 }
-.ui-datepicker-header .ui-datepicker-next.ui-state-hover {
+div.ui-datepicker-header .ui-datepicker-next.ui-state-hover {
   border: none !important;
   top: 3px;
   right: 3px;
 }
-.ui-datepicker-header .ui-datepicker-title {
+div.ui-datepicker-header .ui-datepicker-title {
   color: rgb(60, 84, 165);
   font-family: "proxima-nova", "Roboto", sans-serif;
 }
-.ui-datepicker .ui-datepicker-calendar thead tr th {
+div.ui-datepicker .ui-datepicker-calendar thead tr th {
   color: rgb(60, 84, 165);
   font-family: "proxima-nova", "Roboto", sans-serif;
 }
-.ui-datepicker .ui-datepicker-calendar tbody tr td .ui-state-default {
+div.ui-datepicker .ui-datepicker-calendar tbody tr td .ui-state-default {
   color: rgb(60, 84, 165);
   font-family: "proxima-nova", "Roboto", sans-serif;
   border: 2px solid rgb(255, 255, 255);
@@ -479,11 +507,47 @@ input[type=number]::-webkit-outer-spin-button {
   height: 30px;
   line-height: 21px;
 }
-.ui-datepicker .ui-datepicker-calendar tbody tr td .ui-state-hover {
+div.ui-datepicker .ui-datepicker-calendar tbody tr td .ui-state-hover {
   transition: all 0.2s ease-in;
   background: rgb(60, 84, 165);
   color: rgb(255, 255, 255);
   border: 2px solid rgb(65, 185, 230);
+}
+div.ui-datepicker .ui-datepicker-buttonpane.ui-widget-content {
+  margin: 0px;
+  border: none;
+}
+div.ui-datepicker .ui-datepicker-buttonpane.ui-widget-content button {
+  padding: 5px 15px;
+  border: 2px solid rgb(60, 84, 165);
+  border-radius: 0px;
+  font-family: "proxima-nova", "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  opacity: 1;
+  margin: 0px 5px 10px 5px;
+}
+div.ui-datepicker .ui-datepicker-buttonpane.ui-widget-content .ui-datepicker-current.ui-priority-secondary {
+  background: white;
+  color: rgb(60, 84, 165);
+}
+div.ui-datepicker .ui-datepicker-buttonpane.ui-widget-content .ui-datepicker-current.ui-priority-secondary:hover {
+  transition: all 0.2s ease;
+  background: rgb(60, 84, 165);
+  color: white;
+}
+div.ui-datepicker .ui-datepicker-buttonpane.ui-widget-content .ui-datepicker-close.ui-priority-primary {
+  background: rgb(60, 84, 165);
+  color: white;
+}
+div.ui-datepicker .ui-datepicker-buttonpane.ui-widget-content .ui-datepicker-close.ui-priority-primary:hover {
+  transition: all 0.2s ease;
+  background: white;
+  color: rgb(60, 84, 165);
+}
+
+div.ui-datepicker.hide-calendar .ui-datepicker-calendar {
+  display: none;
 }
 
 .main.index .main__content.index__content {

@@ -10,7 +10,7 @@ const initConnectionObjectView = node => {
   const sequenceNode = node.querySelector('.queue_launch__trigger')
   const yesNode = node.querySelector('.queue_launch_yes')
   const noNode = node.querySelector('.queue_launch_no')
-  const disabled = (housekeepingNode.disabled || objectsNode.disabled || reconstructionNode.disabled)
+  const disabled = document.querySelectorAll('input[name="connectobjkind"][disabled]').length > 0
 
   // блокировка при disabled
   if (disabled) return
@@ -61,7 +61,7 @@ const initConnectionObjectView = node => {
   }
 
   // проверка на начальную отметку objectsNode
-  const checkInitialStatus = () => {
+  /*const checkInitialStatus = () => {
     if (objectsNode.checked)
       return enableMultipleQueues()
 
@@ -71,7 +71,7 @@ const initConnectionObjectView = node => {
     if (reconstructionNode.checked)
       return disableMultipleQueues()
   }
-  checkInitialStatus()
+  checkInitialStatus()*/
 
 
   // всякие условия для переключателей
@@ -81,8 +81,17 @@ const initConnectionObjectView = node => {
   const connectobjchar_modern = document.querySelector('input[name*="connectobjchar"][value="003"]')
   let connectobjkind_prev = 1;
 
+  const checkPlanPeriod = (inp) => {
+    if(!inp) {return}
+    if (inp.value === '01'){
+      dateplan.value = 'Декабрь 2099'
+    } else {
+      dateplan.value = ''
+    }
+  }
+
   if (housekeepingNode.checked) {
-    if (dateplan.value === '') dateplan.value = '31.12.2099'
+    checkPlanPeriod(housekeepingNode)
     if (connectobjchar_modern) connectobjchar_modern.click()
     connectobjchar_new.disabled = true
     connectobjchar_reconstr.disabled = true
@@ -90,10 +99,9 @@ const initConnectionObjectView = node => {
 
 
   // добавляем прослушку на клики по лейблам радио
-  housekeepingNode.parentNode.addEventListener('click', disableMultipleQueues)
+  //housekeepingNode.parentNode.addEventListener('click', disableMultipleQueues)
   housekeepingNode.parentNode.addEventListener('click', function () {
     connectobjchar_modern.click()
-    if (dateplan) dateplan.value = '31.12.2099'
 
     connectobjchar_new.disabled = true
     connectobjchar_reconstr.disabled = true;
@@ -102,11 +110,10 @@ const initConnectionObjectView = node => {
 
   })
 
-  objectsNode.parentNode.addEventListener('click', enableMultipleQueues)
+  //objectsNode.parentNode.addEventListener('click', enableMultipleQueues)
   objectsNode.parentNode.addEventListener('click', function () {
     connectobjchar_new.disabled = false
     connectobjchar_reconstr.disabled = false
-    if (connectobjkind_prev === 1) dateplan.value = ''
 
     document.querySelectorAll('input[id^="connectobjchar_001"]').forEach(inp => inp.click())   // Выбор Нового строительства
     document.querySelectorAll('input[id^="connectobjtype_001"]').forEach(inp => inp.click())   // Выбор Жилой
@@ -114,7 +121,7 @@ const initConnectionObjectView = node => {
     connectobjkind_prev = 2;
   })
 
-  reconstructionNode.parentNode.addEventListener('click', disableMultipleQueues)
+  //reconstructionNode.parentNode.addEventListener('click', disableMultipleQueues)
   reconstructionNode.parentNode.addEventListener('click', function () {
     connectobjchar_new.disabled = false
     connectobjchar_reconstr.disabled = false
@@ -126,10 +133,13 @@ const initConnectionObjectView = node => {
     connectobjtype_not.click()
     techcondobj_floors.value = '1'
 
-    if (connectobjkind_prev === 1) dateplan.value = ''
-
     connectobjkind_prev = 3;
   })
+
+  document.querySelectorAll('input[name="connectobjkind"]')
+    .forEach(inp => inp.closest('label').addEventListener('click', (e) => {
+      checkPlanPeriod(e.target.querySelector('input'))
+    }))
 
 }
 

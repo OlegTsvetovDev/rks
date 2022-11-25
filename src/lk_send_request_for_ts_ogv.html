@@ -28,82 +28,122 @@
           </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description required">Являюсь представителем</span>
+              <span class="field__description required">Подаю заявление</span>
               <span class="label__block representative">
                 <label for="">
-                  <input type="radio" name="is_representative" class="radio yes" value="" />
-                  Да
+                  <input id="representative_no" name="representative" value="no" class="radio no" type="radio" checked="true" tabindex="0">
+                  Лично
                 </label>
                 <label for="">
-                  <input type="radio" name="is_representative" class="radio no" value="" checked />
-                  Нет
+                  <input id="representative_yes" name="representative" value="yes" class="radio yes" type="radio" tabindex="0">
+                  По доверенности
                 </label>
               </span>
-            </label>
-          </div>
-          <div class="form__field">
-            <label for="" class="field__label">
-              <span class="field__description">Дата ранее выданного ТУ</span>
-              <input type="text" class="field__input datepicker_input" placeholder="Введите данные" />
-            </label>
-          </div>
-          <div class="form__field fr">
-            <label for="" class="field__label">
-              <span class="field__description">Номер ранее выданного ТУ (при наличии)</span>
-              <input type="text" class="field__input" placeholder="Введите данные" />
             </label>
           </div>
           @@include('templates/_connectobjkind.html')
           @@include('templates/_queue_launch__trigger.html')
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description">Лицо для основания на выдачу ТУ</span>
+              <span class="field__description required">Основания обращения</span>
               <span class="label__block">
                 <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Иванов И.А.
+                  <input type="radio" name="personbasis" class="radio" value="01" checked />
+                  Правообладатель
                 </label>
                 <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров Черезтризабораногузадерищен Черезтризабораногузадерищенич
+                  <input type="radio" name="personbasis" class="radio" value="02" />
+                  Лицо с разрешением на использование земли
                 </label>
                 <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров Черезтризабораногузадерищен Черезтризабораногузадерищенич
-                </label>
-                <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров В.Н.
-                </label>
-                <label for="">
-                  <input type="radio" name="person_in_charge" class="radio" value="" />
-                  Петров Черезтризабораногузадерищен Черезтризабораногузадерищенич
+                  <input type="radio" name="personbasis" class="radio" value="03" />
+                  Лицо по договору о комплексном развитии территории
                 </label>
               </span>
             </label>
           </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
-              <span class="field__description">Собственник/Арендатор</span>
+              <span class="label__block">
+                <label>
+                  <input type="checkbox" name="isownerofland" class="checkbox" value="" data-showField="techcondobj_gremergright owner_or_tenant" />
+                  Правообладатель земельного участка
+                </label>
+              </span>
+            </label>
+          </div>
+          <div class="form__field hidden">
+            <label for="" class="field__label">
+              <span class="field__description required">Информация о праве на ЗУ</span>
+              <input title="Указывается информация о договоре купли-продажи / договоре на аренду" 
+                name="techcondobj_gremergright" placeholder="Введите данные" class="field__input" 
+                type="text" tabindex="0">
+            </label>
+          </div>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="label__block">
+                <label>
+                  <input type="checkbox" name="isownerofobject" class="checkbox" value=""  data-showField="techcondobj_gremerobj"/>
+                  Правообладатель подключаемого объекта
+                </label>
+              </span>
+            </label>
+          </div>
+          <div class="form__field hidden">
+            <label for="" class="field__label">
+              <span class="field__description required">Сведения о документе, подтверждающем наличие права на подключаемый объект</span>
+              <input title="Указывается информация о договоре купли-продажи / договоре на аренду" 
+                name="techcondobj_gremerobj" placeholder="Введите данные" class="field__input" 
+                type="text" tabindex="0">
+            </label>
+          </div>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="field__description">Вид правообладания земельным участком</span>
               <span class="label__block">
                 <label for="">
                   <input type="radio" name="owner_or_tenant" class="radio" value="yes" checked />
-                  Собственник
+                  Собственность
                 </label>
                 <label for="">
                   <input type="radio" name="owner_or_tenant" class="radio" value="no" />
-                  Арендатор
+                  Аренда
+                </label>
+                <label for="">
+                  <input type="radio" name="owner_or_tenant" class="radio" value="no" />
+                  Пользование
                 </label>
               </span>
             </label>
           </div>
           <div class="form__field">
             <label for="" class="field__label">
-              <span class="field__description required">Основания возникновения права для лица на земельный участок</span>
-              <input type="text" class="field__input" placeholder="Введите данные" />
+              <span class="field__description required">Сведения о документе на ЗУ для лица</span>
+              <input title="Указывается информация о договоре купли-продажи / договоре на аренду" 
+                name="techcondobj_gremerzu" placeholder="Введите данные" class="field__input" 
+                type="text" tabindex="0">
             </label>
           </div>
-          <div class="form__field fr">
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="label__block">
+                <label>
+                  <input type="checkbox" name="iscontractor" class="checkbox" value=""  data-showField="techcondobj_dogpsd"/>
+                    Являюсь застройщиком/иным лицом по договору подряда на ПСД
+                </label>
+              </span>
+            </label>
+          </div>
+          <div class="form__field hidden">
+            <label for="" class="field__label">
+              <span class="field__description required">Сведения о договоре подряда на подготовку ПСД</span>
+              <input title="Указывается информация о договоре купли-продажи / договоре на аренду" 
+                name="techcondobj_dogpsd" placeholder="Введите данные" class="field__input" 
+                type="text" tabindex="0">
+            </label>
+          </div>
+          <div class="form__field width_max">
             <label for="" class="field__label">
               <span class="field__description">Примечание</span>
               <input type="text" class="field__input" placeholder="Введите данные" />
@@ -167,23 +207,29 @@
               <span class="field__description required">Желаемый способ получения</span>
               <span class="label__block">
                 <label for="">
-                  <input type="radio" name="obtaining_method" class="radio" value="" />
+                  <input type="radio" name="methodobtain" class="radio" value="001" />
                   Лично
                 </label>
                 <label for="">
-                  <input type="radio" name="obtaining_method" class="radio" value="" />
+                  <input type="radio" name="methodobtain" class="radio" value="002" />
                   Заказным письмом и посредством почтовой связи с уведомлением
                 </label>
                 <label for="">
-                  <input type="radio" name="obtaining_method" class="radio" value="" checked />
+                  <input type="radio" name="methodobtain" class="radio" value="003" checked />
                   Личный кабинет
                 </label>
                 <label for="">
-                  <input type="radio" name="obtaining_method" class="radio" value="" />
+                  <input type="radio" name="methodobtain" class="radio" value="004" />
                   Электронная почта *
                 </label>
                 <span class="field_comment">Получение ТУ по электронной почте и в Личном кабинете возможно в случае подписания заявления в личном кабинете с использованием квалифицированной ЭЦП</span>
               </span>
+            </label>
+          </div>
+          <div class="form__field width_max">
+            <label for="" class="field__label">
+              <span class="field__description required"></span>
+              <input type="text" class="field__input" placeholder="Введите данные" name="statementtc_mail" />
             </label>
           </div>
         </div>
