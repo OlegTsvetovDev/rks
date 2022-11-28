@@ -26,6 +26,11 @@
             <p class="form__number">Номер: 123321</p>
             <p class="form__date">Дата и время регистрации: 01.01.2022</p>
           </div>
+          <div class="form__field form__info_block width_max">
+            <p class="form__description">
+              <span class="red">*</span> - поля, обязательные для заполнения
+            </p>
+          </div>
           <div class="form__field width_max">
             <label for="" class="field__label">
               <span class="field__description required">Подаю заявление</span>
@@ -41,7 +46,6 @@
               </span>
             </label>
           </div>
-          @@include('templates/_connectobjkind.html')
           @@include('templates/_queue_launch__trigger.html')
           <div class="form__field width_max">
             <label for="" class="field__label">
@@ -252,9 +256,10 @@
 
         <!-- REQUEST STEP 5 с дева -->
         <div class="request__form step_5">
+          <input name="statementtc_queuecount" type="hidden" value="0" tabindex="0">
           <h3 class="form__header">Данные о подключаемом объекте</h3>
           <div class="queue_slider">
-            <div class="queue_block">
+            <div class="queue_block" id="summary_queue">
               <h5 class="form__subheader">Сводная очередь</h5>
               <div class="form__field width_max">
 
